@@ -43,6 +43,74 @@ const (
 	SearchUserMigrationUserIDTypeOpenId  = "open_id"  // 以open_id来标识用户
 )
 
+type ActionCondition struct {
+	ResourceKey *string `json:"resource_key,omitempty"` // 资源Key
+
+	ResourceId *string `json:"resource_id,omitempty"` // 资源ID
+
+	ResourceValue *string `json:"resource_value,omitempty"` // 资源值
+}
+
+type ActionConditionBuilder struct {
+	resourceKey    string // 资源Key
+	resourceKeySet bool
+
+	resourceId    string // 资源ID
+	resourceIdSet bool
+
+	resourceValue    string // 资源值
+	resourceValueSet bool
+}
+
+func NewActionConditionBuilder() *ActionConditionBuilder {
+	builder := &ActionConditionBuilder{}
+	return builder
+}
+
+// 资源Key
+//
+// 示例值：属性Key
+func (builder *ActionConditionBuilder) ResourceKey(resourceKey string) *ActionConditionBuilder {
+	builder.resourceKey = resourceKey
+	builder.resourceKeySet = true
+	return builder
+}
+
+// 资源ID
+//
+// 示例值：123
+func (builder *ActionConditionBuilder) ResourceId(resourceId string) *ActionConditionBuilder {
+	builder.resourceId = resourceId
+	builder.resourceIdSet = true
+	return builder
+}
+
+// 资源值
+//
+// 示例值：属性Value
+func (builder *ActionConditionBuilder) ResourceValue(resourceValue string) *ActionConditionBuilder {
+	builder.resourceValue = resourceValue
+	builder.resourceValueSet = true
+	return builder
+}
+
+func (builder *ActionConditionBuilder) Build() *ActionCondition {
+	req := &ActionCondition{}
+	if builder.resourceKeySet {
+		req.ResourceKey = &builder.resourceKey
+
+	}
+	if builder.resourceIdSet {
+		req.ResourceId = &builder.resourceId
+
+	}
+	if builder.resourceValueSet {
+		req.ResourceValue = &builder.resourceValue
+
+	}
+	return req
+}
+
 type AdminLog struct {
 	UniqueId *string `json:"unique_id,omitempty"` // 日志唯一ID，用于定位一条具体的日志
 
@@ -197,6 +265,163 @@ func (builder *AdminLogBuilder) Build() *AdminLog {
 	if builder.operationStatusSet {
 		req.OperationStatus = &builder.operationStatus
 
+	}
+	return req
+}
+
+type AgentLogItem struct {
+	Id *string `json:"id,omitempty"` // 智能体日志唯一标识
+
+	EventName *string `json:"event_name,omitempty"` // 事件名称
+
+	EventTime *string `json:"event_time,omitempty"` // 事件发生时间，以毫秒为单位时间戳
+
+	AppId *string `json:"app_id,omitempty"` // 应用ID
+
+	Ip *string `json:"ip,omitempty"` // IP
+
+	RunType *string `json:"run_type,omitempty"` // 智能体运行时类型
+
+	OperatorValue *string `json:"operator_value,omitempty"` // 操作用户ID
+
+	LogDetail *OpenapiLogDetail `json:"log_detail,omitempty"` // 日志详情
+}
+
+type AgentLogItemBuilder struct {
+	id    string // 智能体日志唯一标识
+	idSet bool
+
+	eventName    string // 事件名称
+	eventNameSet bool
+
+	eventTime    string // 事件发生时间，以毫秒为单位时间戳
+	eventTimeSet bool
+
+	appId    string // 应用ID
+	appIdSet bool
+
+	ip    string // IP
+	ipSet bool
+
+	runType    string // 智能体运行时类型
+	runTypeSet bool
+
+	operatorValue    string // 操作用户ID
+	operatorValueSet bool
+
+	logDetail    *OpenapiLogDetail // 日志详情
+	logDetailSet bool
+}
+
+func NewAgentLogItemBuilder() *AgentLogItemBuilder {
+	builder := &AgentLogItemBuilder{}
+	return builder
+}
+
+// 智能体日志唯一标识
+//
+// 示例值：123456
+func (builder *AgentLogItemBuilder) Id(id string) *AgentLogItemBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 事件名称
+//
+// 示例值：bash
+func (builder *AgentLogItemBuilder) EventName(eventName string) *AgentLogItemBuilder {
+	builder.eventName = eventName
+	builder.eventNameSet = true
+	return builder
+}
+
+// 事件发生时间，以毫秒为单位时间戳
+//
+// 示例值：1610613336
+func (builder *AgentLogItemBuilder) EventTime(eventTime string) *AgentLogItemBuilder {
+	builder.eventTime = eventTime
+	builder.eventTimeSet = true
+	return builder
+}
+
+// 应用ID
+//
+// 示例值：cli_xxx
+func (builder *AgentLogItemBuilder) AppId(appId string) *AgentLogItemBuilder {
+	builder.appId = appId
+	builder.appIdSet = true
+	return builder
+}
+
+// IP
+//
+// 示例值：127.0.0.1
+func (builder *AgentLogItemBuilder) Ip(ip string) *AgentLogItemBuilder {
+	builder.ip = ip
+	builder.ipSet = true
+	return builder
+}
+
+// 智能体运行时类型
+//
+// 示例值：openAPI
+func (builder *AgentLogItemBuilder) RunType(runType string) *AgentLogItemBuilder {
+	builder.runType = runType
+	builder.runTypeSet = true
+	return builder
+}
+
+// 操作用户ID
+//
+// 示例值：o23cssfr
+func (builder *AgentLogItemBuilder) OperatorValue(operatorValue string) *AgentLogItemBuilder {
+	builder.operatorValue = operatorValue
+	builder.operatorValueSet = true
+	return builder
+}
+
+// 日志详情
+//
+// 示例值：
+func (builder *AgentLogItemBuilder) LogDetail(logDetail *OpenapiLogDetail) *AgentLogItemBuilder {
+	builder.logDetail = logDetail
+	builder.logDetailSet = true
+	return builder
+}
+
+func (builder *AgentLogItemBuilder) Build() *AgentLogItem {
+	req := &AgentLogItem{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.eventNameSet {
+		req.EventName = &builder.eventName
+
+	}
+	if builder.eventTimeSet {
+		req.EventTime = &builder.eventTime
+
+	}
+	if builder.appIdSet {
+		req.AppId = &builder.appId
+
+	}
+	if builder.ipSet {
+		req.Ip = &builder.ip
+
+	}
+	if builder.runTypeSet {
+		req.RunType = &builder.runType
+
+	}
+	if builder.operatorValueSet {
+		req.OperatorValue = &builder.operatorValue
+
+	}
+	if builder.logDetailSet {
+		req.LogDetail = builder.logDetail
 	}
 	return req
 }
@@ -7296,6 +7521,74 @@ func (builder *NotificationBuilder) Build() *Notification {
 	return req
 }
 
+type ObjectAttribute struct {
+	ResourceKey *string `json:"resource_key,omitempty"` // 资源Key
+
+	ResourceId *string `json:"resource_id,omitempty"` // 资源ID
+
+	ResourceValue *string `json:"resource_value,omitempty"` // 资源值
+}
+
+type ObjectAttributeBuilder struct {
+	resourceKey    string // 资源Key
+	resourceKeySet bool
+
+	resourceId    string // 资源ID
+	resourceIdSet bool
+
+	resourceValue    string // 资源值
+	resourceValueSet bool
+}
+
+func NewObjectAttributeBuilder() *ObjectAttributeBuilder {
+	builder := &ObjectAttributeBuilder{}
+	return builder
+}
+
+// 资源Key
+//
+// 示例值：属性Key
+func (builder *ObjectAttributeBuilder) ResourceKey(resourceKey string) *ObjectAttributeBuilder {
+	builder.resourceKey = resourceKey
+	builder.resourceKeySet = true
+	return builder
+}
+
+// 资源ID
+//
+// 示例值：属性ID
+func (builder *ObjectAttributeBuilder) ResourceId(resourceId string) *ObjectAttributeBuilder {
+	builder.resourceId = resourceId
+	builder.resourceIdSet = true
+	return builder
+}
+
+// 资源值
+//
+// 示例值：属性值
+func (builder *ObjectAttributeBuilder) ResourceValue(resourceValue string) *ObjectAttributeBuilder {
+	builder.resourceValue = resourceValue
+	builder.resourceValueSet = true
+	return builder
+}
+
+func (builder *ObjectAttributeBuilder) Build() *ObjectAttribute {
+	req := &ObjectAttribute{}
+	if builder.resourceKeySet {
+		req.ResourceKey = &builder.resourceKey
+
+	}
+	if builder.resourceIdSet {
+		req.ResourceId = &builder.resourceId
+
+	}
+	if builder.resourceValueSet {
+		req.ResourceValue = &builder.resourceValue
+
+	}
+	return req
+}
+
 type OpenapiLog struct {
 	Id *string `json:"id,omitempty"` // openapi日志唯一标识
 
@@ -7824,6 +8117,18 @@ type PolicyLogItem struct {
 	DetectRules []*DetectRule `json:"detect_rules,omitempty"` // 命中的检测规则
 
 	ResourceAttributes []*ResourceAttribute `json:"resource_attributes,omitempty"` // 管控场景的资源属性
+
+	AppOwnerId *string `json:"app_owner_id,omitempty"` // 应用Owner ID
+
+	AppOwnerName *string `json:"app_owner_name,omitempty"` // 应用Owner姓名
+
+	AppDelegatorId *string `json:"app_delegator_id,omitempty"` // 应用授权人ID
+
+	AppDelegatorName *string `json:"app_delegator_name,omitempty"` // 应用授权人姓名
+
+	ObjectAttributes []*ObjectAttribute `json:"object_attributes,omitempty"` // 客体属性
+
+	ActionConditions []*ActionCondition `json:"action_conditions,omitempty"` // 动作条件
 }
 
 type PolicyLogItemBuilder struct {
@@ -7862,6 +8167,24 @@ type PolicyLogItemBuilder struct {
 
 	resourceAttributes    []*ResourceAttribute // 管控场景的资源属性
 	resourceAttributesSet bool
+
+	appOwnerId    string // 应用Owner ID
+	appOwnerIdSet bool
+
+	appOwnerName    string // 应用Owner姓名
+	appOwnerNameSet bool
+
+	appDelegatorId    string // 应用授权人ID
+	appDelegatorIdSet bool
+
+	appDelegatorName    string // 应用授权人姓名
+	appDelegatorNameSet bool
+
+	objectAttributes    []*ObjectAttribute // 客体属性
+	objectAttributesSet bool
+
+	actionConditions    []*ActionCondition // 动作条件
+	actionConditionsSet bool
 }
 
 func NewPolicyLogItemBuilder() *PolicyLogItemBuilder {
@@ -7977,6 +8300,60 @@ func (builder *PolicyLogItemBuilder) ResourceAttributes(resourceAttributes []*Re
 	return builder
 }
 
+// 应用Owner ID
+//
+// 示例值：7527135007148609042
+func (builder *PolicyLogItemBuilder) AppOwnerId(appOwnerId string) *PolicyLogItemBuilder {
+	builder.appOwnerId = appOwnerId
+	builder.appOwnerIdSet = true
+	return builder
+}
+
+// 应用Owner姓名
+//
+// 示例值：张三
+func (builder *PolicyLogItemBuilder) AppOwnerName(appOwnerName string) *PolicyLogItemBuilder {
+	builder.appOwnerName = appOwnerName
+	builder.appOwnerNameSet = true
+	return builder
+}
+
+// 应用授权人ID
+//
+// 示例值：7527135007148609042
+func (builder *PolicyLogItemBuilder) AppDelegatorId(appDelegatorId string) *PolicyLogItemBuilder {
+	builder.appDelegatorId = appDelegatorId
+	builder.appDelegatorIdSet = true
+	return builder
+}
+
+// 应用授权人姓名
+//
+// 示例值：张三
+func (builder *PolicyLogItemBuilder) AppDelegatorName(appDelegatorName string) *PolicyLogItemBuilder {
+	builder.appDelegatorName = appDelegatorName
+	builder.appDelegatorNameSet = true
+	return builder
+}
+
+// 客体属性
+//
+// 示例值：
+func (builder *PolicyLogItemBuilder) ObjectAttributes(objectAttributes []*ObjectAttribute) *PolicyLogItemBuilder {
+	builder.objectAttributes = objectAttributes
+	builder.objectAttributesSet = true
+	return builder
+}
+
+// 动作条件
+//
+// 示例值：
+func (builder *PolicyLogItemBuilder) ActionConditions(actionConditions []*ActionCondition) *PolicyLogItemBuilder {
+	builder.actionConditions = actionConditions
+	builder.actionConditionsSet = true
+	return builder
+}
+
 func (builder *PolicyLogItemBuilder) Build() *PolicyLogItem {
 	req := &PolicyLogItem{}
 	if builder.userIdSet {
@@ -8021,6 +8398,28 @@ func (builder *PolicyLogItemBuilder) Build() *PolicyLogItem {
 	}
 	if builder.resourceAttributesSet {
 		req.ResourceAttributes = builder.resourceAttributes
+	}
+	if builder.appOwnerIdSet {
+		req.AppOwnerId = &builder.appOwnerId
+
+	}
+	if builder.appOwnerNameSet {
+		req.AppOwnerName = &builder.appOwnerName
+
+	}
+	if builder.appDelegatorIdSet {
+		req.AppDelegatorId = &builder.appDelegatorId
+
+	}
+	if builder.appDelegatorNameSet {
+		req.AppDelegatorName = &builder.appDelegatorName
+
+	}
+	if builder.objectAttributesSet {
+		req.ObjectAttributes = builder.objectAttributes
+	}
+	if builder.actionConditionsSet {
+		req.ActionConditions = builder.actionConditions
 	}
 	return req
 }

@@ -402,6 +402,10 @@ const (
 	ParentTypeUploadAllMediaBitableTmpPoint     = "bitable_tmp_point"      // 表单临时上传提交附件
 	ParentTypeUploadAllMediaOfficeSheetFile     = "office_sheet_file"      // 豆包表格文件本地打开AI编辑
 	ParentTypeUploadAllMediaOfficeSlideFile     = "office_slide_file"      // 豆包pptx文件本地打开AI编辑
+	ParentTypeUploadAllMediaDocxAiEditTemp      = "docx_ai_edit_temp"      // ccm docx业务支持lark-cli,用于上传图片获取下载链接
+	ParentTypeUploadAllMediaVcRecording         = "vc_recording"           // 妙记壁纸功能
+	ParentTypeUploadAllMediaOfficeDocxFile      = "office_docx_file"       // 豆包docx文件本地打开AI编辑需求
+	ParentTypeUploadAllMediaMmMeetingAudio      = "mm_meeting_audio"       // 妙记面试会议支持录制音频
 )
 
 const (
@@ -428,6 +432,10 @@ const (
 	ParentTypeUploadPrepareMediaBitableTmpPoint     = "bitable_tmp_point"      // 表单临时上传提交附件
 	ParentTypeUploadPrepareMediaOfficeSheetFile     = "office_sheet_file"      // 豆包表格文件本地打开AI编辑
 	ParentTypeUploadPrepareMediaOfficeSlideFile     = "office_slide_file"      // 豆包pptx文件本地打开AI编辑
+	ParentTypeUploadPrepareMediaDocxAiEditTemp      = "docx_ai_edit_temp"      // ccm docx业务支持lark-cli,用于上传图片获取下载链接
+	ParentTypeUploadPrepareMediaVcRecording         = "vc_recording"           // 妙记壁纸功能
+	ParentTypeUploadPrepareMediaOfficeDocxFile      = "office_docx_file"       // 豆包docx文件本地打开AI编辑需求
+	ParentTypeUploadPrepareMediaMmMeetingAudio      = "mm_meeting_audio"       // 妙记面试会议支持录制音频
 )
 
 const (
@@ -3899,6 +3907,123 @@ func (builder *DocsLinkBuilder) Build() *DocsLink {
 	if builder.urlSet {
 		req.Url = &builder.url
 
+	}
+	return req
+}
+
+type Document struct {
+	FileToken *string `json:"file_token,omitempty"` // 文档token
+
+	FileType *string `json:"file_type,omitempty"` // 文档类型，例如：docx、sheet、bitable、slides
+}
+
+type DocumentBuilder struct {
+	fileToken    string // 文档token
+	fileTokenSet bool
+
+	fileType    string // 文档类型，例如：docx、sheet、bitable、slides
+	fileTypeSet bool
+}
+
+func NewDocumentBuilder() *DocumentBuilder {
+	builder := &DocumentBuilder{}
+	return builder
+}
+
+// 文档token
+//
+// 示例值：UDUpdklRvohz6axyZdlc5kcQnve
+func (builder *DocumentBuilder) FileToken(fileToken string) *DocumentBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenSet = true
+	return builder
+}
+
+// 文档类型，例如：docx、sheet、bitable、slides
+//
+// 示例值：docx
+func (builder *DocumentBuilder) FileType(fileType string) *DocumentBuilder {
+	builder.fileType = fileType
+	builder.fileTypeSet = true
+	return builder
+}
+
+func (builder *DocumentBuilder) Build() *Document {
+	req := &Document{}
+	if builder.fileTokenSet {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.fileTypeSet {
+		req.FileType = &builder.fileType
+
+	}
+	return req
+}
+
+type DocumentChange struct {
+	TitleChanged *bool `json:"title_changed,omitempty"` // 文档标题是否变更，true表示发生变更
+
+	ContentChanged *bool `json:"content_changed,omitempty"` // 文档正文是否发生变更，true表示发生变更
+
+	WhiteboardBlocks []string `json:"whiteboard_blocks,omitempty"` // 文档中画板发生变更的画板token列表，长度为0时表示没有画板发生变更
+}
+
+type DocumentChangeBuilder struct {
+	titleChanged    bool // 文档标题是否变更，true表示发生变更
+	titleChangedSet bool
+
+	contentChanged    bool // 文档正文是否发生变更，true表示发生变更
+	contentChangedSet bool
+
+	whiteboardBlocks    []string // 文档中画板发生变更的画板token列表，长度为0时表示没有画板发生变更
+	whiteboardBlocksSet bool
+}
+
+func NewDocumentChangeBuilder() *DocumentChangeBuilder {
+	builder := &DocumentChangeBuilder{}
+	return builder
+}
+
+// 文档标题是否变更，true表示发生变更
+//
+// 示例值：true
+func (builder *DocumentChangeBuilder) TitleChanged(titleChanged bool) *DocumentChangeBuilder {
+	builder.titleChanged = titleChanged
+	builder.titleChangedSet = true
+	return builder
+}
+
+// 文档正文是否发生变更，true表示发生变更
+//
+// 示例值：true
+func (builder *DocumentChangeBuilder) ContentChanged(contentChanged bool) *DocumentChangeBuilder {
+	builder.contentChanged = contentChanged
+	builder.contentChangedSet = true
+	return builder
+}
+
+// 文档中画板发生变更的画板token列表，长度为0时表示没有画板发生变更
+//
+// 示例值：
+func (builder *DocumentChangeBuilder) WhiteboardBlocks(whiteboardBlocks []string) *DocumentChangeBuilder {
+	builder.whiteboardBlocks = whiteboardBlocks
+	builder.whiteboardBlocksSet = true
+	return builder
+}
+
+func (builder *DocumentChangeBuilder) Build() *DocumentChange {
+	req := &DocumentChange{}
+	if builder.titleChangedSet {
+		req.TitleChanged = &builder.titleChanged
+
+	}
+	if builder.contentChangedSet {
+		req.ContentChanged = &builder.contentChanged
+
+	}
+	if builder.whiteboardBlocksSet {
+		req.WhiteboardBlocks = builder.whiteboardBlocks
 	}
 	return req
 }
@@ -7463,6 +7588,8 @@ type Notice struct {
 
 	ToUserId *UserId `json:"to_user_id,omitempty"` // 接收者ID
 
+	FromUserType *string `json:"from_user_type,omitempty"` // 发送者类型
+
 	NoticeType *string `json:"notice_type,omitempty"` // 评论操作类型，枚举值：add_comment、add_reply
 }
 
@@ -7478,6 +7605,9 @@ type NoticeBuilder struct {
 
 	toUserId    *UserId // 接收者ID
 	toUserIdSet bool
+
+	fromUserType    string // 发送者类型
+	fromUserTypeSet bool
 
 	noticeType    string // 评论操作类型，枚举值：add_comment、add_reply
 	noticeTypeSet bool
@@ -7524,6 +7654,15 @@ func (builder *NoticeBuilder) ToUserId(toUserId *UserId) *NoticeBuilder {
 	return builder
 }
 
+// 发送者类型
+//
+// 示例值：user
+func (builder *NoticeBuilder) FromUserType(fromUserType string) *NoticeBuilder {
+	builder.fromUserType = fromUserType
+	builder.fromUserTypeSet = true
+	return builder
+}
+
 // 评论操作类型，枚举值：add_comment、add_reply
 //
 // 示例值：add_comment
@@ -7548,6 +7687,10 @@ func (builder *NoticeBuilder) Build() *Notice {
 	}
 	if builder.toUserIdSet {
 		req.ToUserId = builder.toUserId
+	}
+	if builder.fromUserTypeSet {
+		req.FromUserType = &builder.fromUserType
+
 	}
 	if builder.noticeTypeSet {
 		req.NoticeType = &builder.noticeType
@@ -15826,6 +15969,8 @@ type P2NoticeCommentAddV1Data struct {
 	ReplyId *string `json:"reply_id,omitempty"` // 回复ID
 
 	IsMentioned *bool `json:"is_mentioned,omitempty"` // 接收者是否被mention
+
+	Visibility *string `json:"visibility,omitempty"` // 评论可见性
 }
 
 type P2NoticeCommentAddV1 struct {

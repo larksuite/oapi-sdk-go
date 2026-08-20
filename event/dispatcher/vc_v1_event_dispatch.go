@@ -18,6 +18,62 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
+// 会中事件
+//
+// - 当会议中发生参会人入会、离会等活动时，系统会向订阅方推送此事件。
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2BotMeetingActivityV1(handler func(ctx context.Context, event *larkvc.P2BotMeetingActivityV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.bot.meeting_activity_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.bot.meeting_activity_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.bot.meeting_activity_v1"] = larkvc.NewP2BotMeetingActivityV1Handler(handler)
+	return dispatcher
+}
+
+// 会议结束
+//
+// - 当会议结束时，系统会向订阅方推送此事件。
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2BotMeetingEndedV1(handler func(ctx context.Context, event *larkvc.P2BotMeetingEndedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.bot.meeting_ended_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.bot.meeting_ended_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.bot.meeting_ended_v1"] = larkvc.NewP2BotMeetingEndedV1Handler(handler)
+	return dispatcher
+}
+
+// 邀请机器人入会
+//
+// - 当用户邀请机器人加入会议时，系统会向订阅方推送此事件。
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2BotMeetingInvitedV1(handler func(ctx context.Context, event *larkvc.P2BotMeetingInvitedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.bot.meeting_invited_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.bot.meeting_invited_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.bot.meeting_invited_v1"] = larkvc.NewP2BotMeetingInvitedV1Handler(handler)
+	return dispatcher
+}
+
+// 会议开始
+//
+// - 当会议开始时，系统会向订阅方推送此事件。
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2BotMeetingStartedV1(handler func(ctx context.Context, event *larkvc.P2BotMeetingStartedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.bot.meeting_started_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.bot.meeting_started_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.bot.meeting_started_v1"] = larkvc.NewP2BotMeetingStartedV1Handler(handler)
+	return dispatcher
+}
+
 // 企业会议结束
 //
 // - 发生在会议结束时，包含企业内所有会议结束事件。

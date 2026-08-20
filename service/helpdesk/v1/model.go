@@ -7326,25 +7326,25 @@ func NewListCategoryReqBuilder() *ListCategoryReqBuilder {
 	return builder
 }
 
-// language
+// 知识库分类语言
 //
-// 示例值：
+// 示例值：zh_cn
 func (builder *ListCategoryReqBuilder) Lang(lang string) *ListCategoryReqBuilder {
 	builder.apiReq.QueryParams.Set("lang", fmt.Sprint(lang))
 	return builder
 }
 
-// order key
+// 排序键。1: 根据知识库分类更新时间排序
 //
-// 示例值：
+// 示例值：1
 func (builder *ListCategoryReqBuilder) OrderBy(orderBy int) *ListCategoryReqBuilder {
 	builder.apiReq.QueryParams.Set("order_by", fmt.Sprint(orderBy))
 	return builder
 }
 
-// order
+// 顺序。true: 正序；false：反序
 //
-// 示例值：
+// 示例值：true
 func (builder *ListCategoryReqBuilder) Asc(asc bool) *ListCategoryReqBuilder {
 	builder.apiReq.QueryParams.Set("asc", fmt.Sprint(asc))
 	return builder
@@ -7362,7 +7362,7 @@ type ListCategoryReq struct {
 }
 
 type ListCategoryRespData struct {
-	Categories []*Category `json:"categories,omitempty"` // list of categories
+	Categories []*Category `json:"categories,omitempty"` // 知识库分类列表
 }
 
 type ListCategoryResp struct {
@@ -9967,7 +9967,7 @@ func NewCreateTicketCustomizedFieldReqBuilder() *CreateTicketCustomizedFieldReqB
 	return builder
 }
 
-// create ticket customized field
+// 该接口用于创建自定义字段
 func (builder *CreateTicketCustomizedFieldReqBuilder) TicketCustomizedField(ticketCustomizedField *TicketCustomizedField) *CreateTicketCustomizedFieldReqBuilder {
 	builder.ticketCustomizedField = ticketCustomizedField
 	return builder
@@ -10048,9 +10048,9 @@ func NewGetTicketCustomizedFieldReqBuilder() *GetTicketCustomizedFieldReqBuilder
 	return builder
 }
 
-// ticket customized field id
+// 工单自定义字段ID
 //
-// 示例值：6834320707288072194
+// 示例值：6948728206392295444
 func (builder *GetTicketCustomizedFieldReqBuilder) TicketCustomizedFieldId(ticketCustomizedFieldId string) *GetTicketCustomizedFieldReqBuilder {
 	builder.apiReq.PathParams.Set("ticket_customized_field_id", fmt.Sprint(ticketCustomizedFieldId))
 	return builder
@@ -10110,7 +10110,7 @@ func (resp *GetTicketCustomizedFieldResp) Success() bool {
 }
 
 type ListTicketCustomizedFieldReqBodyBuilder struct {
-	visible    bool // if the field is visible
+	visible    bool // 是否可见
 	visibleSet bool
 }
 
@@ -10119,9 +10119,9 @@ func NewListTicketCustomizedFieldReqBodyBuilder() *ListTicketCustomizedFieldReqB
 	return builder
 }
 
-// if the field is visible
+// 是否可见
 //
-// 示例值：
+// 示例值：true
 func (builder *ListTicketCustomizedFieldReqBodyBuilder) Visible(visible bool) *ListTicketCustomizedFieldReqBodyBuilder {
 	builder.visible = visible
 	builder.visibleSet = true
@@ -10146,9 +10146,9 @@ func NewListTicketCustomizedFieldPathReqBodyBuilder() *ListTicketCustomizedField
 	return builder
 }
 
-// if the field is visible
+// 是否可见
 //
-// 示例值：
+// 示例值：true
 func (builder *ListTicketCustomizedFieldPathReqBodyBuilder) Visible(visible bool) *ListTicketCustomizedFieldPathReqBodyBuilder {
 	builder.visible = visible
 	builder.visibleSet = true
@@ -10179,7 +10179,7 @@ func NewListTicketCustomizedFieldReqBuilder() *ListTicketCustomizedFieldReqBuild
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
 //
-// 示例值：
+// 示例值：6948728206392295444
 func (builder *ListTicketCustomizedFieldReqBuilder) PageToken(pageToken string) *ListTicketCustomizedFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -10187,13 +10187,13 @@ func (builder *ListTicketCustomizedFieldReqBuilder) PageToken(pageToken string) 
 
 // 分页大小
 //
-// 示例值：
+// 示例值：10；默认为20
 func (builder *ListTicketCustomizedFieldReqBuilder) PageSize(pageSize int) *ListTicketCustomizedFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-// list the ticket customized fields
+// 该接口用于获取全部工单自定义字段。
 func (builder *ListTicketCustomizedFieldReqBuilder) Body(body *ListTicketCustomizedFieldReqBody) *ListTicketCustomizedFieldReqBuilder {
 	builder.body = body
 	return builder
@@ -10208,7 +10208,7 @@ func (builder *ListTicketCustomizedFieldReqBuilder) Build() *ListTicketCustomize
 }
 
 type ListTicketCustomizedFieldReqBody struct {
-	Visible *bool `json:"visible,omitempty"` // if the field is visible
+	Visible *bool `json:"visible,omitempty"` // 是否可见
 }
 
 type ListTicketCustomizedFieldReq struct {
@@ -10219,9 +10219,9 @@ type ListTicketCustomizedFieldReq struct {
 type ListTicketCustomizedFieldRespData struct {
 	HasMore *bool `json:"has_more,omitempty"` // whether there is more data
 
-	NextPageToken *string `json:"next_page_token,omitempty"` // the next page token
+	NextPageToken *string `json:"next_page_token,omitempty"` // 下一分页标识
 
-	Items []*TicketCustomizedField `json:"items,omitempty"` // all the ticket customized fields
+	Items []*TicketCustomizedField `json:"items,omitempty"` // 工单自定义字段列表
 }
 
 type ListTicketCustomizedFieldResp struct {
@@ -10248,15 +10248,15 @@ func NewPatchTicketCustomizedFieldReqBuilder() *PatchTicketCustomizedFieldReqBui
 	return builder
 }
 
-// ticket customized field id
+// 工单自定义字段ID
 //
-// 示例值：6834320707288072194
+// 示例值：6948728206392295444
 func (builder *PatchTicketCustomizedFieldReqBuilder) TicketCustomizedFieldId(ticketCustomizedFieldId string) *PatchTicketCustomizedFieldReqBuilder {
 	builder.apiReq.PathParams.Set("ticket_customized_field_id", fmt.Sprint(ticketCustomizedFieldId))
 	return builder
 }
 
-// update the ticket customized field
+// 该接口用于更新自定义字段。
 func (builder *PatchTicketCustomizedFieldReqBuilder) TicketCustomizedField(ticketCustomizedField *TicketCustomizedField) *PatchTicketCustomizedFieldReqBuilder {
 	builder.ticketCustomizedField = ticketCustomizedField
 	return builder

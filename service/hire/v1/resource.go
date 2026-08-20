@@ -655,9 +655,11 @@ func (a *application) CancelOnboard(ctx context.Context, req *CancelOnboardAppli
 	return resp, err
 }
 
-// Create
+// Create 创建投递
 //
-// -
+// - 为人才在特定职位上创建投递。
+//
+// - 若创建投递的简历来源类型属于「员工转岗」或「实习生转正」，则人才需处于已入职状态。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=application&version=v1
 //
@@ -681,9 +683,11 @@ func (a *application) Create(ctx context.Context, req *CreateApplicationReq, opt
 	return resp, err
 }
 
-// Get
+// Get 获取投递信息
 //
-// -
+// - 根据投递 ID 获取单个投递信息。
+//
+// - 该接口不再更新，推荐使用新接口：[获取投递详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get_detail)
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=application&version=v1
 //
@@ -735,9 +739,9 @@ func (a *application) GetDetail(ctx context.Context, req *GetDetailApplicationRe
 	return resp, err
 }
 
-// List
+// List 获取投递列表
 //
-// -
+// - 获取投递列表信息。可根据「招聘流程 ID」、「招聘阶段 ID」、「人才 ID」、「职位 ID」、「投递活跃状态」以及「投递更新时间」进行条件筛选。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=application&version=v1
 //
@@ -761,9 +765,9 @@ func (a *application) List(ctx context.Context, req *ListApplicationReq, options
 	return resp, err
 }
 
-// Offer
+// Offer 获取 Offer 信息
 //
-// -
+// - 根据投递 ID 获取 Offer 信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=offer&project=hire&resource=application&version=v1
 //
@@ -815,9 +819,9 @@ func (a *application) Recover(ctx context.Context, req *RecoverApplicationReq, o
 	return resp, err
 }
 
-// Terminate
+// Terminate 终止投递
 //
-// -
+// - 根据投递 ID 修改投递状态为「已终止」。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=terminate&project=hire&resource=application&version=v1
 //
@@ -841,9 +845,11 @@ func (a *application) Terminate(ctx context.Context, req *TerminateApplicationRe
 	return resp, err
 }
 
-// TransferOnboard
+// TransferOnboard 操作候选人入职
 //
-// -
+// - 根据投递 ID 操作候选人入职并创建员工，后续可通过 [通过员工 ID 获取入职信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get) 接口获取入职信息。
+//
+// - - 调用前，请在「飞书招聘」-「设置」-「生态对接」- 「e-HR/OA办公系统」开启「通过 e-HR / OA 办公系统同步候选人入职、转正、离职事件」;- 操作入职之前投递须处于「待入职」阶段，可通过 [转移投递阶段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/transfer_stage) 接口将投递转到「待入职」阶段。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=transfer_onboard&project=hire&resource=application&version=v1
 //
@@ -2777,9 +2783,11 @@ func (j *job) Config(ctx context.Context, req *ConfigJobReq, options ...larkcore
 	return resp, err
 }
 
-// Get
+// Get 获取职位信息
 //
-// -
+// - 根据职位 ID 获取职位信息。
+//
+// - 该接口不再更新，推荐使用新接口：[获取职位详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get_detail)
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=job&version=v1
 //
@@ -3025,9 +3033,9 @@ func (j *jobFunction) ListByIterator(ctx context.Context, req *ListJobFunctionRe
 		limit:    req.Limit}, nil
 }
 
-// List
+// List 获取招聘流程信息
 //
-// -
+// - 获取全部招聘流程信息。如「流程名称」、「流程类型」及流程下的「阶段名称」、「阶段类型」等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=job_process&version=v1
 //
@@ -3789,9 +3797,9 @@ func (o *offerCustomField) Update(ctx context.Context, req *UpdateOfferCustomFie
 	return resp, err
 }
 
-// Get
+// Get 获取 Offer 申请表详细信息
 //
-// -
+// - 根据 Offer 申请表 ID，获取 Offer 申请表的详细信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=offer_schema&version=v1
 //
@@ -4405,9 +4413,9 @@ func (t *talent) CombinedUpdate(ctx context.Context, req *CombinedUpdateTalentRe
 	return resp, err
 }
 
-// Get
+// Get 获取人才信息
 //
-// -
+// - 根据人才 ID 获取人才信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=talent&version=v1
 //

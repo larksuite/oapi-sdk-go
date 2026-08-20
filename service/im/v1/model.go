@@ -3939,6 +3939,160 @@ func (builder *GroupItemFailedReasonBuilder) Build() *GroupItemFailedReason {
 	return req
 }
 
+type HandleMembershipApplicationItem struct {
+	MemberId *string `json:"member_id,omitempty"` // 申请人 member_id（不能传 inviter 的 app_id）
+
+	Action *string `json:"action,omitempty"` // 处理动作 approve/reject
+}
+
+type HandleMembershipApplicationItemBuilder struct {
+	memberId    string // 申请人 member_id（不能传 inviter 的 app_id）
+	memberIdSet bool
+
+	action    string // 处理动作 approve/reject
+	actionSet bool
+}
+
+func NewHandleMembershipApplicationItemBuilder() *HandleMembershipApplicationItemBuilder {
+	builder := &HandleMembershipApplicationItemBuilder{}
+	return builder
+}
+
+// 申请人 member_id（不能传 inviter 的 app_id）
+//
+// 示例值：ou_7dab8a3d3cdcc9da365777c7f8a1e3a3
+func (builder *HandleMembershipApplicationItemBuilder) MemberId(memberId string) *HandleMembershipApplicationItemBuilder {
+	builder.memberId = memberId
+	builder.memberIdSet = true
+	return builder
+}
+
+// 处理动作 approve/reject
+//
+// 示例值：approve
+func (builder *HandleMembershipApplicationItemBuilder) Action(action string) *HandleMembershipApplicationItemBuilder {
+	builder.action = action
+	builder.actionSet = true
+	return builder
+}
+
+func (builder *HandleMembershipApplicationItemBuilder) Build() *HandleMembershipApplicationItem {
+	req := &HandleMembershipApplicationItem{}
+	if builder.memberIdSet {
+		req.MemberId = &builder.memberId
+
+	}
+	if builder.actionSet {
+		req.Action = &builder.action
+
+	}
+	return req
+}
+
+type HandleMembershipApplicationResult struct {
+	MemberId *string `json:"member_id,omitempty"` // 申请人 member_id，与请求项对应
+
+	Action *string `json:"action,omitempty"` // 处理动作 approve/reject
+
+	Result *string `json:"result,omitempty"` // 处理结果 success/failed/already_handled
+
+	ErrorCode *string `json:"error_code,omitempty"` // 仅 result=failed 时返回，透传底层失败码
+
+	ErrorMessage *string `json:"error_message,omitempty"` // 仅 result=failed 时返回，失败描述
+}
+
+type HandleMembershipApplicationResultBuilder struct {
+	memberId    string // 申请人 member_id，与请求项对应
+	memberIdSet bool
+
+	action    string // 处理动作 approve/reject
+	actionSet bool
+
+	result    string // 处理结果 success/failed/already_handled
+	resultSet bool
+
+	errorCode    string // 仅 result=failed 时返回，透传底层失败码
+	errorCodeSet bool
+
+	errorMessage    string // 仅 result=failed 时返回，失败描述
+	errorMessageSet bool
+}
+
+func NewHandleMembershipApplicationResultBuilder() *HandleMembershipApplicationResultBuilder {
+	builder := &HandleMembershipApplicationResultBuilder{}
+	return builder
+}
+
+// 申请人 member_id，与请求项对应
+//
+// 示例值：ou_7dab8a3d3cdcc9da365777c7f8a1e3a3
+func (builder *HandleMembershipApplicationResultBuilder) MemberId(memberId string) *HandleMembershipApplicationResultBuilder {
+	builder.memberId = memberId
+	builder.memberIdSet = true
+	return builder
+}
+
+// 处理动作 approve/reject
+//
+// 示例值：approve
+func (builder *HandleMembershipApplicationResultBuilder) Action(action string) *HandleMembershipApplicationResultBuilder {
+	builder.action = action
+	builder.actionSet = true
+	return builder
+}
+
+// 处理结果 success/failed/already_handled
+//
+// 示例值：success
+func (builder *HandleMembershipApplicationResultBuilder) Result(result string) *HandleMembershipApplicationResultBuilder {
+	builder.result = result
+	builder.resultSet = true
+	return builder
+}
+
+// 仅 result=failed 时返回，透传底层失败码
+//
+// 示例值：member_not_found
+func (builder *HandleMembershipApplicationResultBuilder) ErrorCode(errorCode string) *HandleMembershipApplicationResultBuilder {
+	builder.errorCode = errorCode
+	builder.errorCodeSet = true
+	return builder
+}
+
+// 仅 result=failed 时返回，失败描述
+//
+// 示例值：user has been in the chat
+func (builder *HandleMembershipApplicationResultBuilder) ErrorMessage(errorMessage string) *HandleMembershipApplicationResultBuilder {
+	builder.errorMessage = errorMessage
+	builder.errorMessageSet = true
+	return builder
+}
+
+func (builder *HandleMembershipApplicationResultBuilder) Build() *HandleMembershipApplicationResult {
+	req := &HandleMembershipApplicationResult{}
+	if builder.memberIdSet {
+		req.MemberId = &builder.memberId
+
+	}
+	if builder.actionSet {
+		req.Action = &builder.action
+
+	}
+	if builder.resultSet {
+		req.Result = &builder.result
+
+	}
+	if builder.errorCodeSet {
+		req.ErrorCode = &builder.errorCode
+
+	}
+	if builder.errorMessageSet {
+		req.ErrorMessage = &builder.errorMessage
+
+	}
+	return req
+}
+
 type I18nContent struct {
 	Content *string `json:"content,omitempty"` // `language` 参数对应的内容。
 
@@ -5130,6 +5284,194 @@ func (builder *ListNotifyStatusBuilder) Build() *ListNotifyStatus {
 	return req
 }
 
+type MembershipApplication struct {
+	Applicant *MembershipApplicationMember `json:"applicant,omitempty"` // 申请人（恒为 user，也是审批操作的目标）
+
+	Inviter *MembershipApplicationMember `json:"inviter,omitempty"` // 邀请人（可能为空；可能是 bot，此时透出 member_type=bot 与 app_id）
+
+	Reason *string `json:"reason,omitempty"` // 申请理由
+
+	ApplySource *string `json:"apply_source,omitempty"` // 入群来源 unknown/share/invitation/qr_code/search/department_structure/link/team_open_chat/calendar/team_private_discoverable/chat_linked_page
+
+	ApplyTime *int `json:"apply_time,omitempty"` // 申请时间（秒级 unix 时间戳）
+}
+
+type MembershipApplicationBuilder struct {
+	applicant    *MembershipApplicationMember // 申请人（恒为 user，也是审批操作的目标）
+	applicantSet bool
+
+	inviter    *MembershipApplicationMember // 邀请人（可能为空；可能是 bot，此时透出 member_type=bot 与 app_id）
+	inviterSet bool
+
+	reason    string // 申请理由
+	reasonSet bool
+
+	applySource    string // 入群来源 unknown/share/invitation/qr_code/search/department_structure/link/team_open_chat/calendar/team_private_discoverable/chat_linked_page
+	applySourceSet bool
+
+	applyTime    int // 申请时间（秒级 unix 时间戳）
+	applyTimeSet bool
+}
+
+func NewMembershipApplicationBuilder() *MembershipApplicationBuilder {
+	builder := &MembershipApplicationBuilder{}
+	return builder
+}
+
+// 申请人（恒为 user，也是审批操作的目标）
+//
+// 示例值：
+func (builder *MembershipApplicationBuilder) Applicant(applicant *MembershipApplicationMember) *MembershipApplicationBuilder {
+	builder.applicant = applicant
+	builder.applicantSet = true
+	return builder
+}
+
+// 邀请人（可能为空；可能是 bot，此时透出 member_type=bot 与 app_id）
+//
+// 示例值：
+func (builder *MembershipApplicationBuilder) Inviter(inviter *MembershipApplicationMember) *MembershipApplicationBuilder {
+	builder.inviter = inviter
+	builder.inviterSet = true
+	return builder
+}
+
+// 申请理由
+//
+// 示例值：想加入项目群
+func (builder *MembershipApplicationBuilder) Reason(reason string) *MembershipApplicationBuilder {
+	builder.reason = reason
+	builder.reasonSet = true
+	return builder
+}
+
+// 入群来源 unknown/share/invitation/qr_code/search/department_structure/link/team_open_chat/calendar/team_private_discoverable/chat_linked_page
+//
+// 示例值：invitation
+func (builder *MembershipApplicationBuilder) ApplySource(applySource string) *MembershipApplicationBuilder {
+	builder.applySource = applySource
+	builder.applySourceSet = true
+	return builder
+}
+
+// 申请时间（秒级 unix 时间戳）
+//
+// 示例值：1700000000
+func (builder *MembershipApplicationBuilder) ApplyTime(applyTime int) *MembershipApplicationBuilder {
+	builder.applyTime = applyTime
+	builder.applyTimeSet = true
+	return builder
+}
+
+func (builder *MembershipApplicationBuilder) Build() *MembershipApplication {
+	req := &MembershipApplication{}
+	if builder.applicantSet {
+		req.Applicant = builder.applicant
+	}
+	if builder.inviterSet {
+		req.Inviter = builder.inviter
+	}
+	if builder.reasonSet {
+		req.Reason = &builder.reason
+
+	}
+	if builder.applySourceSet {
+		req.ApplySource = &builder.applySource
+
+	}
+	if builder.applyTimeSet {
+		req.ApplyTime = &builder.applyTime
+
+	}
+	return req
+}
+
+type MembershipApplicationMember struct {
+	MemberId *string `json:"member_id,omitempty"` // 成员 ID（按 member_id_type 返回；user_id 跨租户或 user_id+bot 模式时省略）
+
+	MemberType *string `json:"member_type,omitempty"` // 成员类型 user/bot
+
+	AppId *string `json:"app_id,omitempty"` // 应用 ID，仅当 member_type=bot 时返回
+
+	Name *string `json:"name,omitempty"` // 名称
+}
+
+type MembershipApplicationMemberBuilder struct {
+	memberId    string // 成员 ID（按 member_id_type 返回；user_id 跨租户或 user_id+bot 模式时省略）
+	memberIdSet bool
+
+	memberType    string // 成员类型 user/bot
+	memberTypeSet bool
+
+	appId    string // 应用 ID，仅当 member_type=bot 时返回
+	appIdSet bool
+
+	name    string // 名称
+	nameSet bool
+}
+
+func NewMembershipApplicationMemberBuilder() *MembershipApplicationMemberBuilder {
+	builder := &MembershipApplicationMemberBuilder{}
+	return builder
+}
+
+// 成员 ID（按 member_id_type 返回；user_id 跨租户或 user_id+bot 模式时省略）
+//
+// 示例值：ou_7dab8a3d3cdcc9da365777c7f8a1e3a3
+func (builder *MembershipApplicationMemberBuilder) MemberId(memberId string) *MembershipApplicationMemberBuilder {
+	builder.memberId = memberId
+	builder.memberIdSet = true
+	return builder
+}
+
+// 成员类型 user/bot
+//
+// 示例值：user
+func (builder *MembershipApplicationMemberBuilder) MemberType(memberType string) *MembershipApplicationMemberBuilder {
+	builder.memberType = memberType
+	builder.memberTypeSet = true
+	return builder
+}
+
+// 应用 ID，仅当 member_type=bot 时返回
+//
+// 示例值：cli_***
+func (builder *MembershipApplicationMemberBuilder) AppId(appId string) *MembershipApplicationMemberBuilder {
+	builder.appId = appId
+	builder.appIdSet = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：张三
+func (builder *MembershipApplicationMemberBuilder) Name(name string) *MembershipApplicationMemberBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+func (builder *MembershipApplicationMemberBuilder) Build() *MembershipApplicationMember {
+	req := &MembershipApplicationMember{}
+	if builder.memberIdSet {
+		req.MemberId = &builder.memberId
+
+	}
+	if builder.memberTypeSet {
+		req.MemberType = &builder.memberType
+
+	}
+	if builder.appIdSet {
+		req.AppId = &builder.appId
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
 type Mention struct {
 	Key *string `json:"key,omitempty"` // 被 @ 的用户或机器人序号。例如，第 3 个被 @ 到的成员，取值为 `@_user_3`。
 
@@ -5883,6 +6225,56 @@ func (builder *MessageQueryBuilder) Build() *MessageQuery {
 	}
 	if builder.pageTokenSet {
 		req.PageToken = &builder.pageToken
+
+	}
+	return req
+}
+
+type MessageReadStatus struct {
+	MessageId *string `json:"message_id,omitempty"` // 消息 ID
+
+	IsRead *bool `json:"is_read,omitempty"` // 当前用户是否已读该消息
+}
+
+type MessageReadStatusBuilder struct {
+	messageId    string // 消息 ID
+	messageIdSet bool
+
+	isRead    bool // 当前用户是否已读该消息
+	isReadSet bool
+}
+
+func NewMessageReadStatusBuilder() *MessageReadStatusBuilder {
+	builder := &MessageReadStatusBuilder{}
+	return builder
+}
+
+// 消息 ID
+//
+// 示例值：om_dc13264520392913993dd051dba21dcf
+func (builder *MessageReadStatusBuilder) MessageId(messageId string) *MessageReadStatusBuilder {
+	builder.messageId = messageId
+	builder.messageIdSet = true
+	return builder
+}
+
+// 当前用户是否已读该消息
+//
+// 示例值：true
+func (builder *MessageReadStatusBuilder) IsRead(isRead bool) *MessageReadStatusBuilder {
+	builder.isRead = isRead
+	builder.isReadSet = true
+	return builder
+}
+
+func (builder *MessageReadStatusBuilder) Build() *MessageReadStatus {
+	req := &MessageReadStatus{}
+	if builder.messageIdSet {
+		req.MessageId = &builder.messageId
+
+	}
+	if builder.isReadSet {
+		req.IsRead = &builder.isRead
 
 	}
 	return req

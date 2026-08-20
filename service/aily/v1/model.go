@@ -6805,6 +6805,74 @@ func (builder *SkillCallBuilder) Build() *SkillCall {
 	return req
 }
 
+type SkillCategoryInfoForOpenApi struct {
+	CategoryUid *string `json:"category_uid,omitempty"` // 分类ID
+
+	NameZh *string `json:"name_zh,omitempty"` // 分类中文名
+
+	NameEn *string `json:"name_en,omitempty"` // 分类英文名
+}
+
+type SkillCategoryInfoForOpenApiBuilder struct {
+	categoryUid    string // 分类ID
+	categoryUidSet bool
+
+	nameZh    string // 分类中文名
+	nameZhSet bool
+
+	nameEn    string // 分类英文名
+	nameEnSet bool
+}
+
+func NewSkillCategoryInfoForOpenApiBuilder() *SkillCategoryInfoForOpenApiBuilder {
+	builder := &SkillCategoryInfoForOpenApiBuilder{}
+	return builder
+}
+
+// 分类ID
+//
+// 示例值：productivity
+func (builder *SkillCategoryInfoForOpenApiBuilder) CategoryUid(categoryUid string) *SkillCategoryInfoForOpenApiBuilder {
+	builder.categoryUid = categoryUid
+	builder.categoryUidSet = true
+	return builder
+}
+
+// 分类中文名
+//
+// 示例值：效率工具
+func (builder *SkillCategoryInfoForOpenApiBuilder) NameZh(nameZh string) *SkillCategoryInfoForOpenApiBuilder {
+	builder.nameZh = nameZh
+	builder.nameZhSet = true
+	return builder
+}
+
+// 分类英文名
+//
+// 示例值：Productivity
+func (builder *SkillCategoryInfoForOpenApiBuilder) NameEn(nameEn string) *SkillCategoryInfoForOpenApiBuilder {
+	builder.nameEn = nameEn
+	builder.nameEnSet = true
+	return builder
+}
+
+func (builder *SkillCategoryInfoForOpenApiBuilder) Build() *SkillCategoryInfoForOpenApi {
+	req := &SkillCategoryInfoForOpenApi{}
+	if builder.categoryUidSet {
+		req.CategoryUid = &builder.categoryUid
+
+	}
+	if builder.nameZhSet {
+		req.NameZh = &builder.nameZh
+
+	}
+	if builder.nameEnSet {
+		req.NameEn = &builder.nameEn
+
+	}
+	return req
+}
+
 type SkillGlobalVariable struct {
 	Query *string `json:"query,omitempty"` // 触发技能的消息文本；即用户在飞书机器人等渠道**对话输入的内容**
 
@@ -7282,6 +7350,12 @@ type TenantBuiltinSkillDetail struct {
 	Visibility *VisibilityConfig `json:"visibility,omitempty"` // 可见范围（Tenant/Range/Self，本组新建 struct，entity_id 为 open id）
 
 	UpdatedAt *string `json:"updated_at,omitempty"` // 更新时间（毫秒时间戳）
+
+	TagsJson *string `json:"tags_json,omitempty"` // 技能标签
+
+	CategoryInfo *SkillCategoryInfoForOpenApi `json:"category_info,omitempty"` // 技能分类信息
+
+	OperationInfo *TenantBuiltinSkillOperationInfo `json:"operation_info,omitempty"` // 运营属性
 }
 
 type TenantBuiltinSkillDetailBuilder struct {
@@ -7311,6 +7385,15 @@ type TenantBuiltinSkillDetailBuilder struct {
 
 	updatedAt    string // 更新时间（毫秒时间戳）
 	updatedAtSet bool
+
+	tagsJson    string // 技能标签
+	tagsJsonSet bool
+
+	categoryInfo    *SkillCategoryInfoForOpenApi // 技能分类信息
+	categoryInfoSet bool
+
+	operationInfo    *TenantBuiltinSkillOperationInfo // 运营属性
+	operationInfoSet bool
 }
 
 func NewTenantBuiltinSkillDetailBuilder() *TenantBuiltinSkillDetailBuilder {
@@ -7399,6 +7482,33 @@ func (builder *TenantBuiltinSkillDetailBuilder) UpdatedAt(updatedAt string) *Ten
 	return builder
 }
 
+// 技能标签
+//
+// 示例值：[{\"zh\":\"写作\",\"en\":\"Writing\"}]
+func (builder *TenantBuiltinSkillDetailBuilder) TagsJson(tagsJson string) *TenantBuiltinSkillDetailBuilder {
+	builder.tagsJson = tagsJson
+	builder.tagsJsonSet = true
+	return builder
+}
+
+// 技能分类信息
+//
+// 示例值：
+func (builder *TenantBuiltinSkillDetailBuilder) CategoryInfo(categoryInfo *SkillCategoryInfoForOpenApi) *TenantBuiltinSkillDetailBuilder {
+	builder.categoryInfo = categoryInfo
+	builder.categoryInfoSet = true
+	return builder
+}
+
+// 运营属性
+//
+// 示例值：
+func (builder *TenantBuiltinSkillDetailBuilder) OperationInfo(operationInfo *TenantBuiltinSkillOperationInfo) *TenantBuiltinSkillDetailBuilder {
+	builder.operationInfo = operationInfo
+	builder.operationInfoSet = true
+	return builder
+}
+
 func (builder *TenantBuiltinSkillDetailBuilder) Build() *TenantBuiltinSkillDetail {
 	req := &TenantBuiltinSkillDetail{}
 	if builder.skillIdSet {
@@ -7434,6 +7544,84 @@ func (builder *TenantBuiltinSkillDetailBuilder) Build() *TenantBuiltinSkillDetai
 	}
 	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.tagsJsonSet {
+		req.TagsJson = &builder.tagsJson
+
+	}
+	if builder.categoryInfoSet {
+		req.CategoryInfo = builder.categoryInfo
+	}
+	if builder.operationInfoSet {
+		req.OperationInfo = builder.operationInfo
+	}
+	return req
+}
+
+type TenantBuiltinSkillOperationInfo struct {
+	IsFeatured *bool `json:"is_featured,omitempty"` // 是否精选
+
+	IsSpecialRecommended *bool `json:"is_special_recommended,omitempty"` // 是否特别推荐
+
+	ShowSkillMd *bool `json:"show_skill_md,omitempty"` // 是否显示skill.md
+}
+
+type TenantBuiltinSkillOperationInfoBuilder struct {
+	isFeatured    bool // 是否精选
+	isFeaturedSet bool
+
+	isSpecialRecommended    bool // 是否特别推荐
+	isSpecialRecommendedSet bool
+
+	showSkillMd    bool // 是否显示skill.md
+	showSkillMdSet bool
+}
+
+func NewTenantBuiltinSkillOperationInfoBuilder() *TenantBuiltinSkillOperationInfoBuilder {
+	builder := &TenantBuiltinSkillOperationInfoBuilder{}
+	return builder
+}
+
+// 是否精选
+//
+// 示例值：
+func (builder *TenantBuiltinSkillOperationInfoBuilder) IsFeatured(isFeatured bool) *TenantBuiltinSkillOperationInfoBuilder {
+	builder.isFeatured = isFeatured
+	builder.isFeaturedSet = true
+	return builder
+}
+
+// 是否特别推荐
+//
+// 示例值：
+func (builder *TenantBuiltinSkillOperationInfoBuilder) IsSpecialRecommended(isSpecialRecommended bool) *TenantBuiltinSkillOperationInfoBuilder {
+	builder.isSpecialRecommended = isSpecialRecommended
+	builder.isSpecialRecommendedSet = true
+	return builder
+}
+
+// 是否显示skill.md
+//
+// 示例值：
+func (builder *TenantBuiltinSkillOperationInfoBuilder) ShowSkillMd(showSkillMd bool) *TenantBuiltinSkillOperationInfoBuilder {
+	builder.showSkillMd = showSkillMd
+	builder.showSkillMdSet = true
+	return builder
+}
+
+func (builder *TenantBuiltinSkillOperationInfoBuilder) Build() *TenantBuiltinSkillOperationInfo {
+	req := &TenantBuiltinSkillOperationInfo{}
+	if builder.isFeaturedSet {
+		req.IsFeatured = &builder.isFeatured
+
+	}
+	if builder.isSpecialRecommendedSet {
+		req.IsSpecialRecommended = &builder.isSpecialRecommended
+
+	}
+	if builder.showSkillMdSet {
+		req.ShowSkillMd = &builder.showSkillMd
 
 	}
 	return req

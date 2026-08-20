@@ -938,7 +938,7 @@ func (builder *BotMeetingInfoBuilder) Build() *BotMeetingInfo {
 }
 
 type ChatMessageItem struct {
-	Operator *MeetingAgentEventUser `json:"operator,omitempty"` // 发送者
+	Operator *MeetingAgentEventUser `json:"operator,omitempty"` // 邀请人
 
 	MessageId *string `json:"message_id,omitempty"` // 消息 ID
 
@@ -950,7 +950,7 @@ type ChatMessageItem struct {
 }
 
 type ChatMessageItemBuilder struct {
-	operator    *MeetingAgentEventUser // 发送者
+	operator    *MeetingAgentEventUser // 邀请人
 	operatorSet bool
 
 	messageId    string // 消息 ID
@@ -971,7 +971,7 @@ func NewChatMessageItemBuilder() *ChatMessageItemBuilder {
 	return builder
 }
 
-// 发送者
+// 邀请人
 //
 // 示例值：
 func (builder *ChatMessageItemBuilder) Operator(operator *MeetingAgentEventUser) *ChatMessageItemBuilder {
@@ -1035,6 +1035,56 @@ func (builder *ChatMessageItemBuilder) Build() *ChatMessageItem {
 	}
 	if builder.sendTimeSet {
 		req.SendTime = &builder.sendTime
+
+	}
+	return req
+}
+
+type CommentFocus struct {
+	CommentId *string `json:"comment_id,omitempty"` // 评论 ID
+
+	Focused *bool `json:"focused,omitempty"` // 是否聚焦该评论，true 表示聚焦，false 表示取消聚焦
+}
+
+type CommentFocusBuilder struct {
+	commentId    string // 评论 ID
+	commentIdSet bool
+
+	focused    bool // 是否聚焦该评论，true 表示聚焦，false 表示取消聚焦
+	focusedSet bool
+}
+
+func NewCommentFocusBuilder() *CommentFocusBuilder {
+	builder := &CommentFocusBuilder{}
+	return builder
+}
+
+// 评论 ID
+//
+// 示例值：7380000000000000000
+func (builder *CommentFocusBuilder) CommentId(commentId string) *CommentFocusBuilder {
+	builder.commentId = commentId
+	builder.commentIdSet = true
+	return builder
+}
+
+// 是否聚焦该评论，true 表示聚焦，false 表示取消聚焦
+//
+// 示例值：true
+func (builder *CommentFocusBuilder) Focused(focused bool) *CommentFocusBuilder {
+	builder.focused = focused
+	builder.focusedSet = true
+	return builder
+}
+
+func (builder *CommentFocusBuilder) Build() *CommentFocus {
+	req := &CommentFocus{}
+	if builder.commentIdSet {
+		req.CommentId = &builder.commentId
+
+	}
+	if builder.focusedSet {
+		req.Focused = &builder.focused
 
 	}
 	return req
@@ -1439,12 +1489,233 @@ func (builder *DisableInformConfigBuilder) Build() *DisableInformConfig {
 	return req
 }
 
+type DocumentContextChangedItem struct {
+	Operator *MeetingAgentEventUser `json:"operator,omitempty"` // 邀请人
+
+	ShareId *string `json:"share_id,omitempty"` // 共享会话 ID
+
+	ShareDoc *ShareDoc `json:"share_doc,omitempty"` // 当前共享文档信息
+
+	Time *string `json:"time,omitempty"` // 事件发生时间，十进制毫秒级时间戳字符串
+
+	CommentFocus *CommentFocus `json:"comment_focus,omitempty"` // 评论聚焦变化，仅评论聚焦或取消聚焦时返回
+
+	SectionLocation *SectionLocation `json:"section_location,omitempty"` // 章节位置变化，仅章节定位变化时返回
+
+	ElementPreview *ElementPreview `json:"element_preview,omitempty"` // 元素预览变化，仅图片或白板预览变化时返回
+}
+
+type DocumentContextChangedItemBuilder struct {
+	operator    *MeetingAgentEventUser // 邀请人
+	operatorSet bool
+
+	shareId    string // 共享会话 ID
+	shareIdSet bool
+
+	shareDoc    *ShareDoc // 当前共享文档信息
+	shareDocSet bool
+
+	time    string // 事件发生时间，十进制毫秒级时间戳字符串
+	timeSet bool
+
+	commentFocus    *CommentFocus // 评论聚焦变化，仅评论聚焦或取消聚焦时返回
+	commentFocusSet bool
+
+	sectionLocation    *SectionLocation // 章节位置变化，仅章节定位变化时返回
+	sectionLocationSet bool
+
+	elementPreview    *ElementPreview // 元素预览变化，仅图片或白板预览变化时返回
+	elementPreviewSet bool
+}
+
+func NewDocumentContextChangedItemBuilder() *DocumentContextChangedItemBuilder {
+	builder := &DocumentContextChangedItemBuilder{}
+	return builder
+}
+
+// 邀请人
+//
+// 示例值：
+func (builder *DocumentContextChangedItemBuilder) Operator(operator *MeetingAgentEventUser) *DocumentContextChangedItemBuilder {
+	builder.operator = operator
+	builder.operatorSet = true
+	return builder
+}
+
+// 共享会话 ID
+//
+// 示例值：7359880116
+func (builder *DocumentContextChangedItemBuilder) ShareId(shareId string) *DocumentContextChangedItemBuilder {
+	builder.shareId = shareId
+	builder.shareIdSet = true
+	return builder
+}
+
+// 当前共享文档信息
+//
+// 示例值：
+func (builder *DocumentContextChangedItemBuilder) ShareDoc(shareDoc *ShareDoc) *DocumentContextChangedItemBuilder {
+	builder.shareDoc = shareDoc
+	builder.shareDocSet = true
+	return builder
+}
+
+// 事件发生时间，十进制毫秒级时间戳字符串
+//
+// 示例值：1717171234567
+func (builder *DocumentContextChangedItemBuilder) Time(time string) *DocumentContextChangedItemBuilder {
+	builder.time = time
+	builder.timeSet = true
+	return builder
+}
+
+// 评论聚焦变化，仅评论聚焦或取消聚焦时返回
+//
+// 示例值：
+func (builder *DocumentContextChangedItemBuilder) CommentFocus(commentFocus *CommentFocus) *DocumentContextChangedItemBuilder {
+	builder.commentFocus = commentFocus
+	builder.commentFocusSet = true
+	return builder
+}
+
+// 章节位置变化，仅章节定位变化时返回
+//
+// 示例值：
+func (builder *DocumentContextChangedItemBuilder) SectionLocation(sectionLocation *SectionLocation) *DocumentContextChangedItemBuilder {
+	builder.sectionLocation = sectionLocation
+	builder.sectionLocationSet = true
+	return builder
+}
+
+// 元素预览变化，仅图片或白板预览变化时返回
+//
+// 示例值：
+func (builder *DocumentContextChangedItemBuilder) ElementPreview(elementPreview *ElementPreview) *DocumentContextChangedItemBuilder {
+	builder.elementPreview = elementPreview
+	builder.elementPreviewSet = true
+	return builder
+}
+
+func (builder *DocumentContextChangedItemBuilder) Build() *DocumentContextChangedItem {
+	req := &DocumentContextChangedItem{}
+	if builder.operatorSet {
+		req.Operator = builder.operator
+	}
+	if builder.shareIdSet {
+		req.ShareId = &builder.shareId
+
+	}
+	if builder.shareDocSet {
+		req.ShareDoc = builder.shareDoc
+	}
+	if builder.timeSet {
+		req.Time = &builder.time
+
+	}
+	if builder.commentFocusSet {
+		req.CommentFocus = builder.commentFocus
+	}
+	if builder.sectionLocationSet {
+		req.SectionLocation = builder.sectionLocation
+	}
+	if builder.elementPreviewSet {
+		req.ElementPreview = builder.elementPreview
+	}
+	return req
+}
+
+type ElementPreview struct {
+	Action *string `json:"action,omitempty"` // 元素预览动作
+
+	ElementType *string `json:"element_type,omitempty"` // 预览元素类型
+
+	ElementToken *string `json:"element_token,omitempty"` // 预览元素 Token
+
+	BlockId *string `json:"block_id,omitempty"` // 元素所在的文档 Block ID
+}
+
+type ElementPreviewBuilder struct {
+	action    string // 元素预览动作
+	actionSet bool
+
+	elementType    string // 预览元素类型
+	elementTypeSet bool
+
+	elementToken    string // 预览元素 Token
+	elementTokenSet bool
+
+	blockId    string // 元素所在的文档 Block ID
+	blockIdSet bool
+}
+
+func NewElementPreviewBuilder() *ElementPreviewBuilder {
+	builder := &ElementPreviewBuilder{}
+	return builder
+}
+
+// 元素预览动作
+//
+// 示例值：open
+func (builder *ElementPreviewBuilder) Action(action string) *ElementPreviewBuilder {
+	builder.action = action
+	builder.actionSet = true
+	return builder
+}
+
+// 预览元素类型
+//
+// 示例值：image
+func (builder *ElementPreviewBuilder) ElementType(elementType string) *ElementPreviewBuilder {
+	builder.elementType = elementType
+	builder.elementTypeSet = true
+	return builder
+}
+
+// 预览元素 Token
+//
+// 示例值：element_xxx
+func (builder *ElementPreviewBuilder) ElementToken(elementToken string) *ElementPreviewBuilder {
+	builder.elementToken = elementToken
+	builder.elementTokenSet = true
+	return builder
+}
+
+// 元素所在的文档 Block ID
+//
+// 示例值：block_xxx
+func (builder *ElementPreviewBuilder) BlockId(blockId string) *ElementPreviewBuilder {
+	builder.blockId = blockId
+	builder.blockIdSet = true
+	return builder
+}
+
+func (builder *ElementPreviewBuilder) Build() *ElementPreview {
+	req := &ElementPreview{}
+	if builder.actionSet {
+		req.Action = &builder.action
+
+	}
+	if builder.elementTypeSet {
+		req.ElementType = &builder.elementType
+
+	}
+	if builder.elementTokenSet {
+		req.ElementToken = &builder.elementToken
+
+	}
+	if builder.blockIdSet {
+		req.BlockId = &builder.blockId
+
+	}
+	return req
+}
+
 type Event struct {
 	EventId *string `json:"event_id,omitempty"` // 事件唯一标识，用于幂等校验和事件追踪。可通过事件创建接口获取
 
 	EventType *string `json:"event_type,omitempty"` // 事件类型，用于区分不同业务场景的事件，如会议创建、参会人变更、会议结束等
 
-	EventTime *string `json:"event_time,omitempty"` // 事件发生的时间戳，格式为 RFC3339 标准（YYYY-MM-DDTHH:mm:ssZ）
+	EventTime *string `json:"event_time,omitempty"` // 事件发生时间，RFC 3339 格式的日期时间字符串，例如 2024-05-20T14:30:00+08:00。
 
 	Payload *MeetingActivityItem `json:"payload,omitempty"` // 事件负载，包含与事件类型对应的业务数据，采用 JSON 格式序列化后的字符串
 }
@@ -1456,7 +1727,7 @@ type EventBuilder struct {
 	eventType    string // 事件类型，用于区分不同业务场景的事件，如会议创建、参会人变更、会议结束等
 	eventTypeSet bool
 
-	eventTime    string // 事件发生的时间戳，格式为 RFC3339 标准（YYYY-MM-DDTHH:mm:ssZ）
+	eventTime    string // 事件发生时间，RFC 3339 格式的日期时间字符串，例如 2024-05-20T14:30:00+08:00。
 	eventTimeSet bool
 
 	payload    *MeetingActivityItem // 事件负载，包含与事件类型对应的业务数据，采用 JSON 格式序列化后的字符串
@@ -1486,7 +1757,7 @@ func (builder *EventBuilder) EventType(eventType string) *EventBuilder {
 	return builder
 }
 
-// 事件发生的时间戳，格式为 RFC3339 标准（YYYY-MM-DDTHH:mm:ssZ）
+// 事件发生时间，RFC 3339 格式的日期时间字符串，例如 2024-05-20T14:30:00+08:00。
 //
 // 示例值：2024-05-20T14:30:00+08:00
 func (builder *EventBuilder) EventTime(eventTime string) *EventBuilder {
@@ -1738,7 +2009,7 @@ func (builder *KeyPointMatchDetailsBuilder) Build() *KeyPointMatchDetails {
 }
 
 type MagicShareEndedItem struct {
-	Operator *MeetingAgentEventUser `json:"operator,omitempty"` // 结束妙享的操作者
+	Operator *MeetingAgentEventUser `json:"operator,omitempty"` // 邀请人
 
 	ShareId *string `json:"share_id,omitempty"` // 共享会话 ID
 
@@ -1746,7 +2017,7 @@ type MagicShareEndedItem struct {
 }
 
 type MagicShareEndedItemBuilder struct {
-	operator    *MeetingAgentEventUser // 结束妙享的操作者
+	operator    *MeetingAgentEventUser // 邀请人
 	operatorSet bool
 
 	shareId    string // 共享会话 ID
@@ -1761,7 +2032,7 @@ func NewMagicShareEndedItemBuilder() *MagicShareEndedItemBuilder {
 	return builder
 }
 
-// 结束妙享的操作者
+// 邀请人
 //
 // 示例值：
 func (builder *MagicShareEndedItemBuilder) Operator(operator *MeetingAgentEventUser) *MagicShareEndedItemBuilder {
@@ -1805,7 +2076,7 @@ func (builder *MagicShareEndedItemBuilder) Build() *MagicShareEndedItem {
 }
 
 type MagicShareStartedItem struct {
-	Operator *MeetingAgentEventUser `json:"operator,omitempty"` // 发起妙享的操作者
+	Operator *MeetingAgentEventUser `json:"operator,omitempty"` // 邀请人
 
 	ShareId *string `json:"share_id,omitempty"` // 共享会话 ID
 
@@ -1815,7 +2086,7 @@ type MagicShareStartedItem struct {
 }
 
 type MagicShareStartedItemBuilder struct {
-	operator    *MeetingAgentEventUser // 发起妙享的操作者
+	operator    *MeetingAgentEventUser // 邀请人
 	operatorSet bool
 
 	shareId    string // 共享会话 ID
@@ -1833,7 +2104,7 @@ func NewMagicShareStartedItemBuilder() *MagicShareStartedItemBuilder {
 	return builder
 }
 
-// 发起妙享的操作者
+// 邀请人
 //
 // 示例值：
 func (builder *MagicShareStartedItemBuilder) Operator(operator *MeetingAgentEventUser) *MagicShareStartedItemBuilder {
@@ -2701,6 +2972,8 @@ type MeetingActivityItem struct {
 	MagicShareStartedItems []*MagicShareStartedItem `json:"magic_share_started_items,omitempty"` // 妙享开始内容（activity_event_type = magic_share_started 时填充）
 
 	MagicShareEndedItems []*MagicShareEndedItem `json:"magic_share_ended_items,omitempty"` // 妙享结束内容（activity_event_type = magic_share_ended 时填充）
+
+	DocumentContextChangedItems []*DocumentContextChangedItem `json:"document_context_changed_items,omitempty"` // 文档上下文变化内容（activity_event_type = document_context_changed 时返回），单条记录包含评论聚焦、章节定位或元素预览中的一种变化
 }
 
 type MeetingActivityItemBuilder struct {
@@ -2727,6 +3000,9 @@ type MeetingActivityItemBuilder struct {
 
 	magicShareEndedItems    []*MagicShareEndedItem // 妙享结束内容（activity_event_type = magic_share_ended 时填充）
 	magicShareEndedItemsSet bool
+
+	documentContextChangedItems    []*DocumentContextChangedItem // 文档上下文变化内容（activity_event_type = document_context_changed 时返回），单条记录包含评论聚焦、章节定位或元素预览中的一种变化
+	documentContextChangedItemsSet bool
 }
 
 func NewMeetingActivityItemBuilder() *MeetingActivityItemBuilder {
@@ -2806,6 +3082,15 @@ func (builder *MeetingActivityItemBuilder) MagicShareEndedItems(magicShareEndedI
 	return builder
 }
 
+// 文档上下文变化内容（activity_event_type = document_context_changed 时返回），单条记录包含评论聚焦、章节定位或元素预览中的一种变化
+//
+// 示例值：
+func (builder *MeetingActivityItemBuilder) DocumentContextChangedItems(documentContextChangedItems []*DocumentContextChangedItem) *MeetingActivityItemBuilder {
+	builder.documentContextChangedItems = documentContextChangedItems
+	builder.documentContextChangedItemsSet = true
+	return builder
+}
+
 func (builder *MeetingActivityItemBuilder) Build() *MeetingActivityItem {
 	req := &MeetingActivityItem{}
 	if builder.meetingSet {
@@ -2833,6 +3118,9 @@ func (builder *MeetingActivityItemBuilder) Build() *MeetingActivityItem {
 	if builder.magicShareEndedItemsSet {
 		req.MagicShareEndedItems = builder.magicShareEndedItems
 	}
+	if builder.documentContextChangedItemsSet {
+		req.DocumentContextChangedItems = builder.documentContextChangedItems
+	}
 	return req
 }
 
@@ -2847,7 +3135,7 @@ type MeetingAgentEventMeeting struct {
 
 	EndTime *string `json:"end_time,omitempty"` // 会议结束时间（unix时间，单位sec）
 
-	HostUser *MeetingAgentEventUser `json:"host_user,omitempty"` // 会议主持人
+	HostUser *MeetingAgentEventUser `json:"host_user,omitempty"` // 邀请人
 }
 
 type MeetingAgentEventMeetingBuilder struct {
@@ -2866,7 +3154,7 @@ type MeetingAgentEventMeetingBuilder struct {
 	endTime    string // 会议结束时间（unix时间，单位sec）
 	endTimeSet bool
 
-	hostUser    *MeetingAgentEventUser // 会议主持人
+	hostUser    *MeetingAgentEventUser // 邀请人
 	hostUserSet bool
 }
 
@@ -2920,7 +3208,7 @@ func (builder *MeetingAgentEventMeetingBuilder) EndTime(endTime string) *Meeting
 	return builder
 }
 
-// 会议主持人
+// 邀请人
 //
 // 示例值：
 func (builder *MeetingAgentEventMeetingBuilder) HostUser(hostUser *MeetingAgentEventUser) *MeetingAgentEventMeetingBuilder {
@@ -7791,13 +8079,13 @@ func (builder *ParticipantBuilder) Build() *Participant {
 }
 
 type ParticipantJoinedItem struct {
-	Participant *MeetingAgentEventUser `json:"participant,omitempty"` // 入会的参会人
+	Participant *MeetingAgentEventUser `json:"participant,omitempty"` // 邀请人
 
 	JoinTime *string `json:"join_time,omitempty"` // 入会时间（毫秒级时间戳）
 }
 
 type ParticipantJoinedItemBuilder struct {
-	participant    *MeetingAgentEventUser // 入会的参会人
+	participant    *MeetingAgentEventUser // 邀请人
 	participantSet bool
 
 	joinTime    string // 入会时间（毫秒级时间戳）
@@ -7809,7 +8097,7 @@ func NewParticipantJoinedItemBuilder() *ParticipantJoinedItemBuilder {
 	return builder
 }
 
-// 入会的参会人
+// 邀请人
 //
 // 示例值：
 func (builder *ParticipantJoinedItemBuilder) Participant(participant *MeetingAgentEventUser) *ParticipantJoinedItemBuilder {
@@ -7840,7 +8128,7 @@ func (builder *ParticipantJoinedItemBuilder) Build() *ParticipantJoinedItem {
 }
 
 type ParticipantLeftItem struct {
-	Participant *MeetingAgentEventUser `json:"participant,omitempty"` // 离会的参会人
+	Participant *MeetingAgentEventUser `json:"participant,omitempty"` // 邀请人
 
 	LeaveReason *int `json:"leave_reason,omitempty"` // 离会原因
 
@@ -7848,7 +8136,7 @@ type ParticipantLeftItem struct {
 }
 
 type ParticipantLeftItemBuilder struct {
-	participant    *MeetingAgentEventUser // 离会的参会人
+	participant    *MeetingAgentEventUser // 邀请人
 	participantSet bool
 
 	leaveReason    int // 离会原因
@@ -7863,7 +8151,7 @@ func NewParticipantLeftItemBuilder() *ParticipantLeftItemBuilder {
 	return builder
 }
 
-// 离会的参会人
+// 邀请人
 //
 // 示例值：
 func (builder *ParticipantLeftItemBuilder) Participant(participant *MeetingAgentEventUser) *ParticipantLeftItemBuilder {
@@ -11711,6 +11999,73 @@ func (builder *ScopeConfigBuilder) Build() *ScopeConfig {
 	return req
 }
 
+type SectionLocation struct {
+	Title *string `json:"title,omitempty"` // 当前章节标题
+
+	Level *int `json:"level,omitempty"` // 当前章节层级
+
+	ParentTitles []string `json:"parent_titles,omitempty"` // 父级章节标题列表
+}
+
+type SectionLocationBuilder struct {
+	title    string // 当前章节标题
+	titleSet bool
+
+	level    int // 当前章节层级
+	levelSet bool
+
+	parentTitles    []string // 父级章节标题列表
+	parentTitlesSet bool
+}
+
+func NewSectionLocationBuilder() *SectionLocationBuilder {
+	builder := &SectionLocationBuilder{}
+	return builder
+}
+
+// 当前章节标题
+//
+// 示例值：项目进展
+func (builder *SectionLocationBuilder) Title(title string) *SectionLocationBuilder {
+	builder.title = title
+	builder.titleSet = true
+	return builder
+}
+
+// 当前章节层级
+//
+// 示例值：1
+func (builder *SectionLocationBuilder) Level(level int) *SectionLocationBuilder {
+	builder.level = level
+	builder.levelSet = true
+	return builder
+}
+
+// 父级章节标题列表
+//
+// 示例值：
+func (builder *SectionLocationBuilder) ParentTitles(parentTitles []string) *SectionLocationBuilder {
+	builder.parentTitles = parentTitles
+	builder.parentTitlesSet = true
+	return builder
+}
+
+func (builder *SectionLocationBuilder) Build() *SectionLocation {
+	req := &SectionLocation{}
+	if builder.titleSet {
+		req.Title = &builder.title
+
+	}
+	if builder.levelSet {
+		req.Level = &builder.level
+
+	}
+	if builder.parentTitlesSet {
+		req.ParentTitles = builder.parentTitles
+	}
+	return req
+}
+
 type ShareDoc struct {
 	Url *string `json:"url,omitempty"` // 文档 URL
 
@@ -12245,7 +12600,7 @@ func (builder *TimeRangeBuilder) Build() *TimeRange {
 }
 
 type TranscriptItem struct {
-	Speaker *MeetingAgentEventUser `json:"speaker,omitempty"` // 发言人
+	Speaker *MeetingAgentEventUser `json:"speaker,omitempty"` // 邀请人
 
 	Text *string `json:"text,omitempty"` // 字幕文本
 
@@ -12259,7 +12614,7 @@ type TranscriptItem struct {
 }
 
 type TranscriptItemBuilder struct {
-	speaker    *MeetingAgentEventUser // 发言人
+	speaker    *MeetingAgentEventUser // 邀请人
 	speakerSet bool
 
 	text    string // 字幕文本
@@ -12283,7 +12638,7 @@ func NewTranscriptItemBuilder() *TranscriptItemBuilder {
 	return builder
 }
 
-// 发言人
+// 邀请人
 //
 // 示例值：
 func (builder *TranscriptItemBuilder) Speaker(speaker *MeetingAgentEventUser) *TranscriptItemBuilder {
@@ -13021,7 +13376,7 @@ func (builder *EventsBotReqBuilder) PageToken(pageToken string) *EventsBotReqBui
 	return builder
 }
 
-// 待查询历史信息的起始时间
+// 待查询历史信息的起始时间，为秒级 Unix 时间戳字符串（10 位）。不传入时不限制查询的起始时间；同时传入 end_time 时，start_time 不得晚于 end_time。
 //
 // 示例值：1609296809
 func (builder *EventsBotReqBuilder) StartTime(startTime string) *EventsBotReqBuilder {
@@ -13029,9 +13384,9 @@ func (builder *EventsBotReqBuilder) StartTime(startTime string) *EventsBotReqBui
 	return builder
 }
 
-// 待查询历史信息的结束时间
+// 待查询历史信息的结束时间，为秒级 Unix 时间戳字符串（10 位）。不传入时不限制查询的结束时间；同时传入 start_time 时，end_time 不得早于 start_time。
 //
-// 示例值：160929690
+// 示例值：1609297809
 func (builder *EventsBotReqBuilder) EndTime(endTime string) *EventsBotReqBuilder {
 	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
@@ -13085,6 +13440,506 @@ func (resp *EventsBotResp) Success() bool {
 	return resp.Code == 0
 }
 
+type JoinBotReqBodyBuilder struct {
+	joinType    int // 机器人入会方式。取值范围为 1~100；当前仅支持取值 1，表示通过会议号入会，join_identify 中需传入 meeting_no 字段。取值 2~100 暂不支持。
+	joinTypeSet bool
+
+	joinIdentify    *JoinIdentify // 入会标识信息。当 join_type=1 时，需传入 meeting_no 字段。
+	joinIdentifySet bool
+
+	password    string // 会议密码。目标会议未设置密码时无需传入；若会议设置了密码，未传入或传入错误密码将无法入会。可通过会议创建接口或会议详情查询接口获取。
+	passwordSet bool
+
+	callId    string // 邀请-入会链路的关联标识。从[邀请机器人入会](https://open.feishu.cn/document/server-docs/vc-v1/supportEventsList/meeting_invited)事件获取；仅在响应邀请入会时原样回传。未传入时按普通入会链路处理，不进行邀请关联。
+	callIdSet bool
+}
+
+func NewJoinBotReqBodyBuilder() *JoinBotReqBodyBuilder {
+	builder := &JoinBotReqBodyBuilder{}
+	return builder
+}
+
+// 机器人入会方式。取值范围为 1~100；当前仅支持取值 1，表示通过会议号入会，join_identify 中需传入 meeting_no 字段。取值 2~100 暂不支持。
+//
+// 示例值：1
+func (builder *JoinBotReqBodyBuilder) JoinType(joinType int) *JoinBotReqBodyBuilder {
+	builder.joinType = joinType
+	builder.joinTypeSet = true
+	return builder
+}
+
+// 入会标识信息。当 join_type=1 时，需传入 meeting_no 字段。
+//
+// 示例值：
+func (builder *JoinBotReqBodyBuilder) JoinIdentify(joinIdentify *JoinIdentify) *JoinBotReqBodyBuilder {
+	builder.joinIdentify = joinIdentify
+	builder.joinIdentifySet = true
+	return builder
+}
+
+// 会议密码。目标会议未设置密码时无需传入；若会议设置了密码，未传入或传入错误密码将无法入会。可通过会议创建接口或会议详情查询接口获取。
+//
+// 示例值：******
+func (builder *JoinBotReqBodyBuilder) Password(password string) *JoinBotReqBodyBuilder {
+	builder.password = password
+	builder.passwordSet = true
+	return builder
+}
+
+// 邀请-入会链路的关联标识。从[邀请机器人入会](https://open.feishu.cn/document/server-docs/vc-v1/supportEventsList/meeting_invited)事件获取；仅在响应邀请入会时原样回传。未传入时按普通入会链路处理，不进行邀请关联。
+//
+// 示例值：7c9e6679-7425-40de-944b-e07fc1f90ae7
+func (builder *JoinBotReqBodyBuilder) CallId(callId string) *JoinBotReqBodyBuilder {
+	builder.callId = callId
+	builder.callIdSet = true
+	return builder
+}
+
+func (builder *JoinBotReqBodyBuilder) Build() *JoinBotReqBody {
+	req := &JoinBotReqBody{}
+	if builder.joinTypeSet {
+		req.JoinType = &builder.joinType
+	}
+	if builder.joinIdentifySet {
+		req.JoinIdentify = builder.joinIdentify
+	}
+	if builder.passwordSet {
+		req.Password = &builder.password
+	}
+	if builder.callIdSet {
+		req.CallId = &builder.callId
+	}
+	return req
+}
+
+type JoinBotPathReqBodyBuilder struct {
+	joinType        int
+	joinTypeSet     bool
+	joinIdentify    *JoinIdentify
+	joinIdentifySet bool
+	password        string
+	passwordSet     bool
+	callId          string
+	callIdSet       bool
+}
+
+func NewJoinBotPathReqBodyBuilder() *JoinBotPathReqBodyBuilder {
+	builder := &JoinBotPathReqBodyBuilder{}
+	return builder
+}
+
+// 机器人入会方式。取值范围为 1~100；当前仅支持取值 1，表示通过会议号入会，join_identify 中需传入 meeting_no 字段。取值 2~100 暂不支持。
+//
+// 示例值：1
+func (builder *JoinBotPathReqBodyBuilder) JoinType(joinType int) *JoinBotPathReqBodyBuilder {
+	builder.joinType = joinType
+	builder.joinTypeSet = true
+	return builder
+}
+
+// 入会标识信息。当 join_type=1 时，需传入 meeting_no 字段。
+//
+// 示例值：
+func (builder *JoinBotPathReqBodyBuilder) JoinIdentify(joinIdentify *JoinIdentify) *JoinBotPathReqBodyBuilder {
+	builder.joinIdentify = joinIdentify
+	builder.joinIdentifySet = true
+	return builder
+}
+
+// 会议密码。目标会议未设置密码时无需传入；若会议设置了密码，未传入或传入错误密码将无法入会。可通过会议创建接口或会议详情查询接口获取。
+//
+// 示例值：******
+func (builder *JoinBotPathReqBodyBuilder) Password(password string) *JoinBotPathReqBodyBuilder {
+	builder.password = password
+	builder.passwordSet = true
+	return builder
+}
+
+// 邀请-入会链路的关联标识。从[邀请机器人入会](https://open.feishu.cn/document/server-docs/vc-v1/supportEventsList/meeting_invited)事件获取；仅在响应邀请入会时原样回传。未传入时按普通入会链路处理，不进行邀请关联。
+//
+// 示例值：7c9e6679-7425-40de-944b-e07fc1f90ae7
+func (builder *JoinBotPathReqBodyBuilder) CallId(callId string) *JoinBotPathReqBodyBuilder {
+	builder.callId = callId
+	builder.callIdSet = true
+	return builder
+}
+
+func (builder *JoinBotPathReqBodyBuilder) Build() (*JoinBotReqBody, error) {
+	req := &JoinBotReqBody{}
+	if builder.joinTypeSet {
+		req.JoinType = &builder.joinType
+	}
+	if builder.joinIdentifySet {
+		req.JoinIdentify = builder.joinIdentify
+	}
+	if builder.passwordSet {
+		req.Password = &builder.password
+	}
+	if builder.callIdSet {
+		req.CallId = &builder.callId
+	}
+	return req, nil
+}
+
+type JoinBotReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *JoinBotReqBody
+}
+
+func NewJoinBotReqBuilder() *JoinBotReqBuilder {
+	builder := &JoinBotReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 通过会议号将机器人加入指定的视频会议。调用成功后会返回会议 ID，该 ID 可用于后续的机器人离会、发送会中消息等操作。
+func (builder *JoinBotReqBuilder) Body(body *JoinBotReqBody) *JoinBotReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *JoinBotReqBuilder) Build() *JoinBotReq {
+	req := &JoinBotReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type JoinBotReqBody struct {
+	JoinType *int `json:"join_type,omitempty"` // 机器人入会方式。取值范围为 1~100；当前仅支持取值 1，表示通过会议号入会，join_identify 中需传入 meeting_no 字段。取值 2~100 暂不支持。
+
+	JoinIdentify *JoinIdentify `json:"join_identify,omitempty"` // 入会标识信息。当 join_type=1 时，需传入 meeting_no 字段。
+
+	Password *string `json:"password,omitempty"` // 会议密码。目标会议未设置密码时无需传入；若会议设置了密码，未传入或传入错误密码将无法入会。可通过会议创建接口或会议详情查询接口获取。
+
+	CallId *string `json:"call_id,omitempty"` // 邀请-入会链路的关联标识。从[邀请机器人入会](https://open.feishu.cn/document/server-docs/vc-v1/supportEventsList/meeting_invited)事件获取；仅在响应邀请入会时原样回传。未传入时按普通入会链路处理，不进行邀请关联。
+}
+
+type JoinBotReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *JoinBotReqBody `body:""`
+}
+
+type JoinBotRespData struct {
+	Meeting *BotMeetingInfo `json:"meeting,omitempty"` //
+
+	JoinUser *MeetingUser `json:"join_user,omitempty"` // 成功入会的机器人用户信息，包含用户唯一标识及用户类型
+}
+
+type JoinBotResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *JoinBotRespData `json:"data"` // 业务数据
+}
+
+func (resp *JoinBotResp) Success() bool {
+	return resp.Code == 0
+}
+
+type LeaveBotReqBodyBuilder struct {
+	meetingId    string // 会议唯一标识，用于指定机器人需要退出的目标会议。请传入[加入会议](https://open.feishu.cn/document/server-docs/vc-v1/bot/join)接口调用成功后返回的长数字 `meeting_id`，而不是 9 位会议号。
+	meetingIdSet bool
+}
+
+func NewLeaveBotReqBodyBuilder() *LeaveBotReqBodyBuilder {
+	builder := &LeaveBotReqBodyBuilder{}
+	return builder
+}
+
+// 会议唯一标识，用于指定机器人需要退出的目标会议。请传入[加入会议](https://open.feishu.cn/document/server-docs/vc-v1/bot/join)接口调用成功后返回的长数字 `meeting_id`，而不是 9 位会议号。
+//
+// 示例值：mtg_202405201430_001
+func (builder *LeaveBotReqBodyBuilder) MeetingId(meetingId string) *LeaveBotReqBodyBuilder {
+	builder.meetingId = meetingId
+	builder.meetingIdSet = true
+	return builder
+}
+
+func (builder *LeaveBotReqBodyBuilder) Build() *LeaveBotReqBody {
+	req := &LeaveBotReqBody{}
+	if builder.meetingIdSet {
+		req.MeetingId = &builder.meetingId
+	}
+	return req
+}
+
+type LeaveBotPathReqBodyBuilder struct {
+	meetingId    string
+	meetingIdSet bool
+}
+
+func NewLeaveBotPathReqBodyBuilder() *LeaveBotPathReqBodyBuilder {
+	builder := &LeaveBotPathReqBodyBuilder{}
+	return builder
+}
+
+// 会议唯一标识，用于指定机器人需要退出的目标会议。请传入[加入会议](https://open.feishu.cn/document/server-docs/vc-v1/bot/join)接口调用成功后返回的长数字 `meeting_id`，而不是 9 位会议号。
+//
+// 示例值：mtg_202405201430_001
+func (builder *LeaveBotPathReqBodyBuilder) MeetingId(meetingId string) *LeaveBotPathReqBodyBuilder {
+	builder.meetingId = meetingId
+	builder.meetingIdSet = true
+	return builder
+}
+
+func (builder *LeaveBotPathReqBodyBuilder) Build() (*LeaveBotReqBody, error) {
+	req := &LeaveBotReqBody{}
+	if builder.meetingIdSet {
+		req.MeetingId = &builder.meetingId
+	}
+	return req, nil
+}
+
+type LeaveBotReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *LeaveBotReqBody
+}
+
+func NewLeaveBotReqBuilder() *LeaveBotReqBuilder {
+	builder := &LeaveBotReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 机器人可通过会议 ID 主动离开指定的视频会议。调用成功后，将返回该机器人对应的用户信息。
+func (builder *LeaveBotReqBuilder) Body(body *LeaveBotReqBody) *LeaveBotReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *LeaveBotReqBuilder) Build() *LeaveBotReq {
+	req := &LeaveBotReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type LeaveBotReqBody struct {
+	MeetingId *string `json:"meeting_id,omitempty"` // 会议唯一标识，用于指定机器人需要退出的目标会议。请传入[加入会议](https://open.feishu.cn/document/server-docs/vc-v1/bot/join)接口调用成功后返回的长数字 `meeting_id`，而不是 9 位会议号。
+}
+
+type LeaveBotReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *LeaveBotReqBody `body:""`
+}
+
+type LeaveBotRespData struct {
+	LeaveUser *MeetingUser `json:"leave_user,omitempty"` // 离开用户信息
+}
+
+type LeaveBotResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *LeaveBotRespData `json:"data"` // 业务数据
+}
+
+func (resp *LeaveBotResp) Success() bool {
+	return resp.Code == 0
+}
+
+type MessageBotReqBodyBuilder struct {
+	meetingId    string // 会议唯一标识，必须传入长数字 meeting_id，不是 9 位会议号。可通过“获取用户活跃会议列表”等会议查询接口获取。
+	meetingIdSet bool
+
+	msgType    string // 消息类型。可选值：text、reaction。text 表示会中文本消息，reaction 表示会中反馈表情。
+	msgTypeSet bool
+
+	content    string // 消息内容。当 msg_type=text 时表示文本内容；当 msg_type=reaction 时表示反馈表情 key。表情可选值参考：[表情参考说明](https://open.larkoffice.com/document/server-docs/vc-v1/bot/user-guide/meeting-emoji-reference)
+	contentSet bool
+
+	uuid    string // 幂等去重 ID，对应底层 Cid。不传时服务端自动生成并在响应中返回。
+	uuidSet bool
+}
+
+func NewMessageBotReqBodyBuilder() *MessageBotReqBodyBuilder {
+	builder := &MessageBotReqBodyBuilder{}
+	return builder
+}
+
+// 会议唯一标识，必须传入长数字 meeting_id，不是 9 位会议号。可通过“获取用户活跃会议列表”等会议查询接口获取。
+//
+// 示例值：7628568141510692381
+func (builder *MessageBotReqBodyBuilder) MeetingId(meetingId string) *MessageBotReqBodyBuilder {
+	builder.meetingId = meetingId
+	builder.meetingIdSet = true
+	return builder
+}
+
+// 消息类型。可选值：text、reaction。text 表示会中文本消息，reaction 表示会中反馈表情。
+//
+// 示例值：text
+func (builder *MessageBotReqBodyBuilder) MsgType(msgType string) *MessageBotReqBodyBuilder {
+	builder.msgType = msgType
+	builder.msgTypeSet = true
+	return builder
+}
+
+// 消息内容。当 msg_type=text 时表示文本内容；当 msg_type=reaction 时表示反馈表情 key。表情可选值参考：[表情参考说明](https://open.larkoffice.com/document/server-docs/vc-v1/bot/user-guide/meeting-emoji-reference)
+//
+// 示例值：请大家看一下这个问题
+func (builder *MessageBotReqBodyBuilder) Content(content string) *MessageBotReqBodyBuilder {
+	builder.content = content
+	builder.contentSet = true
+	return builder
+}
+
+// 幂等去重 ID，对应底层 Cid。不传时服务端自动生成并在响应中返回。
+//
+// 示例值：7f3b7fd2-1b64-4f5d-9e8b-2f2d8d3b0c11
+func (builder *MessageBotReqBodyBuilder) Uuid(uuid string) *MessageBotReqBodyBuilder {
+	builder.uuid = uuid
+	builder.uuidSet = true
+	return builder
+}
+
+func (builder *MessageBotReqBodyBuilder) Build() *MessageBotReqBody {
+	req := &MessageBotReqBody{}
+	if builder.meetingIdSet {
+		req.MeetingId = &builder.meetingId
+	}
+	if builder.msgTypeSet {
+		req.MsgType = &builder.msgType
+	}
+	if builder.contentSet {
+		req.Content = &builder.content
+	}
+	if builder.uuidSet {
+		req.Uuid = &builder.uuid
+	}
+	return req
+}
+
+type MessageBotPathReqBodyBuilder struct {
+	meetingId    string
+	meetingIdSet bool
+	msgType      string
+	msgTypeSet   bool
+	content      string
+	contentSet   bool
+	uuid         string
+	uuidSet      bool
+}
+
+func NewMessageBotPathReqBodyBuilder() *MessageBotPathReqBodyBuilder {
+	builder := &MessageBotPathReqBodyBuilder{}
+	return builder
+}
+
+// 会议唯一标识，必须传入长数字 meeting_id，不是 9 位会议号。可通过“获取用户活跃会议列表”等会议查询接口获取。
+//
+// 示例值：7628568141510692381
+func (builder *MessageBotPathReqBodyBuilder) MeetingId(meetingId string) *MessageBotPathReqBodyBuilder {
+	builder.meetingId = meetingId
+	builder.meetingIdSet = true
+	return builder
+}
+
+// 消息类型。可选值：text、reaction。text 表示会中文本消息，reaction 表示会中反馈表情。
+//
+// 示例值：text
+func (builder *MessageBotPathReqBodyBuilder) MsgType(msgType string) *MessageBotPathReqBodyBuilder {
+	builder.msgType = msgType
+	builder.msgTypeSet = true
+	return builder
+}
+
+// 消息内容。当 msg_type=text 时表示文本内容；当 msg_type=reaction 时表示反馈表情 key。表情可选值参考：[表情参考说明](https://open.larkoffice.com/document/server-docs/vc-v1/bot/user-guide/meeting-emoji-reference)
+//
+// 示例值：请大家看一下这个问题
+func (builder *MessageBotPathReqBodyBuilder) Content(content string) *MessageBotPathReqBodyBuilder {
+	builder.content = content
+	builder.contentSet = true
+	return builder
+}
+
+// 幂等去重 ID，对应底层 Cid。不传时服务端自动生成并在响应中返回。
+//
+// 示例值：7f3b7fd2-1b64-4f5d-9e8b-2f2d8d3b0c11
+func (builder *MessageBotPathReqBodyBuilder) Uuid(uuid string) *MessageBotPathReqBodyBuilder {
+	builder.uuid = uuid
+	builder.uuidSet = true
+	return builder
+}
+
+func (builder *MessageBotPathReqBodyBuilder) Build() (*MessageBotReqBody, error) {
+	req := &MessageBotReqBody{}
+	if builder.meetingIdSet {
+		req.MeetingId = &builder.meetingId
+	}
+	if builder.msgTypeSet {
+		req.MsgType = &builder.msgType
+	}
+	if builder.contentSet {
+		req.Content = &builder.content
+	}
+	if builder.uuidSet {
+		req.Uuid = &builder.uuid
+	}
+	return req, nil
+}
+
+type MessageBotReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *MessageBotReqBody
+}
+
+func NewMessageBotReqBuilder() *MessageBotReqBuilder {
+	builder := &MessageBotReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 向指定的视频会议发送会中消息。
+func (builder *MessageBotReqBuilder) Body(body *MessageBotReqBody) *MessageBotReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *MessageBotReqBuilder) Build() *MessageBotReq {
+	req := &MessageBotReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type MessageBotReqBody struct {
+	MeetingId *string `json:"meeting_id,omitempty"` // 会议唯一标识，必须传入长数字 meeting_id，不是 9 位会议号。可通过“获取用户活跃会议列表”等会议查询接口获取。
+
+	MsgType *string `json:"msg_type,omitempty"` // 消息类型。可选值：text、reaction。text 表示会中文本消息，reaction 表示会中反馈表情。
+
+	Content *string `json:"content,omitempty"` // 消息内容。当 msg_type=text 时表示文本内容；当 msg_type=reaction 时表示反馈表情 key。表情可选值参考：[表情参考说明](https://open.larkoffice.com/document/server-docs/vc-v1/bot/user-guide/meeting-emoji-reference)
+
+	Uuid *string `json:"uuid,omitempty"` // 幂等去重 ID，对应底层 Cid。不传时服务端自动生成并在响应中返回。
+}
+
+type MessageBotReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *MessageBotReqBody `body:""`
+}
+
+type MessageBotRespData struct {
+	Uuid *string `json:"uuid,omitempty"` // 本次实际使用的幂等去重 ID。若请求未传 uuid，则返回服务端生成的 uuid。
+}
+
+type MessageBotResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *MessageBotRespData `json:"data"` // 业务数据
+}
+
+func (resp *MessageBotResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UserActiveMeetingBotReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -13098,7 +13953,7 @@ func NewUserActiveMeetingBotReqBuilder() *UserActiveMeetingBotReqBuilder {
 	return builder
 }
 
-// 目标用户的 open_id，格式为 ou_ 开头；应用身份调用时必填。
+// 目标用户的 ID。其类型由 user_id_type 指定：open_id（以 ou_ 开头）、union_id 或 user_id。user_id 的格式必须与 user_id_type 的取值一致；应用身份调用时必填。
 //
 // 示例值：;ou_3ec3f6a28a0d08c45d895276e8e5e19b
 func (builder *UserActiveMeetingBotReqBuilder) UserId(userId string) *UserActiveMeetingBotReqBuilder {
@@ -20251,6 +21106,70 @@ type GetScopeConfigResp struct {
 
 func (resp *GetScopeConfigResp) Success() bool {
 	return resp.Code == 0
+}
+
+type P2BotMeetingActivityV1Data struct {
+	MeetingActivityItems []*MeetingActivityItem `json:"meeting_activity_items,omitempty"` // 会中事件
+}
+
+type P2BotMeetingActivityV1 struct {
+	*larkevent.EventV2Base                             // 事件基础数据
+	*larkevent.EventReq                                // 请求原生数据
+	Event                  *P2BotMeetingActivityV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2BotMeetingActivityV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2BotMeetingEndedV1Data struct {
+	Meeting *MeetingAgentEventMeeting `json:"meeting,omitempty"` // 会议数据
+}
+
+type P2BotMeetingEndedV1 struct {
+	*larkevent.EventV2Base                          // 事件基础数据
+	*larkevent.EventReq                             // 请求原生数据
+	Event                  *P2BotMeetingEndedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2BotMeetingEndedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2BotMeetingInvitedV1Data struct {
+	Meeting *MeetingAgentEventMeeting `json:"meeting,omitempty"` // 会议数据
+
+	Bot *MeetingAgentEventUser `json:"bot,omitempty"` // 邀请人
+
+	Inviter *MeetingAgentEventUser `json:"inviter,omitempty"` // 邀请人
+
+	InviteTime *string `json:"invite_time,omitempty"` // 邀请时间（秒级 unix 时间戳，序列化为字符串避免 JS int64 精度丢失）
+
+	CallId *string `json:"call_id,omitempty"` // 邀请-入会链路的关联标识，由服务端生成。Agent 收到后必须在调用「加入会议」接口时原样回传。
+}
+
+type P2BotMeetingInvitedV1 struct {
+	*larkevent.EventV2Base                            // 事件基础数据
+	*larkevent.EventReq                               // 请求原生数据
+	Event                  *P2BotMeetingInvitedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2BotMeetingInvitedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2BotMeetingStartedV1Data struct {
+	Meeting *MeetingAgentEventMeeting `json:"meeting,omitempty"` // 会议数据
+}
+
+type P2BotMeetingStartedV1 struct {
+	*larkevent.EventV2Base                            // 事件基础数据
+	*larkevent.EventReq                               // 请求原生数据
+	Event                  *P2BotMeetingStartedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2BotMeetingStartedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
 }
 
 type P2MeetingAllMeetingEndedV1Data struct {

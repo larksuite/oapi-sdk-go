@@ -918,6 +918,56 @@ func (builder *CurrencyBuilder) Build() *Currency {
 	return req
 }
 
+type DataKey struct {
+	KeyContent *string `json:"key_content,omitempty"` // 密钥的具体内容，用于数据加密或解密操作
+
+	KeyType *string `json:"key_type,omitempty"` // 密钥的类型，用于标识加密算法类型
+}
+
+type DataKeyBuilder struct {
+	keyContent    string // 密钥的具体内容，用于数据加密或解密操作
+	keyContentSet bool
+
+	keyType    string // 密钥的类型，用于标识加密算法类型
+	keyTypeSet bool
+}
+
+func NewDataKeyBuilder() *DataKeyBuilder {
+	builder := &DataKeyBuilder{}
+	return builder
+}
+
+// 密钥的具体内容，用于数据加密或解密操作
+//
+// 示例值：ABCdef123!@#
+func (builder *DataKeyBuilder) KeyContent(keyContent string) *DataKeyBuilder {
+	builder.keyContent = keyContent
+	builder.keyContentSet = true
+	return builder
+}
+
+// 密钥的类型，用于标识加密算法类型
+//
+// 示例值：AES_256_GCM
+func (builder *DataKeyBuilder) KeyType(keyType string) *DataKeyBuilder {
+	builder.keyType = keyType
+	builder.keyTypeSet = true
+	return builder
+}
+
+func (builder *DataKeyBuilder) Build() *DataKey {
+	req := &DataKey{}
+	if builder.keyContentSet {
+		req.KeyContent = &builder.keyContent
+
+	}
+	if builder.keyTypeSet {
+		req.KeyType = &builder.keyType
+
+	}
+	return req
+}
+
 type DepartmentId struct {
 	DepartmentId *string `json:"department_id,omitempty"` //
 
@@ -2342,7 +2392,7 @@ type LumpSumPaymentDetail struct {
 
 	DetailReferencePeriodEndDate *string `json:"detail_reference_period_end_date,omitempty"` // 一次性支付明细所属期结束日期
 
-	IsNotIssuedDueToOffboardings *int `json:"is_not_issued_due_to_offboardings,omitempty"` // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+	IsNotIssuedDueToOffboarding *int `json:"is_not_issued_due_to_offboarding,omitempty"` // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
 }
 
 type LumpSumPaymentDetailBuilder struct {
@@ -2391,8 +2441,8 @@ type LumpSumPaymentDetailBuilder struct {
 	detailReferencePeriodEndDate    string // 一次性支付明细所属期结束日期
 	detailReferencePeriodEndDateSet bool
 
-	isNotIssuedDueToOffboardings    int // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
-	isNotIssuedDueToOffboardingsSet bool
+	isNotIssuedDueToOffboarding    int // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+	isNotIssuedDueToOffboardingSet bool
 }
 
 func NewLumpSumPaymentDetailBuilder() *LumpSumPaymentDetailBuilder {
@@ -2538,9 +2588,9 @@ func (builder *LumpSumPaymentDetailBuilder) DetailReferencePeriodEndDate(detailR
 // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
 //
 // 示例值：0
-func (builder *LumpSumPaymentDetailBuilder) IsNotIssuedDueToOffboardings(isNotIssuedDueToOffboardings int) *LumpSumPaymentDetailBuilder {
-	builder.isNotIssuedDueToOffboardings = isNotIssuedDueToOffboardings
-	builder.isNotIssuedDueToOffboardingsSet = true
+func (builder *LumpSumPaymentDetailBuilder) IsNotIssuedDueToOffboarding(isNotIssuedDueToOffboarding int) *LumpSumPaymentDetailBuilder {
+	builder.isNotIssuedDueToOffboarding = isNotIssuedDueToOffboarding
+	builder.isNotIssuedDueToOffboardingSet = true
 	return builder
 }
 
@@ -2606,8 +2656,8 @@ func (builder *LumpSumPaymentDetailBuilder) Build() *LumpSumPaymentDetail {
 		req.DetailReferencePeriodEndDate = &builder.detailReferencePeriodEndDate
 
 	}
-	if builder.isNotIssuedDueToOffboardingsSet {
-		req.IsNotIssuedDueToOffboardings = &builder.isNotIssuedDueToOffboardings
+	if builder.isNotIssuedDueToOffboardingSet {
+		req.IsNotIssuedDueToOffboarding = &builder.isNotIssuedDueToOffboarding
 
 	}
 	return req
@@ -2632,7 +2682,9 @@ type LumpSumPaymentDetailForCreate struct {
 
 	DetailReferencePeriodEndDate *string `json:"detail_reference_period_end_date,omitempty"` // 一次性支付明细所属期结束日期
 
-	IsNotIssuedDueToOffboardings *int `json:"is_not_issued_due_to_offboardings,omitempty"` // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+	IsNotIssuedDueToOffboarding *int `json:"is_not_issued_due_to_offboarding,omitempty"` // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+
+	IssuanceIndex *int `json:"issuance_index,omitempty"` // 发放次序
 }
 
 type LumpSumPaymentDetailForCreateBuilder struct {
@@ -2663,8 +2715,11 @@ type LumpSumPaymentDetailForCreateBuilder struct {
 	detailReferencePeriodEndDate    string // 一次性支付明细所属期结束日期
 	detailReferencePeriodEndDateSet bool
 
-	isNotIssuedDueToOffboardings    int // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
-	isNotIssuedDueToOffboardingsSet bool
+	isNotIssuedDueToOffboarding    int // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+	isNotIssuedDueToOffboardingSet bool
+
+	issuanceIndex    int // 发放次序
+	issuanceIndexSet bool
 }
 
 func NewLumpSumPaymentDetailForCreateBuilder() *LumpSumPaymentDetailForCreateBuilder {
@@ -2756,9 +2811,18 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) DetailReferencePeriodEndDat
 // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
 //
 // 示例值：0
-func (builder *LumpSumPaymentDetailForCreateBuilder) IsNotIssuedDueToOffboardings(isNotIssuedDueToOffboardings int) *LumpSumPaymentDetailForCreateBuilder {
-	builder.isNotIssuedDueToOffboardings = isNotIssuedDueToOffboardings
-	builder.isNotIssuedDueToOffboardingsSet = true
+func (builder *LumpSumPaymentDetailForCreateBuilder) IsNotIssuedDueToOffboarding(isNotIssuedDueToOffboarding int) *LumpSumPaymentDetailForCreateBuilder {
+	builder.isNotIssuedDueToOffboarding = isNotIssuedDueToOffboarding
+	builder.isNotIssuedDueToOffboardingSet = true
+	return builder
+}
+
+// 发放次序
+//
+// 示例值：1
+func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceIndex(issuanceIndex int) *LumpSumPaymentDetailForCreateBuilder {
+	builder.issuanceIndex = issuanceIndex
+	builder.issuanceIndexSet = true
 	return builder
 }
 
@@ -2800,8 +2864,12 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) Build() *LumpSumPaymentDeta
 		req.DetailReferencePeriodEndDate = &builder.detailReferencePeriodEndDate
 
 	}
-	if builder.isNotIssuedDueToOffboardingsSet {
-		req.IsNotIssuedDueToOffboardings = &builder.isNotIssuedDueToOffboardings
+	if builder.isNotIssuedDueToOffboardingSet {
+		req.IsNotIssuedDueToOffboarding = &builder.isNotIssuedDueToOffboarding
+
+	}
+	if builder.issuanceIndexSet {
+		req.IssuanceIndex = &builder.issuanceIndex
 
 	}
 	return req
@@ -2828,7 +2896,7 @@ type LumpSumPaymentDetailForUpdate struct {
 
 	DetailReferencePeriodEndDate *string `json:"detail_reference_period_end_date,omitempty"` // 一次性支付明细所属期结束日期
 
-	IsNotIssuedDueToOffboardings *int `json:"is_not_issued_due_to_offboardings,omitempty"` // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+	IsNotIssuedDueToOffboarding *int `json:"is_not_issued_due_to_offboarding,omitempty"` // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
 }
 
 type LumpSumPaymentDetailForUpdateBuilder struct {
@@ -2862,8 +2930,8 @@ type LumpSumPaymentDetailForUpdateBuilder struct {
 	detailReferencePeriodEndDate    string // 一次性支付明细所属期结束日期
 	detailReferencePeriodEndDateSet bool
 
-	isNotIssuedDueToOffboardings    int // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
-	isNotIssuedDueToOffboardingsSet bool
+	isNotIssuedDueToOffboarding    int // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+	isNotIssuedDueToOffboardingSet bool
 }
 
 func NewLumpSumPaymentDetailForUpdateBuilder() *LumpSumPaymentDetailForUpdateBuilder {
@@ -2964,9 +3032,9 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) DetailReferencePeriodEndDat
 // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
 //
 // 示例值：0
-func (builder *LumpSumPaymentDetailForUpdateBuilder) IsNotIssuedDueToOffboardings(isNotIssuedDueToOffboardings int) *LumpSumPaymentDetailForUpdateBuilder {
-	builder.isNotIssuedDueToOffboardings = isNotIssuedDueToOffboardings
-	builder.isNotIssuedDueToOffboardingsSet = true
+func (builder *LumpSumPaymentDetailForUpdateBuilder) IsNotIssuedDueToOffboarding(isNotIssuedDueToOffboarding int) *LumpSumPaymentDetailForUpdateBuilder {
+	builder.isNotIssuedDueToOffboarding = isNotIssuedDueToOffboarding
+	builder.isNotIssuedDueToOffboardingSet = true
 	return builder
 }
 
@@ -3012,8 +3080,58 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) Build() *LumpSumPaymentDeta
 		req.DetailReferencePeriodEndDate = &builder.detailReferencePeriodEndDate
 
 	}
-	if builder.isNotIssuedDueToOffboardingsSet {
-		req.IsNotIssuedDueToOffboardings = &builder.isNotIssuedDueToOffboardings
+	if builder.isNotIssuedDueToOffboardingSet {
+		req.IsNotIssuedDueToOffboarding = &builder.isNotIssuedDueToOffboarding
+
+	}
+	return req
+}
+
+type LumpSumPaymentDetailOperateResult struct {
+	DetailId *string `json:"detail_id,omitempty"` // 明细ID
+
+	IssuanceIndex *int `json:"issuance_index,omitempty"` // 发放次序
+}
+
+type LumpSumPaymentDetailOperateResultBuilder struct {
+	detailId    string // 明细ID
+	detailIdSet bool
+
+	issuanceIndex    int // 发放次序
+	issuanceIndexSet bool
+}
+
+func NewLumpSumPaymentDetailOperateResultBuilder() *LumpSumPaymentDetailOperateResultBuilder {
+	builder := &LumpSumPaymentDetailOperateResultBuilder{}
+	return builder
+}
+
+// 明细ID
+//
+// 示例值：7395133551102200923
+func (builder *LumpSumPaymentDetailOperateResultBuilder) DetailId(detailId string) *LumpSumPaymentDetailOperateResultBuilder {
+	builder.detailId = detailId
+	builder.detailIdSet = true
+	return builder
+}
+
+// 发放次序
+//
+// 示例值：1
+func (builder *LumpSumPaymentDetailOperateResultBuilder) IssuanceIndex(issuanceIndex int) *LumpSumPaymentDetailOperateResultBuilder {
+	builder.issuanceIndex = issuanceIndex
+	builder.issuanceIndexSet = true
+	return builder
+}
+
+func (builder *LumpSumPaymentDetailOperateResultBuilder) Build() *LumpSumPaymentDetailOperateResult {
+	req := &LumpSumPaymentDetailOperateResult{}
+	if builder.detailIdSet {
+		req.DetailId = &builder.detailId
+
+	}
+	if builder.issuanceIndexSet {
+		req.IssuanceIndex = &builder.issuanceIndex
 
 	}
 	return req
@@ -3467,6 +3585,8 @@ type LumpSumPaymentOperateResult struct {
 	Code *int `json:"code,omitempty"` // 操作结果状态码
 
 	Message *string `json:"message,omitempty"` // 操作结果描述
+
+	DetailResults []*LumpSumPaymentDetailOperateResult `json:"detail_results,omitempty"` // 操作的明细结果
 }
 
 type LumpSumPaymentOperateResultBuilder struct {
@@ -3481,6 +3601,9 @@ type LumpSumPaymentOperateResultBuilder struct {
 
 	message    string // 操作结果描述
 	messageSet bool
+
+	detailResults    []*LumpSumPaymentDetailOperateResult // 操作的明细结果
+	detailResultsSet bool
 }
 
 func NewLumpSumPaymentOperateResultBuilder() *LumpSumPaymentOperateResultBuilder {
@@ -3524,6 +3647,15 @@ func (builder *LumpSumPaymentOperateResultBuilder) Message(message string) *Lump
 	return builder
 }
 
+// 操作的明细结果
+//
+// 示例值：
+func (builder *LumpSumPaymentOperateResultBuilder) DetailResults(detailResults []*LumpSumPaymentDetailOperateResult) *LumpSumPaymentOperateResultBuilder {
+	builder.detailResults = detailResults
+	builder.detailResultsSet = true
+	return builder
+}
+
 func (builder *LumpSumPaymentOperateResultBuilder) Build() *LumpSumPaymentOperateResult {
 	req := &LumpSumPaymentOperateResult{}
 	if builder.idSet {
@@ -3541,6 +3673,9 @@ func (builder *LumpSumPaymentOperateResultBuilder) Build() *LumpSumPaymentOperat
 	if builder.messageSet {
 		req.Message = &builder.message
 
+	}
+	if builder.detailResultsSet {
+		req.DetailResults = builder.detailResults
 	}
 	return req
 }

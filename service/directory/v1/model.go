@@ -16074,7 +16074,7 @@ type ResignedUserResouceReceiver struct {
 
 	ExternalChatAcceptorEmployeeId *string `json:"external_chat_acceptor_employee_id,omitempty"` // 外部群接收者。ID值与查询参数中的employee_id_type 对应。;被删除用户为外部群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人，如果组织内只有该用户在群里，则解散外部群。
 
-	DocsAcceptorEmployeeId *string `json:"docs_acceptor_employee_id,omitempty"` // 文档接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的文档转让给接收者。不指定接收者则将文档资源保留在该用户名下。
+	DocsAcceptorEmployeeId *string `json:"docs_acceptor_employee_id,omitempty"` // 文档接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的文档转让给接收者。不指定接收者则默认转让给该用户的直属上级。
 
 	CalendarAcceptorEmployeeId *string `json:"calendar_acceptor_employee_id,omitempty"` // 日程接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的日程转让给接收者。不指定接收者则将日程资源保留在该用户名下。
 
@@ -16102,7 +16102,7 @@ type ResignedUserResouceReceiverBuilder struct {
 	externalChatAcceptorEmployeeId    string // 外部群接收者。ID值与查询参数中的employee_id_type 对应。;被删除用户为外部群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人，如果组织内只有该用户在群里，则解散外部群。
 	externalChatAcceptorEmployeeIdSet bool
 
-	docsAcceptorEmployeeId    string // 文档接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的文档转让给接收者。不指定接收者则将文档资源保留在该用户名下。
+	docsAcceptorEmployeeId    string // 文档接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的文档转让给接收者。不指定接收者则默认转让给该用户的直属上级。
 	docsAcceptorEmployeeIdSet bool
 
 	calendarAcceptorEmployeeId    string // 日程接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的日程转让给接收者。不指定接收者则将日程资源保留在该用户名下。
@@ -16156,7 +16156,7 @@ func (builder *ResignedUserResouceReceiverBuilder) ExternalChatAcceptorEmployeeI
 	return builder
 }
 
-// 文档接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的文档转让给接收者。不指定接收者则将文档资源保留在该用户名下。
+// 文档接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的文档转让给接收者。不指定接收者则默认转让给该用户的直属上级。
 //
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) DocsAcceptorEmployeeId(docsAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {

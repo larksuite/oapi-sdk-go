@@ -1418,7 +1418,7 @@ func (m *message) ReadUsers(ctx context.Context, req *ReadUsersMessageReq, optio
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/im/v1/messages/:message_id/read_users"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
 	if err != nil {
 		return nil, err
@@ -1472,7 +1472,7 @@ func (m *message) Search(ctx context.Context, req *SearchMessageReq, options ...
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/im/v1/messages/search"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
 	if err != nil {
 		return nil, err

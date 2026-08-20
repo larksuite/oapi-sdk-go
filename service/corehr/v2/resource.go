@@ -1270,7 +1270,7 @@ func (c *costCenter) QueryRecentChange(ctx context.Context, req *QueryRecentChan
 	return resp, err
 }
 
-// Search 搜索成本中心信息
+// Search 查询成本中心信息
 //
 // - 搜索成本中心信息；支持通过成本中心ID，成本中心名称，成本中心编码，成本中心上级搜索成本中心的信息，有分页功能。
 //

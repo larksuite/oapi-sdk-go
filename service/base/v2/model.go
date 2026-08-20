@@ -162,6 +162,243 @@ func (builder *AppBuilder) Build() *App {
 	return req
 }
 
+type AttachmentCell struct {
+	FileToken *string `json:"file_token,omitempty"` // 文件Token
+
+	Name *string `json:"name,omitempty"` // 文件名称
+
+	Size *int `json:"size,omitempty"` // 文件大小
+}
+
+type AttachmentCellBuilder struct {
+	fileToken    string // 文件Token
+	fileTokenSet bool
+
+	name    string // 文件名称
+	nameSet bool
+
+	size    int // 文件大小
+	sizeSet bool
+}
+
+func NewAttachmentCellBuilder() *AttachmentCellBuilder {
+	builder := &AttachmentCellBuilder{}
+	return builder
+}
+
+// 文件Token
+//
+// 示例值：L5oEwNyIFin6KXkqP5vc9Hm9noe
+func (builder *AttachmentCellBuilder) FileToken(fileToken string) *AttachmentCellBuilder {
+	builder.fileToken = fileToken
+	builder.fileTokenSet = true
+	return builder
+}
+
+// 文件名称
+//
+// 示例值：简历.pdf
+func (builder *AttachmentCellBuilder) Name(name string) *AttachmentCellBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 文件大小
+//
+// 示例值：1024
+func (builder *AttachmentCellBuilder) Size(size int) *AttachmentCellBuilder {
+	builder.size = size
+	builder.sizeSet = true
+	return builder
+}
+
+func (builder *AttachmentCellBuilder) Build() *AttachmentCell {
+	req := &AttachmentCell{}
+	if builder.fileTokenSet {
+		req.FileToken = &builder.fileToken
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.sizeSet {
+		req.Size = &builder.size
+
+	}
+	return req
+}
+
+type Block struct {
+	Name *string `json:"name,omitempty"` // 侧边栏组件名称
+
+	Type *string `json:"type,omitempty"` // 组件类型
+}
+
+type BlockBuilder struct {
+	name    string // 侧边栏组件名称
+	nameSet bool
+
+	type_    string // 组件类型
+	type_Set bool
+}
+
+func NewBlockBuilder() *BlockBuilder {
+	builder := &BlockBuilder{}
+	return builder
+}
+
+// 侧边栏组件名称
+//
+// 示例值：数据表
+func (builder *BlockBuilder) Name(name string) *BlockBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 组件类型
+//
+// 示例值：workflow
+func (builder *BlockBuilder) Type(type_ string) *BlockBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+func (builder *BlockBuilder) Build() *Block {
+	req := &Block{}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	return req
+}
+
+type BlockChange struct {
+	BlockId *string `json:"block_id,omitempty"` // 组件ID
+
+	ChangeType *string `json:"change_type,omitempty"` // 变更类型
+
+	EditorId *OutterUserId `json:"editor_id,omitempty"` // 编辑人身份
+
+	BeforeSnapshot *Block `json:"before_snapshot,omitempty"` // 变更前快照
+
+	AfterSnapshot *Block `json:"after_snapshot,omitempty"` // 变更后快照
+
+	BlockType *string `json:"block_type,omitempty"` // 组件类型
+}
+
+type BlockChangeBuilder struct {
+	blockId    string // 组件ID
+	blockIdSet bool
+
+	changeType    string // 变更类型
+	changeTypeSet bool
+
+	editorId    *OutterUserId // 编辑人身份
+	editorIdSet bool
+
+	beforeSnapshot    *Block // 变更前快照
+	beforeSnapshotSet bool
+
+	afterSnapshot    *Block // 变更后快照
+	afterSnapshotSet bool
+
+	blockType    string // 组件类型
+	blockTypeSet bool
+}
+
+func NewBlockChangeBuilder() *BlockChangeBuilder {
+	builder := &BlockChangeBuilder{}
+	return builder
+}
+
+// 组件ID
+//
+// 示例值：fldvqDe26dIjz
+func (builder *BlockChangeBuilder) BlockId(blockId string) *BlockChangeBuilder {
+	builder.blockId = blockId
+	builder.blockIdSet = true
+	return builder
+}
+
+// 变更类型
+//
+// 示例值：add
+func (builder *BlockChangeBuilder) ChangeType(changeType string) *BlockChangeBuilder {
+	builder.changeType = changeType
+	builder.changeTypeSet = true
+	return builder
+}
+
+// 编辑人身份
+//
+// 示例值：
+func (builder *BlockChangeBuilder) EditorId(editorId *OutterUserId) *BlockChangeBuilder {
+	builder.editorId = editorId
+	builder.editorIdSet = true
+	return builder
+}
+
+// 变更前快照
+//
+// 示例值：
+func (builder *BlockChangeBuilder) BeforeSnapshot(beforeSnapshot *Block) *BlockChangeBuilder {
+	builder.beforeSnapshot = beforeSnapshot
+	builder.beforeSnapshotSet = true
+	return builder
+}
+
+// 变更后快照
+//
+// 示例值：
+func (builder *BlockChangeBuilder) AfterSnapshot(afterSnapshot *Block) *BlockChangeBuilder {
+	builder.afterSnapshot = afterSnapshot
+	builder.afterSnapshotSet = true
+	return builder
+}
+
+// 组件类型
+//
+// 示例值：table
+func (builder *BlockChangeBuilder) BlockType(blockType string) *BlockChangeBuilder {
+	builder.blockType = blockType
+	builder.blockTypeSet = true
+	return builder
+}
+
+func (builder *BlockChangeBuilder) Build() *BlockChange {
+	req := &BlockChange{}
+	if builder.blockIdSet {
+		req.BlockId = &builder.blockId
+
+	}
+	if builder.changeTypeSet {
+		req.ChangeType = &builder.changeType
+
+	}
+	if builder.editorIdSet {
+		req.EditorId = builder.editorId
+	}
+	if builder.beforeSnapshotSet {
+		req.BeforeSnapshot = builder.beforeSnapshot
+	}
+	if builder.afterSnapshotSet {
+		req.AfterSnapshot = builder.afterSnapshot
+	}
+	if builder.blockTypeSet {
+		req.BlockType = &builder.blockType
+
+	}
+	return req
+}
+
 type BlockRole struct {
 	BlockId *string `json:"block_id,omitempty"` // 多维表格仪表盘的唯一标识
 
@@ -226,6 +463,193 @@ func (builder *BlockRoleBuilder) Build() *BlockRole {
 	if builder.blockTypeSet {
 		req.BlockType = &builder.blockType
 
+	}
+	return req
+}
+
+type ButtonClickChange struct {
+	RecordId *string `json:"record_id,omitempty"` // 记录ID
+
+	EditorId *string `json:"editor_id,omitempty"` // 点击人身份
+
+	Snapshot map[string]interface{} `json:"snapshot,omitempty"` // 点击时的记录快照
+
+	ClickTime *string `json:"click_time,omitempty"` // 点击时刻
+}
+
+type ButtonClickChangeBuilder struct {
+	recordId    string // 记录ID
+	recordIdSet bool
+
+	editorId    string // 点击人身份
+	editorIdSet bool
+
+	snapshot    map[string]interface{} // 点击时的记录快照
+	snapshotSet bool
+
+	clickTime    string // 点击时刻
+	clickTimeSet bool
+}
+
+func NewButtonClickChangeBuilder() *ButtonClickChangeBuilder {
+	builder := &ButtonClickChangeBuilder{}
+	return builder
+}
+
+// 记录ID
+//
+// 示例值：recvqDe26dIjzB
+func (builder *ButtonClickChangeBuilder) RecordId(recordId string) *ButtonClickChangeBuilder {
+	builder.recordId = recordId
+	builder.recordIdSet = true
+	return builder
+}
+
+// 点击人身份
+//
+// 示例值：ou_12749123081209381209312axx
+func (builder *ButtonClickChangeBuilder) EditorId(editorId string) *ButtonClickChangeBuilder {
+	builder.editorId = editorId
+	builder.editorIdSet = true
+	return builder
+}
+
+// 点击时的记录快照
+//
+// 示例值：
+func (builder *ButtonClickChangeBuilder) Snapshot(snapshot map[string]interface{}) *ButtonClickChangeBuilder {
+	builder.snapshot = snapshot
+	builder.snapshotSet = true
+	return builder
+}
+
+// 点击时刻
+//
+// 示例值：2026-07-30T14:48:10+08:00
+func (builder *ButtonClickChangeBuilder) ClickTime(clickTime string) *ButtonClickChangeBuilder {
+	builder.clickTime = clickTime
+	builder.clickTimeSet = true
+	return builder
+}
+
+func (builder *ButtonClickChangeBuilder) Build() *ButtonClickChange {
+	req := &ButtonClickChange{}
+	if builder.recordIdSet {
+		req.RecordId = &builder.recordId
+
+	}
+	if builder.editorIdSet {
+		req.EditorId = &builder.editorId
+
+	}
+	if builder.snapshotSet {
+		req.Snapshot = builder.snapshot
+	}
+	if builder.clickTimeSet {
+		req.ClickTime = &builder.clickTime
+
+	}
+	return req
+}
+
+type CalcResultType struct {
+	Type *string `json:"type,omitempty"` // 计算结果类型
+
+	Auto *bool `json:"auto,omitempty"` // 是否由计算引擎自动输出类型，false 时代表用户手动设置计算结果的类型
+
+	Style map[string]interface{} `json:"style,omitempty"` // 具体的展示格式
+
+	Multiple *bool `json:"multiple,omitempty"` // 是否多值，包括多选/多个人员/多个群组
+
+	Options []*FieldOption `json:"options,omitempty"` // 用户自定义的选项数组
+}
+
+type CalcResultTypeBuilder struct {
+	type_    string // 计算结果类型
+	type_Set bool
+
+	auto    bool // 是否由计算引擎自动输出类型，false 时代表用户手动设置计算结果的类型
+	autoSet bool
+
+	style    map[string]interface{} // 具体的展示格式
+	styleSet bool
+
+	multiple    bool // 是否多值，包括多选/多个人员/多个群组
+	multipleSet bool
+
+	options    []*FieldOption // 用户自定义的选项数组
+	optionsSet bool
+}
+
+func NewCalcResultTypeBuilder() *CalcResultTypeBuilder {
+	builder := &CalcResultTypeBuilder{}
+	return builder
+}
+
+// 计算结果类型
+//
+// 示例值：text
+func (builder *CalcResultTypeBuilder) Type(type_ string) *CalcResultTypeBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 是否由计算引擎自动输出类型，false 时代表用户手动设置计算结果的类型
+//
+// 示例值：false
+func (builder *CalcResultTypeBuilder) Auto(auto bool) *CalcResultTypeBuilder {
+	builder.auto = auto
+	builder.autoSet = true
+	return builder
+}
+
+// 具体的展示格式
+//
+// 示例值：
+func (builder *CalcResultTypeBuilder) Style(style map[string]interface{}) *CalcResultTypeBuilder {
+	builder.style = style
+	builder.styleSet = true
+	return builder
+}
+
+// 是否多值，包括多选/多个人员/多个群组
+//
+// 示例值：true
+func (builder *CalcResultTypeBuilder) Multiple(multiple bool) *CalcResultTypeBuilder {
+	builder.multiple = multiple
+	builder.multipleSet = true
+	return builder
+}
+
+// 用户自定义的选项数组
+//
+// 示例值：
+func (builder *CalcResultTypeBuilder) Options(options []*FieldOption) *CalcResultTypeBuilder {
+	builder.options = options
+	builder.optionsSet = true
+	return builder
+}
+
+func (builder *CalcResultTypeBuilder) Build() *CalcResultType {
+	req := &CalcResultType{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.autoSet {
+		req.Auto = &builder.auto
+
+	}
+	if builder.styleSet {
+		req.Style = builder.style
+	}
+	if builder.multipleSet {
+		req.Multiple = &builder.multiple
+
+	}
+	if builder.optionsSet {
+		req.Options = builder.options
 	}
 	return req
 }
@@ -338,6 +762,56 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	}
 	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
+type DynamicFieldOptionSource struct {
+	TableId *string `json:"table_id,omitempty"` // 动态选项来源表 ID 或表名
+
+	FieldId *string `json:"field_id,omitempty"` // 动态选项来源字段 ID 或字段名
+}
+
+type DynamicFieldOptionSourceBuilder struct {
+	tableId    string // 动态选项来源表 ID 或表名
+	tableIdSet bool
+
+	fieldId    string // 动态选项来源字段 ID 或字段名
+	fieldIdSet bool
+}
+
+func NewDynamicFieldOptionSourceBuilder() *DynamicFieldOptionSourceBuilder {
+	builder := &DynamicFieldOptionSourceBuilder{}
+	return builder
+}
+
+// 动态选项来源表 ID 或表名
+//
+// 示例值：数据表
+func (builder *DynamicFieldOptionSourceBuilder) TableId(tableId string) *DynamicFieldOptionSourceBuilder {
+	builder.tableId = tableId
+	builder.tableIdSet = true
+	return builder
+}
+
+// 动态选项来源字段 ID 或字段名
+//
+// 示例值：姓名
+func (builder *DynamicFieldOptionSourceBuilder) FieldId(fieldId string) *DynamicFieldOptionSourceBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdSet = true
+	return builder
+}
+
+func (builder *DynamicFieldOptionSourceBuilder) Build() *DynamicFieldOptionSource {
+	req := &DynamicFieldOptionSource{}
+	if builder.tableIdSet {
+		req.TableId = &builder.tableId
+
+	}
+	if builder.fieldIdSet {
+		req.FieldId = &builder.fieldId
 
 	}
 	return req
@@ -500,6 +974,525 @@ func (builder *ExtInfoBuilder) Build() *ExtInfo {
 	return req
 }
 
+type Field struct {
+	Type *string `json:"type,omitempty"` // 字段类型
+
+	Name *string `json:"name,omitempty"` // 字段名称
+
+	Description *string `json:"description,omitempty"` // 字段描述
+
+	Style map[string]interface{} `json:"style,omitempty"` // 字段样式配置；数字、时间、创建时间、修改时间、自动编号等字段会使用该配置
+
+	Multiple *bool `json:"multiple,omitempty"` // 是否支持多值；选择、人员、群聊等字段会使用该配置
+
+	Options []*FieldOption `json:"options,omitempty"` // 静态选项列表；选择字段会使用该配置
+
+	DynamicOptionsSource *DynamicFieldOptionSource `json:"dynamic_options_source,omitempty"` // 动态选项来源；选择字段引用其他表字段作为选项来源时使用该配置
+
+	LinkTable *string `json:"link_table,omitempty"` // 关联表名称；关联字段会使用该配置
+
+	Bidirectional *bool `json:"bidirectional,omitempty"` // 是否为双向关联
+
+	BidirectionalLinkFieldName *string `json:"bidirectional_link_field_name,omitempty"` // 双向关联字段的反向字段名称
+
+	Expression *string `json:"expression,omitempty"` // 公式表达式
+
+	From *string `json:"from,omitempty"` // 查找引用字段的数据来源表名称
+
+	Select *string `json:"select,omitempty"` // 查找引用字段选择的目标字段名称
+
+	Where map[string]interface{} `json:"where,omitempty"` // 查找引用字段的过滤条件配置
+
+	Aggregate *string `json:"aggregate,omitempty"` // 查找引用字段的聚合方式
+
+	AcceptedFileTypes []string `json:"accepted_file_types,omitempty"` // 可接受的文件类型
+
+	InputType *string `json:"input_type,omitempty"` // 可接受的输入方式
+
+	DefaultValue interface{} `json:"default_value,omitempty"` // 字段默认值
+
+	CalcResultType *CalcResultType `json:"calc_result_type,omitempty"` // 公式/查找引用的计算结果类型及格式
+}
+
+type FieldBuilder struct {
+	type_    string // 字段类型
+	type_Set bool
+
+	name    string // 字段名称
+	nameSet bool
+
+	description    string // 字段描述
+	descriptionSet bool
+
+	style    map[string]interface{} // 字段样式配置；数字、时间、创建时间、修改时间、自动编号等字段会使用该配置
+	styleSet bool
+
+	multiple    bool // 是否支持多值；选择、人员、群聊等字段会使用该配置
+	multipleSet bool
+
+	options    []*FieldOption // 静态选项列表；选择字段会使用该配置
+	optionsSet bool
+
+	dynamicOptionsSource    *DynamicFieldOptionSource // 动态选项来源；选择字段引用其他表字段作为选项来源时使用该配置
+	dynamicOptionsSourceSet bool
+
+	linkTable    string // 关联表名称；关联字段会使用该配置
+	linkTableSet bool
+
+	bidirectional    bool // 是否为双向关联
+	bidirectionalSet bool
+
+	bidirectionalLinkFieldName    string // 双向关联字段的反向字段名称
+	bidirectionalLinkFieldNameSet bool
+
+	expression    string // 公式表达式
+	expressionSet bool
+
+	from    string // 查找引用字段的数据来源表名称
+	fromSet bool
+
+	select_    string // 查找引用字段选择的目标字段名称
+	select_Set bool
+
+	where    map[string]interface{} // 查找引用字段的过滤条件配置
+	whereSet bool
+
+	aggregate    string // 查找引用字段的聚合方式
+	aggregateSet bool
+
+	acceptedFileTypes    []string // 可接受的文件类型
+	acceptedFileTypesSet bool
+
+	inputType    string // 可接受的输入方式
+	inputTypeSet bool
+
+	defaultValue    interface{} // 字段默认值
+	defaultValueSet bool
+
+	calcResultType    *CalcResultType // 公式/查找引用的计算结果类型及格式
+	calcResultTypeSet bool
+}
+
+func NewFieldBuilder() *FieldBuilder {
+	builder := &FieldBuilder{}
+	return builder
+}
+
+// 字段类型
+//
+// 示例值：text
+func (builder *FieldBuilder) Type(type_ string) *FieldBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 字段名称
+//
+// 示例值：姓名
+func (builder *FieldBuilder) Name(name string) *FieldBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 字段描述
+//
+// 示例值：这是员工的姓名
+func (builder *FieldBuilder) Description(description string) *FieldBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+// 字段样式配置；数字、时间、创建时间、修改时间、自动编号等字段会使用该配置
+//
+// 示例值：
+func (builder *FieldBuilder) Style(style map[string]interface{}) *FieldBuilder {
+	builder.style = style
+	builder.styleSet = true
+	return builder
+}
+
+// 是否支持多值；选择、人员、群聊等字段会使用该配置
+//
+// 示例值：true
+func (builder *FieldBuilder) Multiple(multiple bool) *FieldBuilder {
+	builder.multiple = multiple
+	builder.multipleSet = true
+	return builder
+}
+
+// 静态选项列表；选择字段会使用该配置
+//
+// 示例值：
+func (builder *FieldBuilder) Options(options []*FieldOption) *FieldBuilder {
+	builder.options = options
+	builder.optionsSet = true
+	return builder
+}
+
+// 动态选项来源；选择字段引用其他表字段作为选项来源时使用该配置
+//
+// 示例值：
+func (builder *FieldBuilder) DynamicOptionsSource(dynamicOptionsSource *DynamicFieldOptionSource) *FieldBuilder {
+	builder.dynamicOptionsSource = dynamicOptionsSource
+	builder.dynamicOptionsSourceSet = true
+	return builder
+}
+
+// 关联表名称；关联字段会使用该配置
+//
+// 示例值：员工表
+func (builder *FieldBuilder) LinkTable(linkTable string) *FieldBuilder {
+	builder.linkTable = linkTable
+	builder.linkTableSet = true
+	return builder
+}
+
+// 是否为双向关联
+//
+// 示例值：
+func (builder *FieldBuilder) Bidirectional(bidirectional bool) *FieldBuilder {
+	builder.bidirectional = bidirectional
+	builder.bidirectionalSet = true
+	return builder
+}
+
+// 双向关联字段的反向字段名称
+//
+// 示例值：员工姓名
+func (builder *FieldBuilder) BidirectionalLinkFieldName(bidirectionalLinkFieldName string) *FieldBuilder {
+	builder.bidirectionalLinkFieldName = bidirectionalLinkFieldName
+	builder.bidirectionalLinkFieldNameSet = true
+	return builder
+}
+
+// 公式表达式
+//
+// 示例值：DATE(2026, 1, 1)
+func (builder *FieldBuilder) Expression(expression string) *FieldBuilder {
+	builder.expression = expression
+	builder.expressionSet = true
+	return builder
+}
+
+// 查找引用字段的数据来源表名称
+//
+// 示例值：员工表
+func (builder *FieldBuilder) From(from string) *FieldBuilder {
+	builder.from = from
+	builder.fromSet = true
+	return builder
+}
+
+// 查找引用字段选择的目标字段名称
+//
+// 示例值：员工姓名
+func (builder *FieldBuilder) Select(select_ string) *FieldBuilder {
+	builder.select_ = select_
+	builder.select_Set = true
+	return builder
+}
+
+// 查找引用字段的过滤条件配置
+//
+// 示例值：
+func (builder *FieldBuilder) Where(where map[string]interface{}) *FieldBuilder {
+	builder.where = where
+	builder.whereSet = true
+	return builder
+}
+
+// 查找引用字段的聚合方式
+//
+// 示例值：max
+func (builder *FieldBuilder) Aggregate(aggregate string) *FieldBuilder {
+	builder.aggregate = aggregate
+	builder.aggregateSet = true
+	return builder
+}
+
+// 可接受的文件类型
+//
+// 示例值：
+func (builder *FieldBuilder) AcceptedFileTypes(acceptedFileTypes []string) *FieldBuilder {
+	builder.acceptedFileTypes = acceptedFileTypes
+	builder.acceptedFileTypesSet = true
+	return builder
+}
+
+// 可接受的输入方式
+//
+// 示例值：mobile
+func (builder *FieldBuilder) InputType(inputType string) *FieldBuilder {
+	builder.inputType = inputType
+	builder.inputTypeSet = true
+	return builder
+}
+
+// 字段默认值
+//
+// 示例值：
+func (builder *FieldBuilder) DefaultValue(defaultValue interface{}) *FieldBuilder {
+	builder.defaultValue = defaultValue
+	builder.defaultValueSet = true
+	return builder
+}
+
+// 公式/查找引用的计算结果类型及格式
+//
+// 示例值：
+func (builder *FieldBuilder) CalcResultType(calcResultType *CalcResultType) *FieldBuilder {
+	builder.calcResultType = calcResultType
+	builder.calcResultTypeSet = true
+	return builder
+}
+
+func (builder *FieldBuilder) Build() *Field {
+	req := &Field{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
+
+	}
+	if builder.styleSet {
+		req.Style = builder.style
+	}
+	if builder.multipleSet {
+		req.Multiple = &builder.multiple
+
+	}
+	if builder.optionsSet {
+		req.Options = builder.options
+	}
+	if builder.dynamicOptionsSourceSet {
+		req.DynamicOptionsSource = builder.dynamicOptionsSource
+	}
+	if builder.linkTableSet {
+		req.LinkTable = &builder.linkTable
+
+	}
+	if builder.bidirectionalSet {
+		req.Bidirectional = &builder.bidirectional
+
+	}
+	if builder.bidirectionalLinkFieldNameSet {
+		req.BidirectionalLinkFieldName = &builder.bidirectionalLinkFieldName
+
+	}
+	if builder.expressionSet {
+		req.Expression = &builder.expression
+
+	}
+	if builder.fromSet {
+		req.From = &builder.from
+
+	}
+	if builder.select_Set {
+		req.Select = &builder.select_
+
+	}
+	if builder.whereSet {
+		req.Where = builder.where
+	}
+	if builder.aggregateSet {
+		req.Aggregate = &builder.aggregate
+
+	}
+	if builder.acceptedFileTypesSet {
+		req.AcceptedFileTypes = builder.acceptedFileTypes
+	}
+	if builder.inputTypeSet {
+		req.InputType = &builder.inputType
+
+	}
+	if builder.defaultValueSet {
+		req.DefaultValue = &builder.defaultValue
+
+	}
+	if builder.calcResultTypeSet {
+		req.CalcResultType = builder.calcResultType
+	}
+	return req
+}
+
+type FieldChange struct {
+	FieldId *string `json:"field_id,omitempty"` // 字段ID
+
+	ChangeType *string `json:"change_type,omitempty"` // 变更类型
+
+	EditorId *OutterUserId `json:"editor_id,omitempty"` // 编辑人身份
+
+	BeforeSnapshot *Field `json:"before_snapshot,omitempty"` // 变更前快照
+
+	AfterSnapshot *Field `json:"after_snapshot,omitempty"` // 变更后快照
+}
+
+type FieldChangeBuilder struct {
+	fieldId    string // 字段ID
+	fieldIdSet bool
+
+	changeType    string // 变更类型
+	changeTypeSet bool
+
+	editorId    *OutterUserId // 编辑人身份
+	editorIdSet bool
+
+	beforeSnapshot    *Field // 变更前快照
+	beforeSnapshotSet bool
+
+	afterSnapshot    *Field // 变更后快照
+	afterSnapshotSet bool
+}
+
+func NewFieldChangeBuilder() *FieldChangeBuilder {
+	builder := &FieldChangeBuilder{}
+	return builder
+}
+
+// 字段ID
+//
+// 示例值：fldvqDe26dIjz
+func (builder *FieldChangeBuilder) FieldId(fieldId string) *FieldChangeBuilder {
+	builder.fieldId = fieldId
+	builder.fieldIdSet = true
+	return builder
+}
+
+// 变更类型
+//
+// 示例值：add
+func (builder *FieldChangeBuilder) ChangeType(changeType string) *FieldChangeBuilder {
+	builder.changeType = changeType
+	builder.changeTypeSet = true
+	return builder
+}
+
+// 编辑人身份
+//
+// 示例值：
+func (builder *FieldChangeBuilder) EditorId(editorId *OutterUserId) *FieldChangeBuilder {
+	builder.editorId = editorId
+	builder.editorIdSet = true
+	return builder
+}
+
+// 变更前快照
+//
+// 示例值：
+func (builder *FieldChangeBuilder) BeforeSnapshot(beforeSnapshot *Field) *FieldChangeBuilder {
+	builder.beforeSnapshot = beforeSnapshot
+	builder.beforeSnapshotSet = true
+	return builder
+}
+
+// 变更后快照
+//
+// 示例值：
+func (builder *FieldChangeBuilder) AfterSnapshot(afterSnapshot *Field) *FieldChangeBuilder {
+	builder.afterSnapshot = afterSnapshot
+	builder.afterSnapshotSet = true
+	return builder
+}
+
+func (builder *FieldChangeBuilder) Build() *FieldChange {
+	req := &FieldChange{}
+	if builder.fieldIdSet {
+		req.FieldId = &builder.fieldId
+
+	}
+	if builder.changeTypeSet {
+		req.ChangeType = &builder.changeType
+
+	}
+	if builder.editorIdSet {
+		req.EditorId = builder.editorId
+	}
+	if builder.beforeSnapshotSet {
+		req.BeforeSnapshot = builder.beforeSnapshot
+	}
+	if builder.afterSnapshotSet {
+		req.AfterSnapshot = builder.afterSnapshot
+	}
+	return req
+}
+
+type FieldOption struct {
+	Name *string `json:"name,omitempty"` // 选项名称
+
+	Hue *string `json:"hue,omitempty"` // 选项颜色色相
+
+	Lightness *string `json:"lightness,omitempty"` // 选项颜色明度
+}
+
+type FieldOptionBuilder struct {
+	name    string // 选项名称
+	nameSet bool
+
+	hue    string // 选项颜色色相
+	hueSet bool
+
+	lightness    string // 选项颜色明度
+	lightnessSet bool
+}
+
+func NewFieldOptionBuilder() *FieldOptionBuilder {
+	builder := &FieldOptionBuilder{}
+	return builder
+}
+
+// 选项名称
+//
+// 示例值：已完成
+func (builder *FieldOptionBuilder) Name(name string) *FieldOptionBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 选项颜色色相
+//
+// 示例值：Blue
+func (builder *FieldOptionBuilder) Hue(hue string) *FieldOptionBuilder {
+	builder.hue = hue
+	builder.hueSet = true
+	return builder
+}
+
+// 选项颜色明度
+//
+// 示例值：Lighter
+func (builder *FieldOptionBuilder) Lightness(lightness string) *FieldOptionBuilder {
+	builder.lightness = lightness
+	builder.lightnessSet = true
+	return builder
+}
+
+func (builder *FieldOptionBuilder) Build() *FieldOption {
+	req := &FieldOption{}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.hueSet {
+		req.Hue = &builder.hue
+
+	}
+	if builder.lightnessSet {
+		req.Lightness = &builder.lightness
+
+	}
+	return req
+}
+
 type Icon struct {
 	Type *int `json:"type,omitempty"` // 图标类型，目前有 emoji、图片等类型
 
@@ -563,6 +1556,74 @@ func (builder *IconBuilder) Build() *Icon {
 	}
 	if builder.fsUnitSet {
 		req.FsUnit = &builder.fsUnit
+
+	}
+	return req
+}
+
+type LocationCell struct {
+	FullAddress *string `json:"full_address,omitempty"` // 地址名称
+
+	Lat *float64 `json:"lat,omitempty"` // 纬度
+
+	Lng *float64 `json:"lng,omitempty"` // 经度
+}
+
+type LocationCellBuilder struct {
+	fullAddress    string // 地址名称
+	fullAddressSet bool
+
+	lat    float64 // 纬度
+	latSet bool
+
+	lng    float64 // 经度
+	lngSet bool
+}
+
+func NewLocationCellBuilder() *LocationCellBuilder {
+	builder := &LocationCellBuilder{}
+	return builder
+}
+
+// 地址名称
+//
+// 示例值：星河湾中心，广东广州海珠琶洲大道168号
+func (builder *LocationCellBuilder) FullAddress(fullAddress string) *LocationCellBuilder {
+	builder.fullAddress = fullAddress
+	builder.fullAddressSet = true
+	return builder
+}
+
+// 纬度
+//
+// 示例值：69.18
+func (builder *LocationCellBuilder) Lat(lat float64) *LocationCellBuilder {
+	builder.lat = lat
+	builder.latSet = true
+	return builder
+}
+
+// 经度
+//
+// 示例值：68.77
+func (builder *LocationCellBuilder) Lng(lng float64) *LocationCellBuilder {
+	builder.lng = lng
+	builder.lngSet = true
+	return builder
+}
+
+func (builder *LocationCellBuilder) Build() *LocationCell {
+	req := &LocationCell{}
+	if builder.fullAddressSet {
+		req.FullAddress = &builder.fullAddress
+
+	}
+	if builder.latSet {
+		req.Lat = &builder.lat
+
+	}
+	if builder.lngSet {
+		req.Lng = &builder.lng
 
 	}
 	return req
@@ -1059,6 +2120,38 @@ func (builder *OtherRecRuleBuilder) Build() *OtherRecRule {
 	return req
 }
 
+type OutterUserId struct {
+	OpenId *string `json:"open_id,omitempty"` // 用户的 OpenID，每个应用不一样
+}
+
+type OutterUserIdBuilder struct {
+	openId    string // 用户的 OpenID，每个应用不一样
+	openIdSet bool
+}
+
+func NewOutterUserIdBuilder() *OutterUserIdBuilder {
+	builder := &OutterUserIdBuilder{}
+	return builder
+}
+
+// 用户的 OpenID，每个应用不一样
+//
+// 示例值：ou_d57864434a537020cf7a4a681d393e2d
+func (builder *OutterUserIdBuilder) OpenId(openId string) *OutterUserIdBuilder {
+	builder.openId = openId
+	builder.openIdSet = true
+	return builder
+}
+
+func (builder *OutterUserIdBuilder) Build() *OutterUserId {
+	req := &OutterUserId{}
+	if builder.openIdSet {
+		req.OpenId = &builder.openId
+
+	}
+	return req
+}
+
 type RecRule struct {
 	Conditions []*RecRuleCondition `json:"conditions,omitempty"` // 记录筛选条件，用于指定可编辑或可阅读的记录。
 
@@ -1264,6 +2357,125 @@ func (builder *RecRuleConditionBuilder) Build() *RecRuleCondition {
 	return req
 }
 
+type RecordChange struct {
+	RecordId *string `json:"record_id,omitempty"` // 记录ID
+
+	ChangeType *string `json:"change_type,omitempty"` // 变更类型
+
+	EditorId *OutterUserId `json:"editor_id,omitempty"` // 编辑人身份
+
+	BeforeSnapshot map[string]interface{} `json:"before_snapshot,omitempty"` // 变更前快照
+
+	AfterSnapshot map[string]interface{} `json:"after_snapshot,omitempty"` // 变更后快照
+
+	IsDeleteAll *string `json:"is_delete_all,omitempty"` // 是否整表删除
+}
+
+type RecordChangeBuilder struct {
+	recordId    string // 记录ID
+	recordIdSet bool
+
+	changeType    string // 变更类型
+	changeTypeSet bool
+
+	editorId    *OutterUserId // 编辑人身份
+	editorIdSet bool
+
+	beforeSnapshot    map[string]interface{} // 变更前快照
+	beforeSnapshotSet bool
+
+	afterSnapshot    map[string]interface{} // 变更后快照
+	afterSnapshotSet bool
+
+	isDeleteAll    string // 是否整表删除
+	isDeleteAllSet bool
+}
+
+func NewRecordChangeBuilder() *RecordChangeBuilder {
+	builder := &RecordChangeBuilder{}
+	return builder
+}
+
+// 记录ID
+//
+// 示例值：recvqDe26dIjzB
+func (builder *RecordChangeBuilder) RecordId(recordId string) *RecordChangeBuilder {
+	builder.recordId = recordId
+	builder.recordIdSet = true
+	return builder
+}
+
+// 变更类型
+//
+// 示例值：add
+func (builder *RecordChangeBuilder) ChangeType(changeType string) *RecordChangeBuilder {
+	builder.changeType = changeType
+	builder.changeTypeSet = true
+	return builder
+}
+
+// 编辑人身份
+//
+// 示例值：
+func (builder *RecordChangeBuilder) EditorId(editorId *OutterUserId) *RecordChangeBuilder {
+	builder.editorId = editorId
+	builder.editorIdSet = true
+	return builder
+}
+
+// 变更前快照
+//
+// 示例值：
+func (builder *RecordChangeBuilder) BeforeSnapshot(beforeSnapshot map[string]interface{}) *RecordChangeBuilder {
+	builder.beforeSnapshot = beforeSnapshot
+	builder.beforeSnapshotSet = true
+	return builder
+}
+
+// 变更后快照
+//
+// 示例值：
+func (builder *RecordChangeBuilder) AfterSnapshot(afterSnapshot map[string]interface{}) *RecordChangeBuilder {
+	builder.afterSnapshot = afterSnapshot
+	builder.afterSnapshotSet = true
+	return builder
+}
+
+// 是否整表删除
+//
+// 示例值：false
+func (builder *RecordChangeBuilder) IsDeleteAll(isDeleteAll string) *RecordChangeBuilder {
+	builder.isDeleteAll = isDeleteAll
+	builder.isDeleteAllSet = true
+	return builder
+}
+
+func (builder *RecordChangeBuilder) Build() *RecordChange {
+	req := &RecordChange{}
+	if builder.recordIdSet {
+		req.RecordId = &builder.recordId
+
+	}
+	if builder.changeTypeSet {
+		req.ChangeType = &builder.changeType
+
+	}
+	if builder.editorIdSet {
+		req.EditorId = builder.editorId
+	}
+	if builder.beforeSnapshotSet {
+		req.BeforeSnapshot = builder.beforeSnapshot
+	}
+	if builder.afterSnapshotSet {
+		req.AfterSnapshot = builder.afterSnapshot
+	}
+	if builder.isDeleteAllSet {
+		req.IsDeleteAll = &builder.isDeleteAll
+
+	}
+	return req
+}
+
 type Role struct {
 	RoleName *string `json:"role_name,omitempty"` // 自定义角色名称
 
@@ -1361,6 +2573,38 @@ func (builder *RoleBuilder) Build() *Role {
 	}
 	if builder.baseRuleSet {
 		req.BaseRule = builder.baseRule
+	}
+	return req
+}
+
+type Table struct {
+	TableId *string `json:"table_id,omitempty"` // 数据表ID
+}
+
+type TableBuilder struct {
+	tableId    string // 数据表ID
+	tableIdSet bool
+}
+
+func NewTableBuilder() *TableBuilder {
+	builder := &TableBuilder{}
+	return builder
+}
+
+// 数据表ID
+//
+// 示例值：tbl10412ADH
+func (builder *TableBuilder) TableId(tableId string) *TableBuilder {
+	builder.tableId = tableId
+	builder.tableIdSet = true
+	return builder
+}
+
+func (builder *TableBuilder) Build() *Table {
+	req := &Table{}
+	if builder.tableIdSet {
+		req.TableId = &builder.tableId
+
 	}
 	return req
 }

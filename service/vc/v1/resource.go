@@ -156,6 +156,8 @@ func (a *alert) ListByIterator(ctx context.Context, req *ListAlertReq, options .
 //
 // - 获取会议中的事件列表，包括参会人加入或离开、发言、聊天、共享等事件
 //
+// - 当前能力处于灰度开放阶段，暂未全量开放。如需申请开通或确认可用范围，请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+//
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=events&project=vc&resource=bot&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/events_bot.go
@@ -186,11 +188,93 @@ func (b *bot) EventsByIterator(ctx context.Context, req *EventsBotReq, options .
 		limit:    req.Limit}, nil
 }
 
+// Join 加入会议
+//
+// - 通过会议号将机器人加入指定的视频会议。调用成功后会返回会议 ID，该 ID 可用于后续的机器人离会、发送会中消息等操作。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=join&project=vc&resource=bot&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/join_bot.go
+func (b *bot) Join(ctx context.Context, req *JoinBotReq, options ...larkcore.RequestOptionFunc) (*JoinBotResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/bots/join"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &JoinBotResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Leave 离开会议
+//
+// - 机器人可通过会议 ID 主动离开指定的视频会议。调用成功后，将返回该机器人对应的用户信息。
+//
+// - 会议 ID 来源：请使用[加入会议](https://open.feishu.cn/document/server-docs/vc-v1/bot/join)接口调用成功后返回的长数字 `meeting_id`，而不是 9 位会议号。;;当前能力处于灰度开放阶段，暂未全量开放。如需申请开通或确认可用范围，请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=leave&project=vc&resource=bot&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/leave_bot.go
+func (b *bot) Leave(ctx context.Context, req *LeaveBotReq, options ...larkcore.RequestOptionFunc) (*LeaveBotResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/bots/leave"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &LeaveBotResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Message 发送会中消息
+//
+// - 向指定的视频会议发送会中消息。
+//
+// - 调用前提：机器人需已加入目标会议。请先调用[加入会议](https://open.feishu.cn/document/server-docs/vc-v1/bot/join)接口。;;当前能力处于灰度开放阶段，暂未全量开放。如需申请开通或确认可用范围，请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=message&project=vc&resource=bot&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/message_bot.go
+func (b *bot) Message(ctx context.Context, req *MessageBotReq, options ...larkcore.RequestOptionFunc) (*MessageBotResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/bots/message"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &MessageBotResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // UserActiveMeeting 获取用户活跃会议列表
 //
 // - 查询指定用户当前正在参与的所有会议，返回该用户处于活跃状态的会议列表，包含会议号、会议 ID 及会议标题等核心信息。;;
 //
-// - 返回结果仅包含用户当前处于活跃状态的会议，已结束或尚未开始的会议不会被返回。
+// - 当前能力处于灰度开放阶段，暂未全量开放。如需申请开通或确认可用范围，请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=user_active_meeting&project=vc&resource=bot&version=v1
 //
@@ -796,7 +880,7 @@ func (n *note) Get(ctx context.Context, req *GetNoteReq, options ...larkcore.Req
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/vc/v1/notes/:note_id"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, n.config, options...)
 	if err != nil {
 		return nil, err

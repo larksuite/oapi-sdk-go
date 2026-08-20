@@ -1106,6 +1106,318 @@ func (builder *AppFileDeleteResultBuilder) Build() *AppFileDeleteResult {
 	return req
 }
 
+type AppMember struct {
+	MemberType *string `json:"member_type,omitempty"` // 协作者类型，可选值为 user、department、chat
+
+	Role *string `json:"role,omitempty"` // 协作者权限角色，可选值为 view、edit、full_access
+
+	UserOpenId *string `json:"user_open_id,omitempty"` // 用户类型协作者的 open_id，仅 member_type=user 时返回
+
+	DepartmentId *string `json:"department_id,omitempty"` // 部门类型协作者的 department_id，仅 member_type=department 时返回
+
+	ChatId *string `json:"chat_id,omitempty"` // 群聊类型协作者的 chat_id，仅 member_type=chat 时返回
+
+	Name *string `json:"name,omitempty"` // 协作者名称
+}
+
+type AppMemberBuilder struct {
+	memberType    string // 协作者类型，可选值为 user、department、chat
+	memberTypeSet bool
+
+	role    string // 协作者权限角色，可选值为 view、edit、full_access
+	roleSet bool
+
+	userOpenId    string // 用户类型协作者的 open_id，仅 member_type=user 时返回
+	userOpenIdSet bool
+
+	departmentId    string // 部门类型协作者的 department_id，仅 member_type=department 时返回
+	departmentIdSet bool
+
+	chatId    string // 群聊类型协作者的 chat_id，仅 member_type=chat 时返回
+	chatIdSet bool
+
+	name    string // 协作者名称
+	nameSet bool
+}
+
+func NewAppMemberBuilder() *AppMemberBuilder {
+	builder := &AppMemberBuilder{}
+	return builder
+}
+
+// 协作者类型，可选值为 user、department、chat
+//
+// 示例值：user
+func (builder *AppMemberBuilder) MemberType(memberType string) *AppMemberBuilder {
+	builder.memberType = memberType
+	builder.memberTypeSet = true
+	return builder
+}
+
+// 协作者权限角色，可选值为 view、edit、full_access
+//
+// 示例值：edit
+func (builder *AppMemberBuilder) Role(role string) *AppMemberBuilder {
+	builder.role = role
+	builder.roleSet = true
+	return builder
+}
+
+// 用户类型协作者的 open_id，仅 member_type=user 时返回
+//
+// 示例值：ou_75e71dde59ef1cbbaf25875b20cc54ef
+func (builder *AppMemberBuilder) UserOpenId(userOpenId string) *AppMemberBuilder {
+	builder.userOpenId = userOpenId
+	builder.userOpenIdSet = true
+	return builder
+}
+
+// 部门类型协作者的 department_id，仅 member_type=department 时返回
+//
+// 示例值：od-3f65aa8f59e512bfabde0d71e04c26d7
+func (builder *AppMemberBuilder) DepartmentId(departmentId string) *AppMemberBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdSet = true
+	return builder
+}
+
+// 群聊类型协作者的 chat_id，仅 member_type=chat 时返回
+//
+// 示例值：oc_aa8b35fdab3813ef837f91b8ffe61ec6
+func (builder *AppMemberBuilder) ChatId(chatId string) *AppMemberBuilder {
+	builder.chatId = chatId
+	builder.chatIdSet = true
+	return builder
+}
+
+// 协作者名称
+//
+// 示例值：产品研发群
+func (builder *AppMemberBuilder) Name(name string) *AppMemberBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+func (builder *AppMemberBuilder) Build() *AppMember {
+	req := &AppMember{}
+	if builder.memberTypeSet {
+		req.MemberType = &builder.memberType
+
+	}
+	if builder.roleSet {
+		req.Role = &builder.role
+
+	}
+	if builder.userOpenIdSet {
+		req.UserOpenId = &builder.userOpenId
+
+	}
+	if builder.departmentIdSet {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.chatIdSet {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+type AppMemberSettingChange struct {
+	Field *string `json:"field,omitempty"` // 发生变化的设置字段
+
+	Before *string `json:"before,omitempty"` // 修改前的值
+
+	After *string `json:"after,omitempty"` // 修改后的值
+}
+
+type AppMemberSettingChangeBuilder struct {
+	field    string // 发生变化的设置字段
+	fieldSet bool
+
+	before    string // 修改前的值
+	beforeSet bool
+
+	after    string // 修改后的值
+	afterSet bool
+}
+
+func NewAppMemberSettingChangeBuilder() *AppMemberSettingChangeBuilder {
+	builder := &AppMemberSettingChangeBuilder{}
+	return builder
+}
+
+// 发生变化的设置字段
+//
+// 示例值：external_access
+func (builder *AppMemberSettingChangeBuilder) Field(field string) *AppMemberSettingChangeBuilder {
+	builder.field = field
+	builder.fieldSet = true
+	return builder
+}
+
+// 修改前的值
+//
+// 示例值：enabled
+func (builder *AppMemberSettingChangeBuilder) Before(before string) *AppMemberSettingChangeBuilder {
+	builder.before = before
+	builder.beforeSet = true
+	return builder
+}
+
+// 修改后的值
+//
+// 示例值：disabled
+func (builder *AppMemberSettingChangeBuilder) After(after string) *AppMemberSettingChangeBuilder {
+	builder.after = after
+	builder.afterSet = true
+	return builder
+}
+
+func (builder *AppMemberSettingChangeBuilder) Build() *AppMemberSettingChange {
+	req := &AppMemberSettingChange{}
+	if builder.fieldSet {
+		req.Field = &builder.field
+
+	}
+	if builder.beforeSet {
+		req.Before = &builder.before
+
+	}
+	if builder.afterSet {
+		req.After = &builder.after
+
+	}
+	return req
+}
+
+type AppMemberSettings struct {
+	ExternalAccess *string `json:"external_access,omitempty"` // 外部用户访问策略，可选值为 enabled、disabled
+
+	ExternalInvite *string `json:"external_invite,omitempty"` // 外部用户邀请策略，可选值为 enabled、disabled
+
+	LinkShare *string `json:"link_share,omitempty"` // 链接分享策略，可选值为 closed、tenant-readable、tenant-editable、anyone-readable
+
+	ManageCollaboratorsBy *string `json:"manage_collaborators_by,omitempty"` // 可管理协作者的角色范围，可选值为 anyone、same-tenant、full-access
+
+	CommentBy *string `json:"comment_by,omitempty"` // 可评论的角色范围，可选值为 viewer、editor
+
+	CopyDownloadBy *string `json:"copy_download_by,omitempty"` // 可复制、打印或下载的角色范围，可选值为 viewer、editor、full-access
+}
+
+type AppMemberSettingsBuilder struct {
+	externalAccess    string // 外部用户访问策略，可选值为 enabled、disabled
+	externalAccessSet bool
+
+	externalInvite    string // 外部用户邀请策略，可选值为 enabled、disabled
+	externalInviteSet bool
+
+	linkShare    string // 链接分享策略，可选值为 closed、tenant-readable、tenant-editable、anyone-readable
+	linkShareSet bool
+
+	manageCollaboratorsBy    string // 可管理协作者的角色范围，可选值为 anyone、same-tenant、full-access
+	manageCollaboratorsBySet bool
+
+	commentBy    string // 可评论的角色范围，可选值为 viewer、editor
+	commentBySet bool
+
+	copyDownloadBy    string // 可复制、打印或下载的角色范围，可选值为 viewer、editor、full-access
+	copyDownloadBySet bool
+}
+
+func NewAppMemberSettingsBuilder() *AppMemberSettingsBuilder {
+	builder := &AppMemberSettingsBuilder{}
+	return builder
+}
+
+// 外部用户访问策略，可选值为 enabled、disabled
+//
+// 示例值：enabled
+func (builder *AppMemberSettingsBuilder) ExternalAccess(externalAccess string) *AppMemberSettingsBuilder {
+	builder.externalAccess = externalAccess
+	builder.externalAccessSet = true
+	return builder
+}
+
+// 外部用户邀请策略，可选值为 enabled、disabled
+//
+// 示例值：disabled
+func (builder *AppMemberSettingsBuilder) ExternalInvite(externalInvite string) *AppMemberSettingsBuilder {
+	builder.externalInvite = externalInvite
+	builder.externalInviteSet = true
+	return builder
+}
+
+// 链接分享策略，可选值为 closed、tenant-readable、tenant-editable、anyone-readable
+//
+// 示例值：tenant-readable
+func (builder *AppMemberSettingsBuilder) LinkShare(linkShare string) *AppMemberSettingsBuilder {
+	builder.linkShare = linkShare
+	builder.linkShareSet = true
+	return builder
+}
+
+// 可管理协作者的角色范围，可选值为 anyone、same-tenant、full-access
+//
+// 示例值：full-access
+func (builder *AppMemberSettingsBuilder) ManageCollaboratorsBy(manageCollaboratorsBy string) *AppMemberSettingsBuilder {
+	builder.manageCollaboratorsBy = manageCollaboratorsBy
+	builder.manageCollaboratorsBySet = true
+	return builder
+}
+
+// 可评论的角色范围，可选值为 viewer、editor
+//
+// 示例值：editor
+func (builder *AppMemberSettingsBuilder) CommentBy(commentBy string) *AppMemberSettingsBuilder {
+	builder.commentBy = commentBy
+	builder.commentBySet = true
+	return builder
+}
+
+// 可复制、打印或下载的角色范围，可选值为 viewer、editor、full-access
+//
+// 示例值：full-access
+func (builder *AppMemberSettingsBuilder) CopyDownloadBy(copyDownloadBy string) *AppMemberSettingsBuilder {
+	builder.copyDownloadBy = copyDownloadBy
+	builder.copyDownloadBySet = true
+	return builder
+}
+
+func (builder *AppMemberSettingsBuilder) Build() *AppMemberSettings {
+	req := &AppMemberSettings{}
+	if builder.externalAccessSet {
+		req.ExternalAccess = &builder.externalAccess
+
+	}
+	if builder.externalInviteSet {
+		req.ExternalInvite = &builder.externalInvite
+
+	}
+	if builder.linkShareSet {
+		req.LinkShare = &builder.linkShare
+
+	}
+	if builder.manageCollaboratorsBySet {
+		req.ManageCollaboratorsBy = &builder.manageCollaboratorsBy
+
+	}
+	if builder.commentBySet {
+		req.CommentBy = &builder.commentBy
+
+	}
+	if builder.copyDownloadBySet {
+		req.CopyDownloadBy = &builder.copyDownloadBy
+
+	}
+	return req
+}
+
 type AppOpenApiKeyConfig struct {
 	RequestScope *RequestScope `json:"request_scope,omitempty"` // 请求范围
 
@@ -4975,6 +5287,934 @@ func (builder *StackFrameBuilder) Build() *StackFrame {
 	}
 	if builder.sourceColumnSet {
 		req.SourceColumn = &builder.sourceColumn
+
+	}
+	return req
+}
+
+type SyncBaseField struct {
+	Name *string `json:"name,omitempty"` // base字段的名称
+}
+
+type SyncBaseFieldBuilder struct {
+	name    string // base字段的名称
+	nameSet bool
+}
+
+func NewSyncBaseFieldBuilder() *SyncBaseFieldBuilder {
+	builder := &SyncBaseFieldBuilder{}
+	return builder
+}
+
+// base字段的名称
+//
+// 示例值：客户名称
+func (builder *SyncBaseFieldBuilder) Name(name string) *SyncBaseFieldBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+func (builder *SyncBaseFieldBuilder) Build() *SyncBaseField {
+	req := &SyncBaseField{}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+type SyncConfig struct {
+	Mode *string `json:"mode,omitempty"` // 通过 mode 枚举 batch、streaming 区分一次性导入和持续自动同步，其中 batch 支持 --schema-only仅同步结构
+
+	SchemaOnly *bool `json:"schema_only,omitempty"` // 仅同步结构
+
+	Source *SyncSource `json:"source,omitempty"` // 同步来源信息
+
+	Target *SyncTarget `json:"target,omitempty"` // 同步目标信息
+
+	FieldMaps []*SyncFieldMapItem `json:"field_maps,omitempty"` // 字段映射列表
+}
+
+type SyncConfigBuilder struct {
+	mode    string // 通过 mode 枚举 batch、streaming 区分一次性导入和持续自动同步，其中 batch 支持 --schema-only仅同步结构
+	modeSet bool
+
+	schemaOnly    bool // 仅同步结构
+	schemaOnlySet bool
+
+	source    *SyncSource // 同步来源信息
+	sourceSet bool
+
+	target    *SyncTarget // 同步目标信息
+	targetSet bool
+
+	fieldMaps    []*SyncFieldMapItem // 字段映射列表
+	fieldMapsSet bool
+}
+
+func NewSyncConfigBuilder() *SyncConfigBuilder {
+	builder := &SyncConfigBuilder{}
+	return builder
+}
+
+// 通过 mode 枚举 batch、streaming 区分一次性导入和持续自动同步，其中 batch 支持 --schema-only仅同步结构
+//
+// 示例值：streaming
+func (builder *SyncConfigBuilder) Mode(mode string) *SyncConfigBuilder {
+	builder.mode = mode
+	builder.modeSet = true
+	return builder
+}
+
+// 仅同步结构
+//
+// 示例值：
+func (builder *SyncConfigBuilder) SchemaOnly(schemaOnly bool) *SyncConfigBuilder {
+	builder.schemaOnly = schemaOnly
+	builder.schemaOnlySet = true
+	return builder
+}
+
+// 同步来源信息
+//
+// 示例值：
+func (builder *SyncConfigBuilder) Source(source *SyncSource) *SyncConfigBuilder {
+	builder.source = source
+	builder.sourceSet = true
+	return builder
+}
+
+// 同步目标信息
+//
+// 示例值：
+func (builder *SyncConfigBuilder) Target(target *SyncTarget) *SyncConfigBuilder {
+	builder.target = target
+	builder.targetSet = true
+	return builder
+}
+
+// 字段映射列表
+//
+// 示例值：
+func (builder *SyncConfigBuilder) FieldMaps(fieldMaps []*SyncFieldMapItem) *SyncConfigBuilder {
+	builder.fieldMaps = fieldMaps
+	builder.fieldMapsSet = true
+	return builder
+}
+
+func (builder *SyncConfigBuilder) Build() *SyncConfig {
+	req := &SyncConfig{}
+	if builder.modeSet {
+		req.Mode = &builder.mode
+
+	}
+	if builder.schemaOnlySet {
+		req.SchemaOnly = &builder.schemaOnly
+
+	}
+	if builder.sourceSet {
+		req.Source = builder.source
+	}
+	if builder.targetSet {
+		req.Target = builder.target
+	}
+	if builder.fieldMapsSet {
+		req.FieldMaps = builder.fieldMaps
+	}
+	return req
+}
+
+type SyncFieldMapItem struct {
+	BaseField *SyncBaseField `json:"base_field,omitempty"` // 字段映射中base字段信息
+
+	PgField *SyncPgField `json:"pg_field,omitempty"` // 字段映射中pg字段信息
+
+	OptionMappings []*SyncOptionMapping `json:"option_mappings,omitempty"` // 枚举值映射关系
+
+	Enabled *bool `json:"enabled,omitempty"` // 是否选择该字段
+}
+
+type SyncFieldMapItemBuilder struct {
+	baseField    *SyncBaseField // 字段映射中base字段信息
+	baseFieldSet bool
+
+	pgField    *SyncPgField // 字段映射中pg字段信息
+	pgFieldSet bool
+
+	optionMappings    []*SyncOptionMapping // 枚举值映射关系
+	optionMappingsSet bool
+
+	enabled    bool // 是否选择该字段
+	enabledSet bool
+}
+
+func NewSyncFieldMapItemBuilder() *SyncFieldMapItemBuilder {
+	builder := &SyncFieldMapItemBuilder{}
+	return builder
+}
+
+// 字段映射中base字段信息
+//
+// 示例值：
+func (builder *SyncFieldMapItemBuilder) BaseField(baseField *SyncBaseField) *SyncFieldMapItemBuilder {
+	builder.baseField = baseField
+	builder.baseFieldSet = true
+	return builder
+}
+
+// 字段映射中pg字段信息
+//
+// 示例值：
+func (builder *SyncFieldMapItemBuilder) PgField(pgField *SyncPgField) *SyncFieldMapItemBuilder {
+	builder.pgField = pgField
+	builder.pgFieldSet = true
+	return builder
+}
+
+// 枚举值映射关系
+//
+// 示例值：
+func (builder *SyncFieldMapItemBuilder) OptionMappings(optionMappings []*SyncOptionMapping) *SyncFieldMapItemBuilder {
+	builder.optionMappings = optionMappings
+	builder.optionMappingsSet = true
+	return builder
+}
+
+// 是否选择该字段
+//
+// 示例值：true
+func (builder *SyncFieldMapItemBuilder) Enabled(enabled bool) *SyncFieldMapItemBuilder {
+	builder.enabled = enabled
+	builder.enabledSet = true
+	return builder
+}
+
+func (builder *SyncFieldMapItemBuilder) Build() *SyncFieldMapItem {
+	req := &SyncFieldMapItem{}
+	if builder.baseFieldSet {
+		req.BaseField = builder.baseField
+	}
+	if builder.pgFieldSet {
+		req.PgField = builder.pgField
+	}
+	if builder.optionMappingsSet {
+		req.OptionMappings = builder.optionMappings
+	}
+	if builder.enabledSet {
+		req.Enabled = &builder.enabled
+
+	}
+	return req
+}
+
+type SyncOptionMapping struct {
+	Source *string `json:"source,omitempty"` // 枚举映射来源值
+
+	Target *string `json:"target,omitempty"` // 枚举映射目标值
+}
+
+type SyncOptionMappingBuilder struct {
+	source    string // 枚举映射来源值
+	sourceSet bool
+
+	target    string // 枚举映射目标值
+	targetSet bool
+}
+
+func NewSyncOptionMappingBuilder() *SyncOptionMappingBuilder {
+	builder := &SyncOptionMappingBuilder{}
+	return builder
+}
+
+// 枚举映射来源值
+//
+// 示例值：跟进中
+func (builder *SyncOptionMappingBuilder) Source(source string) *SyncOptionMappingBuilder {
+	builder.source = source
+	builder.sourceSet = true
+	return builder
+}
+
+// 枚举映射目标值
+//
+// 示例值：active
+func (builder *SyncOptionMappingBuilder) Target(target string) *SyncOptionMappingBuilder {
+	builder.target = target
+	builder.targetSet = true
+	return builder
+}
+
+func (builder *SyncOptionMappingBuilder) Build() *SyncOptionMapping {
+	req := &SyncOptionMapping{}
+	if builder.sourceSet {
+		req.Source = &builder.source
+
+	}
+	if builder.targetSet {
+		req.Target = &builder.target
+
+	}
+	return req
+}
+
+type SyncPgField struct {
+	Name *string `json:"name,omitempty"` // pg字段名称
+
+	Type *string `json:"type,omitempty"` // pg字段类型
+
+	SingleValue *bool `json:"single_value,omitempty"` // pg字段单值
+
+	Nullable *bool `json:"nullable,omitempty"` // pg字段允许为空
+
+	Unique *bool `json:"unique,omitempty"` // pg字段唯一
+
+	Comment *string `json:"comment,omitempty"` // pg字段注释
+}
+
+type SyncPgFieldBuilder struct {
+	name    string // pg字段名称
+	nameSet bool
+
+	type_    string // pg字段类型
+	type_Set bool
+
+	singleValue    bool // pg字段单值
+	singleValueSet bool
+
+	nullable    bool // pg字段允许为空
+	nullableSet bool
+
+	unique    bool // pg字段唯一
+	uniqueSet bool
+
+	comment    string // pg字段注释
+	commentSet bool
+}
+
+func NewSyncPgFieldBuilder() *SyncPgFieldBuilder {
+	builder := &SyncPgFieldBuilder{}
+	return builder
+}
+
+// pg字段名称
+//
+// 示例值：customer_status
+func (builder *SyncPgFieldBuilder) Name(name string) *SyncPgFieldBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// pg字段类型
+//
+// 示例值：text
+func (builder *SyncPgFieldBuilder) Type(type_ string) *SyncPgFieldBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// pg字段单值
+//
+// 示例值：
+func (builder *SyncPgFieldBuilder) SingleValue(singleValue bool) *SyncPgFieldBuilder {
+	builder.singleValue = singleValue
+	builder.singleValueSet = true
+	return builder
+}
+
+// pg字段允许为空
+//
+// 示例值：
+func (builder *SyncPgFieldBuilder) Nullable(nullable bool) *SyncPgFieldBuilder {
+	builder.nullable = nullable
+	builder.nullableSet = true
+	return builder
+}
+
+// pg字段唯一
+//
+// 示例值：
+func (builder *SyncPgFieldBuilder) Unique(unique bool) *SyncPgFieldBuilder {
+	builder.unique = unique
+	builder.uniqueSet = true
+	return builder
+}
+
+// pg字段注释
+//
+// 示例值：客户状态
+func (builder *SyncPgFieldBuilder) Comment(comment string) *SyncPgFieldBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+func (builder *SyncPgFieldBuilder) Build() *SyncPgField {
+	req := &SyncPgField{}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.singleValueSet {
+		req.SingleValue = &builder.singleValue
+
+	}
+	if builder.nullableSet {
+		req.Nullable = &builder.nullable
+
+	}
+	if builder.uniqueSet {
+		req.Unique = &builder.unique
+
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+
+	}
+	return req
+}
+
+type SyncSource struct {
+	Type *string `json:"type,omitempty"` // 同步来源，如base多维表格
+
+	BaseUrl *string `json:"base_url,omitempty"` // base表格url链接
+
+	Table *SyncSourceTable `json:"table,omitempty"` // base表格名称，如未传从base_url中获取
+}
+
+type SyncSourceBuilder struct {
+	type_    string // 同步来源，如base多维表格
+	type_Set bool
+
+	baseUrl    string // base表格url链接
+	baseUrlSet bool
+
+	table    *SyncSourceTable // base表格名称，如未传从base_url中获取
+	tableSet bool
+}
+
+func NewSyncSourceBuilder() *SyncSourceBuilder {
+	builder := &SyncSourceBuilder{}
+	return builder
+}
+
+// 同步来源，如base多维表格
+//
+// 示例值：base
+func (builder *SyncSourceBuilder) Type(type_ string) *SyncSourceBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// base表格url链接
+//
+// 示例值：https://example.feishu.cn/base/xxx?table=tblCustomers
+func (builder *SyncSourceBuilder) BaseUrl(baseUrl string) *SyncSourceBuilder {
+	builder.baseUrl = baseUrl
+	builder.baseUrlSet = true
+	return builder
+}
+
+// base表格名称，如未传从base_url中获取
+//
+// 示例值：
+func (builder *SyncSourceBuilder) Table(table *SyncSourceTable) *SyncSourceBuilder {
+	builder.table = table
+	builder.tableSet = true
+	return builder
+}
+
+func (builder *SyncSourceBuilder) Build() *SyncSource {
+	req := &SyncSource{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.baseUrlSet {
+		req.BaseUrl = &builder.baseUrl
+
+	}
+	if builder.tableSet {
+		req.Table = builder.table
+	}
+	return req
+}
+
+type SyncSourceTable struct {
+	Name *string `json:"name,omitempty"` // base多维表格名称
+}
+
+type SyncSourceTableBuilder struct {
+	name    string // base多维表格名称
+	nameSet bool
+}
+
+func NewSyncSourceTableBuilder() *SyncSourceTableBuilder {
+	builder := &SyncSourceTableBuilder{}
+	return builder
+}
+
+// base多维表格名称
+//
+// 示例值：客户
+func (builder *SyncSourceTableBuilder) Name(name string) *SyncSourceTableBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+func (builder *SyncSourceTableBuilder) Build() *SyncSourceTable {
+	req := &SyncSourceTable{}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+type SyncStatistics struct {
+	Total *int `json:"total,omitempty"` // 同步记录的总数
+
+	Failed *int `json:"failed,omitempty"` // 同步失败记录的数量
+}
+
+type SyncStatisticsBuilder struct {
+	total    int // 同步记录的总数
+	totalSet bool
+
+	failed    int // 同步失败记录的数量
+	failedSet bool
+}
+
+func NewSyncStatisticsBuilder() *SyncStatisticsBuilder {
+	builder := &SyncStatisticsBuilder{}
+	return builder
+}
+
+// 同步记录的总数
+//
+// 示例值：1523
+func (builder *SyncStatisticsBuilder) Total(total int) *SyncStatisticsBuilder {
+	builder.total = total
+	builder.totalSet = true
+	return builder
+}
+
+// 同步失败记录的数量
+//
+// 示例值：2
+func (builder *SyncStatisticsBuilder) Failed(failed int) *SyncStatisticsBuilder {
+	builder.failed = failed
+	builder.failedSet = true
+	return builder
+}
+
+func (builder *SyncStatisticsBuilder) Build() *SyncStatistics {
+	req := &SyncStatistics{}
+	if builder.totalSet {
+		req.Total = &builder.total
+
+	}
+	if builder.failedSet {
+		req.Failed = &builder.failed
+
+	}
+	return req
+}
+
+type SyncSummary struct {
+	SyncableSourceFieldCount *int `json:"syncable_source_field_count,omitempty"` // 可同步字段数量
+
+	MappedFieldCount *int `json:"mapped_field_count,omitempty"` // 已匹配字段数量
+
+	EstimatedRecordCount *int `json:"estimated_record_count,omitempty"` // 预期同步数据条数
+}
+
+type SyncSummaryBuilder struct {
+	syncableSourceFieldCount    int // 可同步字段数量
+	syncableSourceFieldCountSet bool
+
+	mappedFieldCount    int // 已匹配字段数量
+	mappedFieldCountSet bool
+
+	estimatedRecordCount    int // 预期同步数据条数
+	estimatedRecordCountSet bool
+}
+
+func NewSyncSummaryBuilder() *SyncSummaryBuilder {
+	builder := &SyncSummaryBuilder{}
+	return builder
+}
+
+// 可同步字段数量
+//
+// 示例值：3
+func (builder *SyncSummaryBuilder) SyncableSourceFieldCount(syncableSourceFieldCount int) *SyncSummaryBuilder {
+	builder.syncableSourceFieldCount = syncableSourceFieldCount
+	builder.syncableSourceFieldCountSet = true
+	return builder
+}
+
+// 已匹配字段数量
+//
+// 示例值：2
+func (builder *SyncSummaryBuilder) MappedFieldCount(mappedFieldCount int) *SyncSummaryBuilder {
+	builder.mappedFieldCount = mappedFieldCount
+	builder.mappedFieldCountSet = true
+	return builder
+}
+
+// 预期同步数据条数
+//
+// 示例值：1523
+func (builder *SyncSummaryBuilder) EstimatedRecordCount(estimatedRecordCount int) *SyncSummaryBuilder {
+	builder.estimatedRecordCount = estimatedRecordCount
+	builder.estimatedRecordCountSet = true
+	return builder
+}
+
+func (builder *SyncSummaryBuilder) Build() *SyncSummary {
+	req := &SyncSummary{}
+	if builder.syncableSourceFieldCountSet {
+		req.SyncableSourceFieldCount = &builder.syncableSourceFieldCount
+
+	}
+	if builder.mappedFieldCountSet {
+		req.MappedFieldCount = &builder.mappedFieldCount
+
+	}
+	if builder.estimatedRecordCountSet {
+		req.EstimatedRecordCount = &builder.estimatedRecordCount
+
+	}
+	return req
+}
+
+type SyncTarget struct {
+	Type *string `json:"type,omitempty"` // 数据同步目标类型
+
+	Table *SyncTargetTable `json:"table,omitempty"` // 目标表信息
+}
+
+type SyncTargetBuilder struct {
+	type_    string // 数据同步目标类型
+	type_Set bool
+
+	table    *SyncTargetTable // 目标表信息
+	tableSet bool
+}
+
+func NewSyncTargetBuilder() *SyncTargetBuilder {
+	builder := &SyncTargetBuilder{}
+	return builder
+}
+
+// 数据同步目标类型
+//
+// 示例值：postgresql
+func (builder *SyncTargetBuilder) Type(type_ string) *SyncTargetBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 目标表信息
+//
+// 示例值：
+func (builder *SyncTargetBuilder) Table(table *SyncTargetTable) *SyncTargetBuilder {
+	builder.table = table
+	builder.tableSet = true
+	return builder
+}
+
+func (builder *SyncTargetBuilder) Build() *SyncTarget {
+	req := &SyncTarget{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.tableSet {
+		req.Table = builder.table
+	}
+	return req
+}
+
+type SyncTargetTable struct {
+	Name *string `json:"name,omitempty"` // pg数据表表名
+
+	Action *string `json:"action,omitempty"` // action 的值为 create、use_existing 决定新建目标表或写入已有表
+
+	Comment *string `json:"comment,omitempty"` // 数据表注释
+}
+
+type SyncTargetTableBuilder struct {
+	name    string // pg数据表表名
+	nameSet bool
+
+	action    string // action 的值为 create、use_existing 决定新建目标表或写入已有表
+	actionSet bool
+
+	comment    string // 数据表注释
+	commentSet bool
+}
+
+func NewSyncTargetTableBuilder() *SyncTargetTableBuilder {
+	builder := &SyncTargetTableBuilder{}
+	return builder
+}
+
+// pg数据表表名
+//
+// 示例值：customers
+func (builder *SyncTargetTableBuilder) Name(name string) *SyncTargetTableBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// action 的值为 create、use_existing 决定新建目标表或写入已有表
+//
+// 示例值：create
+func (builder *SyncTargetTableBuilder) Action(action string) *SyncTargetTableBuilder {
+	builder.action = action
+	builder.actionSet = true
+	return builder
+}
+
+// 数据表注释
+//
+// 示例值：客户主数据
+func (builder *SyncTargetTableBuilder) Comment(comment string) *SyncTargetTableBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+func (builder *SyncTargetTableBuilder) Build() *SyncTargetTable {
+	req := &SyncTargetTable{}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.actionSet {
+		req.Action = &builder.action
+
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+
+	}
+	return req
+}
+
+type SyncTaskItem struct {
+	TaskId *string `json:"task_id,omitempty"` // 任务id
+
+	Mode *string `json:"mode,omitempty"` // 任务模式
+
+	SchemaOnly *bool `json:"schema_only,omitempty"` // 仅建表
+
+	Status *string `json:"status,omitempty"` // 任务状态
+
+	CreatedAt *string `json:"created_at,omitempty"` // 任务创建时间
+
+	Source *SyncSource `json:"source,omitempty"` // 任务来源表信息
+
+	Target *SyncTarget `json:"target,omitempty"` // 任务目标表信息
+}
+
+type SyncTaskItemBuilder struct {
+	taskId    string // 任务id
+	taskIdSet bool
+
+	mode    string // 任务模式
+	modeSet bool
+
+	schemaOnly    bool // 仅建表
+	schemaOnlySet bool
+
+	status    string // 任务状态
+	statusSet bool
+
+	createdAt    string // 任务创建时间
+	createdAtSet bool
+
+	source    *SyncSource // 任务来源表信息
+	sourceSet bool
+
+	target    *SyncTarget // 任务目标表信息
+	targetSet bool
+}
+
+func NewSyncTaskItemBuilder() *SyncTaskItemBuilder {
+	builder := &SyncTaskItemBuilder{}
+	return builder
+}
+
+// 任务id
+//
+// 示例值：task_123
+func (builder *SyncTaskItemBuilder) TaskId(taskId string) *SyncTaskItemBuilder {
+	builder.taskId = taskId
+	builder.taskIdSet = true
+	return builder
+}
+
+// 任务模式
+//
+// 示例值：batch
+func (builder *SyncTaskItemBuilder) Mode(mode string) *SyncTaskItemBuilder {
+	builder.mode = mode
+	builder.modeSet = true
+	return builder
+}
+
+// 仅建表
+//
+// 示例值：
+func (builder *SyncTaskItemBuilder) SchemaOnly(schemaOnly bool) *SyncTaskItemBuilder {
+	builder.schemaOnly = schemaOnly
+	builder.schemaOnlySet = true
+	return builder
+}
+
+// 任务状态
+//
+// 示例值：running
+func (builder *SyncTaskItemBuilder) Status(status string) *SyncTaskItemBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 任务创建时间
+//
+// 示例值：2026-07-14T15:00:00+08:00
+func (builder *SyncTaskItemBuilder) CreatedAt(createdAt string) *SyncTaskItemBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtSet = true
+	return builder
+}
+
+// 任务来源表信息
+//
+// 示例值：
+func (builder *SyncTaskItemBuilder) Source(source *SyncSource) *SyncTaskItemBuilder {
+	builder.source = source
+	builder.sourceSet = true
+	return builder
+}
+
+// 任务目标表信息
+//
+// 示例值：
+func (builder *SyncTaskItemBuilder) Target(target *SyncTarget) *SyncTaskItemBuilder {
+	builder.target = target
+	builder.targetSet = true
+	return builder
+}
+
+func (builder *SyncTaskItemBuilder) Build() *SyncTaskItem {
+	req := &SyncTaskItem{}
+	if builder.taskIdSet {
+		req.TaskId = &builder.taskId
+
+	}
+	if builder.modeSet {
+		req.Mode = &builder.mode
+
+	}
+	if builder.schemaOnlySet {
+		req.SchemaOnly = &builder.schemaOnly
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.createdAtSet {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.sourceSet {
+		req.Source = builder.source
+	}
+	if builder.targetSet {
+		req.Target = builder.target
+	}
+	return req
+}
+
+type SyncWarning struct {
+	Code *string `json:"code,omitempty"` // 自动同步警告错误码
+
+	Message *string `json:"message,omitempty"` // 自动同步警告描述
+
+	TargetTable *string `json:"target_table,omitempty"` // 自动同步目标表名称
+}
+
+type SyncWarningBuilder struct {
+	code    string // 自动同步警告错误码
+	codeSet bool
+
+	message    string // 自动同步警告描述
+	messageSet bool
+
+	targetTable    string // 自动同步目标表名称
+	targetTableSet bool
+}
+
+func NewSyncWarningBuilder() *SyncWarningBuilder {
+	builder := &SyncWarningBuilder{}
+	return builder
+}
+
+// 自动同步警告错误码
+//
+// 示例值：RECORD_SYNC_FAILED
+func (builder *SyncWarningBuilder) Code(code string) *SyncWarningBuilder {
+	builder.code = code
+	builder.codeSet = true
+	return builder
+}
+
+// 自动同步警告描述
+//
+// 示例值：1 record failed to sync. View each failed record and its failure reason in https://example.feishu.cn/base/failed_xxx
+func (builder *SyncWarningBuilder) Message(message string) *SyncWarningBuilder {
+	builder.message = message
+	builder.messageSet = true
+	return builder
+}
+
+// 自动同步目标表名称
+//
+// 示例值：customers
+func (builder *SyncWarningBuilder) TargetTable(targetTable string) *SyncWarningBuilder {
+	builder.targetTable = targetTable
+	builder.targetTableSet = true
+	return builder
+}
+
+func (builder *SyncWarningBuilder) Build() *SyncWarning {
+	req := &SyncWarning{}
+	if builder.codeSet {
+		req.Code = &builder.code
+
+	}
+	if builder.messageSet {
+		req.Message = &builder.message
+
+	}
+	if builder.targetTableSet {
+		req.TargetTable = &builder.targetTable
 
 	}
 	return req

@@ -6256,6 +6256,8 @@ type Employment struct {
 
 	ExpirationTime *string `json:"expiration_time,omitempty"` // 离职日期，即员工的最后一个工作日，最后一个工作日时员工的雇佣状态仍为“在职”，次日凌晨将更改为“离职”
 
+	RecruitmentType *Enum `json:"recruitment_type,omitempty"` // 招聘类型
+
 	EmploymentType *Enum `json:"employment_type,omitempty"` // 雇佣类型
 
 	PersonId *string `json:"person_id,omitempty"` // 人员信息，引用Person的ID
@@ -6265,6 +6267,10 @@ type Employment struct {
 	OnProbation *string `json:"on_probation,omitempty"` // 是否在试用期中;- 满足以下任一条件时，该字段值为`"true"`：; - 预计试用结束日期非空，且实际结束日期为空; - 预计试用结束日期非空，实际结束日期非空，且当日日期小于等于实际结束日期;- 其余情况下，该字段值为`"false"`；
 
 	ProbationEndDate *string `json:"probation_end_date,omitempty"` // 试用期结束日期（实际结束日期）
+
+	WhetherToPaySocialSecurityElsewhere *bool `json:"whether_to_pay_social_security_elsewhere,omitempty"` // 是否异地缴纳社保
+
+	WhetherReturnee *bool `json:"whether_returnee,omitempty"` // 是否为回流人员
 
 	PrimaryEmployment *bool `json:"primary_employment,omitempty"` // 是否是主雇佣信息
 
@@ -6341,6 +6347,9 @@ type EmploymentBuilder struct {
 	expirationTime    string // 离职日期，即员工的最后一个工作日，最后一个工作日时员工的雇佣状态仍为“在职”，次日凌晨将更改为“离职”
 	expirationTimeSet bool
 
+	recruitmentType    *Enum // 招聘类型
+	recruitmentTypeSet bool
+
 	employmentType    *Enum // 雇佣类型
 	employmentTypeSet bool
 
@@ -6355,6 +6364,12 @@ type EmploymentBuilder struct {
 
 	probationEndDate    string // 试用期结束日期（实际结束日期）
 	probationEndDateSet bool
+
+	whetherToPaySocialSecurityElsewhere    bool // 是否异地缴纳社保
+	whetherToPaySocialSecurityElsewhereSet bool
+
+	whetherReturnee    bool // 是否为回流人员
+	whetherReturneeSet bool
 
 	primaryEmployment    bool // 是否是主雇佣信息
 	primaryEmploymentSet bool
@@ -6539,6 +6554,15 @@ func (builder *EmploymentBuilder) ExpirationTime(expirationTime string) *Employm
 	return builder
 }
 
+// 招聘类型
+//
+// 示例值：
+func (builder *EmploymentBuilder) RecruitmentType(recruitmentType *Enum) *EmploymentBuilder {
+	builder.recruitmentType = recruitmentType
+	builder.recruitmentTypeSet = true
+	return builder
+}
+
 // 雇佣类型
 //
 // 示例值：
@@ -6581,6 +6605,24 @@ func (builder *EmploymentBuilder) OnProbation(onProbation string) *EmploymentBui
 func (builder *EmploymentBuilder) ProbationEndDate(probationEndDate string) *EmploymentBuilder {
 	builder.probationEndDate = probationEndDate
 	builder.probationEndDateSet = true
+	return builder
+}
+
+// 是否异地缴纳社保
+//
+// 示例值：true
+func (builder *EmploymentBuilder) WhetherToPaySocialSecurityElsewhere(whetherToPaySocialSecurityElsewhere bool) *EmploymentBuilder {
+	builder.whetherToPaySocialSecurityElsewhere = whetherToPaySocialSecurityElsewhere
+	builder.whetherToPaySocialSecurityElsewhereSet = true
+	return builder
+}
+
+// 是否为回流人员
+//
+// 示例值：true
+func (builder *EmploymentBuilder) WhetherReturnee(whetherReturnee bool) *EmploymentBuilder {
+	builder.whetherReturnee = whetherReturnee
+	builder.whetherReturneeSet = true
 	return builder
 }
 
@@ -6772,6 +6814,9 @@ func (builder *EmploymentBuilder) Build() *Employment {
 		req.ExpirationTime = &builder.expirationTime
 
 	}
+	if builder.recruitmentTypeSet {
+		req.RecruitmentType = builder.recruitmentType
+	}
 	if builder.employmentTypeSet {
 		req.EmploymentType = builder.employmentType
 	}
@@ -6789,6 +6834,14 @@ func (builder *EmploymentBuilder) Build() *Employment {
 	}
 	if builder.probationEndDateSet {
 		req.ProbationEndDate = &builder.probationEndDate
+
+	}
+	if builder.whetherToPaySocialSecurityElsewhereSet {
+		req.WhetherToPaySocialSecurityElsewhere = &builder.whetherToPaySocialSecurityElsewhere
+
+	}
+	if builder.whetherReturneeSet {
+		req.WhetherReturnee = &builder.whetherReturnee
 
 	}
 	if builder.primaryEmploymentSet {
