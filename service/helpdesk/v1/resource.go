@@ -552,9 +552,9 @@ func (c *category) Get(ctx context.Context, req *GetCategoryReq, options ...lark
 	return resp, err
 }
 
-// List
+// List 获取全部知识库分类 - meta
 //
-// - list all categories
+// - 该接口用于获取服务台知识库所有分类
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=helpdesk&resource=category&version=v1
 //
@@ -1318,9 +1318,9 @@ func (t *ticketMessage) List(ctx context.Context, req *ListTicketMessageReq, opt
 	return resp, err
 }
 
-// Create
+// Create 创建工单自定义字段
 //
-// - create ticket customized field
+// - 该接口用于创建自定义字段
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=helpdesk&resource=ticket_customized_field&version=v1
 //
@@ -1372,9 +1372,9 @@ func (t *ticketCustomizedField) Delete(ctx context.Context, req *DeleteTicketCus
 	return resp, err
 }
 
-// Get
+// Get 获取工单自定义字段
 //
-// - get ticket customized field
+// - 该接口用于获取工单自定义字段详情。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=helpdesk&resource=ticket_customized_field&version=v1
 //
@@ -1398,9 +1398,9 @@ func (t *ticketCustomizedField) Get(ctx context.Context, req *GetTicketCustomize
 	return resp, err
 }
 
-// List
+// List 获取全部工单自定义字段
 //
-// - list the ticket customized fields
+// - 该接口用于获取全部工单自定义字段。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=helpdesk&resource=ticket_customized_field&version=v1
 //
@@ -1424,9 +1424,9 @@ func (t *ticketCustomizedField) List(ctx context.Context, req *ListTicketCustomi
 	return resp, err
 }
 
-// Patch
+// Patch 更新工单自定义字段
 //
-// - update the ticket customized field
+// - 该接口用于更新自定义字段。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=helpdesk&resource=ticket_customized_field&version=v1
 //

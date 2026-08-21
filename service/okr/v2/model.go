@@ -1670,6 +1670,314 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	return req
 }
 
+type EventContentBlock struct {
+	Blocks []*EventContentBlockElement `json:"blocks,omitempty"` // 文档结构是按行排列的，每行内容是一个 Block
+}
+
+type EventContentBlockBuilder struct {
+	blocks    []*EventContentBlockElement // 文档结构是按行排列的，每行内容是一个 Block
+	blocksSet bool
+}
+
+func NewEventContentBlockBuilder() *EventContentBlockBuilder {
+	builder := &EventContentBlockBuilder{}
+	return builder
+}
+
+// 文档结构是按行排列的，每行内容是一个 Block
+//
+// 示例值：
+func (builder *EventContentBlockBuilder) Blocks(blocks []*EventContentBlockElement) *EventContentBlockBuilder {
+	builder.blocks = blocks
+	builder.blocksSet = true
+	return builder
+}
+
+func (builder *EventContentBlockBuilder) Build() *EventContentBlock {
+	req := &EventContentBlock{}
+	if builder.blocksSet {
+		req.Blocks = builder.blocks
+	}
+	return req
+}
+
+type EventContentBlockElement struct {
+	BlockElementType *string `json:"block_element_type,omitempty"` // 文档元素类型
+
+	Paragraph *EventContentParagraph `json:"paragraph,omitempty"` // 文本段落
+
+	Gallery *ContentGallery `json:"gallery,omitempty"` // 图片
+}
+
+type EventContentBlockElementBuilder struct {
+	blockElementType    string // 文档元素类型
+	blockElementTypeSet bool
+
+	paragraph    *EventContentParagraph // 文本段落
+	paragraphSet bool
+
+	gallery    *ContentGallery // 图片
+	gallerySet bool
+}
+
+func NewEventContentBlockElementBuilder() *EventContentBlockElementBuilder {
+	builder := &EventContentBlockElementBuilder{}
+	return builder
+}
+
+// 文档元素类型
+//
+// 示例值：paragraph
+func (builder *EventContentBlockElementBuilder) BlockElementType(blockElementType string) *EventContentBlockElementBuilder {
+	builder.blockElementType = blockElementType
+	builder.blockElementTypeSet = true
+	return builder
+}
+
+// 文本段落
+//
+// 示例值：
+func (builder *EventContentBlockElementBuilder) Paragraph(paragraph *EventContentParagraph) *EventContentBlockElementBuilder {
+	builder.paragraph = paragraph
+	builder.paragraphSet = true
+	return builder
+}
+
+// 图片
+//
+// 示例值：
+func (builder *EventContentBlockElementBuilder) Gallery(gallery *ContentGallery) *EventContentBlockElementBuilder {
+	builder.gallery = gallery
+	builder.gallerySet = true
+	return builder
+}
+
+func (builder *EventContentBlockElementBuilder) Build() *EventContentBlockElement {
+	req := &EventContentBlockElement{}
+	if builder.blockElementTypeSet {
+		req.BlockElementType = &builder.blockElementType
+
+	}
+	if builder.paragraphSet {
+		req.Paragraph = builder.paragraph
+	}
+	if builder.gallerySet {
+		req.Gallery = builder.gallery
+	}
+	return req
+}
+
+type EventContentMention struct {
+	UserId *UserId `json:"user_id,omitempty"` // 员工 ID
+}
+
+type EventContentMentionBuilder struct {
+	userId    *UserId // 员工 ID
+	userIdSet bool
+}
+
+func NewEventContentMentionBuilder() *EventContentMentionBuilder {
+	builder := &EventContentMentionBuilder{}
+	return builder
+}
+
+// 员工 ID
+//
+// 示例值：ou_5ad573a6411d72b8305fda3a9c15c70e
+func (builder *EventContentMentionBuilder) UserId(userId *UserId) *EventContentMentionBuilder {
+	builder.userId = userId
+	builder.userIdSet = true
+	return builder
+}
+
+func (builder *EventContentMentionBuilder) Build() *EventContentMention {
+	req := &EventContentMention{}
+	if builder.userIdSet {
+		req.UserId = builder.userId
+	}
+	return req
+}
+
+type EventContentParagraph struct {
+	Style *ContentParagraphStyle `json:"style,omitempty"` // 段落样式
+
+	Elements []*EventContentParagraphElement `json:"elements,omitempty"` // 段落元素组成一个段落
+}
+
+type EventContentParagraphBuilder struct {
+	style    *ContentParagraphStyle // 段落样式
+	styleSet bool
+
+	elements    []*EventContentParagraphElement // 段落元素组成一个段落
+	elementsSet bool
+}
+
+func NewEventContentParagraphBuilder() *EventContentParagraphBuilder {
+	builder := &EventContentParagraphBuilder{}
+	return builder
+}
+
+// 段落样式
+//
+// 示例值：
+func (builder *EventContentParagraphBuilder) Style(style *ContentParagraphStyle) *EventContentParagraphBuilder {
+	builder.style = style
+	builder.styleSet = true
+	return builder
+}
+
+// 段落元素组成一个段落
+//
+// 示例值：
+func (builder *EventContentParagraphBuilder) Elements(elements []*EventContentParagraphElement) *EventContentParagraphBuilder {
+	builder.elements = elements
+	builder.elementsSet = true
+	return builder
+}
+
+func (builder *EventContentParagraphBuilder) Build() *EventContentParagraph {
+	req := &EventContentParagraph{}
+	if builder.styleSet {
+		req.Style = builder.style
+	}
+	if builder.elementsSet {
+		req.Elements = builder.elements
+	}
+	return req
+}
+
+type EventContentParagraphElement struct {
+	ParagraphElementType *string `json:"paragraph_element_type,omitempty"` // 元素类型
+
+	TextRun *ContentTextRun `json:"text_run,omitempty"` // 文本
+
+	DocsLink *ContentDocsLink `json:"docs_link,omitempty"` // 文档链接，可以根据链接自动识别为标题
+
+	Mention *EventContentMention `json:"mention,omitempty"` // 艾特对象
+}
+
+type EventContentParagraphElementBuilder struct {
+	paragraphElementType    string // 元素类型
+	paragraphElementTypeSet bool
+
+	textRun    *ContentTextRun // 文本
+	textRunSet bool
+
+	docsLink    *ContentDocsLink // 文档链接，可以根据链接自动识别为标题
+	docsLinkSet bool
+
+	mention    *EventContentMention // 艾特对象
+	mentionSet bool
+}
+
+func NewEventContentParagraphElementBuilder() *EventContentParagraphElementBuilder {
+	builder := &EventContentParagraphElementBuilder{}
+	return builder
+}
+
+// 元素类型
+//
+// 示例值：textRun
+func (builder *EventContentParagraphElementBuilder) ParagraphElementType(paragraphElementType string) *EventContentParagraphElementBuilder {
+	builder.paragraphElementType = paragraphElementType
+	builder.paragraphElementTypeSet = true
+	return builder
+}
+
+// 文本
+//
+// 示例值：
+func (builder *EventContentParagraphElementBuilder) TextRun(textRun *ContentTextRun) *EventContentParagraphElementBuilder {
+	builder.textRun = textRun
+	builder.textRunSet = true
+	return builder
+}
+
+// 文档链接，可以根据链接自动识别为标题
+//
+// 示例值：
+func (builder *EventContentParagraphElementBuilder) DocsLink(docsLink *ContentDocsLink) *EventContentParagraphElementBuilder {
+	builder.docsLink = docsLink
+	builder.docsLinkSet = true
+	return builder
+}
+
+// 艾特对象
+//
+// 示例值：
+func (builder *EventContentParagraphElementBuilder) Mention(mention *EventContentMention) *EventContentParagraphElementBuilder {
+	builder.mention = mention
+	builder.mentionSet = true
+	return builder
+}
+
+func (builder *EventContentParagraphElementBuilder) Build() *EventContentParagraphElement {
+	req := &EventContentParagraphElement{}
+	if builder.paragraphElementTypeSet {
+		req.ParagraphElementType = &builder.paragraphElementType
+
+	}
+	if builder.textRunSet {
+		req.TextRun = builder.textRun
+	}
+	if builder.docsLinkSet {
+		req.DocsLink = builder.docsLink
+	}
+	if builder.mentionSet {
+		req.Mention = builder.mention
+	}
+	return req
+}
+
+type EventOwner struct {
+	OwnerType *string `json:"owner_type,omitempty"` // 所有者类型
+
+	UserId *UserId `json:"user_id,omitempty"` // 员工 ID
+}
+
+type EventOwnerBuilder struct {
+	ownerType    string // 所有者类型
+	ownerTypeSet bool
+
+	userId    *UserId // 员工 ID
+	userIdSet bool
+}
+
+func NewEventOwnerBuilder() *EventOwnerBuilder {
+	builder := &EventOwnerBuilder{}
+	return builder
+}
+
+// 所有者类型
+//
+// 示例值：user
+func (builder *EventOwnerBuilder) OwnerType(ownerType string) *EventOwnerBuilder {
+	builder.ownerType = ownerType
+	builder.ownerTypeSet = true
+	return builder
+}
+
+// 员工 ID
+//
+// 示例值：ou_5ad573a6411d72b8305fda3a9c15c70e
+func (builder *EventOwnerBuilder) UserId(userId *UserId) *EventOwnerBuilder {
+	builder.userId = userId
+	builder.userIdSet = true
+	return builder
+}
+
+func (builder *EventOwnerBuilder) Build() *EventOwner {
+	req := &EventOwner{}
+	if builder.ownerTypeSet {
+		req.OwnerType = &builder.ownerType
+
+	}
+	if builder.userIdSet {
+		req.UserId = builder.userId
+	}
+	return req
+}
+
 type Indicator struct {
 	Id *string `json:"id,omitempty"` // 指标的 ID
 
@@ -2735,6 +3043,68 @@ func (builder *ProgressRateBuilder) Build() *ProgressRate {
 	}
 	if builder.progressStatusSet {
 		req.ProgressStatus = &builder.progressStatus
+
+	}
+	return req
+}
+
+type UserId struct {
+	UserId *string `json:"user_id,omitempty"` //
+
+	OpenId *string `json:"open_id,omitempty"` //
+
+	UnionId *string `json:"union_id,omitempty"` //
+}
+
+type UserIdBuilder struct {
+	userId    string //
+	userIdSet bool
+
+	openId    string //
+	openIdSet bool
+
+	unionId    string //
+	unionIdSet bool
+}
+
+func NewUserIdBuilder() *UserIdBuilder {
+	builder := &UserIdBuilder{}
+	return builder
+}
+
+// 示例值：
+func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
+	builder.userId = userId
+	builder.userIdSet = true
+	return builder
+}
+
+// 示例值：
+func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
+	builder.openId = openId
+	builder.openIdSet = true
+	return builder
+}
+
+// 示例值：
+func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
+	builder.unionId = unionId
+	builder.unionIdSet = true
+	return builder
+}
+
+func (builder *UserIdBuilder) Build() *UserId {
+	req := &UserId{}
+	if builder.userIdSet {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdSet {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdSet {
+		req.UnionId = &builder.unionId
 
 	}
 	return req

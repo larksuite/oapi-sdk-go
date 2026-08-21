@@ -810,6 +810,110 @@ func (builder *StaticticsBuilder) Build() *Statictics {
 	return req
 }
 
+type SubscriptionMeeting struct {
+	MeetingId *string `json:"meeting_id,omitempty"` // 会议ID
+
+	Topic *string `json:"topic,omitempty"` // 会议主题
+
+	MeetingNo *string `json:"meeting_no,omitempty"` // 9位会议号
+
+	MeetingSource *string `json:"meeting_source,omitempty"` // 会议创建源
+
+	CalendarEventId *string `json:"calendar_event_id,omitempty"` // 日程会议关联的日程实体id
+}
+
+type SubscriptionMeetingBuilder struct {
+	meetingId    string // 会议ID
+	meetingIdSet bool
+
+	topic    string // 会议主题
+	topicSet bool
+
+	meetingNo    string // 9位会议号
+	meetingNoSet bool
+
+	meetingSource    string // 会议创建源
+	meetingSourceSet bool
+
+	calendarEventId    string // 日程会议关联的日程实体id
+	calendarEventIdSet bool
+}
+
+func NewSubscriptionMeetingBuilder() *SubscriptionMeetingBuilder {
+	builder := &SubscriptionMeetingBuilder{}
+	return builder
+}
+
+// 会议ID
+//
+// 示例值：6911188411934433028
+func (builder *SubscriptionMeetingBuilder) MeetingId(meetingId string) *SubscriptionMeetingBuilder {
+	builder.meetingId = meetingId
+	builder.meetingIdSet = true
+	return builder
+}
+
+// 会议主题
+//
+// 示例值：my meeting
+func (builder *SubscriptionMeetingBuilder) Topic(topic string) *SubscriptionMeetingBuilder {
+	builder.topic = topic
+	builder.topicSet = true
+	return builder
+}
+
+// 9位会议号
+//
+// 示例值：235812466
+func (builder *SubscriptionMeetingBuilder) MeetingNo(meetingNo string) *SubscriptionMeetingBuilder {
+	builder.meetingNo = meetingNo
+	builder.meetingNoSet = true
+	return builder
+}
+
+// 会议创建源
+//
+// 示例值：calendar
+func (builder *SubscriptionMeetingBuilder) MeetingSource(meetingSource string) *SubscriptionMeetingBuilder {
+	builder.meetingSource = meetingSource
+	builder.meetingSourceSet = true
+	return builder
+}
+
+// 日程会议关联的日程实体id
+//
+// 示例值：efa67a98-06a8-4df5-8559-746c8f4477ef_0
+func (builder *SubscriptionMeetingBuilder) CalendarEventId(calendarEventId string) *SubscriptionMeetingBuilder {
+	builder.calendarEventId = calendarEventId
+	builder.calendarEventIdSet = true
+	return builder
+}
+
+func (builder *SubscriptionMeetingBuilder) Build() *SubscriptionMeeting {
+	req := &SubscriptionMeeting{}
+	if builder.meetingIdSet {
+		req.MeetingId = &builder.meetingId
+
+	}
+	if builder.topicSet {
+		req.Topic = &builder.topic
+
+	}
+	if builder.meetingNoSet {
+		req.MeetingNo = &builder.meetingNo
+
+	}
+	if builder.meetingSourceSet {
+		req.MeetingSource = &builder.meetingSource
+
+	}
+	if builder.calendarEventIdSet {
+		req.CalendarEventId = &builder.calendarEventId
+
+	}
+	return req
+}
+
 type TimeRange struct {
 	StartTime *string `json:"start_time,omitempty"` // 起始时间，需符合 ISO 8601 标准并携带时区信息（create_time 的子参数
 
@@ -905,6 +1009,56 @@ func (builder *TranscriptWordBuilder) Build() *TranscriptWord {
 	}
 	if builder.targetWordSet {
 		req.TargetWord = &builder.targetWord
+
+	}
+	return req
+}
+
+type TranscriptWordReplaceCount struct {
+	SourceWord *string `json:"source_word,omitempty"` // 源关键词
+
+	ReplaceCount *string `json:"replace_count,omitempty"` // 修改个数
+}
+
+type TranscriptWordReplaceCountBuilder struct {
+	sourceWord    string // 源关键词
+	sourceWordSet bool
+
+	replaceCount    string // 修改个数
+	replaceCountSet bool
+}
+
+func NewTranscriptWordReplaceCountBuilder() *TranscriptWordReplaceCountBuilder {
+	builder := &TranscriptWordReplaceCountBuilder{}
+	return builder
+}
+
+// 源关键词
+//
+// 示例值：<string>
+func (builder *TranscriptWordReplaceCountBuilder) SourceWord(sourceWord string) *TranscriptWordReplaceCountBuilder {
+	builder.sourceWord = sourceWord
+	builder.sourceWordSet = true
+	return builder
+}
+
+// 修改个数
+//
+// 示例值：<string>
+func (builder *TranscriptWordReplaceCountBuilder) ReplaceCount(replaceCount string) *TranscriptWordReplaceCountBuilder {
+	builder.replaceCount = replaceCount
+	builder.replaceCountSet = true
+	return builder
+}
+
+func (builder *TranscriptWordReplaceCountBuilder) Build() *TranscriptWordReplaceCount {
+	req := &TranscriptWordReplaceCount{}
+	if builder.sourceWordSet {
+		req.SourceWord = &builder.sourceWord
+
+	}
+	if builder.replaceCountSet {
+		req.ReplaceCount = &builder.replaceCount
 
 	}
 	return req

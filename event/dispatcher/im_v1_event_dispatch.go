@@ -160,7 +160,7 @@ func (dispatcher *EventDispatcher) OnP2MessageRecalledV1(handler func(ctx contex
 
 // 接收消息
 //
-// - 机器人接收到用户/机器人发送的消息后触发此事件。
+// - 机器人接收到用户/机器人发送的消息后触发此事件
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MessageReceiveV1(handler func(ctx context.Context, event *larkim.P2MessageReceiveV1) error) *EventDispatcher {

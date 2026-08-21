@@ -6384,6 +6384,340 @@ func (builder *NormalLeaveUserFirstWorkTimeBuilder) Build() *NormalLeaveUserFirs
 	return req
 }
 
+type OpenApiCreateTimeRecordPeriodResult struct {
+	TimePeriodId *string `json:"time_period_id,omitempty"` // 提报时段 ID
+
+	TimeCodeId *string `json:"time_code_id,omitempty"` // 出勤 / 加班类型 ID
+
+	InDate *string `json:"in_date,omitempty"` // 开始日期
+
+	OutDate *string `json:"out_date,omitempty"` // 结束日期
+
+	InTime *string `json:"in_time,omitempty"` // 开始时间
+
+	OutTime *string `json:"out_time,omitempty"` // 结束时间
+
+	Duration *string `json:"duration,omitempty"` // 提报时长
+
+	TimeUnit *int `json:"time_unit,omitempty"` // 时长单位
+
+	Status *int `json:"status,omitempty"` // 状态
+}
+
+type OpenApiCreateTimeRecordPeriodResultBuilder struct {
+	timePeriodId    string // 提报时段 ID
+	timePeriodIdSet bool
+
+	timeCodeId    string // 出勤 / 加班类型 ID
+	timeCodeIdSet bool
+
+	inDate    string // 开始日期
+	inDateSet bool
+
+	outDate    string // 结束日期
+	outDateSet bool
+
+	inTime    string // 开始时间
+	inTimeSet bool
+
+	outTime    string // 结束时间
+	outTimeSet bool
+
+	duration    string // 提报时长
+	durationSet bool
+
+	timeUnit    int // 时长单位
+	timeUnitSet bool
+
+	status    int // 状态
+	statusSet bool
+}
+
+func NewOpenApiCreateTimeRecordPeriodResultBuilder() *OpenApiCreateTimeRecordPeriodResultBuilder {
+	builder := &OpenApiCreateTimeRecordPeriodResultBuilder{}
+	return builder
+}
+
+// 提报时段 ID
+//
+// 示例值：6988888888888888888
+func (builder *OpenApiCreateTimeRecordPeriodResultBuilder) TimePeriodId(timePeriodId string) *OpenApiCreateTimeRecordPeriodResultBuilder {
+	builder.timePeriodId = timePeriodId
+	builder.timePeriodIdSet = true
+	return builder
+}
+
+// 出勤 / 加班类型 ID
+//
+// 示例值：6988888888888888888
+func (builder *OpenApiCreateTimeRecordPeriodResultBuilder) TimeCodeId(timeCodeId string) *OpenApiCreateTimeRecordPeriodResultBuilder {
+	builder.timeCodeId = timeCodeId
+	builder.timeCodeIdSet = true
+	return builder
+}
+
+// 开始日期
+//
+// 示例值：2026-07-20
+func (builder *OpenApiCreateTimeRecordPeriodResultBuilder) InDate(inDate string) *OpenApiCreateTimeRecordPeriodResultBuilder {
+	builder.inDate = inDate
+	builder.inDateSet = true
+	return builder
+}
+
+// 结束日期
+//
+// 示例值：2026-07-20
+func (builder *OpenApiCreateTimeRecordPeriodResultBuilder) OutDate(outDate string) *OpenApiCreateTimeRecordPeriodResultBuilder {
+	builder.outDate = outDate
+	builder.outDateSet = true
+	return builder
+}
+
+// 开始时间
+//
+// 示例值：2026-07-20 11:11
+func (builder *OpenApiCreateTimeRecordPeriodResultBuilder) InTime(inTime string) *OpenApiCreateTimeRecordPeriodResultBuilder {
+	builder.inTime = inTime
+	builder.inTimeSet = true
+	return builder
+}
+
+// 结束时间
+//
+// 示例值：2026-07-20 11:11
+func (builder *OpenApiCreateTimeRecordPeriodResultBuilder) OutTime(outTime string) *OpenApiCreateTimeRecordPeriodResultBuilder {
+	builder.outTime = outTime
+	builder.outTimeSet = true
+	return builder
+}
+
+// 提报时长
+//
+// 示例值：1.00000
+func (builder *OpenApiCreateTimeRecordPeriodResultBuilder) Duration(duration string) *OpenApiCreateTimeRecordPeriodResultBuilder {
+	builder.duration = duration
+	builder.durationSet = true
+	return builder
+}
+
+// 时长单位
+//
+// 示例值：
+func (builder *OpenApiCreateTimeRecordPeriodResultBuilder) TimeUnit(timeUnit int) *OpenApiCreateTimeRecordPeriodResultBuilder {
+	builder.timeUnit = timeUnit
+	builder.timeUnitSet = true
+	return builder
+}
+
+// 状态
+//
+// 示例值：
+func (builder *OpenApiCreateTimeRecordPeriodResultBuilder) Status(status int) *OpenApiCreateTimeRecordPeriodResultBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+func (builder *OpenApiCreateTimeRecordPeriodResultBuilder) Build() *OpenApiCreateTimeRecordPeriodResult {
+	req := &OpenApiCreateTimeRecordPeriodResult{}
+	if builder.timePeriodIdSet {
+		req.TimePeriodId = &builder.timePeriodId
+
+	}
+	if builder.timeCodeIdSet {
+		req.TimeCodeId = &builder.timeCodeId
+
+	}
+	if builder.inDateSet {
+		req.InDate = &builder.inDate
+
+	}
+	if builder.outDateSet {
+		req.OutDate = &builder.outDate
+
+	}
+	if builder.inTimeSet {
+		req.InTime = &builder.inTime
+
+	}
+	if builder.outTimeSet {
+		req.OutTime = &builder.outTime
+
+	}
+	if builder.durationSet {
+		req.Duration = &builder.duration
+
+	}
+	if builder.timeUnitSet {
+		req.TimeUnit = &builder.timeUnit
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	return req
+}
+
+type OpenApiTimeRecordPeriodInfo struct {
+	TimeCodeId *string `json:"time_code_id,omitempty"` // 出勤/加班类型id
+
+	Date *string `json:"date,omitempty"` // 出勤/加班日期 YYYY-MM-DD 对于「按时长输入」的工时类型必填，非必填时不校验
+
+	InTime *string `json:"in_time,omitempty"` // 开始时间 YYYY-MM-DD HH:mm 对于「按起止时间输入」的工时类型必填，非必填时不校验
+
+	OutTime *string `json:"out_time,omitempty"` // 结束时间 YYYY-MM-DD HH:mm 对于「按起止时间输入」的工时类型必填，非必填时不校验
+
+	Duration *string `json:"duration,omitempty"` // 提报时长，最多5位精度 对于「按时长输入」的工时类型必填，非必填时不校验
+
+	TimeUnit *int `json:"time_unit,omitempty"` // 时长单位
+
+	ProcessStartTime *string `json:"process_start_time,omitempty"` // 流程发起时间 YYYY-MM-DD HH:mm，不传时默认用写入时间
+
+	ProcessPassTime *string `json:"process_pass_time,omitempty"` // 流程通过时间 YYYY-MM-DD HH:mm，不传时默认用写入时间
+}
+
+type OpenApiTimeRecordPeriodInfoBuilder struct {
+	timeCodeId    string // 出勤/加班类型id
+	timeCodeIdSet bool
+
+	date    string // 出勤/加班日期 YYYY-MM-DD 对于「按时长输入」的工时类型必填，非必填时不校验
+	dateSet bool
+
+	inTime    string // 开始时间 YYYY-MM-DD HH:mm 对于「按起止时间输入」的工时类型必填，非必填时不校验
+	inTimeSet bool
+
+	outTime    string // 结束时间 YYYY-MM-DD HH:mm 对于「按起止时间输入」的工时类型必填，非必填时不校验
+	outTimeSet bool
+
+	duration    string // 提报时长，最多5位精度 对于「按时长输入」的工时类型必填，非必填时不校验
+	durationSet bool
+
+	timeUnit    int // 时长单位
+	timeUnitSet bool
+
+	processStartTime    string // 流程发起时间 YYYY-MM-DD HH:mm，不传时默认用写入时间
+	processStartTimeSet bool
+
+	processPassTime    string // 流程通过时间 YYYY-MM-DD HH:mm，不传时默认用写入时间
+	processPassTimeSet bool
+}
+
+func NewOpenApiTimeRecordPeriodInfoBuilder() *OpenApiTimeRecordPeriodInfoBuilder {
+	builder := &OpenApiTimeRecordPeriodInfoBuilder{}
+	return builder
+}
+
+// 出勤/加班类型id
+//
+// 示例值：6988888888888888888
+func (builder *OpenApiTimeRecordPeriodInfoBuilder) TimeCodeId(timeCodeId string) *OpenApiTimeRecordPeriodInfoBuilder {
+	builder.timeCodeId = timeCodeId
+	builder.timeCodeIdSet = true
+	return builder
+}
+
+// 出勤/加班日期 YYYY-MM-DD 对于「按时长输入」的工时类型必填，非必填时不校验
+//
+// 示例值：2026-07-20
+func (builder *OpenApiTimeRecordPeriodInfoBuilder) Date(date string) *OpenApiTimeRecordPeriodInfoBuilder {
+	builder.date = date
+	builder.dateSet = true
+	return builder
+}
+
+// 开始时间 YYYY-MM-DD HH:mm 对于「按起止时间输入」的工时类型必填，非必填时不校验
+//
+// 示例值：2026-07-20 11:11
+func (builder *OpenApiTimeRecordPeriodInfoBuilder) InTime(inTime string) *OpenApiTimeRecordPeriodInfoBuilder {
+	builder.inTime = inTime
+	builder.inTimeSet = true
+	return builder
+}
+
+// 结束时间 YYYY-MM-DD HH:mm 对于「按起止时间输入」的工时类型必填，非必填时不校验
+//
+// 示例值：2026-07-20 11:11
+func (builder *OpenApiTimeRecordPeriodInfoBuilder) OutTime(outTime string) *OpenApiTimeRecordPeriodInfoBuilder {
+	builder.outTime = outTime
+	builder.outTimeSet = true
+	return builder
+}
+
+// 提报时长，最多5位精度 对于「按时长输入」的工时类型必填，非必填时不校验
+//
+// 示例值：1
+func (builder *OpenApiTimeRecordPeriodInfoBuilder) Duration(duration string) *OpenApiTimeRecordPeriodInfoBuilder {
+	builder.duration = duration
+	builder.durationSet = true
+	return builder
+}
+
+// 时长单位
+//
+// 示例值：
+func (builder *OpenApiTimeRecordPeriodInfoBuilder) TimeUnit(timeUnit int) *OpenApiTimeRecordPeriodInfoBuilder {
+	builder.timeUnit = timeUnit
+	builder.timeUnitSet = true
+	return builder
+}
+
+// 流程发起时间 YYYY-MM-DD HH:mm，不传时默认用写入时间
+//
+// 示例值：2026-07-20 11:11
+func (builder *OpenApiTimeRecordPeriodInfoBuilder) ProcessStartTime(processStartTime string) *OpenApiTimeRecordPeriodInfoBuilder {
+	builder.processStartTime = processStartTime
+	builder.processStartTimeSet = true
+	return builder
+}
+
+// 流程通过时间 YYYY-MM-DD HH:mm，不传时默认用写入时间
+//
+// 示例值：2026-07-20 11:11
+func (builder *OpenApiTimeRecordPeriodInfoBuilder) ProcessPassTime(processPassTime string) *OpenApiTimeRecordPeriodInfoBuilder {
+	builder.processPassTime = processPassTime
+	builder.processPassTimeSet = true
+	return builder
+}
+
+func (builder *OpenApiTimeRecordPeriodInfoBuilder) Build() *OpenApiTimeRecordPeriodInfo {
+	req := &OpenApiTimeRecordPeriodInfo{}
+	if builder.timeCodeIdSet {
+		req.TimeCodeId = &builder.timeCodeId
+
+	}
+	if builder.dateSet {
+		req.Date = &builder.date
+
+	}
+	if builder.inTimeSet {
+		req.InTime = &builder.inTime
+
+	}
+	if builder.outTimeSet {
+		req.OutTime = &builder.outTime
+
+	}
+	if builder.durationSet {
+		req.Duration = &builder.duration
+
+	}
+	if builder.timeUnitSet {
+		req.TimeUnit = &builder.timeUnit
+
+	}
+	if builder.processStartTimeSet {
+		req.ProcessStartTime = &builder.processStartTime
+
+	}
+	if builder.processPassTimeSet {
+		req.ProcessPassTime = &builder.processPassTime
+
+	}
+	return req
+}
+
 type OpenApplyTimeRange struct {
 	OvertimeAttributionDate *string `json:"overtime_attribution_date,omitempty"` // 加班所属日期
 
@@ -7680,6 +8014,415 @@ func (builder *PunchTimeSimpleRuleBuilder) Build() *PunchTimeSimpleRule {
 	}
 	if builder.offTimeSet {
 		req.OffTime = &builder.offTime
+
+	}
+	return req
+}
+
+type QueryTimeBlockRecord struct {
+	Id *string `json:"id,omitempty"` // TimeBlock 唯一键，用于幂等覆盖、去重和 cursor
+
+	EmpId *string `json:"emp_id,omitempty"` // 员工 ID
+
+	TimeType *int `json:"time_type,omitempty"` // 出勤或加班
+
+	InDate *string `json:"in_date,omitempty"` // 开始日期
+
+	OutDate *string `json:"out_date,omitempty"` // 结束日期
+
+	InTime *string `json:"in_time,omitempty"` // 开始时间
+
+	OutTime *string `json:"out_time,omitempty"` // 结束时间
+
+	BelongDate *string `json:"belong_date,omitempty"` // 归属日期
+
+	Duration *string `json:"duration,omitempty"` // 时长
+
+	Unit *int `json:"unit,omitempty"` // 单位
+
+	CalculationTagIds []string `json:"calculation_tag_ids,omitempty"` // 计算标签tag
+
+	TimeCodeId *string `json:"time_code_id,omitempty"` // 工时类型 ID
+
+	TimePeriodId *string `json:"time_period_id,omitempty"` // 提报时段 ID
+
+	TimePeriodStatus *int `json:"time_period_status,omitempty"` // TimeBlock 对应 SubPeriod 的 status
+
+	ProcessStartTime *string `json:"process_start_time,omitempty"` // 审批发起时间，取所属 Period 的 wk_created_at
+
+	ProcessPassTime *string `json:"process_pass_time,omitempty"` // 当前流程对应审批单的通过时间
+
+	Status *int `json:"status,omitempty"` // TimeBlock 状态
+
+	CreateTime *string `json:"create_time,omitempty"` // 创建时间
+
+	UpdateTime *string `json:"update_time,omitempty"` // 更新时间
+
+	TimeCodeGroupId *string `json:"time_code_group_id,omitempty"` // 工时类型组 ID，取 TimeBlock 原始字段
+
+	SourceSystem *int `json:"source_system,omitempty"` // 外部来源系统，取关联 TimeRecord 的 source_system
+
+	ReportSource *int `json:"report_source,omitempty"` // 提报来源，取关联 TimeRecord 的 report_source
+}
+
+type QueryTimeBlockRecordBuilder struct {
+	id    string // TimeBlock 唯一键，用于幂等覆盖、去重和 cursor
+	idSet bool
+
+	empId    string // 员工 ID
+	empIdSet bool
+
+	timeType    int // 出勤或加班
+	timeTypeSet bool
+
+	inDate    string // 开始日期
+	inDateSet bool
+
+	outDate    string // 结束日期
+	outDateSet bool
+
+	inTime    string // 开始时间
+	inTimeSet bool
+
+	outTime    string // 结束时间
+	outTimeSet bool
+
+	belongDate    string // 归属日期
+	belongDateSet bool
+
+	duration    string // 时长
+	durationSet bool
+
+	unit    int // 单位
+	unitSet bool
+
+	calculationTagIds    []string // 计算标签tag
+	calculationTagIdsSet bool
+
+	timeCodeId    string // 工时类型 ID
+	timeCodeIdSet bool
+
+	timePeriodId    string // 提报时段 ID
+	timePeriodIdSet bool
+
+	timePeriodStatus    int // TimeBlock 对应 SubPeriod 的 status
+	timePeriodStatusSet bool
+
+	processStartTime    string // 审批发起时间，取所属 Period 的 wk_created_at
+	processStartTimeSet bool
+
+	processPassTime    string // 当前流程对应审批单的通过时间
+	processPassTimeSet bool
+
+	status    int // TimeBlock 状态
+	statusSet bool
+
+	createTime    string // 创建时间
+	createTimeSet bool
+
+	updateTime    string // 更新时间
+	updateTimeSet bool
+
+	timeCodeGroupId    string // 工时类型组 ID，取 TimeBlock 原始字段
+	timeCodeGroupIdSet bool
+
+	sourceSystem    int // 外部来源系统，取关联 TimeRecord 的 source_system
+	sourceSystemSet bool
+
+	reportSource    int // 提报来源，取关联 TimeRecord 的 report_source
+	reportSourceSet bool
+}
+
+func NewQueryTimeBlockRecordBuilder() *QueryTimeBlockRecordBuilder {
+	builder := &QueryTimeBlockRecordBuilder{}
+	return builder
+}
+
+// TimeBlock 唯一键，用于幂等覆盖、去重和 cursor
+//
+// 示例值：123
+func (builder *QueryTimeBlockRecordBuilder) Id(id string) *QueryTimeBlockRecordBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 员工 ID
+//
+// 示例值：7566473790837016108
+func (builder *QueryTimeBlockRecordBuilder) EmpId(empId string) *QueryTimeBlockRecordBuilder {
+	builder.empId = empId
+	builder.empIdSet = true
+	return builder
+}
+
+// 出勤或加班
+//
+// 示例值：
+func (builder *QueryTimeBlockRecordBuilder) TimeType(timeType int) *QueryTimeBlockRecordBuilder {
+	builder.timeType = timeType
+	builder.timeTypeSet = true
+	return builder
+}
+
+// 开始日期
+//
+// 示例值：2026-01-01
+func (builder *QueryTimeBlockRecordBuilder) InDate(inDate string) *QueryTimeBlockRecordBuilder {
+	builder.inDate = inDate
+	builder.inDateSet = true
+	return builder
+}
+
+// 结束日期
+//
+// 示例值：2026-01-03
+func (builder *QueryTimeBlockRecordBuilder) OutDate(outDate string) *QueryTimeBlockRecordBuilder {
+	builder.outDate = outDate
+	builder.outDateSet = true
+	return builder
+}
+
+// 开始时间
+//
+// 示例值：2026-01-01 00:00:01
+func (builder *QueryTimeBlockRecordBuilder) InTime(inTime string) *QueryTimeBlockRecordBuilder {
+	builder.inTime = inTime
+	builder.inTimeSet = true
+	return builder
+}
+
+// 结束时间
+//
+// 示例值：2026-01-01 01:00:01
+func (builder *QueryTimeBlockRecordBuilder) OutTime(outTime string) *QueryTimeBlockRecordBuilder {
+	builder.outTime = outTime
+	builder.outTimeSet = true
+	return builder
+}
+
+// 归属日期
+//
+// 示例值：2026-01-01
+func (builder *QueryTimeBlockRecordBuilder) BelongDate(belongDate string) *QueryTimeBlockRecordBuilder {
+	builder.belongDate = belongDate
+	builder.belongDateSet = true
+	return builder
+}
+
+// 时长
+//
+// 示例值：1
+func (builder *QueryTimeBlockRecordBuilder) Duration(duration string) *QueryTimeBlockRecordBuilder {
+	builder.duration = duration
+	builder.durationSet = true
+	return builder
+}
+
+// 单位
+//
+// 示例值：
+func (builder *QueryTimeBlockRecordBuilder) Unit(unit int) *QueryTimeBlockRecordBuilder {
+	builder.unit = unit
+	builder.unitSet = true
+	return builder
+}
+
+// 计算标签tag
+//
+// 示例值：
+func (builder *QueryTimeBlockRecordBuilder) CalculationTagIds(calculationTagIds []string) *QueryTimeBlockRecordBuilder {
+	builder.calculationTagIds = calculationTagIds
+	builder.calculationTagIdsSet = true
+	return builder
+}
+
+// 工时类型 ID
+//
+// 示例值：7667831548185101868
+func (builder *QueryTimeBlockRecordBuilder) TimeCodeId(timeCodeId string) *QueryTimeBlockRecordBuilder {
+	builder.timeCodeId = timeCodeId
+	builder.timeCodeIdSet = true
+	return builder
+}
+
+// 提报时段 ID
+//
+// 示例值：7667831548185101868
+func (builder *QueryTimeBlockRecordBuilder) TimePeriodId(timePeriodId string) *QueryTimeBlockRecordBuilder {
+	builder.timePeriodId = timePeriodId
+	builder.timePeriodIdSet = true
+	return builder
+}
+
+// TimeBlock 对应 SubPeriod 的 status
+//
+// 示例值：
+func (builder *QueryTimeBlockRecordBuilder) TimePeriodStatus(timePeriodStatus int) *QueryTimeBlockRecordBuilder {
+	builder.timePeriodStatus = timePeriodStatus
+	builder.timePeriodStatusSet = true
+	return builder
+}
+
+// 审批发起时间，取所属 Period 的 wk_created_at
+//
+// 示例值：2026-01-01 00:00:01
+func (builder *QueryTimeBlockRecordBuilder) ProcessStartTime(processStartTime string) *QueryTimeBlockRecordBuilder {
+	builder.processStartTime = processStartTime
+	builder.processStartTimeSet = true
+	return builder
+}
+
+// 当前流程对应审批单的通过时间
+//
+// 示例值：2026-01-01 03:00:01
+func (builder *QueryTimeBlockRecordBuilder) ProcessPassTime(processPassTime string) *QueryTimeBlockRecordBuilder {
+	builder.processPassTime = processPassTime
+	builder.processPassTimeSet = true
+	return builder
+}
+
+// TimeBlock 状态
+//
+// 示例值：
+func (builder *QueryTimeBlockRecordBuilder) Status(status int) *QueryTimeBlockRecordBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 创建时间
+//
+// 示例值：2026-01-01 00:00:01
+func (builder *QueryTimeBlockRecordBuilder) CreateTime(createTime string) *QueryTimeBlockRecordBuilder {
+	builder.createTime = createTime
+	builder.createTimeSet = true
+	return builder
+}
+
+// 更新时间
+//
+// 示例值：2026-01-01 00:00:01
+func (builder *QueryTimeBlockRecordBuilder) UpdateTime(updateTime string) *QueryTimeBlockRecordBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeSet = true
+	return builder
+}
+
+// 工时类型组 ID，取 TimeBlock 原始字段
+//
+// 示例值：7667831498166617644
+func (builder *QueryTimeBlockRecordBuilder) TimeCodeGroupId(timeCodeGroupId string) *QueryTimeBlockRecordBuilder {
+	builder.timeCodeGroupId = timeCodeGroupId
+	builder.timeCodeGroupIdSet = true
+	return builder
+}
+
+// 外部来源系统，取关联 TimeRecord 的 source_system
+//
+// 示例值：1
+func (builder *QueryTimeBlockRecordBuilder) SourceSystem(sourceSystem int) *QueryTimeBlockRecordBuilder {
+	builder.sourceSystem = sourceSystem
+	builder.sourceSystemSet = true
+	return builder
+}
+
+// 提报来源，取关联 TimeRecord 的 report_source
+//
+// 示例值：1
+func (builder *QueryTimeBlockRecordBuilder) ReportSource(reportSource int) *QueryTimeBlockRecordBuilder {
+	builder.reportSource = reportSource
+	builder.reportSourceSet = true
+	return builder
+}
+
+func (builder *QueryTimeBlockRecordBuilder) Build() *QueryTimeBlockRecord {
+	req := &QueryTimeBlockRecord{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.empIdSet {
+		req.EmpId = &builder.empId
+
+	}
+	if builder.timeTypeSet {
+		req.TimeType = &builder.timeType
+
+	}
+	if builder.inDateSet {
+		req.InDate = &builder.inDate
+
+	}
+	if builder.outDateSet {
+		req.OutDate = &builder.outDate
+
+	}
+	if builder.inTimeSet {
+		req.InTime = &builder.inTime
+
+	}
+	if builder.outTimeSet {
+		req.OutTime = &builder.outTime
+
+	}
+	if builder.belongDateSet {
+		req.BelongDate = &builder.belongDate
+
+	}
+	if builder.durationSet {
+		req.Duration = &builder.duration
+
+	}
+	if builder.unitSet {
+		req.Unit = &builder.unit
+
+	}
+	if builder.calculationTagIdsSet {
+		req.CalculationTagIds = builder.calculationTagIds
+	}
+	if builder.timeCodeIdSet {
+		req.TimeCodeId = &builder.timeCodeId
+
+	}
+	if builder.timePeriodIdSet {
+		req.TimePeriodId = &builder.timePeriodId
+
+	}
+	if builder.timePeriodStatusSet {
+		req.TimePeriodStatus = &builder.timePeriodStatus
+
+	}
+	if builder.processStartTimeSet {
+		req.ProcessStartTime = &builder.processStartTime
+
+	}
+	if builder.processPassTimeSet {
+		req.ProcessPassTime = &builder.processPassTime
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.createTimeSet {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeSet {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.timeCodeGroupIdSet {
+		req.TimeCodeGroupId = &builder.timeCodeGroupId
+
+	}
+	if builder.sourceSystemSet {
+		req.SourceSystem = &builder.sourceSystem
+
+	}
+	if builder.reportSourceSet {
+		req.ReportSource = &builder.reportSource
 
 	}
 	return req

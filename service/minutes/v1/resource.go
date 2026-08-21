@@ -50,7 +50,7 @@ func (m *minute) Artifacts(ctx context.Context, req *ArtifactsMinuteReq, options
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/minutes/v1/minutes/:minute_token/artifacts"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
 	if err != nil {
 		return nil, err
@@ -102,7 +102,7 @@ func (m *minute) Search(ctx context.Context, req *SearchMinuteReq, options ...la
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/minutes/v1/minutes/search"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
 	if err != nil {
 		return nil, err

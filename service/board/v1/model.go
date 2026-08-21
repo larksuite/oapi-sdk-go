@@ -4672,6 +4672,8 @@ type CreateWhiteboardNodeRespData struct {
 	Ids []string `json:"ids,omitempty"` // 所创建的节点 id 列表
 
 	ClientToken *string `json:"client_token,omitempty"` // 操作的唯一标识，更新请求中使用此值表示幂等的进行此次更新
+
+	PreviousRevision *string `json:"previous_revision,omitempty"` // 本次更新写入前的画板版本号
 }
 
 type CreateWhiteboardNodeResp struct {

@@ -143,7 +143,7 @@ func (builder *AclBuilder) Build() *Acl {
 }
 
 type Annotation struct {
-	Type *int `json:"type,omitempty"` // 标注类型，用于指定当前标注的具体形态。;;可选值：;- `1`（QaImage）：内联图片，直接嵌入图片内容的标注;- `2`（QaRef）：引用链接，关联外部资源的标注;- `3`（QaBoard）：内联画板，包含可视化图表的标注
+	Type *int `json:"type,omitempty"` // 标注类型，用于指定当前标注的具体形态。;;可选值：;- `1`（QaImage）：内联图片，直接嵌入图片内容的标注;- `2`（QaRef）：引用链接，关联外部资源的标注;- `3`（QaBoard）：内联画板，包含可视化图表的标注;- `4`（QaChat）：会话范围，使用群聊标识限定问答上下文
 
 	Key *string `json:"key,omitempty"` // 标注的唯一标识键，用于在同一上下文内区分不同标注，支持自定义业务标识
 
@@ -152,10 +152,12 @@ type Annotation struct {
 	Ref *QaRefProperty `json:"ref,omitempty"` // 引用链接标注的详细属性，仅当 `type=QaRef` 时生效，支持企业内部知识和外部网络资源两种引用类型
 
 	Board *QaBoardProperty `json:"board,omitempty"` // 内联画板标注的详细属性，仅当 `type=QaBoard` 时生效，包含画板类型、状态、渲染代码等可视化相关信息
+
+	Chat *QaChatProperty `json:"chat,omitempty"` // 会话范围标注的详细属性，仅当 `type=QaChat` 时生效
 }
 
 type AnnotationBuilder struct {
-	type_    int // 标注类型，用于指定当前标注的具体形态。;;可选值：;- `1`（QaImage）：内联图片，直接嵌入图片内容的标注;- `2`（QaRef）：引用链接，关联外部资源的标注;- `3`（QaBoard）：内联画板，包含可视化图表的标注
+	type_    int // 标注类型，用于指定当前标注的具体形态。;;可选值：;- `1`（QaImage）：内联图片，直接嵌入图片内容的标注;- `2`（QaRef）：引用链接，关联外部资源的标注;- `3`（QaBoard）：内联画板，包含可视化图表的标注;- `4`（QaChat）：会话范围，使用群聊标识限定问答上下文
 	type_Set bool
 
 	key    string // 标注的唯一标识键，用于在同一上下文内区分不同标注，支持自定义业务标识
@@ -169,6 +171,9 @@ type AnnotationBuilder struct {
 
 	board    *QaBoardProperty // 内联画板标注的详细属性，仅当 `type=QaBoard` 时生效，包含画板类型、状态、渲染代码等可视化相关信息
 	boardSet bool
+
+	chat    *QaChatProperty // 会话范围标注的详细属性，仅当 `type=QaChat` 时生效
+	chatSet bool
 }
 
 func NewAnnotationBuilder() *AnnotationBuilder {
@@ -176,7 +181,7 @@ func NewAnnotationBuilder() *AnnotationBuilder {
 	return builder
 }
 
-// 标注类型，用于指定当前标注的具体形态。;;可选值：;- `1`（QaImage）：内联图片，直接嵌入图片内容的标注;- `2`（QaRef）：引用链接，关联外部资源的标注;- `3`（QaBoard）：内联画板，包含可视化图表的标注
+// 标注类型，用于指定当前标注的具体形态。;;可选值：;- `1`（QaImage）：内联图片，直接嵌入图片内容的标注;- `2`（QaRef）：引用链接，关联外部资源的标注;- `3`（QaBoard）：内联画板，包含可视化图表的标注;- `4`（QaChat）：会话范围，使用群聊标识限定问答上下文
 //
 // 示例值：
 func (builder *AnnotationBuilder) Type(type_ int) *AnnotationBuilder {
@@ -221,6 +226,15 @@ func (builder *AnnotationBuilder) Board(board *QaBoardProperty) *AnnotationBuild
 	return builder
 }
 
+// 会话范围标注的详细属性，仅当 `type=QaChat` 时生效
+//
+// 示例值：
+func (builder *AnnotationBuilder) Chat(chat *QaChatProperty) *AnnotationBuilder {
+	builder.chat = chat
+	builder.chatSet = true
+	return builder
+}
+
 func (builder *AnnotationBuilder) Build() *Annotation {
 	req := &Annotation{}
 	if builder.type_Set {
@@ -239,6 +253,77 @@ func (builder *AnnotationBuilder) Build() *Annotation {
 	}
 	if builder.boardSet {
 		req.Board = builder.board
+	}
+	if builder.chatSet {
+		req.Chat = builder.chat
+	}
+	return req
+}
+
+type AnswerKnowledgeQaSceneContext struct {
+	ContextType *string `json:"context_type,omitempty"` // context_type
+
+	AppId *string `json:"app_id,omitempty"` // app_id
+
+	BizId *string `json:"biz_id,omitempty"` // biz_id
+}
+
+type AnswerKnowledgeQaSceneContextBuilder struct {
+	contextType    string // context_type
+	contextTypeSet bool
+
+	appId    string // app_id
+	appIdSet bool
+
+	bizId    string // biz_id
+	bizIdSet bool
+}
+
+func NewAnswerKnowledgeQaSceneContextBuilder() *AnswerKnowledgeQaSceneContextBuilder {
+	builder := &AnswerKnowledgeQaSceneContextBuilder{}
+	return builder
+}
+
+// context_type
+//
+// 示例值：example
+func (builder *AnswerKnowledgeQaSceneContextBuilder) ContextType(contextType string) *AnswerKnowledgeQaSceneContextBuilder {
+	builder.contextType = contextType
+	builder.contextTypeSet = true
+	return builder
+}
+
+// app_id
+//
+// 示例值：example
+func (builder *AnswerKnowledgeQaSceneContextBuilder) AppId(appId string) *AnswerKnowledgeQaSceneContextBuilder {
+	builder.appId = appId
+	builder.appIdSet = true
+	return builder
+}
+
+// biz_id
+//
+// 示例值：example
+func (builder *AnswerKnowledgeQaSceneContextBuilder) BizId(bizId string) *AnswerKnowledgeQaSceneContextBuilder {
+	builder.bizId = bizId
+	builder.bizIdSet = true
+	return builder
+}
+
+func (builder *AnswerKnowledgeQaSceneContextBuilder) Build() *AnswerKnowledgeQaSceneContext {
+	req := &AnswerKnowledgeQaSceneContext{}
+	if builder.contextTypeSet {
+		req.ContextType = &builder.contextType
+
+	}
+	if builder.appIdSet {
+		req.AppId = &builder.appId
+
+	}
+	if builder.bizIdSet {
+		req.BizId = &builder.bizId
+
 	}
 	return req
 }
@@ -4325,7 +4410,7 @@ type KnowledgeQaAnswerRequest struct {
 
 	KnowledgeScope *string `json:"knowledge_scope,omitempty"` //
 
-	EnterpriseKnowledgeSource *EnterpriseKnowledgeSourceParam `json:"enterprise_knowledge_source,omitempty"` // 企业知识获取的范围，当==knowledge_scope==选择`enterprise`或`hybrid`时为必填项。
+	EnterpriseKnowledgeSource *EnterpriseKnowledgeSourceParam `json:"enterprise_knowledge_source,omitempty"` // 企业内知识的检索范围，选择企业内知识时必填
 
 	Extra *KnowledgeSourceRequestExtra `json:"extra,omitempty"` // 额外信息
 
@@ -4344,7 +4429,7 @@ type KnowledgeQaAnswerRequestBuilder struct {
 	knowledgeScope    string //
 	knowledgeScopeSet bool
 
-	enterpriseKnowledgeSource    *EnterpriseKnowledgeSourceParam // 企业知识获取的范围，当==knowledge_scope==选择`enterprise`或`hybrid`时为必填项。
+	enterpriseKnowledgeSource    *EnterpriseKnowledgeSourceParam // 企业内知识的检索范围，选择企业内知识时必填
 	enterpriseKnowledgeSourceSet bool
 
 	extra    *KnowledgeSourceRequestExtra // 额外信息
@@ -4385,7 +4470,7 @@ func (builder *KnowledgeQaAnswerRequestBuilder) KnowledgeScope(knowledgeScope st
 	return builder
 }
 
-// 企业知识获取的范围，当==knowledge_scope==选择`enterprise`或`hybrid`时为必填项。
+// 企业内知识的检索范围，选择企业内知识时必填
 //
 // 示例值：
 func (builder *KnowledgeQaAnswerRequestBuilder) EnterpriseKnowledgeSource(enterpriseKnowledgeSource *EnterpriseKnowledgeSourceParam) *KnowledgeQaAnswerRequestBuilder {
@@ -4947,14 +5032,14 @@ func (builder *KnowledgeQaSearchEnterprisePassageBuilder) Build() *KnowledgeQaSe
 type KnowledgeQaSearchRequest struct {
 	Query *string `json:"query,omitempty"` // 用户问题
 
-	EnterpriseKnowledgeSource *EnterpriseKnowledgeSourceParam `json:"enterprise_knowledge_source,omitempty"` // 企业知识获取的范围，当==knowledge_scope==选择`enterprise`或`hybrid`时为必填项。
+	EnterpriseKnowledgeSource *EnterpriseKnowledgeSourceParam `json:"enterprise_knowledge_source,omitempty"` // enterprise_knowledge_source
 }
 
 type KnowledgeQaSearchRequestBuilder struct {
 	query    string // 用户问题
 	querySet bool
 
-	enterpriseKnowledgeSource    *EnterpriseKnowledgeSourceParam // 企业知识获取的范围，当==knowledge_scope==选择`enterprise`或`hybrid`时为必填项。
+	enterpriseKnowledgeSource    *EnterpriseKnowledgeSourceParam // enterprise_knowledge_source
 	enterpriseKnowledgeSourceSet bool
 }
 
@@ -4972,7 +5057,7 @@ func (builder *KnowledgeQaSearchRequestBuilder) Query(query string) *KnowledgeQa
 	return builder
 }
 
-// 企业知识获取的范围，当==knowledge_scope==选择`enterprise`或`hybrid`时为必填项。
+// enterprise_knowledge_source
 //
 // 示例值：
 func (builder *KnowledgeQaSearchRequestBuilder) EnterpriseKnowledgeSource(enterpriseKnowledgeSource *EnterpriseKnowledgeSourceParam) *KnowledgeQaSearchRequestBuilder {
@@ -7167,6 +7252,38 @@ func (builder *QaBoardPropertyBuilder) Build() *QaBoardProperty {
 	}
 	if builder.boardStatusSet {
 		req.BoardStatus = &builder.boardStatus
+
+	}
+	return req
+}
+
+type QaChatProperty struct {
+	ChatId *string `json:"chat_id,omitempty"` // 对外群聊 ID（open_chat_id）；网关转换为内部 chat_id。仅 Annotation.type=QaChat（4）时参与会话范围过滤。
+}
+
+type QaChatPropertyBuilder struct {
+	chatId    string // 对外群聊 ID（open_chat_id）；网关转换为内部 chat_id。仅 Annotation.type=QaChat（4）时参与会话范围过滤。
+	chatIdSet bool
+}
+
+func NewQaChatPropertyBuilder() *QaChatPropertyBuilder {
+	builder := &QaChatPropertyBuilder{}
+	return builder
+}
+
+// 对外群聊 ID（open_chat_id）；网关转换为内部 chat_id。仅 Annotation.type=QaChat（4）时参与会话范围过滤。
+//
+// 示例值：oc_example
+func (builder *QaChatPropertyBuilder) ChatId(chatId string) *QaChatPropertyBuilder {
+	builder.chatId = chatId
+	builder.chatIdSet = true
+	return builder
+}
+
+func (builder *QaChatPropertyBuilder) Build() *QaChatProperty {
+	req := &QaChatProperty{}
+	if builder.chatIdSet {
+		req.ChatId = &builder.chatId
 
 	}
 	return req

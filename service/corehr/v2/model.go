@@ -8545,7 +8545,7 @@ func (builder *CostCenterBuilder) OperationReason(operationReason string) *CostC
 
 // 是否优先使用手动编码。设置为 true 时，即使开启了自动编码功能，系统也会优先采用请求中传入的手动编码值；仅当未传入手动编码时，才回退至自动编码。设置为 false 或未传入时，遵循系统默认的编码策略。
 //
-// 示例值：
+// 示例值：“A1011”
 func (builder *CostCenterBuilder) IsPreferManualEncoding(isPreferManualEncoding bool) *CostCenterBuilder {
 	builder.isPreferManualEncoding = isPreferManualEncoding
 	builder.isPreferManualEncodingSet = true
@@ -35600,6 +35600,8 @@ type LocationUpdate struct {
 
 	DisplayLanguageId *string `json:"display_language_id,omitempty"` // 默认显示语言 ID
 
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
+
 	IsPreferManualEncoding *bool `json:"is_prefer_manual_encoding,omitempty"` // 是否优先使用手动编码。设置为 true 时，即使开启了自动编码功能，系统也会优先采用请求中传入的手动编码值；仅当未传入手动编码时，才回退至自动编码。设置为 false 或未传入时，遵循系统默认的编码策略。
 }
 
@@ -35636,6 +35638,9 @@ type LocationUpdateBuilder struct {
 
 	displayLanguageId    string // 默认显示语言 ID
 	displayLanguageIdSet bool
+
+	customFields    []*ObjectFieldData // 自定义字段
+	customFieldsSet bool
 
 	isPreferManualEncoding    bool // 是否优先使用手动编码。设置为 true 时，即使开启了自动编码功能，系统也会优先采用请求中传入的手动编码值；仅当未传入手动编码时，才回退至自动编码。设置为 false 或未传入时，遵循系统默认的编码策略。
 	isPreferManualEncodingSet bool
@@ -35745,6 +35750,15 @@ func (builder *LocationUpdateBuilder) DisplayLanguageId(displayLanguageId string
 	return builder
 }
 
+// 自定义字段
+//
+// 示例值：
+func (builder *LocationUpdateBuilder) CustomFields(customFields []*ObjectFieldData) *LocationUpdateBuilder {
+	builder.customFields = customFields
+	builder.customFieldsSet = true
+	return builder
+}
+
 // 是否优先使用手动编码。设置为 true 时，即使开启了自动编码功能，系统也会优先采用请求中传入的手动编码值；仅当未传入手动编码时，才回退至自动编码。设置为 false 或未传入时，遵循系统默认的编码策略。
 //
 // 示例值：
@@ -35795,6 +35809,9 @@ func (builder *LocationUpdateBuilder) Build() *LocationUpdate {
 	if builder.displayLanguageIdSet {
 		req.DisplayLanguageId = &builder.displayLanguageId
 
+	}
+	if builder.customFieldsSet {
+		req.CustomFields = builder.customFields
 	}
 	if builder.isPreferManualEncodingSet {
 		req.IsPreferManualEncoding = &builder.isPreferManualEncoding
@@ -40687,6 +40704,8 @@ type OnboardingTask struct {
 	TaskCode *string `json:"task_code,omitempty"` // 任务code
 
 	CurrentOperators []string `json:"current_operators,omitempty"` // 当前操作人雇佣 ID 列表
+
+	RejectionReason *string `json:"rejection_reason,omitempty"` // 审批拒绝时的拒绝原因
 }
 
 type OnboardingTaskBuilder struct {
@@ -40704,6 +40723,9 @@ type OnboardingTaskBuilder struct {
 
 	currentOperators    []string // 当前操作人雇佣 ID 列表
 	currentOperatorsSet bool
+
+	rejectionReason    string // 审批拒绝时的拒绝原因
+	rejectionReasonSet bool
 }
 
 func NewOnboardingTaskBuilder() *OnboardingTaskBuilder {
@@ -40756,6 +40778,15 @@ func (builder *OnboardingTaskBuilder) CurrentOperators(currentOperators []string
 	return builder
 }
 
+// 审批拒绝时的拒绝原因
+//
+// 示例值：不符合要求，审批拒绝
+func (builder *OnboardingTaskBuilder) RejectionReason(rejectionReason string) *OnboardingTaskBuilder {
+	builder.rejectionReason = rejectionReason
+	builder.rejectionReasonSet = true
+	return builder
+}
+
 func (builder *OnboardingTaskBuilder) Build() *OnboardingTask {
 	req := &OnboardingTask{}
 	if builder.taskNameSet {
@@ -40776,6 +40807,10 @@ func (builder *OnboardingTaskBuilder) Build() *OnboardingTask {
 	}
 	if builder.currentOperatorsSet {
 		req.CurrentOperators = builder.currentOperators
+	}
+	if builder.rejectionReasonSet {
+		req.RejectionReason = &builder.rejectionReason
+
 	}
 	return req
 }

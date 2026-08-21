@@ -79,6 +79,7 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/tenant"
 	"github.com/larksuite/oapi-sdk-go/v3/service/translation"
 	"github.com/larksuite/oapi-sdk-go/v3/service/trust_party"
+	"github.com/larksuite/oapi-sdk-go/v3/service/unified_kms"
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc"
 	"github.com/larksuite/oapi-sdk-go/v3/service/verification"
 	"github.com/larksuite/oapi-sdk-go/v3/service/wiki"
@@ -141,6 +142,7 @@ type Client struct {
 	Tenant                 *tenant.Service
 	Translation            *translation.Service
 	TrustParty             *trust_party.Service
+	UnifiedKms             *unified_kms.Service
 	Vc                     *vc.Service
 	Verification           *verification.Service
 	Wiki                   *wiki.Service
@@ -343,6 +345,7 @@ func initService(client *Client, config *larkcore.Config) {
 	client.Tenant = tenant.NewService(config)
 	client.Translation = translation.NewService(config)
 	client.TrustParty = trust_party.NewService(config)
+	client.UnifiedKms = unified_kms.NewService(config)
 	client.Vc = vc.NewService(config)
 	client.Verification = verification.NewService(config)
 	client.Wiki = wiki.NewService(config)

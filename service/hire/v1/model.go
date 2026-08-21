@@ -133,23 +133,23 @@ const (
 )
 
 const (
-	OfferApplicationDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	OfferApplicationDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	OfferApplicationDepartmentIDTypeOpenDepartmentId = "open_department_id" // 【飞书】用来在具体某个应用中标识一个部门，同一个department_id 在不同应用中的 open_department_id 相同
+	OfferApplicationDepartmentIDTypeDepartmentId     = "department_id"      // 【飞书】用来标识租户内一个唯一的部门
 )
 
 const (
 	OfferApplicationJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	OfferApplicationJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	OfferApplicationJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口获取
 )
 
 const (
 	OfferApplicationJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	OfferApplicationJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	OfferApplicationJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取
 )
 
 const (
 	OfferApplicationEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	OfferApplicationEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	OfferApplicationEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)接口获取
 )
 
 const (
@@ -179,24 +179,24 @@ const (
 )
 
 const (
-	TransferOnboardApplicationDepartmentIDTypeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
-	TransferOnboardApplicationDepartmentIDTypeDepartmentId            = "department_id"              // 以 department_id 来标识部门
+	TransferOnboardApplicationDepartmentIDTypeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门;由系统自动生成的部门 ID，ID 前缀固定为 `od-`，在租户内全局唯一。
+	TransferOnboardApplicationDepartmentIDTypeDepartmentId            = "department_id"              // 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id，因此在未删除的部门范围内 department_id 具有唯一性。
 	TransferOnboardApplicationDepartmentIDTypePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
 )
 
 const (
 	TransferOnboardApplicationJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	TransferOnboardApplicationJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	TransferOnboardApplicationJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过[「获取租户职级列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_level/list)接口获取
 )
 
 const (
 	TransferOnboardApplicationJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	TransferOnboardApplicationJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	TransferOnboardApplicationJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过[「获取租户序列列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_family/list)接口获取
 )
 
 const (
 	TransferOnboardApplicationEmployeeTypeIDTypePeopleAdminEmployeeTypeId = "people_admin_employee_type_id" // 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	TransferOnboardApplicationEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过「查询人员类型」接口获取
+	TransferOnboardApplicationEmployeeTypeIDTypeEmployeeTypeEnumId        = "employee_type_enum_id"         // 「飞书管理后台」适用的人员类型 ID，通过[「查询人员类型」](https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/list)接口获取
 )
 
 const (
@@ -690,18 +690,18 @@ const (
 )
 
 const (
-	GetJobDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	GetJobDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
+	GetJobDepartmentIDTypeOpenDepartmentId = "open_department_id" // 开放平台部门ID
+	GetJobDepartmentIDTypeDepartmentId     = "department_id"      // 内部部门ID
 )
 
 const (
 	GetJobJobLevelIDTypePeopleAdminJobLevelId = "people_admin_job_level_id" // 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	GetJobJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过「获取租户职级列表」接口获取
+	GetJobJobLevelIDTypeJobLevelId            = "job_level_id"              // 「飞书管理后台」适用的职级 ID，通过[「获取租户职级列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_level/list)接口获取
 )
 
 const (
 	GetJobJobFamilyIDTypePeopleAdminJobCategoryId = "people_admin_job_category_id" // 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中，建议不继续使用此 ID。
-	GetJobJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过「获取租户序列列表」接口获取
+	GetJobJobFamilyIDTypeJobFamilyId              = "job_family_id"                // 「飞书管理后台」适用的序列 ID，通过[「获取租户序列列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_family/list)接口获取
 )
 
 const (
@@ -13379,7 +13379,7 @@ func NewCodeNameObjectBuilder() *CodeNameObjectBuilder {
 
 // 编码
 //
-// 示例值：UTC+08:00
+// 示例值：1111
 func (builder *CodeNameObjectBuilder) Code(code string) *CodeNameObjectBuilder {
 	builder.code = code
 	builder.codeSet = true
@@ -14226,7 +14226,7 @@ func (builder *CombinedJobResultDefaultJobPostBuilder) Build() *CombinedJobResul
 }
 
 type CommonAddress struct {
-	Id *string `json:"id,omitempty"` // 地址 ID，详情请查看：[获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list)
+	Id *string `json:"id,omitempty"` // ID
 
 	Name *I18n `json:"name,omitempty"` // 名称
 
@@ -14240,7 +14240,7 @@ type CommonAddress struct {
 }
 
 type CommonAddressBuilder struct {
-	id    string // 地址 ID，详情请查看：[获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list)
+	id    string // ID
 	idSet bool
 
 	name    *I18n // 名称
@@ -14264,7 +14264,7 @@ func NewCommonAddressBuilder() *CommonAddressBuilder {
 	return builder
 }
 
-// 地址 ID，详情请查看：[获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list)
+// ID
 //
 // 示例值：6583482347283472832
 func (builder *CommonAddressBuilder) Id(id string) *CommonAddressBuilder {
@@ -22012,7 +22012,7 @@ type InterviewArrangement struct {
 
 	Rounds []*InterviewArrangementRound `json:"rounds,omitempty"` // 面试轮次列表
 
-	Video *InterviewArrangementVideo `json:"video,omitempty"` // 视频面试配置（interview_mode=Video 时填写）
+	Video *InterviewArrangementVideo `json:"video,omitempty"` // 视频面试配置
 
 	BizCreateTime *int64 `json:"biz_create_time,omitempty"` // 创建时间（ms 毫秒时间戳）
 
@@ -22044,7 +22044,7 @@ type InterviewArrangementBuilder struct {
 	rounds    []*InterviewArrangementRound // 面试轮次列表
 	roundsSet bool
 
-	video    *InterviewArrangementVideo // 视频面试配置（interview_mode=Video 时填写）
+	video    *InterviewArrangementVideo // 视频面试配置
 	videoSet bool
 
 	bizCreateTime    int64 // 创建时间（ms 毫秒时间戳）
@@ -22061,7 +22061,7 @@ func NewInterviewArrangementBuilder() *InterviewArrangementBuilder {
 
 // 面试安排 ID
 //
-// 示例值：1111111
+// 示例值：6949805467799537963
 func (builder *InterviewArrangementBuilder) InterviewArrangementId(interviewArrangementId string) *InterviewArrangementBuilder {
 	builder.interviewArrangementId = interviewArrangementId
 	builder.interviewArrangementIdSet = true
@@ -22070,7 +22070,7 @@ func (builder *InterviewArrangementBuilder) InterviewArrangementId(interviewArra
 
 // 投递 ID
 //
-// 示例值：634324253532232
+// 示例值：7296872398234581028
 func (builder *InterviewArrangementBuilder) ApplicationId(applicationId string) *InterviewArrangementBuilder {
 	builder.applicationId = applicationId
 	builder.applicationIdSet = true
@@ -22079,7 +22079,7 @@ func (builder *InterviewArrangementBuilder) ApplicationId(applicationId string) 
 
 // 投递阶段 ID
 //
-// 示例值：634324253532232
+// 示例值：7296872398234581042
 func (builder *InterviewArrangementBuilder) StageId(stageId string) *InterviewArrangementBuilder {
 	builder.stageId = stageId
 	builder.stageIdSet = true
@@ -22088,7 +22088,7 @@ func (builder *InterviewArrangementBuilder) StageId(stageId string) *InterviewAr
 
 // 面试形式
 //
-// 示例值：1
+// 示例值：2
 func (builder *InterviewArrangementBuilder) InterviewMode(interviewMode int) *InterviewArrangementBuilder {
 	builder.interviewMode = interviewMode
 	builder.interviewModeSet = true
@@ -22131,7 +22131,7 @@ func (builder *InterviewArrangementBuilder) Rounds(rounds []*InterviewArrangemen
 	return builder
 }
 
-// 视频面试配置（interview_mode=Video 时填写）
+// 视频面试配置
 //
 // 示例值：
 func (builder *InterviewArrangementBuilder) Video(video *InterviewArrangementVideo) *InterviewArrangementBuilder {
@@ -22142,7 +22142,7 @@ func (builder *InterviewArrangementBuilder) Video(video *InterviewArrangementVid
 
 // 创建时间（ms 毫秒时间戳）
 //
-// 示例值：1618999376474
+// 示例值：1785488400000
 func (builder *InterviewArrangementBuilder) BizCreateTime(bizCreateTime int64) *InterviewArrangementBuilder {
 	builder.bizCreateTime = bizCreateTime
 	builder.bizCreateTimeSet = true
@@ -22151,7 +22151,7 @@ func (builder *InterviewArrangementBuilder) BizCreateTime(bizCreateTime int64) *
 
 // 最近更新时间（ms 毫秒时间戳）
 //
-// 示例值：1618999376474
+// 示例值：1785488700000
 func (builder *InterviewArrangementBuilder) BizModifyTime(bizModifyTime int64) *InterviewArrangementBuilder {
 	builder.bizModifyTime = bizModifyTime
 	builder.bizModifyTimeSet = true
@@ -22258,7 +22258,7 @@ func (builder *InterviewArrangementRoundBuilder) RoundId(roundId string) *Interv
 
 // 面试开始时间（ms 毫秒时间戳）
 //
-// 示例值：1618899376474
+// 示例值：1785549600000
 func (builder *InterviewArrangementRoundBuilder) BeginTime(beginTime int64) *InterviewArrangementRoundBuilder {
 	builder.beginTime = beginTime
 	builder.beginTimeSet = true
@@ -22267,7 +22267,7 @@ func (builder *InterviewArrangementRoundBuilder) BeginTime(beginTime int64) *Int
 
 // 面试结束时间（ms 毫秒时间戳）
 //
-// 示例值：1618999376474
+// 示例值：1785553200000
 func (builder *InterviewArrangementRoundBuilder) EndTime(endTime int64) *InterviewArrangementRoundBuilder {
 	builder.endTime = endTime
 	builder.endTimeSet = true
@@ -22303,7 +22303,7 @@ func (builder *InterviewArrangementRoundBuilder) Address(address *InterviewAddre
 
 // 面试评价表 ID；同一轮面试官使用多个评价表时不返回该字段
 //
-// 示例值：6949805467799537965
+// 示例值：6949805467799537967
 func (builder *InterviewArrangementRoundBuilder) FeedbackFormId(feedbackFormId string) *InterviewArrangementRoundBuilder {
 	builder.feedbackFormId = feedbackFormId
 	builder.feedbackFormIdSet = true
@@ -22376,7 +22376,7 @@ func NewInterviewArrangementRoundInputBuilder() *InterviewArrangementRoundInputB
 
 // 面试开始时间（ms 毫秒时间戳）
 //
-// 示例值：1618899376474
+// 示例值：1785549600000
 func (builder *InterviewArrangementRoundInputBuilder) BeginTime(beginTime int64) *InterviewArrangementRoundInputBuilder {
 	builder.beginTime = beginTime
 	builder.beginTimeSet = true
@@ -22385,7 +22385,7 @@ func (builder *InterviewArrangementRoundInputBuilder) BeginTime(beginTime int64)
 
 // 面试结束时间（ms 毫秒时间戳）
 //
-// 示例值：1618999376474
+// 示例值：1785553200000
 func (builder *InterviewArrangementRoundInputBuilder) EndTime(endTime int64) *InterviewArrangementRoundInputBuilder {
 	builder.endTime = endTime
 	builder.endTimeSet = true
@@ -22476,7 +22476,7 @@ func (builder *InterviewArrangementRoundResultBuilder) Build() *InterviewArrange
 }
 
 type InterviewArrangementRoundUpdate struct {
-	RoundId *string `json:"round_id,omitempty"` // 待修改的面试轮次 ID
+	RoundId *string `json:"round_id,omitempty"` // 待修改的面试轮次 ID，可从「获取面试详情」接口返回的 rounds[].id 获取。
 
 	BeginTime *int64 `json:"begin_time,omitempty"` // 面试开始时间（ms 毫秒时间戳）
 
@@ -22484,13 +22484,13 @@ type InterviewArrangementRoundUpdate struct {
 
 	InterviewerUserIds []string `json:"interviewer_user_ids,omitempty"` // 面试官 user_id 列表（传入则整体覆盖该轮次面试官）
 
-	RoundTypeId *string `json:"round_type_id,omitempty"` // 面试轮次类型 ID；须与 feedback_form_id 同时提供或同时留空
+	RoundTypeId *string `json:"round_type_id,omitempty"` // 面试轮次类型 ID（来源于「获取面试轮次类型」接口）；须与 feedback_form_id 同时提供或同时留空。
 
-	FeedbackFormId *string `json:"feedback_form_id,omitempty"` // 面试评价表 ID；须与 round_type_id 同时提供或同时留空
+	FeedbackFormId *string `json:"feedback_form_id,omitempty"` // 面试评价表 ID（来源于「获取面试评价表」接口）；须与 round_type_id 同时提供或同时留空。
 }
 
 type InterviewArrangementRoundUpdateBuilder struct {
-	roundId    string // 待修改的面试轮次 ID
+	roundId    string // 待修改的面试轮次 ID，可从「获取面试详情」接口返回的 rounds[].id 获取。
 	roundIdSet bool
 
 	beginTime    int64 // 面试开始时间（ms 毫秒时间戳）
@@ -22502,10 +22502,10 @@ type InterviewArrangementRoundUpdateBuilder struct {
 	interviewerUserIds    []string // 面试官 user_id 列表（传入则整体覆盖该轮次面试官）
 	interviewerUserIdsSet bool
 
-	roundTypeId    string // 面试轮次类型 ID；须与 feedback_form_id 同时提供或同时留空
+	roundTypeId    string // 面试轮次类型 ID（来源于「获取面试轮次类型」接口）；须与 feedback_form_id 同时提供或同时留空。
 	roundTypeIdSet bool
 
-	feedbackFormId    string // 面试评价表 ID；须与 round_type_id 同时提供或同时留空
+	feedbackFormId    string // 面试评价表 ID（来源于「获取面试评价表」接口）；须与 round_type_id 同时提供或同时留空。
 	feedbackFormIdSet bool
 }
 
@@ -22514,7 +22514,7 @@ func NewInterviewArrangementRoundUpdateBuilder() *InterviewArrangementRoundUpdat
 	return builder
 }
 
-// 待修改的面试轮次 ID
+// 待修改的面试轮次 ID，可从「获取面试详情」接口返回的 rounds[].id 获取。
 //
 // 示例值：6949805467799537964
 func (builder *InterviewArrangementRoundUpdateBuilder) RoundId(roundId string) *InterviewArrangementRoundUpdateBuilder {
@@ -22525,7 +22525,7 @@ func (builder *InterviewArrangementRoundUpdateBuilder) RoundId(roundId string) *
 
 // 面试开始时间（ms 毫秒时间戳）
 //
-// 示例值：1618899376474
+// 示例值：1785549600000
 func (builder *InterviewArrangementRoundUpdateBuilder) BeginTime(beginTime int64) *InterviewArrangementRoundUpdateBuilder {
 	builder.beginTime = beginTime
 	builder.beginTimeSet = true
@@ -22534,7 +22534,7 @@ func (builder *InterviewArrangementRoundUpdateBuilder) BeginTime(beginTime int64
 
 // 面试结束时间（ms 毫秒时间戳）
 //
-// 示例值：1618999376474
+// 示例值：1785553200000
 func (builder *InterviewArrangementRoundUpdateBuilder) EndTime(endTime int64) *InterviewArrangementRoundUpdateBuilder {
 	builder.endTime = endTime
 	builder.endTimeSet = true
@@ -22550,7 +22550,7 @@ func (builder *InterviewArrangementRoundUpdateBuilder) InterviewerUserIds(interv
 	return builder
 }
 
-// 面试轮次类型 ID；须与 feedback_form_id 同时提供或同时留空
+// 面试轮次类型 ID（来源于「获取面试轮次类型」接口）；须与 feedback_form_id 同时提供或同时留空。
 //
 // 示例值：6949805467799537964
 func (builder *InterviewArrangementRoundUpdateBuilder) RoundTypeId(roundTypeId string) *InterviewArrangementRoundUpdateBuilder {
@@ -22559,7 +22559,7 @@ func (builder *InterviewArrangementRoundUpdateBuilder) RoundTypeId(roundTypeId s
 	return builder
 }
 
-// 面试评价表 ID；须与 round_type_id 同时提供或同时留空
+// 面试评价表 ID（来源于「获取面试评价表」接口）；须与 round_type_id 同时提供或同时留空。
 //
 // 示例值：6949805467799537965
 func (builder *InterviewArrangementRoundUpdateBuilder) FeedbackFormId(feedbackFormId string) *InterviewArrangementRoundUpdateBuilder {
@@ -26349,15 +26349,15 @@ type Job struct {
 
 	ActiveStatus *int `json:"active_status,omitempty"` // 启用状态
 
-	CreateUserId *string `json:"create_user_id,omitempty"` // 创建人ID，若为空则为系统创建，与入参`user_id_type`类型一致
+	CreateUserId *string `json:"create_user_id,omitempty"` // 创建人ID，若为空则为系统或其他对接系统创建
 
-	CreateTime *int64 `json:"create_time,omitempty"` // 创建时间，此字段已废弃，请使用create_timestamp
+	CreateTime *int64 `json:"create_time,omitempty"` // 创建时间,请使用create_timestamp
 
-	UpdateTime *int64 `json:"update_time,omitempty"` // 更新时间，此字段已废弃，请使用update_timestamp
+	UpdateTime *int64 `json:"update_time,omitempty"` // 更新时间，请使用update_timestamp
 
 	ProcessType *int `json:"process_type,omitempty"` // 招聘流程类型
 
-	ProcessId *string `json:"process_id,omitempty"` // 招聘流程 ID，详情请查看：[获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
+	ProcessId *string `json:"process_id,omitempty"` // 职位流程 ID
 
 	ProcessName *string `json:"process_name,omitempty"` // 招聘流程中文名称
 
@@ -26371,27 +26371,27 @@ type Job struct {
 
 	HeadCount *int `json:"head_count,omitempty"` // 招聘数量
 
-	Experience *int `json:"experience,omitempty"` // 工作经验要求
+	Experience *int `json:"experience,omitempty"` // 工作年限
 
-	ExpiryTime *int64 `json:"expiry_time,omitempty"` // 到期日期，此字段已废弃，请使用expiry_timestamp
+	ExpiryTime *int64 `json:"expiry_time,omitempty"` // 到期日期,请使用expiry_timestamp
 
-	MinSalary *int `json:"min_salary,omitempty"` // 最低月薪，单位：K
+	MinSalary *int `json:"min_salary,omitempty"` // 最低薪资，单位:k
 
-	MaxSalary *int `json:"max_salary,omitempty"` // 最高月薪，单位：K
+	MaxSalary *int `json:"max_salary,omitempty"` // 最高薪资，单位:k
 
 	RequiredDegree *int `json:"required_degree,omitempty"` // 学历要求
 
-	CityList []*CodeNameObject `json:"city_list,omitempty"` // 工作城市列表
+	CityList []*CodeNameObject `json:"city_list,omitempty"` // 工作地点列表
 
-	JobAttribute *int `json:"job_attribute,omitempty"` // 职位属性
+	JobAttribute *int `json:"job_attribute,omitempty"` // 职位属性，1是实体职位，2是虚拟职位
 
-	CreateTimestamp *string `json:"create_timestamp,omitempty"` // 创建时间，毫秒时间戳
+	CreateTimestamp *string `json:"create_timestamp,omitempty"` // 创建时间戳
 
-	UpdateTimestamp *string `json:"update_timestamp,omitempty"` // 更新时间，毫秒时间戳
+	UpdateTimestamp *string `json:"update_timestamp,omitempty"` // 更新时间戳
 
-	ExpiryTimestamp *string `json:"expiry_timestamp,omitempty"` // 到期时间，毫秒时间戳，如果`is_never_expired`字段选择true，则不会实际使用该字段的值，职位为长期有效
+	ExpiryTimestamp *string `json:"expiry_timestamp,omitempty"` // 到期时间戳
 
-	TargetMajorList []*TargetMajorInfo `json:"target_major_list,omitempty"` // 目标专业列表
+	TargetMajorList []*TargetMajorInfo `json:"target_major_list,omitempty"` // 目标专业
 }
 
 type JobBuilder struct {
@@ -26437,19 +26437,19 @@ type JobBuilder struct {
 	activeStatus    int // 启用状态
 	activeStatusSet bool
 
-	createUserId    string // 创建人ID，若为空则为系统创建，与入参`user_id_type`类型一致
+	createUserId    string // 创建人ID，若为空则为系统或其他对接系统创建
 	createUserIdSet bool
 
-	createTime    int64 // 创建时间，此字段已废弃，请使用create_timestamp
+	createTime    int64 // 创建时间,请使用create_timestamp
 	createTimeSet bool
 
-	updateTime    int64 // 更新时间，此字段已废弃，请使用update_timestamp
+	updateTime    int64 // 更新时间，请使用update_timestamp
 	updateTimeSet bool
 
 	processType    int // 招聘流程类型
 	processTypeSet bool
 
-	processId    string // 招聘流程 ID，详情请查看：[获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
+	processId    string // 职位流程 ID
 	processIdSet bool
 
 	processName    string // 招聘流程中文名称
@@ -26470,37 +26470,37 @@ type JobBuilder struct {
 	headCount    int // 招聘数量
 	headCountSet bool
 
-	experience    int // 工作经验要求
+	experience    int // 工作年限
 	experienceSet bool
 
-	expiryTime    int64 // 到期日期，此字段已废弃，请使用expiry_timestamp
+	expiryTime    int64 // 到期日期,请使用expiry_timestamp
 	expiryTimeSet bool
 
-	minSalary    int // 最低月薪，单位：K
+	minSalary    int // 最低薪资，单位:k
 	minSalarySet bool
 
-	maxSalary    int // 最高月薪，单位：K
+	maxSalary    int // 最高薪资，单位:k
 	maxSalarySet bool
 
 	requiredDegree    int // 学历要求
 	requiredDegreeSet bool
 
-	cityList    []*CodeNameObject // 工作城市列表
+	cityList    []*CodeNameObject // 工作地点列表
 	cityListSet bool
 
-	jobAttribute    int // 职位属性
+	jobAttribute    int // 职位属性，1是实体职位，2是虚拟职位
 	jobAttributeSet bool
 
-	createTimestamp    string // 创建时间，毫秒时间戳
+	createTimestamp    string // 创建时间戳
 	createTimestampSet bool
 
-	updateTimestamp    string // 更新时间，毫秒时间戳
+	updateTimestamp    string // 更新时间戳
 	updateTimestampSet bool
 
-	expiryTimestamp    string // 到期时间，毫秒时间戳，如果`is_never_expired`字段选择true，则不会实际使用该字段的值，职位为长期有效
+	expiryTimestamp    string // 到期时间戳
 	expiryTimestampSet bool
 
-	targetMajorList    []*TargetMajorInfo // 目标专业列表
+	targetMajorList    []*TargetMajorInfo // 目标专业
 	targetMajorListSet bool
 }
 
@@ -26529,7 +26529,7 @@ func (builder *JobBuilder) Title(title string) *JobBuilder {
 
 // 职位描述
 //
-// 示例值：这是一个测试职位
+// 示例值：职位描述文本
 func (builder *JobBuilder) Description(description string) *JobBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -26547,7 +26547,7 @@ func (builder *JobBuilder) Code(code string) *JobBuilder {
 
 // 职位要求
 //
-// 示例值：要求高学历人才
+// 示例值：职位要求文本
 func (builder *JobBuilder) Requirement(requirement string) *JobBuilder {
 	builder.requirement = requirement
 	builder.requirementSet = true
@@ -26635,16 +26635,16 @@ func (builder *JobBuilder) ActiveStatus(activeStatus int) *JobBuilder {
 	return builder
 }
 
-// 创建人ID，若为空则为系统创建，与入参`user_id_type`类型一致
+// 创建人ID，若为空则为系统或其他对接系统创建
 //
-// 示例值：7281257045172308287
+// 示例值：ou-xxx
 func (builder *JobBuilder) CreateUserId(createUserId string) *JobBuilder {
 	builder.createUserId = createUserId
 	builder.createUserIdSet = true
 	return builder
 }
 
-// 创建时间，此字段已废弃，请使用create_timestamp
+// 创建时间,请使用create_timestamp
 //
 // 示例值：1617170925462
 func (builder *JobBuilder) CreateTime(createTime int64) *JobBuilder {
@@ -26653,7 +26653,7 @@ func (builder *JobBuilder) CreateTime(createTime int64) *JobBuilder {
 	return builder
 }
 
-// 更新时间，此字段已废弃，请使用update_timestamp
+// 更新时间，请使用update_timestamp
 //
 // 示例值：1617170925462
 func (builder *JobBuilder) UpdateTime(updateTime int64) *JobBuilder {
@@ -26671,7 +26671,7 @@ func (builder *JobBuilder) ProcessType(processType int) *JobBuilder {
 	return builder
 }
 
-// 招聘流程 ID，详情请查看：[获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
+// 职位流程 ID
 //
 // 示例值：1
 func (builder *JobBuilder) ProcessId(processId string) *JobBuilder {
@@ -26734,7 +26734,7 @@ func (builder *JobBuilder) HeadCount(headCount int) *JobBuilder {
 	return builder
 }
 
-// 工作经验要求
+// 工作年限
 //
 // 示例值：1
 func (builder *JobBuilder) Experience(experience int) *JobBuilder {
@@ -26743,7 +26743,7 @@ func (builder *JobBuilder) Experience(experience int) *JobBuilder {
 	return builder
 }
 
-// 到期日期，此字段已废弃，请使用expiry_timestamp
+// 到期日期,请使用expiry_timestamp
 //
 // 示例值：1622484739955
 func (builder *JobBuilder) ExpiryTime(expiryTime int64) *JobBuilder {
@@ -26752,7 +26752,7 @@ func (builder *JobBuilder) ExpiryTime(expiryTime int64) *JobBuilder {
 	return builder
 }
 
-// 最低月薪，单位：K
+// 最低薪资，单位:k
 //
 // 示例值：10
 func (builder *JobBuilder) MinSalary(minSalary int) *JobBuilder {
@@ -26761,7 +26761,7 @@ func (builder *JobBuilder) MinSalary(minSalary int) *JobBuilder {
 	return builder
 }
 
-// 最高月薪，单位：K
+// 最高薪资，单位:k
 //
 // 示例值：20
 func (builder *JobBuilder) MaxSalary(maxSalary int) *JobBuilder {
@@ -26779,7 +26779,7 @@ func (builder *JobBuilder) RequiredDegree(requiredDegree int) *JobBuilder {
 	return builder
 }
 
-// 工作城市列表
+// 工作地点列表
 //
 // 示例值：
 func (builder *JobBuilder) CityList(cityList []*CodeNameObject) *JobBuilder {
@@ -26788,7 +26788,7 @@ func (builder *JobBuilder) CityList(cityList []*CodeNameObject) *JobBuilder {
 	return builder
 }
 
-// 职位属性
+// 职位属性，1是实体职位，2是虚拟职位
 //
 // 示例值：1
 func (builder *JobBuilder) JobAttribute(jobAttribute int) *JobBuilder {
@@ -26797,7 +26797,7 @@ func (builder *JobBuilder) JobAttribute(jobAttribute int) *JobBuilder {
 	return builder
 }
 
-// 创建时间，毫秒时间戳
+// 创建时间戳
 //
 // 示例值：1617170925462
 func (builder *JobBuilder) CreateTimestamp(createTimestamp string) *JobBuilder {
@@ -26806,7 +26806,7 @@ func (builder *JobBuilder) CreateTimestamp(createTimestamp string) *JobBuilder {
 	return builder
 }
 
-// 更新时间，毫秒时间戳
+// 更新时间戳
 //
 // 示例值：1617170925462
 func (builder *JobBuilder) UpdateTimestamp(updateTimestamp string) *JobBuilder {
@@ -26815,7 +26815,7 @@ func (builder *JobBuilder) UpdateTimestamp(updateTimestamp string) *JobBuilder {
 	return builder
 }
 
-// 到期时间，毫秒时间戳，如果`is_never_expired`字段选择true，则不会实际使用该字段的值，职位为长期有效
+// 到期时间戳
 //
 // 示例值：1622484739955
 func (builder *JobBuilder) ExpiryTimestamp(expiryTimestamp string) *JobBuilder {
@@ -26824,7 +26824,7 @@ func (builder *JobBuilder) ExpiryTimestamp(expiryTimestamp string) *JobBuilder {
 	return builder
 }
 
-// 目标专业列表
+// 目标专业
 //
 // 示例值：
 func (builder *JobBuilder) TargetMajorList(targetMajorList []*TargetMajorInfo) *JobBuilder {
@@ -30412,31 +30412,31 @@ func (builder *JobProcessBuilder) Build() *JobProcess {
 }
 
 type JobProcesses struct {
-	Id *string `json:"id,omitempty"` // ID
+	Id *string `json:"id,omitempty"` // 流程 ID
 
-	ZhName *string `json:"zh_name,omitempty"` // 中文名称
+	ZhName *string `json:"zh_name,omitempty"` // 流程中文名称
 
-	EnName *string `json:"en_name,omitempty"` // 英文名称
+	EnName *string `json:"en_name,omitempty"` // 流程英文名称
 
-	Type *int `json:"type,omitempty"` // 类型 1=社招流程, 2=校招流程,
+	Type *int `json:"type,omitempty"` // 类型
 
-	StageList []*JobProcessesStage `json:"stage_list,omitempty"` // 阶段列表, 内部按用户设置顺序排列
+	StageList []*JobProcessesStage `json:"stage_list,omitempty"` // 阶段列表
 }
 
 type JobProcessesBuilder struct {
-	id    string // ID
+	id    string // 流程 ID
 	idSet bool
 
-	zhName    string // 中文名称
+	zhName    string // 流程中文名称
 	zhNameSet bool
 
-	enName    string // 英文名称
+	enName    string // 流程英文名称
 	enNameSet bool
 
-	type_    int // 类型 1=社招流程, 2=校招流程,
+	type_    int // 类型
 	type_Set bool
 
-	stageList    []*JobProcessesStage // 阶段列表, 内部按用户设置顺序排列
+	stageList    []*JobProcessesStage // 阶段列表
 	stageListSet bool
 }
 
@@ -30445,34 +30445,34 @@ func NewJobProcessesBuilder() *JobProcessesBuilder {
 	return builder
 }
 
-// ID
+// 流程 ID
 //
-// 示例值：123123123123
+// 示例值：7383889964737988883
 func (builder *JobProcessesBuilder) Id(id string) *JobProcessesBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// 中文名称
+// 流程中文名称
 //
-// 示例值：中文
+// 示例值：社招流程
 func (builder *JobProcessesBuilder) ZhName(zhName string) *JobProcessesBuilder {
 	builder.zhName = zhName
 	builder.zhNameSet = true
 	return builder
 }
 
-// 英文名称
+// 流程英文名称
 //
-// 示例值：name
+// 示例值：Social Process
 func (builder *JobProcessesBuilder) EnName(enName string) *JobProcessesBuilder {
 	builder.enName = enName
 	builder.enNameSet = true
 	return builder
 }
 
-// 类型 1=社招流程, 2=校招流程,
+// 类型
 //
 // 示例值：1
 func (builder *JobProcessesBuilder) Type(type_ int) *JobProcessesBuilder {
@@ -30481,7 +30481,7 @@ func (builder *JobProcessesBuilder) Type(type_ int) *JobProcessesBuilder {
 	return builder
 }
 
-// 阶段列表, 内部按用户设置顺序排列
+// 阶段列表
 //
 // 示例值：
 func (builder *JobProcessesBuilder) StageList(stageList []*JobProcessesStage) *JobProcessesBuilder {
@@ -30515,26 +30515,26 @@ func (builder *JobProcessesBuilder) Build() *JobProcesses {
 }
 
 type JobProcessesStage struct {
-	Id *string `json:"id,omitempty"` // ID
+	Id *string `json:"id,omitempty"` // 阶段 ID
 
-	ZhName *string `json:"zh_name,omitempty"` // 中文名称
+	ZhName *string `json:"zh_name,omitempty"` // 阶段中文名称
 
-	EnName *string `json:"en_name,omitempty"` // 英文名称
+	EnName *string `json:"en_name,omitempty"` // 阶段英文名称
 
-	Type *int `json:"type,omitempty"` // 1=筛选型, 2=评估型, 3=笔试型, 4=面试型, 5=Offer型, 6=待入职, 7=已入职, 8=其它类型, 255=系统默认，后端模型中并没有该字段，仅用于前端显示,
+	Type *int `json:"type,omitempty"` // 阶段类型
 }
 
 type JobProcessesStageBuilder struct {
-	id    string // ID
+	id    string // 阶段 ID
 	idSet bool
 
-	zhName    string // 中文名称
+	zhName    string // 阶段中文名称
 	zhNameSet bool
 
-	enName    string // 英文名称
+	enName    string // 阶段英文名称
 	enNameSet bool
 
-	type_    int // 1=筛选型, 2=评估型, 3=笔试型, 4=面试型, 5=Offer型, 6=待入职, 7=已入职, 8=其它类型, 255=系统默认，后端模型中并没有该字段，仅用于前端显示,
+	type_    int // 阶段类型
 	type_Set bool
 }
 
@@ -30543,34 +30543,34 @@ func NewJobProcessesStageBuilder() *JobProcessesStageBuilder {
 	return builder
 }
 
-// ID
+// 阶段 ID
 //
-// 示例值：123123123123123
+// 示例值：6793210103211510024
 func (builder *JobProcessesStageBuilder) Id(id string) *JobProcessesStageBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// 中文名称
+// 阶段中文名称
 //
-// 示例值：名字
+// 示例值：面试阶段
 func (builder *JobProcessesStageBuilder) ZhName(zhName string) *JobProcessesStageBuilder {
 	builder.zhName = zhName
 	builder.zhNameSet = true
 	return builder
 }
 
-// 英文名称
+// 阶段英文名称
 //
-// 示例值：name
+// 示例值：Interivew
 func (builder *JobProcessesStageBuilder) EnName(enName string) *JobProcessesStageBuilder {
 	builder.enName = enName
 	builder.enNameSet = true
 	return builder
 }
 
-// 1=筛选型, 2=评估型, 3=笔试型, 4=面试型, 5=Offer型, 6=待入职, 7=已入职, 8=其它类型, 255=系统默认，后端模型中并没有该字段，仅用于前端显示,
+// 阶段类型
 //
 // 示例值：1
 func (builder *JobProcessesStageBuilder) Type(type_ int) *JobProcessesStageBuilder {
@@ -44784,7 +44784,7 @@ type Talent struct {
 
 	IsOnboarded *bool `json:"is_onboarded,omitempty"` // 是否已入职
 
-	BasicInfo *TalentBasicInfo `json:"basic_info,omitempty"` // 基本信息
+	BasicInfo *TalentBasicInfo `json:"basic_info,omitempty"` // 基础信息
 
 	EducationList []*TalentEducationInfo `json:"education_list,omitempty"` // 教育经历
 
@@ -44825,7 +44825,7 @@ type TalentBuilder struct {
 	isOnboarded    bool // 是否已入职
 	isOnboardedSet bool
 
-	basicInfo    *TalentBasicInfo // 基本信息
+	basicInfo    *TalentBasicInfo // 基础信息
 	basicInfoSet bool
 
 	educationList    []*TalentEducationInfo // 教育经历
@@ -44878,7 +44878,7 @@ func NewTalentBuilder() *TalentBuilder {
 
 // 人才ID
 //
-// 示例值：7132833506849326636
+// 示例值：6891560630172518670
 func (builder *TalentBuilder) Id(id string) *TalentBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -44903,7 +44903,7 @@ func (builder *TalentBuilder) IsOnboarded(isOnboarded bool) *TalentBuilder {
 	return builder
 }
 
-// 基本信息
+// 基础信息
 //
 // 示例值：
 func (builder *TalentBuilder) BasicInfo(basicInfo *TalentBasicInfo) *TalentBuilder {
@@ -45226,7 +45226,7 @@ type TalentBasicInfo struct {
 
 	CurrentCity *TalentCityInfo `json:"current_city,omitempty"` // 所在地点
 
-	HometownCity *TalentCityInfo `json:"hometown_city,omitempty"` // 家乡
+	HometownCity *TalentCityInfo `json:"hometown_city,omitempty"` // 所在地点
 
 	PreferredCityList []*TalentCityInfo `json:"preferred_city_list,omitempty"` // 意向地点
 
@@ -45282,7 +45282,7 @@ type TalentBasicInfoBuilder struct {
 	currentCity    *TalentCityInfo // 所在地点
 	currentCitySet bool
 
-	hometownCity    *TalentCityInfo // 家乡
+	hometownCity    *TalentCityInfo // 所在地点
 	hometownCitySet bool
 
 	preferredCityList    []*TalentCityInfo // 意向地点
@@ -45335,7 +45335,7 @@ func (builder *TalentBasicInfoBuilder) Name(name string) *TalentBasicInfoBuilder
 
 // 手机
 //
-// 示例值：18290029119
+// 示例值：182900291190
 func (builder *TalentBasicInfoBuilder) Mobile(mobile string) *TalentBasicInfoBuilder {
 	builder.mobile = mobile
 	builder.mobileSet = true
@@ -45414,7 +45414,7 @@ func (builder *TalentBasicInfoBuilder) CurrentCity(currentCity *TalentCityInfo) 
 	return builder
 }
 
-// 家乡
+// 所在地点
 //
 // 示例值：
 func (builder *TalentBasicInfoBuilder) HometownCity(hometownCity *TalentCityInfo) *TalentBasicInfoBuilder {
@@ -45461,7 +45461,7 @@ func (builder *TalentBasicInfoBuilder) Identification(identification *TalentIden
 
 // 生日
 //
-// 示例值：293016767159
+// 示例值：1687872017
 func (builder *TalentBasicInfoBuilder) Birthday(birthday int64) *TalentBasicInfoBuilder {
 	builder.birthday = birthday
 	builder.birthdaySet = true
@@ -48060,7 +48060,7 @@ type TalentEducationInfo struct {
 
 	StartTime *string `json:"start_time,omitempty"` // 开始时间
 
-	EndTime *string `json:"end_time,omitempty"` // 结束时间（历史字段） ,如果是至今传值 -1，传输「至今」投递进入系统后可正常查看字段，但进入编辑态后需要修改为一个具体时间
+	EndTime *string `json:"end_time,omitempty"` // 结束时间
 
 	EndTimeV2 *string `json:"end_time_v2,omitempty"` // 结束时间-新，无「至今」传值。建议使用此字段，避免模糊的毕业时间影响候选人筛选
 
@@ -48089,7 +48089,7 @@ type TalentEducationInfoBuilder struct {
 	startTime    string // 开始时间
 	startTimeSet bool
 
-	endTime    string // 结束时间（历史字段） ,如果是至今传值 -1，传输「至今」投递进入系统后可正常查看字段，但进入编辑态后需要修改为一个具体时间
+	endTime    string // 结束时间
 	endTimeSet bool
 
 	endTimeV2    string // 结束时间-新，无「至今」传值。建议使用此字段，避免模糊的毕业时间影响候选人筛选
@@ -48158,7 +48158,7 @@ func (builder *TalentEducationInfoBuilder) StartTime(startTime string) *TalentEd
 	return builder
 }
 
-// 结束时间（历史字段） ,如果是至今传值 -1，传输「至今」投递进入系统后可正常查看字段，但进入编辑态后需要修改为一个具体时间
+// 结束时间
 //
 // 示例值：1994-01
 func (builder *TalentEducationInfoBuilder) EndTime(endTime string) *TalentEducationInfoBuilder {
@@ -49665,7 +49665,7 @@ func (builder *TalentProjectInfoBuilder) Role(role string) *TalentProjectInfoBui
 
 // 项目链接
 //
-// 示例值：
+// 示例值：www.test.com
 func (builder *TalentProjectInfoBuilder) Link(link string) *TalentProjectInfoBuilder {
 	builder.link = link
 	builder.linkSet = true
@@ -49674,7 +49674,7 @@ func (builder *TalentProjectInfoBuilder) Link(link string) *TalentProjectInfoBui
 
 // 描述
 //
-// 示例值：
+// 示例值：test
 func (builder *TalentProjectInfoBuilder) Desc(desc string) *TalentProjectInfoBuilder {
 	builder.desc = desc
 	builder.descSet = true
@@ -50170,7 +50170,7 @@ func (builder *TalentSelfEvaluationBuilder) Build() *TalentSelfEvaluation {
 type TalentSnsInfo struct {
 	Id *string `json:"id,omitempty"` // ID
 
-	SnsType *int `json:"sns_type,omitempty"` // SNS名称
+	SnsType *int `json:"sns_type,omitempty"` // 社交平台
 
 	Link *string `json:"link,omitempty"` // URL/ID
 
@@ -50181,7 +50181,7 @@ type TalentSnsInfoBuilder struct {
 	id    string // ID
 	idSet bool
 
-	snsType    int // SNS名称
+	snsType    int // 社交平台
 	snsTypeSet bool
 
 	link    string // URL/ID
@@ -50205,7 +50205,7 @@ func (builder *TalentSnsInfoBuilder) Id(id string) *TalentSnsInfoBuilder {
 	return builder
 }
 
-// SNS名称
+// 社交平台
 //
 // 示例值：1
 func (builder *TalentSnsInfoBuilder) SnsType(snsType int) *TalentSnsInfoBuilder {
@@ -50216,7 +50216,7 @@ func (builder *TalentSnsInfoBuilder) SnsType(snsType int) *TalentSnsInfoBuilder 
 
 // URL/ID
 //
-// 示例值：
+// 示例值：www.test.com
 func (builder *TalentSnsInfoBuilder) Link(link string) *TalentSnsInfoBuilder {
 	builder.link = link
 	builder.linkSet = true
@@ -50399,7 +50399,7 @@ func (builder *TalentWorksInfoBuilder) Id(id string) *TalentWorksInfoBuilder {
 
 // 作品链接
 //
-// 示例值：
+// 示例值：www.test.com
 func (builder *TalentWorksInfoBuilder) Link(link string) *TalentWorksInfoBuilder {
 	builder.link = link
 	builder.linkSet = true
@@ -50408,7 +50408,7 @@ func (builder *TalentWorksInfoBuilder) Link(link string) *TalentWorksInfoBuilder
 
 // 描述
 //
-// 示例值：
+// 示例值：test
 func (builder *TalentWorksInfoBuilder) Desc(desc string) *TalentWorksInfoBuilder {
 	builder.desc = desc
 	builder.descSet = true
@@ -56721,19 +56721,19 @@ func (resp *CancelOnboardApplicationResp) Success() bool {
 }
 
 type CreateApplicationReqBodyBuilder struct {
-	talentId    string // 人才ID
+	talentId    string // 人才 ID，可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)获取
 	talentIdSet bool
 
-	jobId    string // 职位ID
+	jobId    string // 职位 ID，可通过[获取职位列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/list)获取
 	jobIdSet bool
 
-	userId    string // 人员ID
+	userId    string // 人员 ID，与入参 `user_id_type` 类型一致。;;**注意**：;若投递来源为属于「员工转岗」或「实习生转正」时必填，创建投递成功后会将该员工和对应人才进行绑定；创建其他来源投递时，不会进行人员与人才绑定。
 	userIdSet bool
 
-	resumeSourceId    string // 简历来源 ID，可通过获取简历来源列表接口查询。若简历来源类型属于「员工转岗」或「实习生转正」，人才需处于已入职状态。
+	resumeSourceId    string // 简历来源 ID，可通过[获取简历来源列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list)获取;
 	resumeSourceIdSet bool
 
-	applicationPreferredCityCodeList    []string // 意向投递城市列表，可从「获取职位信息」返回的工作地点列表获取
+	applicationPreferredCityCodeList    []string // 意向投递城市列表，可通过[查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query);获取到对应的城市编码
 	applicationPreferredCityCodeListSet bool
 
 	deliveryType    int // 投递方式
@@ -56745,25 +56745,25 @@ func NewCreateApplicationReqBodyBuilder() *CreateApplicationReqBodyBuilder {
 	return builder
 }
 
-// 人才ID
+// 人才 ID，可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)获取
 //
-// 示例值：12312312312
+// 示例值：6889020179456689671
 func (builder *CreateApplicationReqBodyBuilder) TalentId(talentId string) *CreateApplicationReqBodyBuilder {
 	builder.talentId = talentId
 	builder.talentIdSet = true
 	return builder
 }
 
-// 职位ID
+// 职位 ID，可通过[获取职位列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/list)获取
 //
-// 示例值：12312312312
+// 示例值：6889330484657424647
 func (builder *CreateApplicationReqBodyBuilder) JobId(jobId string) *CreateApplicationReqBodyBuilder {
 	builder.jobId = jobId
 	builder.jobIdSet = true
 	return builder
 }
 
-// 人员ID
+// 人员 ID，与入参 `user_id_type` 类型一致。;;**注意**：;若投递来源为属于「员工转岗」或「实习生转正」时必填，创建投递成功后会将该员工和对应人才进行绑定；创建其他来源投递时，不会进行人员与人才绑定。
 //
 // 示例值：6930815272790114324
 func (builder *CreateApplicationReqBodyBuilder) UserId(userId string) *CreateApplicationReqBodyBuilder {
@@ -56772,7 +56772,7 @@ func (builder *CreateApplicationReqBodyBuilder) UserId(userId string) *CreateApp
 	return builder
 }
 
-// 简历来源 ID，可通过获取简历来源列表接口查询。若简历来源类型属于「员工转岗」或「实习生转正」，人才需处于已入职状态。
+// 简历来源 ID，可通过[获取简历来源列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list)获取;
 //
 // 示例值：7115289562569591070
 func (builder *CreateApplicationReqBodyBuilder) ResumeSourceId(resumeSourceId string) *CreateApplicationReqBodyBuilder {
@@ -56781,7 +56781,7 @@ func (builder *CreateApplicationReqBodyBuilder) ResumeSourceId(resumeSourceId st
 	return builder
 }
 
-// 意向投递城市列表，可从「获取职位信息」返回的工作地点列表获取
+// 意向投递城市列表，可通过[查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query);获取到对应的城市编码
 //
 // 示例值：
 func (builder *CreateApplicationReqBodyBuilder) ApplicationPreferredCityCodeList(applicationPreferredCityCodeList []string) *CreateApplicationReqBodyBuilder {
@@ -56842,25 +56842,25 @@ func NewCreateApplicationPathReqBodyBuilder() *CreateApplicationPathReqBodyBuild
 	return builder
 }
 
-// 人才ID
+// 人才 ID，可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)获取
 //
-// 示例值：12312312312
+// 示例值：6889020179456689671
 func (builder *CreateApplicationPathReqBodyBuilder) TalentId(talentId string) *CreateApplicationPathReqBodyBuilder {
 	builder.talentId = talentId
 	builder.talentIdSet = true
 	return builder
 }
 
-// 职位ID
+// 职位 ID，可通过[获取职位列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/list)获取
 //
-// 示例值：12312312312
+// 示例值：6889330484657424647
 func (builder *CreateApplicationPathReqBodyBuilder) JobId(jobId string) *CreateApplicationPathReqBodyBuilder {
 	builder.jobId = jobId
 	builder.jobIdSet = true
 	return builder
 }
 
-// 人员ID
+// 人员 ID，与入参 `user_id_type` 类型一致。;;**注意**：;若投递来源为属于「员工转岗」或「实习生转正」时必填，创建投递成功后会将该员工和对应人才进行绑定；创建其他来源投递时，不会进行人员与人才绑定。
 //
 // 示例值：6930815272790114324
 func (builder *CreateApplicationPathReqBodyBuilder) UserId(userId string) *CreateApplicationPathReqBodyBuilder {
@@ -56869,7 +56869,7 @@ func (builder *CreateApplicationPathReqBodyBuilder) UserId(userId string) *Creat
 	return builder
 }
 
-// 简历来源 ID，可通过获取简历来源列表接口查询。若简历来源类型属于「员工转岗」或「实习生转正」，人才需处于已入职状态。
+// 简历来源 ID，可通过[获取简历来源列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list)获取;
 //
 // 示例值：7115289562569591070
 func (builder *CreateApplicationPathReqBodyBuilder) ResumeSourceId(resumeSourceId string) *CreateApplicationPathReqBodyBuilder {
@@ -56878,7 +56878,7 @@ func (builder *CreateApplicationPathReqBodyBuilder) ResumeSourceId(resumeSourceI
 	return builder
 }
 
-// 意向投递城市列表，可从「获取职位信息」返回的工作地点列表获取
+// 意向投递城市列表，可通过[查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query);获取到对应的城市编码
 //
 // 示例值：
 func (builder *CreateApplicationPathReqBodyBuilder) ApplicationPreferredCityCodeList(applicationPreferredCityCodeList []string) *CreateApplicationPathReqBodyBuilder {
@@ -56941,6 +56941,7 @@ func (builder *CreateApplicationReqBuilder) UserIdType(userIdType string) *Creat
 	return builder
 }
 
+// 为人才在特定职位上创建投递。
 func (builder *CreateApplicationReqBuilder) Body(body *CreateApplicationReqBody) *CreateApplicationReqBuilder {
 	builder.body = body
 	return builder
@@ -56955,15 +56956,15 @@ func (builder *CreateApplicationReqBuilder) Build() *CreateApplicationReq {
 }
 
 type CreateApplicationReqBody struct {
-	TalentId *string `json:"talent_id,omitempty"` // 人才ID
+	TalentId *string `json:"talent_id,omitempty"` // 人才 ID，可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)获取
 
-	JobId *string `json:"job_id,omitempty"` // 职位ID
+	JobId *string `json:"job_id,omitempty"` // 职位 ID，可通过[获取职位列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/list)获取
 
-	UserId *string `json:"user_id,omitempty"` // 人员ID
+	UserId *string `json:"user_id,omitempty"` // 人员 ID，与入参 `user_id_type` 类型一致。;;**注意**：;若投递来源为属于「员工转岗」或「实习生转正」时必填，创建投递成功后会将该员工和对应人才进行绑定；创建其他来源投递时，不会进行人员与人才绑定。
 
-	ResumeSourceId *string `json:"resume_source_id,omitempty"` // 简历来源 ID，可通过获取简历来源列表接口查询。若简历来源类型属于「员工转岗」或「实习生转正」，人才需处于已入职状态。
+	ResumeSourceId *string `json:"resume_source_id,omitempty"` // 简历来源 ID，可通过[获取简历来源列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list)获取;
 
-	ApplicationPreferredCityCodeList []string `json:"application_preferred_city_code_list,omitempty"` // 意向投递城市列表，可从「获取职位信息」返回的工作地点列表获取
+	ApplicationPreferredCityCodeList []string `json:"application_preferred_city_code_list,omitempty"` // 意向投递城市列表，可通过[查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query);获取到对应的城市编码
 
 	DeliveryType *int `json:"delivery_type,omitempty"` // 投递方式
 }
@@ -56974,7 +56975,7 @@ type CreateApplicationReq struct {
 }
 
 type CreateApplicationRespData struct {
-	Id *string `json:"id,omitempty"` // 投递ID
+	Id *string `json:"id,omitempty"` // 投递 ID，详情请参考[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get);
 }
 
 type CreateApplicationResp struct {
@@ -57000,9 +57001,9 @@ func NewGetApplicationReqBuilder() *GetApplicationReqBuilder {
 	return builder
 }
 
-// 投递ID
+// 投递 ID，可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)获取
 //
-// 示例值：212121
+// 示例值：6949805467799537964
 func (builder *GetApplicationReqBuilder) ApplicationId(applicationId string) *GetApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("application_id", fmt.Sprint(applicationId))
 	return builder
@@ -57016,7 +57017,7 @@ func (builder *GetApplicationReqBuilder) UserIdType(userIdType string) *GetAppli
 	return builder
 }
 
-// 请求控制参数，用于控制接口响应逻辑。如需一次查询多个用户ID，可通过将同一参数名多次传递，并且每次传递不同的参数值。
+// 请求控制参数，用于控制接口响应逻辑。如需一次查询多个用户ID，可通过将同一参数名多次传递，并且每次传递不同的参数值。例如：https://{url}?options={option1}&options={option2}。
 //
 // 示例值：
 func (builder *GetApplicationReqBuilder) Options(options []string) *GetApplicationReqBuilder {
@@ -57162,31 +57163,31 @@ func NewListApplicationReqBuilder() *ListApplicationReqBuilder {
 	return builder
 }
 
-// 按流程过滤
+// 招聘流程 ID，可通过[获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)接口中的「流程 ID」获取
 //
-// 示例值：212121
+// 示例值：6960663240925956554
 func (builder *ListApplicationReqBuilder) ProcessId(processId string) *ListApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("process_id", fmt.Sprint(processId))
 	return builder
 }
 
-// 按阶段过滤
+// 招聘阶段 ID，可通过[获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)接口每个流程下的「阶段列表」获取;
 //
-// 示例值：212121
+// 示例值：614218419274131
 func (builder *ListApplicationReqBuilder) StageId(stageId string) *ListApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("stage_id", fmt.Sprint(stageId))
 	return builder
 }
 
-// 按人才过滤
+// 人才 ID，可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取
 //
-// 示例值：123321
+// 示例值：6891560630172518670
 func (builder *ListApplicationReqBuilder) TalentId(talentId string) *ListApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("talent_id", fmt.Sprint(talentId))
 	return builder
 }
 
-// 按活跃状态筛选 1=活跃投递, 2=非活跃投递, 3=全部,
+// 投递活跃状态，不传该参数则默认为“全部”;;;**可选值有**：;- `1`：活跃投递;- `2`：非活跃投递;- `3`：全部
 //
 // 示例值：1
 func (builder *ListApplicationReqBuilder) ActiveStatus(activeStatus string) *ListApplicationReqBuilder {
@@ -57194,7 +57195,7 @@ func (builder *ListApplicationReqBuilder) ActiveStatus(activeStatus string) *Lis
 	return builder
 }
 
-// 职位 ID
+// 职位 ID，可通过[获取职位列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/list)接口获取
 //
 // 示例值：7334134355464633
 func (builder *ListApplicationReqBuilder) JobId(jobId string) *ListApplicationReqBuilder {
@@ -57202,7 +57203,7 @@ func (builder *ListApplicationReqBuilder) JobId(jobId string) *ListApplicationRe
 	return builder
 }
 
-// 锁定状态
+// 锁定状态，无默认值，不传该参数则不对锁定状态进行筛选
 //
 // 示例值：
 func (builder *ListApplicationReqBuilder) LockStatus(lockStatus []int) *ListApplicationReqBuilder {
@@ -57212,15 +57213,15 @@ func (builder *ListApplicationReqBuilder) LockStatus(lockStatus []int) *ListAppl
 	return builder
 }
 
-// 查询游标, 由上一页结果返回, 第一页不传
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：1
+// 示例值：eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0
 func (builder *ListApplicationReqBuilder) PageToken(pageToken string) *ListApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 每页限制, 每页最大不超过100
+// 分页大小;;;**最大值**：200
 //
 // 示例值：100
 func (builder *ListApplicationReqBuilder) PageSize(pageSize int) *ListApplicationReqBuilder {
@@ -57228,7 +57229,7 @@ func (builder *ListApplicationReqBuilder) PageSize(pageSize int) *ListApplicatio
 	return builder
 }
 
-// 最早更新时间，毫秒级时间戳
+// 最早更新时间，毫秒时间戳
 //
 // 示例值：1618500278663
 func (builder *ListApplicationReqBuilder) UpdateStartTime(updateStartTime string) *ListApplicationReqBuilder {
@@ -57236,7 +57237,7 @@ func (builder *ListApplicationReqBuilder) UpdateStartTime(updateStartTime string
 	return builder
 }
 
-// 最晚更新时间，毫秒级时间戳
+// 最晚更新时间，毫秒时间戳
 //
 // 示例值：1618500278663
 func (builder *ListApplicationReqBuilder) UpdateEndTime(updateEndTime string) *ListApplicationReqBuilder {
@@ -57264,11 +57265,11 @@ type ListApplicationReq struct {
 }
 
 type ListApplicationRespData struct {
-	Items []string `json:"items,omitempty"` // 投递数据列表
+	Items []string `json:"items,omitempty"` // 投递 ID 列表，详情请参考：[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
 
-	PageToken *string `json:"page_token,omitempty"` // 游标, 翻下一页数据时使用
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否还有下一页数据
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 }
 
 type ListApplicationResp struct {
@@ -57294,9 +57295,9 @@ func NewOfferApplicationReqBuilder() *OfferApplicationReqBuilder {
 	return builder
 }
 
-// 投递ID
+// 投递ID，可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)获取
 //
-// 示例值：12312312312
+// 示例值：6949805467799537964
 func (builder *OfferApplicationReqBuilder) ApplicationId(applicationId string) *OfferApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("application_id", fmt.Sprint(applicationId))
 	return builder
@@ -57310,9 +57311,9 @@ func (builder *OfferApplicationReqBuilder) UserIdType(userIdType string) *OfferA
 	return builder
 }
 
-// 此次调用中使用的部门 ID 的类型
+// 此次调用中使用的部门 ID 类型。
 //
-// 示例值：
+// 示例值："open_department_id"
 func (builder *OfferApplicationReqBuilder) DepartmentIdType(departmentIdType string) *OfferApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -57320,7 +57321,7 @@ func (builder *OfferApplicationReqBuilder) DepartmentIdType(departmentIdType str
 
 // 此次调用中使用的「职级 ID」的类型
 //
-// 示例值：
+// 示例值："people_admin_job_level_id"
 func (builder *OfferApplicationReqBuilder) JobLevelIdType(jobLevelIdType string) *OfferApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
 	return builder
@@ -57328,7 +57329,7 @@ func (builder *OfferApplicationReqBuilder) JobLevelIdType(jobLevelIdType string)
 
 // 此次调用中使用的「序列 ID」的类型
 //
-// 示例值：
+// 示例值："people_admin_job_category_id"
 func (builder *OfferApplicationReqBuilder) JobFamilyIdType(jobFamilyIdType string) *OfferApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
 	return builder
@@ -57336,7 +57337,7 @@ func (builder *OfferApplicationReqBuilder) JobFamilyIdType(jobFamilyIdType strin
 
 // 此次调用中使用的「人员类型 ID」的类型
 //
-// 示例值：
+// 示例值："people_admin_employee_type_id"
 func (builder *OfferApplicationReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *OfferApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
 	return builder
@@ -57355,7 +57356,7 @@ type OfferApplicationReq struct {
 }
 
 type OfferApplicationRespData struct {
-	Offer *ApplicationOffer `json:"offer,omitempty"` //
+	Offer *ApplicationOffer `json:"offer,omitempty"` // Offer数据
 }
 
 type OfferApplicationResp struct {
@@ -57413,7 +57414,7 @@ type TerminateApplicationReqBodyBuilder struct {
 	terminationType    int // 终止原因的类型
 	terminationTypeSet bool
 
-	terminationReasonList    []string // 终止的具体原因的id列表
+	terminationReasonList    []string // 终止的具体原因的id列表，可通过[获取终止投递原因](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/termination_reason/list)接口获取
 	terminationReasonListSet bool
 
 	terminationReasonNote    string // 终止备注
@@ -57452,7 +57453,7 @@ func (builder *TerminateApplicationReqBodyBuilder) TerminationType(terminationTy
 	return builder
 }
 
-// 终止的具体原因的id列表
+// 终止的具体原因的id列表，可通过[获取终止投递原因](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/termination_reason/list)接口获取
 //
 // 示例值：
 func (builder *TerminateApplicationReqBodyBuilder) TerminationReasonList(terminationReasonList []string) *TerminateApplicationReqBodyBuilder {
@@ -57591,7 +57592,7 @@ func (builder *TerminateApplicationPathReqBodyBuilder) TerminationType(terminati
 	return builder
 }
 
-// 终止的具体原因的id列表
+// 终止的具体原因的id列表，可通过[获取终止投递原因](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/termination_reason/list)接口获取
 //
 // 示例值：
 func (builder *TerminateApplicationPathReqBodyBuilder) TerminationReasonList(terminationReasonList []string) *TerminateApplicationPathReqBodyBuilder {
@@ -57709,7 +57710,7 @@ func NewTerminateApplicationReqBuilder() *TerminateApplicationReqBuilder {
 	return builder
 }
 
-// 投递ID
+// 投递ID，可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取
 //
 // 示例值：12312312312
 func (builder *TerminateApplicationReqBuilder) ApplicationId(applicationId string) *TerminateApplicationReqBuilder {
@@ -57717,6 +57718,7 @@ func (builder *TerminateApplicationReqBuilder) ApplicationId(applicationId strin
 	return builder
 }
 
+// 根据投递 ID 修改投递状态为「已终止」。
 func (builder *TerminateApplicationReqBuilder) Body(body *TerminateApplicationReqBody) *TerminateApplicationReqBuilder {
 	builder.body = body
 	return builder
@@ -57733,7 +57735,7 @@ func (builder *TerminateApplicationReqBuilder) Build() *TerminateApplicationReq 
 type TerminateApplicationReqBody struct {
 	TerminationType *int `json:"termination_type,omitempty"` // 终止原因的类型
 
-	TerminationReasonList []string `json:"termination_reason_list,omitempty"` // 终止的具体原因的id列表
+	TerminationReasonList []string `json:"termination_reason_list,omitempty"` // 终止的具体原因的id列表，可通过[获取终止投递原因](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/termination_reason/list)接口获取
 
 	TerminationReasonNote *string `json:"termination_reason_note,omitempty"` // 终止备注
 
@@ -57765,34 +57767,34 @@ func (resp *TerminateApplicationResp) Success() bool {
 }
 
 type TransferOnboardApplicationReqBodyBuilder struct {
-	actualOnboardTime    int // 实际入职时间
+	actualOnboardTime    int // 实际入职时间，毫秒时间戳（int64类型），不能晚于当前时间，不传则默认为当前时间
 	actualOnboardTimeSet bool
 
-	expectedConversionTime    int // 预期转正时间
+	expectedConversionTime    int // 预期转正时间，毫秒时间戳（int64类型），不传则默认为0
 	expectedConversionTimeSet bool
 
-	jobRequirementId    string // 招聘需求 ID
+	jobRequirementId    string // 招聘需求 ID，可通过接口 [获取招聘需求列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list) 获取。是否必须传入取决于管理员在系统后台「招聘需求关联设置」的配置。入职完成后招聘需求的「已入职」人数会加1
 	jobRequirementIdSet bool
 
-	operatorId    string // 操作人 UserID
+	operatorId    string // 操作人ID，与入参 `user_id_type` 类型一致
 	operatorIdSet bool
 
-	onboardCityCode    string // 办公地点
+	onboardCityCode    string // 候选人办公地点 ID，将用于候选人内推奖规则判断，数据源可通过接口[获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list);获取
 	onboardCityCodeSet bool
 
-	department    string // 入职部门
+	department    string // 候选人入职部门 ID ，将用于候选人内推奖规则判断，可通过接口[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)获取，与入参 `department_id_type ` 类型一致;
 	departmentSet bool
 
-	leader    string // 直属上级
+	leader    string // 候选人直属上级 UserID ，将用于候选人内推奖规则判断，与入参 `user_id_type` 类型一致
 	leaderSet bool
 
-	sequence    string // 序列
+	sequence    string // 候选人序列 ID ，将用于候选人内推奖规则判断，与入参 `job_family_id_type ` 类型一致
 	sequenceSet bool
 
-	level    string // 职级
+	level    string // 候选人职级 ID ，将用于候选人内推奖规则判断，与入参 `job_level_id_type ` 类型一致
 	levelSet bool
 
-	employeeType    string // 入职员工类型
+	employeeType    string // 候选人入职人员类型 ID，将用于候选人内推奖规则判断，与入参 `employee_type_id_type ` 类型一致
 	employeeTypeSet bool
 }
 
@@ -57801,7 +57803,7 @@ func NewTransferOnboardApplicationReqBodyBuilder() *TransferOnboardApplicationRe
 	return builder
 }
 
-// 实际入职时间
+// 实际入职时间，毫秒时间戳（int64类型），不能晚于当前时间，不传则默认为当前时间
 //
 // 示例值：1616428800000
 func (builder *TransferOnboardApplicationReqBodyBuilder) ActualOnboardTime(actualOnboardTime int) *TransferOnboardApplicationReqBodyBuilder {
@@ -57810,7 +57812,7 @@ func (builder *TransferOnboardApplicationReqBodyBuilder) ActualOnboardTime(actua
 	return builder
 }
 
-// 预期转正时间
+// 预期转正时间，毫秒时间戳（int64类型），不传则默认为0
 //
 // 示例值：1616428800000
 func (builder *TransferOnboardApplicationReqBodyBuilder) ExpectedConversionTime(expectedConversionTime int) *TransferOnboardApplicationReqBodyBuilder {
@@ -57819,7 +57821,7 @@ func (builder *TransferOnboardApplicationReqBodyBuilder) ExpectedConversionTime(
 	return builder
 }
 
-// 招聘需求 ID
+// 招聘需求 ID，可通过接口 [获取招聘需求列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list) 获取。是否必须传入取决于管理员在系统后台「招聘需求关联设置」的配置。入职完成后招聘需求的「已入职」人数会加1
 //
 // 示例值：6960663240925956402
 func (builder *TransferOnboardApplicationReqBodyBuilder) JobRequirementId(jobRequirementId string) *TransferOnboardApplicationReqBodyBuilder {
@@ -57828,25 +57830,25 @@ func (builder *TransferOnboardApplicationReqBodyBuilder) JobRequirementId(jobReq
 	return builder
 }
 
-// 操作人 UserID
+// 操作人ID，与入参 `user_id_type` 类型一致
 //
-// 示例值：ou-xxx
+// 示例值：7326856229396906012
 func (builder *TransferOnboardApplicationReqBodyBuilder) OperatorId(operatorId string) *TransferOnboardApplicationReqBodyBuilder {
 	builder.operatorId = operatorId
 	builder.operatorIdSet = true
 	return builder
 }
 
-// 办公地点
+// 候选人办公地点 ID，将用于候选人内推奖规则判断，数据源可通过接口[获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list);获取
 //
-// 示例值：C20
+// 示例值：CT_2
 func (builder *TransferOnboardApplicationReqBodyBuilder) OnboardCityCode(onboardCityCode string) *TransferOnboardApplicationReqBodyBuilder {
 	builder.onboardCityCode = onboardCityCode
 	builder.onboardCityCodeSet = true
 	return builder
 }
 
-// 入职部门
+// 候选人入职部门 ID ，将用于候选人内推奖规则判断，可通过接口[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)获取，与入参 `department_id_type ` 类型一致;
 //
 // 示例值：6966123381141866028
 func (builder *TransferOnboardApplicationReqBodyBuilder) Department(department string) *TransferOnboardApplicationReqBodyBuilder {
@@ -57855,36 +57857,36 @@ func (builder *TransferOnboardApplicationReqBodyBuilder) Department(department s
 	return builder
 }
 
-// 直属上级
+// 候选人直属上级 UserID ，将用于候选人内推奖规则判断，与入参 `user_id_type` 类型一致
 //
-// 示例值：ou-xxx
+// 示例值：7326856229396906012
 func (builder *TransferOnboardApplicationReqBodyBuilder) Leader(leader string) *TransferOnboardApplicationReqBodyBuilder {
 	builder.leader = leader
 	builder.leaderSet = true
 	return builder
 }
 
-// 序列
+// 候选人序列 ID ，将用于候选人内推奖规则判断，与入参 `job_family_id_type ` 类型一致
 //
-// 示例值：6501
+// 示例值：7006234385490345986
 func (builder *TransferOnboardApplicationReqBodyBuilder) Sequence(sequence string) *TransferOnboardApplicationReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
 	return builder
 }
 
-// 职级
+// 候选人职级 ID ，将用于候选人内推奖规则判断，与入参 `job_level_id_type ` 类型一致
 //
-// 示例值：6301
+// 示例值：6937934036379650311
 func (builder *TransferOnboardApplicationReqBodyBuilder) Level(level string) *TransferOnboardApplicationReqBodyBuilder {
 	builder.level = level
 	builder.levelSet = true
 	return builder
 }
 
-// 入职员工类型
+// 候选人入职人员类型 ID，将用于候选人内推奖规则判断，与入参 `employee_type_id_type ` 类型一致
 //
-// 示例值：1
+// 示例值：cSbrHjS5Ogiwq0Zu-cKz1g==
 func (builder *TransferOnboardApplicationReqBodyBuilder) EmployeeType(employeeType string) *TransferOnboardApplicationReqBodyBuilder {
 	builder.employeeType = employeeType
 	builder.employeeTypeSet = true
@@ -57954,7 +57956,7 @@ func NewTransferOnboardApplicationPathReqBodyBuilder() *TransferOnboardApplicati
 	return builder
 }
 
-// 实际入职时间
+// 实际入职时间，毫秒时间戳（int64类型），不能晚于当前时间，不传则默认为当前时间
 //
 // 示例值：1616428800000
 func (builder *TransferOnboardApplicationPathReqBodyBuilder) ActualOnboardTime(actualOnboardTime int) *TransferOnboardApplicationPathReqBodyBuilder {
@@ -57963,7 +57965,7 @@ func (builder *TransferOnboardApplicationPathReqBodyBuilder) ActualOnboardTime(a
 	return builder
 }
 
-// 预期转正时间
+// 预期转正时间，毫秒时间戳（int64类型），不传则默认为0
 //
 // 示例值：1616428800000
 func (builder *TransferOnboardApplicationPathReqBodyBuilder) ExpectedConversionTime(expectedConversionTime int) *TransferOnboardApplicationPathReqBodyBuilder {
@@ -57972,7 +57974,7 @@ func (builder *TransferOnboardApplicationPathReqBodyBuilder) ExpectedConversionT
 	return builder
 }
 
-// 招聘需求 ID
+// 招聘需求 ID，可通过接口 [获取招聘需求列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list) 获取。是否必须传入取决于管理员在系统后台「招聘需求关联设置」的配置。入职完成后招聘需求的「已入职」人数会加1
 //
 // 示例值：6960663240925956402
 func (builder *TransferOnboardApplicationPathReqBodyBuilder) JobRequirementId(jobRequirementId string) *TransferOnboardApplicationPathReqBodyBuilder {
@@ -57981,25 +57983,25 @@ func (builder *TransferOnboardApplicationPathReqBodyBuilder) JobRequirementId(jo
 	return builder
 }
 
-// 操作人 UserID
+// 操作人ID，与入参 `user_id_type` 类型一致
 //
-// 示例值：ou-xxx
+// 示例值：7326856229396906012
 func (builder *TransferOnboardApplicationPathReqBodyBuilder) OperatorId(operatorId string) *TransferOnboardApplicationPathReqBodyBuilder {
 	builder.operatorId = operatorId
 	builder.operatorIdSet = true
 	return builder
 }
 
-// 办公地点
+// 候选人办公地点 ID，将用于候选人内推奖规则判断，数据源可通过接口[获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list);获取
 //
-// 示例值：C20
+// 示例值：CT_2
 func (builder *TransferOnboardApplicationPathReqBodyBuilder) OnboardCityCode(onboardCityCode string) *TransferOnboardApplicationPathReqBodyBuilder {
 	builder.onboardCityCode = onboardCityCode
 	builder.onboardCityCodeSet = true
 	return builder
 }
 
-// 入职部门
+// 候选人入职部门 ID ，将用于候选人内推奖规则判断，可通过接口[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)获取，与入参 `department_id_type ` 类型一致;
 //
 // 示例值：6966123381141866028
 func (builder *TransferOnboardApplicationPathReqBodyBuilder) Department(department string) *TransferOnboardApplicationPathReqBodyBuilder {
@@ -58008,36 +58010,36 @@ func (builder *TransferOnboardApplicationPathReqBodyBuilder) Department(departme
 	return builder
 }
 
-// 直属上级
+// 候选人直属上级 UserID ，将用于候选人内推奖规则判断，与入参 `user_id_type` 类型一致
 //
-// 示例值：ou-xxx
+// 示例值：7326856229396906012
 func (builder *TransferOnboardApplicationPathReqBodyBuilder) Leader(leader string) *TransferOnboardApplicationPathReqBodyBuilder {
 	builder.leader = leader
 	builder.leaderSet = true
 	return builder
 }
 
-// 序列
+// 候选人序列 ID ，将用于候选人内推奖规则判断，与入参 `job_family_id_type ` 类型一致
 //
-// 示例值：6501
+// 示例值：7006234385490345986
 func (builder *TransferOnboardApplicationPathReqBodyBuilder) Sequence(sequence string) *TransferOnboardApplicationPathReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
 	return builder
 }
 
-// 职级
+// 候选人职级 ID ，将用于候选人内推奖规则判断，与入参 `job_level_id_type ` 类型一致
 //
-// 示例值：6301
+// 示例值：6937934036379650311
 func (builder *TransferOnboardApplicationPathReqBodyBuilder) Level(level string) *TransferOnboardApplicationPathReqBodyBuilder {
 	builder.level = level
 	builder.levelSet = true
 	return builder
 }
 
-// 入职员工类型
+// 候选人入职人员类型 ID，将用于候选人内推奖规则判断，与入参 `employee_type_id_type ` 类型一致
 //
-// 示例值：1
+// 示例值：cSbrHjS5Ogiwq0Zu-cKz1g==
 func (builder *TransferOnboardApplicationPathReqBodyBuilder) EmployeeType(employeeType string) *TransferOnboardApplicationPathReqBodyBuilder {
 	builder.employeeType = employeeType
 	builder.employeeTypeSet = true
@@ -58093,9 +58095,9 @@ func NewTransferOnboardApplicationReqBuilder() *TransferOnboardApplicationReqBui
 	return builder
 }
 
-// 投递ID
+// 投递ID，可通过接口 [获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list) 获取
 //
-// 示例值：12312312312
+// 示例值：7073372582620416300
 func (builder *TransferOnboardApplicationReqBuilder) ApplicationId(applicationId string) *TransferOnboardApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("application_id", fmt.Sprint(applicationId))
 	return builder
@@ -58109,9 +58111,9 @@ func (builder *TransferOnboardApplicationReqBuilder) UserIdType(userIdType strin
 	return builder
 }
 
-// 此次调用中使用的部门 ID 的类型
+// 指定查询结果中的部门 ID 类型。关于部门 ID 的详细介绍，可参见[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)。
 //
-// 示例值：
+// 示例值：department_id
 func (builder *TransferOnboardApplicationReqBuilder) DepartmentIdType(departmentIdType string) *TransferOnboardApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -58119,7 +58121,7 @@ func (builder *TransferOnboardApplicationReqBuilder) DepartmentIdType(department
 
 // 此次调用中使用的「职级 ID」的类型
 //
-// 示例值：
+// 示例值：job_level_id
 func (builder *TransferOnboardApplicationReqBuilder) JobLevelIdType(jobLevelIdType string) *TransferOnboardApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("job_level_id_type", fmt.Sprint(jobLevelIdType))
 	return builder
@@ -58127,7 +58129,7 @@ func (builder *TransferOnboardApplicationReqBuilder) JobLevelIdType(jobLevelIdTy
 
 // 此次调用中使用的「序列 ID」的类型
 //
-// 示例值：
+// 示例值：job_family_id
 func (builder *TransferOnboardApplicationReqBuilder) JobFamilyIdType(jobFamilyIdType string) *TransferOnboardApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("job_family_id_type", fmt.Sprint(jobFamilyIdType))
 	return builder
@@ -58135,12 +58137,13 @@ func (builder *TransferOnboardApplicationReqBuilder) JobFamilyIdType(jobFamilyId
 
 // 此次调用中使用的「人员类型 ID」的类型
 //
-// 示例值：
+// 示例值：employee_type_enum_id
 func (builder *TransferOnboardApplicationReqBuilder) EmployeeTypeIdType(employeeTypeIdType string) *TransferOnboardApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("employee_type_id_type", fmt.Sprint(employeeTypeIdType))
 	return builder
 }
 
+// 根据投递 ID 操作候选人入职并创建员工，后续可通过 [通过员工 ID 获取入职信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get) 接口获取入职信息。
 func (builder *TransferOnboardApplicationReqBuilder) Body(body *TransferOnboardApplicationReqBody) *TransferOnboardApplicationReqBuilder {
 	builder.body = body
 	return builder
@@ -58156,25 +58159,25 @@ func (builder *TransferOnboardApplicationReqBuilder) Build() *TransferOnboardApp
 }
 
 type TransferOnboardApplicationReqBody struct {
-	ActualOnboardTime *int `json:"actual_onboard_time,omitempty"` // 实际入职时间
+	ActualOnboardTime *int `json:"actual_onboard_time,omitempty"` // 实际入职时间，毫秒时间戳（int64类型），不能晚于当前时间，不传则默认为当前时间
 
-	ExpectedConversionTime *int `json:"expected_conversion_time,omitempty"` // 预期转正时间
+	ExpectedConversionTime *int `json:"expected_conversion_time,omitempty"` // 预期转正时间，毫秒时间戳（int64类型），不传则默认为0
 
-	JobRequirementId *string `json:"job_requirement_id,omitempty"` // 招聘需求 ID
+	JobRequirementId *string `json:"job_requirement_id,omitempty"` // 招聘需求 ID，可通过接口 [获取招聘需求列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list) 获取。是否必须传入取决于管理员在系统后台「招聘需求关联设置」的配置。入职完成后招聘需求的「已入职」人数会加1
 
-	OperatorId *string `json:"operator_id,omitempty"` // 操作人 UserID
+	OperatorId *string `json:"operator_id,omitempty"` // 操作人ID，与入参 `user_id_type` 类型一致
 
-	OnboardCityCode *string `json:"onboard_city_code,omitempty"` // 办公地点
+	OnboardCityCode *string `json:"onboard_city_code,omitempty"` // 候选人办公地点 ID，将用于候选人内推奖规则判断，数据源可通过接口[获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list);获取
 
-	Department *string `json:"department,omitempty"` // 入职部门
+	Department *string `json:"department,omitempty"` // 候选人入职部门 ID ，将用于候选人内推奖规则判断，可通过接口[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)获取，与入参 `department_id_type ` 类型一致;
 
-	Leader *string `json:"leader,omitempty"` // 直属上级
+	Leader *string `json:"leader,omitempty"` // 候选人直属上级 UserID ，将用于候选人内推奖规则判断，与入参 `user_id_type` 类型一致
 
-	Sequence *string `json:"sequence,omitempty"` // 序列
+	Sequence *string `json:"sequence,omitempty"` // 候选人序列 ID ，将用于候选人内推奖规则判断，与入参 `job_family_id_type ` 类型一致
 
-	Level *string `json:"level,omitempty"` // 职级
+	Level *string `json:"level,omitempty"` // 候选人职级 ID ，将用于候选人内推奖规则判断，与入参 `job_level_id_type ` 类型一致
 
-	EmployeeType *string `json:"employee_type,omitempty"` // 入职员工类型
+	EmployeeType *string `json:"employee_type,omitempty"` // 候选人入职人员类型 ID，将用于候选人内推奖规则判断，与入参 `employee_type_id_type ` 类型一致
 }
 
 type TransferOnboardApplicationReq struct {
@@ -58183,7 +58186,7 @@ type TransferOnboardApplicationReq struct {
 }
 
 type TransferOnboardApplicationRespData struct {
-	Employee *Employee `json:"employee,omitempty"` // 员工信息
+	Employee *Employee `json:"employee,omitempty"` // employee
 }
 
 type TransferOnboardApplicationResp struct {
@@ -64271,9 +64274,9 @@ func (builder *GetJobReqBuilder) UserIdType(userIdType string) *GetJobReqBuilder
 	return builder
 }
 
-// 此次调用中使用的部门 ID 的类型
+// 部门ID类型
 //
-// 示例值：
+// 示例值：open_department_id
 func (builder *GetJobReqBuilder) DepartmentIdType(departmentIdType string) *GetJobReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
@@ -64308,7 +64311,7 @@ type GetJobReq struct {
 }
 
 type GetJobRespData struct {
-	Job *Job `json:"job,omitempty"` // 职位
+	Job *Job `json:"job,omitempty"` // 职位数据
 }
 
 type GetJobResp struct {
@@ -65200,7 +65203,7 @@ func NewListJobProcessReqBuilder() *ListJobProcessReqBuilder {
 	return builder
 }
 
-// 分页大小, 不能超过 100
+// 分页大小;;;**默认值**：10
 //
 // 示例值：10
 func (builder *ListJobProcessReqBuilder) PageSize(pageSize int) *ListJobProcessReqBuilder {
@@ -65210,7 +65213,7 @@ func (builder *ListJobProcessReqBuilder) PageSize(pageSize int) *ListJobProcessR
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：1
+// 示例值：7342029494511126794
 func (builder *ListJobProcessReqBuilder) PageToken(pageToken string) *ListJobProcessReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -65232,7 +65235,7 @@ type ListJobProcessRespData struct {
 
 	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
-	Items []*JobProcesses `json:"items,omitempty"` // 列表
+	Items []*JobProcesses `json:"items,omitempty"` // 流程列表
 }
 
 type ListJobProcessResp struct {
@@ -71880,9 +71883,9 @@ func NewGetTalentReqBuilder() *GetTalentReqBuilder {
 	return builder
 }
 
-// 人才 ID
+// 人才ID，可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取
 //
-// 示例值：6960663240925956555
+// 示例值：6891560630172518670
 func (builder *GetTalentReqBuilder) TalentId(talentId string) *GetTalentReqBuilder {
 	builder.apiReq.PathParams.Set("talent_id", fmt.Sprint(talentId))
 	return builder
@@ -75706,11 +75709,11 @@ type P2EcoExamCreatedV1Data struct {
 
 	CandidateInfo *EcoExamCreateEventCandidateInfo `json:"candidate_info,omitempty"` // 候选人信息
 
-	TalentId *string `json:"talent_id,omitempty"` // 人才ID
+	TalentId *string `json:"talent_id,omitempty"` // 人才ID。灰度字段，灰度内才会返回。
 
-	ApplicationId *string `json:"application_id,omitempty"` // 投递ID
+	ApplicationId *string `json:"application_id,omitempty"` // 投递ID。灰度字段，灰度内才会返回。
 
-	JobInfo *EcoExamCreateEventJobInfo `json:"job_info,omitempty"` // 职位信息。字段可能不返回，调用方需按可选字段处理。
+	JobInfo *EcoExamCreateEventJobInfo `json:"job_info,omitempty"` // 职位信息。灰度字段，灰度内才会返回。
 }
 
 type P2EcoExamCreatedV1 struct {

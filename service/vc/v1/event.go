@@ -18,6 +18,86 @@ import (
 )
 
 // 消息处理器定义
+type P2BotMeetingActivityV1Handler struct {
+	handler func(context.Context, *P2BotMeetingActivityV1) error
+}
+
+func NewP2BotMeetingActivityV1Handler(handler func(context.Context, *P2BotMeetingActivityV1) error) *P2BotMeetingActivityV1Handler {
+	h := &P2BotMeetingActivityV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2BotMeetingActivityV1Handler) Event() interface{} {
+	return &P2BotMeetingActivityV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2BotMeetingActivityV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2BotMeetingActivityV1))
+}
+
+// 消息处理器定义
+type P2BotMeetingEndedV1Handler struct {
+	handler func(context.Context, *P2BotMeetingEndedV1) error
+}
+
+func NewP2BotMeetingEndedV1Handler(handler func(context.Context, *P2BotMeetingEndedV1) error) *P2BotMeetingEndedV1Handler {
+	h := &P2BotMeetingEndedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2BotMeetingEndedV1Handler) Event() interface{} {
+	return &P2BotMeetingEndedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2BotMeetingEndedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2BotMeetingEndedV1))
+}
+
+// 消息处理器定义
+type P2BotMeetingInvitedV1Handler struct {
+	handler func(context.Context, *P2BotMeetingInvitedV1) error
+}
+
+func NewP2BotMeetingInvitedV1Handler(handler func(context.Context, *P2BotMeetingInvitedV1) error) *P2BotMeetingInvitedV1Handler {
+	h := &P2BotMeetingInvitedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2BotMeetingInvitedV1Handler) Event() interface{} {
+	return &P2BotMeetingInvitedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2BotMeetingInvitedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2BotMeetingInvitedV1))
+}
+
+// 消息处理器定义
+type P2BotMeetingStartedV1Handler struct {
+	handler func(context.Context, *P2BotMeetingStartedV1) error
+}
+
+func NewP2BotMeetingStartedV1Handler(handler func(context.Context, *P2BotMeetingStartedV1) error) *P2BotMeetingStartedV1Handler {
+	h := &P2BotMeetingStartedV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2BotMeetingStartedV1Handler) Event() interface{} {
+	return &P2BotMeetingStartedV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2BotMeetingStartedV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2BotMeetingStartedV1))
+}
+
+// 消息处理器定义
 type P2MeetingAllMeetingEndedV1Handler struct {
 	handler func(context.Context, *P2MeetingAllMeetingEndedV1) error
 }

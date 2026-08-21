@@ -366,11 +366,10 @@ const (
 )
 
 const (
-	TopicTodoApproval      = "1"  // 待办审批
-	TopicDoneApproval      = "2"  // 已办审批
-	TopicInitiatedApproval = "3"  // 已发起审批
-	TopicUnreadNotice      = "17" // 未读知会
-	TopicReadNotice        = "18" // 已读知会
+	TopicTodoApproval = "1"  // 待办审批
+	TopicDoneApproval = "2"  // 已办审批
+	TopicUnreadNotice = "17" // 未读知会
+	TopicReadNotice   = "18" // 已读知会
 )
 
 const (
@@ -19200,6 +19199,8 @@ type P2InstanceStatusChangedV4Data struct {
 	OperateTime *string `json:"operate_time,omitempty"` // 事件发生事件，毫秒时间戳
 
 	StartUser *UserId `json:"start_user,omitempty"` // 审批实例发起人
+
+	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"` // 订阅用户id列表
 }
 
 type P2InstanceStatusChangedV4 struct {
@@ -19226,6 +19227,8 @@ type P2TaskStatusChangedV4Data struct {
 	Status *string `json:"status,omitempty"` // 任务状态
 
 	OperateTime *string `json:"operate_time,omitempty"` // 事件触发时间
+
+	SubscriberIdList []*UserId `json:"subscriber_id_list,omitempty"` // 订阅用户id列表
 }
 
 type P2TaskStatusChangedV4 struct {
