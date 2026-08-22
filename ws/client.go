@@ -93,6 +93,12 @@ func WithAutoReconnect(b bool) ClientOption {
 	}
 }
 
+func WithReconnectCount(n int) ClientOption {
+	return func(cli *Client) {
+		cli.reconnectCount = n
+	}
+}
+
 func WithDomain(domain string) ClientOption {
 	return func(cli *Client) {
 		cli.domain = domain
