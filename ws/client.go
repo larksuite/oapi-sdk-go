@@ -229,7 +229,12 @@ func (c *Client) Start(ctx context.Context) (err error) {
 		}
 	}
 	go c.pingLoop(ctx)
-	select {}
+	select {
+	case <-ctx.Done():
+		c.logger.Debug(ctx, c.fmtLog("context canceled, disconnect")...)
+		c.disconnect(ctx)
+	}
+	return nil
 }
 
 func (c *Client) connect(ctx context.Context) (err error) {
