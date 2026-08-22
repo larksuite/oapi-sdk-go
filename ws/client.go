@@ -34,6 +34,7 @@ type Client struct {
 	domain                  string
 	headers                 http.Header
 	source                  string
+	httpClient              *http.Client
 	conn                    *ws.Conn
 	connUrl                 *url.URL
 	serviceID               string
@@ -116,6 +117,15 @@ func WithClientAssertionProvider(provider larkcore.ClientAssertionProvider) Clie
 		cli.clientAssertionProvider = provider
 	}
 }
+
+func WithHTTPClient(httpClient *http.Client) ClientOption {
+	return func(cli *Client) {
+		if httpClient != nil {
+			cli.httpClient = httpClient
+		}
+	}
+}
+
 func WithOnReady(f func()) ClientOption {
 	return func(cli *Client) {
 		cli.onReady = f
@@ -192,6 +202,7 @@ func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
 		pingInterval:      2 * time.Minute,
 		cache:             larkcache.New(30 * time.Second),
 		domain:            lark.FeishuBaseUrl,
+		httpClient:        bootstrapHTTPClient,
 	}
 
 	for _, opt := range opts {
@@ -420,7 +431,7 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 		}
 	}
 	req.Header.Set("User-Agent", larkcore.UserAgent(c.source))
-	resp, err := bootstrapHTTPClient.Do(req)
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return
 	}

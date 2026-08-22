@@ -12,6 +12,16 @@ import (
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
+type headerRoundTripper struct {
+	base http.RoundTripper
+}
+
+func (t headerRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	req = req.Clone(req.Context())
+	req.Header.Set("X-Bootstrap-Client", "custom")
+	return t.base.RoundTrip(req)
+}
+
 type wsMockClientAssertionProvider struct {
 	mu     sync.Mutex
 	tokens []*larkcore.Token
@@ -30,6 +40,28 @@ func (p *wsMockClientAssertionProvider) RetrieveToken(ctx context.Context, aud s
 		p.index++
 	}
 	return token, nil
+}
+
+func TestGetConnURLUsesConfiguredHTTPClient(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Header.Get("X-Bootstrap-Client") != "custom" {
+			t.Fatalf("bootstrap request did not use configured HTTP client")
+		}
+		_ = json.NewEncoder(w).Encode(&EndpointResp{Code: OK, Data: &Endpoint{Url: "wss://example.com/ws"}})
+	}))
+	defer server.Close()
+
+	httpClient := server.Client()
+	httpClient.Transport = headerRoundTripper{base: httpClient.Transport}
+
+	client := NewClient("app-id", "app-secret", WithDomain(server.URL), WithHTTPClient(httpClient))
+	connURL, err := client.getConnURL(context.Background())
+	if err != nil {
+		t.Fatalf("get conn url failed: %v", err)
+	}
+	if connURL != "wss://example.com/ws" {
+		t.Fatalf("unexpected conn url: %s", connURL)
+	}
 }
 
 func TestGetConnURLWithAppSecret(t *testing.T) {
