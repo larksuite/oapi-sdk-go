@@ -513,6 +513,9 @@ func (c *Client) pingLoop(ctx context.Context) {
 			err := c.writeMessage(ws.BinaryMessage, bs)
 			if err != nil {
 				c.logger.Warn(ctx, c.fmtLog("ping failed, err: %v", err)...)
+				// Ping write failure indicates the connection is broken.
+				// Trigger disconnect to kick off autoReconnect.
+				c.disconnect(ctx)
 			} else {
 				c.logger.Debug(ctx, c.fmtLog("ping success")...)
 			}
@@ -541,6 +544,13 @@ func (c *Client) receiveMessageLoop(ctx context.Context) {
 			c.logger.Error(ctx, c.fmtLog("connection is closed, receive message loop exit")...)
 			return
 		}
+
+		// Set read deadline to 3x pingInterval to detect half-dead connections
+		// that don't produce errors on ReadMessage (e.g., after laptop sleep/wake
+		// or NAT silently dropping connections without FIN). A healthy connection
+		// receives pong responses that refresh this deadline.
+		_, _, _, pingInterval := c.configSnapshot()
+		_ = conn.SetReadDeadline(time.Now().Add(3 * pingInterval))
 
 		mt, msg, err := conn.ReadMessage()
 		if err != nil {
