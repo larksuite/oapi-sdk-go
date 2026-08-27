@@ -4,9 +4,11 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"math/rand"
+	"net"
 	"net/http"
 	"net/url"
 	"runtime/debug"
@@ -33,6 +35,13 @@ type Client struct {
 	cardHandler             *larkcard.CardActionHandler
 	domain                  string
 	headers                 http.Header
+	connectionHeaders       http.Header
+	connectionHeadersSet    bool
+	connectionHeadersErr    error
+	connectionHost          string
+	connectionHostSet       bool
+	connectionHostErr       error
+	dialer                  *ws.Dialer
 	source                  string
 	conn                    *ws.Conn
 	connUrl                 *url.URL
@@ -55,6 +64,13 @@ type Client struct {
 }
 
 var bootstrapHTTPClient = http.DefaultClient
+
+var (
+	errInvalidConnectionHeaders  = errors.New("invalid websocket connection headers")
+	errInvalidConnectionHost     = errors.New("invalid websocket connection host")
+	errInvalidConnectionEndpoint = errors.New("invalid websocket endpoint")
+	errWebSocketHandshakeFailed  = errors.New("websocket handshake failed")
+)
 
 type bootstrapErrorResp struct {
 	Code int    `json:"code"`
@@ -101,7 +117,23 @@ func WithDomain(domain string) ClientOption {
 
 func WithHeaders(header http.Header) ClientOption {
 	return func(cli *Client) {
-		cli.headers = header
+		cli.headers = cloneHTTPHeader(header)
+	}
+}
+
+func WithConnectionHeaders(header http.Header) ClientOption {
+	return func(cli *Client) {
+		cli.connectionHeaders = cloneHTTPHeader(header)
+		cli.connectionHeadersSet = true
+		cli.connectionHeadersErr = validateConnectionHeaders(cli.connectionHeaders)
+	}
+}
+
+func WithConnectionHost(host string) ClientOption {
+	return func(cli *Client) {
+		cli.connectionHost = host
+		cli.connectionHostSet = true
+		cli.connectionHostErr = validateConnectionHost(host)
 	}
 }
 
@@ -192,6 +224,7 @@ func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
 		pingInterval:      2 * time.Minute,
 		cache:             larkcache.New(30 * time.Second),
 		domain:            lark.FeishuBaseUrl,
+		dialer:            newDefaultWebSocketDialer(),
 	}
 
 	for _, opt := range opts {
@@ -238,6 +271,12 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	if c.conn != nil {
 		return
 	}
+	if c.connectionHeadersErr != nil {
+		return newConnectionConfigError(c.connectionHeadersErr)
+	}
+	if c.connectionHostErr != nil {
+		return newConnectionConfigError(c.connectionHostErr)
+	}
 
 	// 获取建连URL
 	connUrl, err := c.getConnURL(ctx)
@@ -246,21 +285,24 @@ func (c *Client) connect(ctx context.Context) (err error) {
 		return
 	}
 
-	// 验证URL
-	u, err := url.Parse(connUrl)
+	// 验证URL并应用目标 host 覆盖
+	u, err := buildConnectionURL(connUrl, c.connectionHost, c.connectionHostSet)
 	if err != nil {
-		return
+		return newConnectionConfigError(err)
 	}
 	connID := u.Query().Get(DeviceID)
 	serviceID := u.Query().Get(ServiceID)
 
-	conn, resp, err := ws.DefaultDialer.Dial(connUrl, nil)
+	conn, resp, err := c.dialer.DialContext(ctx, u.String(), cloneHTTPHeader(c.connectionHeaders))
 	if err != nil && resp == nil {
+		if c.connectionHeadersSet || c.connectionHostSet {
+			return errWebSocketHandshakeFailed
+		}
 		return
 	}
 	if resp.StatusCode != http.StatusSwitchingProtocols {
 		// 连接失败
-		return parseErr(resp)
+		return parseErr(resp, c.connectionHeadersSet || c.connectionHostSet)
 	}
 
 	c.conn = conn
@@ -268,7 +310,7 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	c.setConnID(connID)
 	c.serviceID = serviceID
 
-	c.logger.Info(ctx, c.fmtLog("connected to %s", u)...)
+	c.logger.Info(ctx, fmt.Sprintf("connected to %s", sanitizeConnectionURL(u)))
 
 	go c.receiveMessageLoop(ctx)
 	return
@@ -350,8 +392,10 @@ func (c *Client) disconnect(ctx context.Context) {
 		return
 	}
 
-	_ = c.conn.Close()
-	c.logger.Info(ctx, c.fmtLog("disconnected to %s", c.connUrl)...)
+	if err := c.conn.Close(); err != nil {
+		c.logger.Warn(ctx, "close websocket connection failed", err)
+	}
+	c.logger.Info(ctx, fmt.Sprintf("disconnected from %s", sanitizeConnectionURL(c.connUrl)))
 
 	if c.onDisconnected != nil {
 		c.onDisconnected()
@@ -493,6 +537,281 @@ func buildWSProxyURL(targetService, targetPrefix, apiPath string) string {
 		targetService = "https://" + targetService
 	}
 	return targetService + targetPrefix + apiPath
+}
+
+func cloneHTTPHeader(header http.Header) http.Header {
+	if header == nil {
+		return nil
+	}
+	cloned := make(http.Header, len(header))
+	for name, values := range header {
+		cloned[name] = append([]string(nil), values...)
+	}
+	return cloned
+}
+
+func validateConnectionHeaders(header http.Header) error {
+	for name, values := range header {
+		if !isValidHTTPHeaderName(name) || isReservedWebSocketHeader(name) {
+			return errInvalidConnectionHeaders
+		}
+		for _, value := range values {
+			if !isValidHTTPHeaderValue(value) {
+				return errInvalidConnectionHeaders
+			}
+		}
+	}
+	return nil
+}
+
+func isValidHTTPHeaderName(name string) bool {
+	if name == "" {
+		return false
+	}
+	for i := 0; i < len(name); i++ {
+		if !isHTTPTokenByte(name[i]) {
+			return false
+		}
+	}
+	return true
+}
+
+func isHTTPTokenByte(value byte) bool {
+	if value >= '0' && value <= '9' || value >= 'a' && value <= 'z' || value >= 'A' && value <= 'Z' {
+		return true
+	}
+	switch value {
+	case '!', '#', '$', '%', '&', '\'', '*', '+', '-', '.', '^', '_', '`', '|', '~':
+		return true
+	default:
+		return false
+	}
+}
+
+func isValidHTTPHeaderValue(value string) bool {
+	for i := 0; i < len(value); i++ {
+		if value[i] == '\x7f' || value[i] < '\x20' && value[i] != '\t' {
+			return false
+		}
+	}
+	return true
+}
+
+func isReservedWebSocketHeader(name string) bool {
+	if strings.EqualFold(name, "Host") || strings.EqualFold(name, "Connection") || strings.EqualFold(name, "Upgrade") {
+		return true
+	}
+	const webSocketHeaderPrefix = "Sec-WebSocket-"
+	return len(name) >= len(webSocketHeaderPrefix) && strings.EqualFold(name[:len(webSocketHeaderPrefix)], webSocketHeaderPrefix)
+}
+
+func validateConnectionHost(host string) error {
+	if host == "" || !isASCII(host) {
+		return errInvalidConnectionHost
+	}
+
+	hostname, port, ok := splitConnectionHost(host)
+	if !ok || port != "" && !isValidConnectionPort(port) {
+		return errInvalidConnectionHost
+	}
+	if strings.HasPrefix(hostname, "[") {
+		return validateBracketedIPv6(hostname)
+	}
+	if strings.Contains(hostname, ":") || !isValidDNSOrIPv4Host(hostname) {
+		return errInvalidConnectionHost
+	}
+	return nil
+}
+
+func isASCII(value string) bool {
+	for i := 0; i < len(value); i++ {
+		if value[i] >= 0x80 {
+			return false
+		}
+	}
+	return true
+}
+
+func splitConnectionHost(host string) (hostname string, port string, ok bool) {
+	if strings.HasPrefix(host, "[") {
+		closingBracket := strings.IndexByte(host, ']')
+		if closingBracket < 0 || strings.Contains(host[closingBracket+1:], "]") {
+			return "", "", false
+		}
+		hostname = host[:closingBracket+1]
+		suffix := host[closingBracket+1:]
+		if suffix == "" {
+			return hostname, "", true
+		}
+		if !strings.HasPrefix(suffix, ":") || len(suffix) == 1 {
+			return "", "", false
+		}
+		return hostname, suffix[1:], true
+	}
+
+	colon := strings.LastIndexByte(host, ':')
+	if colon < 0 {
+		return host, "", true
+	}
+	if strings.Contains(host[:colon], ":") || colon == 0 || colon == len(host)-1 {
+		return "", "", false
+	}
+	return host[:colon], host[colon+1:], true
+}
+
+func isValidConnectionPort(port string) bool {
+	if !isDecimal(port) || len(port) > 1 && port[0] == '0' {
+		return false
+	}
+	number, err := strconv.Atoi(port)
+	return err == nil && number >= 1 && number <= 65535
+}
+
+func validateBracketedIPv6(hostname string) error {
+	if len(hostname) < 4 || hostname[len(hostname)-1] != ']' {
+		return errInvalidConnectionHost
+	}
+	literal := hostname[1 : len(hostname)-1]
+	if !strings.Contains(literal, ":") || strings.Contains(literal, "%") || net.ParseIP(literal) == nil {
+		return errInvalidConnectionHost
+	}
+	return nil
+}
+
+func isValidDNSOrIPv4Host(hostname string) bool {
+	if hostname == "" || len(hostname) > 253 || strings.HasPrefix(hostname, ".") || strings.HasSuffix(hostname, ".") {
+		return false
+	}
+	if isNumericDottedHost(hostname) {
+		return isValidIPv4Host(hostname)
+	}
+	for _, label := range strings.Split(hostname, ".") {
+		if !isValidDNSLabel(label) {
+			return false
+		}
+	}
+	return true
+}
+
+func isNumericDottedHost(hostname string) bool {
+	if !strings.Contains(hostname, ".") {
+		return false
+	}
+	for _, label := range strings.Split(hostname, ".") {
+		if !isDecimal(label) {
+			return false
+		}
+	}
+	return true
+}
+
+func isValidIPv4Host(hostname string) bool {
+	parts := strings.Split(hostname, ".")
+	if len(parts) != net.IPv4len {
+		return false
+	}
+	for _, part := range parts {
+		if len(part) > 1 && part[0] == '0' {
+			return false
+		}
+		number, err := strconv.Atoi(part)
+		if err != nil || number < 0 || number > 255 {
+			return false
+		}
+	}
+	return true
+}
+
+func isDecimal(value string) bool {
+	if value == "" {
+		return false
+	}
+	for i := 0; i < len(value); i++ {
+		if value[i] < '0' || value[i] > '9' {
+			return false
+		}
+	}
+	return true
+}
+
+func isValidDNSLabel(label string) bool {
+	if len(label) == 0 || len(label) > 63 || !isASCIIAlphaNumeric(label[0]) || !isASCIIAlphaNumeric(label[len(label)-1]) {
+		return false
+	}
+	for i := 1; i < len(label)-1; i++ {
+		if !isASCIIAlphaNumeric(label[i]) && label[i] != '-' {
+			return false
+		}
+	}
+	return true
+}
+
+func isASCIIAlphaNumeric(value byte) bool {
+	return value >= '0' && value <= '9' || value >= 'a' && value <= 'z' || value >= 'A' && value <= 'Z'
+}
+
+func buildConnectionURL(endpoint string, connectionHost string, connectionHostSet bool) (*url.URL, error) {
+	parsed, err := url.Parse(endpoint)
+	if err != nil || strings.Contains(endpoint, "#") {
+		return nil, errInvalidConnectionEndpoint
+	}
+	if parsed.Opaque != "" || parsed.User != nil || parsed.Fragment != "" || parsed.Hostname() == "" {
+		return nil, errInvalidConnectionEndpoint
+	}
+	if parsed.Scheme != "ws" && parsed.Scheme != "wss" || !hasValidEndpointPort(parsed.Host) {
+		return nil, errInvalidConnectionEndpoint
+	}
+	if connectionHostSet {
+		parsed.Host = connectionHost
+	}
+	return parsed, nil
+}
+
+func hasValidEndpointPort(host string) bool {
+	_, port, ok := splitConnectionHost(host)
+	if !ok {
+		return false
+	}
+	if port == "" {
+		return true
+	}
+	if !isDecimal(port) {
+		return false
+	}
+	number, err := strconv.Atoi(port)
+	return err == nil && number >= 1 && number <= 65535
+}
+
+func sanitizeConnectionURL(connectionURL *url.URL) string {
+	if connectionURL == nil {
+		return ""
+	}
+	safeURL := *connectionURL
+	safeURL.User = nil
+	safeURL.RawQuery = ""
+	safeURL.ForceQuery = false
+	safeURL.Fragment = ""
+	return safeURL.String()
+}
+
+func newConnectionConfigError(configErr error) *ClientError {
+	message := "invalid websocket connection configuration"
+	switch {
+	case errors.Is(configErr, errInvalidConnectionHeaders):
+		message = errInvalidConnectionHeaders.Error()
+	case errors.Is(configErr, errInvalidConnectionHost):
+		message = errInvalidConnectionHost.Error()
+	case errors.Is(configErr, errInvalidConnectionEndpoint):
+		message = errInvalidConnectionEndpoint.Error()
+	}
+	return NewClientError(invalidConnectionConfigCode, message)
+}
+
+func newDefaultWebSocketDialer() *ws.Dialer {
+	return &ws.Dialer{
+		Proxy:            http.ProxyFromEnvironment,
+		HandshakeTimeout: 45 * time.Second,
+	}
 }
 
 func (c *Client) pingLoop(ctx context.Context) {
@@ -707,7 +1026,7 @@ func (c *Client) fmtLog(format string, i ...interface{}) []interface{} {
 	return log
 }
 
-// Leaf lock, not c.mu: connect and disconnect already hold c.mu when they call fmtLog.
+// Leaf lock, not c.mu: logging can happen while callers hold c.mu.
 func (c *Client) setConnID(id string) {
 	c.connIDMu.Lock()
 	c.connID = id
@@ -755,13 +1074,22 @@ func (c *Client) connState() (conn *ws.Conn, serviceID string) {
 	return c.conn, c.serviceID
 }
 
-func parseErr(resp *http.Response) error {
-	code, _ := strconv.Atoi(resp.Header.Get(HeaderHandshakeStatus))
-	msg := resp.Header.Get(HeaderHandshakeMsg)
+func parseErr(resp *http.Response, redactMessage bool) error {
+	code := 0
+	if parsedCode, err := strconv.Atoi(resp.Header.Get(HeaderHandshakeStatus)); err == nil {
+		code = parsedCode
+	}
+	msg := errWebSocketHandshakeFailed.Error()
+	if !redactMessage {
+		msg = resp.Header.Get(HeaderHandshakeMsg)
+	}
 	switch code {
 	case AuthFailed:
 		// Auth失败
-		authCode, _ := strconv.Atoi(resp.Header.Get(HeaderHandshakeAuthErrCode))
+		authCode := 0
+		if parsedAuthCode, err := strconv.Atoi(resp.Header.Get(HeaderHandshakeAuthErrCode)); err == nil {
+			authCode = parsedAuthCode
+		}
 		if authCode == ExceedConnLimit {
 			return NewClientError(code, msg)
 		} else {
