@@ -9,50 +9,12 @@ import (
 )
 
 func validateConnectionHeaders(header http.Header) error {
-	for name, values := range header {
-		if !isValidHTTPHeaderName(name) || isReservedWebSocketHeader(name) {
+	for name := range header {
+		if isReservedWebSocketHeader(name) {
 			return errInvalidConnectionHeaders
-		}
-		for _, value := range values {
-			if !isValidHTTPHeaderValue(value) {
-				return errInvalidConnectionHeaders
-			}
 		}
 	}
 	return nil
-}
-
-func isValidHTTPHeaderName(name string) bool {
-	if name == "" {
-		return false
-	}
-	for i := 0; i < len(name); i++ {
-		if !isHTTPTokenByte(name[i]) {
-			return false
-		}
-	}
-	return true
-}
-
-func isHTTPTokenByte(value byte) bool {
-	if value >= '0' && value <= '9' || value >= 'a' && value <= 'z' || value >= 'A' && value <= 'Z' {
-		return true
-	}
-	switch value {
-	case '!', '#', '$', '%', '&', '\'', '*', '+', '-', '.', '^', '_', '`', '|', '~':
-		return true
-	default:
-		return false
-	}
-}
-
-func isValidHTTPHeaderValue(value string) bool {
-	for i := 0; i < len(value); i++ {
-		if value[i] == '\x7f' || value[i] < '\x20' && value[i] != '\t' {
-			return false
-		}
-	}
-	return true
 }
 
 func isReservedWebSocketHeader(name string) bool {

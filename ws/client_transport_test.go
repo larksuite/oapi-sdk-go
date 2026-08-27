@@ -418,7 +418,7 @@ func TestReconnectReusesConnectionConfiguration(t *testing.T) {
 }
 
 func TestReservedConnectionHeadersFailClosed(t *testing.T) {
-	invalidHeaders := []struct {
+	reservedHeaders := []struct {
 		name     string
 		header   http.Header
 		sentinel string
@@ -429,15 +429,9 @@ func TestReservedConnectionHeadersFailClosed(t *testing.T) {
 		{name: "websocket key", header: http.Header{"sEc-WeBsOcKeT-kEy": []string{"blocked-key-value"}}, sentinel: "blocked-key-value"},
 		{name: "websocket protocol", header: http.Header{"sec-websocket-protocol": []string{"blocked-protocol-value"}}, sentinel: "blocked-protocol-value"},
 		{name: "custom websocket protocol header", header: http.Header{"SEC-WEBSOCKET-X-CUSTOM": []string{"blocked-custom-value"}}, sentinel: "blocked-custom-value"},
-		{name: "invalid field name", header: http.Header{"Bad Header": []string{"blocked-invalid-name-value"}}, sentinel: "blocked-invalid-name-value"},
-		{name: "carriage return", header: http.Header{"X-Bad-Value": []string{"blocked-cr-value\rnext"}}, sentinel: "blocked-cr-value"},
-		{name: "line feed", header: http.Header{"X-Bad-Value": []string{"blocked-lf-value\nnext"}}, sentinel: "blocked-lf-value"},
-		{name: "nul", header: http.Header{"X-Bad-Value": []string{"blocked-nul-value\x00next"}}, sentinel: "blocked-nul-value"},
-		{name: "delete", header: http.Header{"X-Bad-Value": []string{"blocked-del-value\x7fnext"}}, sentinel: "blocked-del-value"},
-		{name: "c0 control", header: http.Header{"X-Bad-Value": []string{"blocked-control-value\x01next"}}, sentinel: "blocked-control-value"},
 	}
 
-	for _, testCase := range invalidHeaders {
+	for _, testCase := range reservedHeaders {
 		testCase := testCase
 		t.Run(testCase.name, func(t *testing.T) {
 			originalClient := bootstrapHTTPClient
@@ -564,6 +558,13 @@ func TestReservedConnectionHeadersFailClosed(t *testing.T) {
 		assertNotContainsAny(t, err.Error(), "priority-header-secret")
 		assertNotContainsAny(t, logger.String(), "priority-header-secret")
 	})
+}
+
+func TestConnectionHeaderValidationDefersNonReservedSyntax(t *testing.T) {
+	header := http.Header{"Bad Header": []string{"value\rnext"}}
+	if err := validateConnectionHeaders(header); err != nil {
+		t.Fatalf("non-reserved header syntax should be delegated to the transport: %v", err)
+	}
 }
 
 func TestConnectionHostValidationAndRewrite(t *testing.T) {
