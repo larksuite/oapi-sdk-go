@@ -37,10 +37,11 @@ const (
 )
 
 const (
-	OK              = 0
-	SystemBusy      = 1
-	Forbidden       = 403
-	AuthFailed      = 514
-	ExceedConnLimit = 1000040350
-	InternalError   = 1000040343
+	OK                          = 0
+	SystemBusy                  = 1
+	invalidConnectionConfigCode = 400
+	Forbidden                   = 403
+	AuthFailed                  = 514
+	ExceedConnLimit             = 1000040350
+	InternalError               = 1000040343
 )

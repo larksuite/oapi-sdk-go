@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"math/rand"
@@ -33,6 +34,8 @@ type Client struct {
 	cardHandler             *larkcard.CardActionHandler
 	domain                  string
 	headers                 http.Header
+	connection              connectionConfig
+	dialer                  *ws.Dialer
 	source                  string
 	conn                    *ws.Conn
 	connUrl                 *url.URL
@@ -54,7 +57,20 @@ type Client struct {
 	onDisconnected    func()
 }
 
+type connectionConfig struct {
+	headers http.Header
+	host    *string
+	dialer  *ws.Dialer
+}
+
 var bootstrapHTTPClient = http.DefaultClient
+
+var (
+	errInvalidConnectionHeaders  = errors.New("invalid websocket connection headers")
+	errInvalidConnectionHost     = errors.New("invalid websocket connection host")
+	errInvalidConnectionEndpoint = errors.New("invalid websocket endpoint")
+	errWebSocketHandshakeFailed  = errors.New("websocket handshake failed")
+)
 
 type bootstrapErrorResp struct {
 	Code int    `json:"code"`
@@ -101,7 +117,30 @@ func WithDomain(domain string) ClientOption {
 
 func WithHeaders(header http.Header) ClientOption {
 	return func(cli *Client) {
-		cli.headers = header
+		cli.headers = header.Clone()
+	}
+}
+
+func WithConnectionHeaders(header http.Header) ClientOption {
+	return func(cli *Client) {
+		cli.connection.headers = header.Clone()
+	}
+}
+
+func WithConnectionHost(host string) ClientOption {
+	return func(cli *Client) {
+		connectionHost := host
+		cli.connection.host = &connectionHost
+	}
+}
+
+// WithConnectionDialer configures the dialer used to establish the WebSocket connection.
+// The supplied dialer replaces the SDK default dialer. Passing nil restores the default.
+// Its configuration, TLS config, and subprotocols are copied when the option is applied;
+// callbacks, cookie jars, and buffer pools remain shared with the caller.
+func WithConnectionDialer(dialer *ws.Dialer) ClientOption {
+	return func(cli *Client) {
+		cli.connection.dialer = cloneWebSocketDialer(dialer)
 	}
 }
 
@@ -192,6 +231,7 @@ func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
 		pingInterval:      2 * time.Minute,
 		cache:             larkcache.New(30 * time.Second),
 		domain:            lark.FeishuBaseUrl,
+		dialer:            newDefaultWebSocketDialer(),
 	}
 
 	for _, opt := range opts {
@@ -238,6 +278,14 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	if c.conn != nil {
 		return
 	}
+	if err := validateConnectionHeaders(c.connection.headers); err != nil {
+		return newConnectionConfigError(err)
+	}
+	if c.connection.host != nil {
+		if err := validateConnectionHost(*c.connection.host); err != nil {
+			return newConnectionConfigError(err)
+		}
+	}
 
 	// 获取建连URL
 	connUrl, err := c.getConnURL(ctx)
@@ -246,21 +294,29 @@ func (c *Client) connect(ctx context.Context) (err error) {
 		return
 	}
 
-	// 验证URL
-	u, err := url.Parse(connUrl)
+	// 验证URL并应用目标 host 覆盖
+	u, err := buildConnectionURL(connUrl, c.connection.host)
 	if err != nil {
-		return
+		return newConnectionConfigError(err)
 	}
 	connID := u.Query().Get(DeviceID)
 	serviceID := u.Query().Get(ServiceID)
 
-	conn, resp, err := ws.DefaultDialer.Dial(connUrl, nil)
+	dialer := c.dialer
+	if c.connection.dialer != nil {
+		dialer = c.connection.dialer
+	}
+	redactHandshakeError := len(c.connection.headers) > 0 || c.connection.host != nil || c.connection.dialer != nil
+	conn, resp, err := dialer.DialContext(ctx, u.String(), c.connection.headers)
 	if err != nil && resp == nil {
+		if redactHandshakeError {
+			return errWebSocketHandshakeFailed
+		}
 		return
 	}
 	if resp.StatusCode != http.StatusSwitchingProtocols {
 		// 连接失败
-		return parseErr(resp)
+		return parseErr(resp, redactHandshakeError)
 	}
 
 	c.conn = conn
@@ -268,7 +324,7 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	c.setConnID(connID)
 	c.serviceID = serviceID
 
-	c.logger.Info(ctx, c.fmtLog("connected to %s", u)...)
+	c.logger.Info(ctx, fmt.Sprintf("connected to %s", sanitizeConnectionURL(u)))
 
 	go c.receiveMessageLoop(ctx)
 	return
@@ -350,8 +406,10 @@ func (c *Client) disconnect(ctx context.Context) {
 		return
 	}
 
-	_ = c.conn.Close()
-	c.logger.Info(ctx, c.fmtLog("disconnected to %s", c.connUrl)...)
+	if err := c.conn.Close(); err != nil {
+		c.logger.Warn(ctx, "close websocket connection failed", err)
+	}
+	c.logger.Info(ctx, fmt.Sprintf("disconnected from %s", sanitizeConnectionURL(c.connUrl)))
 
 	if c.onDisconnected != nil {
 		c.onDisconnected()
@@ -493,6 +551,38 @@ func buildWSProxyURL(targetService, targetPrefix, apiPath string) string {
 		targetService = "https://" + targetService
 	}
 	return targetService + targetPrefix + apiPath
+}
+
+func sanitizeConnectionURL(connectionURL *url.URL) string {
+	if connectionURL == nil {
+		return ""
+	}
+	safeURL := *connectionURL
+	safeURL.User = nil
+	safeURL.RawQuery = ""
+	safeURL.ForceQuery = false
+	safeURL.Fragment = ""
+	return safeURL.String()
+}
+
+func newConnectionConfigError(configErr error) *ClientError {
+	message := "invalid websocket connection configuration"
+	switch {
+	case errors.Is(configErr, errInvalidConnectionHeaders):
+		message = errInvalidConnectionHeaders.Error()
+	case errors.Is(configErr, errInvalidConnectionHost):
+		message = errInvalidConnectionHost.Error()
+	case errors.Is(configErr, errInvalidConnectionEndpoint):
+		message = errInvalidConnectionEndpoint.Error()
+	}
+	return NewClientError(invalidConnectionConfigCode, message)
+}
+
+func newDefaultWebSocketDialer() *ws.Dialer {
+	return &ws.Dialer{
+		Proxy:            http.ProxyFromEnvironment,
+		HandshakeTimeout: 45 * time.Second,
+	}
 }
 
 func (c *Client) pingLoop(ctx context.Context) {
@@ -707,7 +797,7 @@ func (c *Client) fmtLog(format string, i ...interface{}) []interface{} {
 	return log
 }
 
-// Leaf lock, not c.mu: connect and disconnect already hold c.mu when they call fmtLog.
+// Leaf lock, not c.mu: logging can happen while callers hold c.mu.
 func (c *Client) setConnID(id string) {
 	c.connIDMu.Lock()
 	c.connID = id
@@ -755,13 +845,22 @@ func (c *Client) connState() (conn *ws.Conn, serviceID string) {
 	return c.conn, c.serviceID
 }
 
-func parseErr(resp *http.Response) error {
-	code, _ := strconv.Atoi(resp.Header.Get(HeaderHandshakeStatus))
-	msg := resp.Header.Get(HeaderHandshakeMsg)
+func parseErr(resp *http.Response, redactMessage bool) error {
+	code := 0
+	if parsedCode, err := strconv.Atoi(resp.Header.Get(HeaderHandshakeStatus)); err == nil {
+		code = parsedCode
+	}
+	msg := errWebSocketHandshakeFailed.Error()
+	if !redactMessage {
+		msg = resp.Header.Get(HeaderHandshakeMsg)
+	}
 	switch code {
 	case AuthFailed:
 		// Auth失败
-		authCode, _ := strconv.Atoi(resp.Header.Get(HeaderHandshakeAuthErrCode))
+		authCode := 0
+		if parsedAuthCode, err := strconv.Atoi(resp.Header.Get(HeaderHandshakeAuthErrCode)); err == nil {
+			authCode = parsedAuthCode
+		}
 		if authCode == ExceedConnLimit {
 			return NewClientError(code, msg)
 		} else {
