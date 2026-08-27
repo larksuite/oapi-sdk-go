@@ -35,12 +35,7 @@ type Client struct {
 	cardHandler             *larkcard.CardActionHandler
 	domain                  string
 	headers                 http.Header
-	connectionHeaders       http.Header
-	connectionHeadersSet    bool
-	connectionHeadersErr    error
-	connectionHost          string
-	connectionHostSet       bool
-	connectionHostErr       error
+	connection              connectionConfig
 	dialer                  *ws.Dialer
 	source                  string
 	conn                    *ws.Conn
@@ -61,6 +56,11 @@ type Client struct {
 	onReconnecting    func()
 	onReconnected     func()
 	onDisconnected    func()
+}
+
+type connectionConfig struct {
+	headers http.Header
+	host    *string
 }
 
 var bootstrapHTTPClient = http.DefaultClient
@@ -123,17 +123,14 @@ func WithHeaders(header http.Header) ClientOption {
 
 func WithConnectionHeaders(header http.Header) ClientOption {
 	return func(cli *Client) {
-		cli.connectionHeaders = cloneHTTPHeader(header)
-		cli.connectionHeadersSet = true
-		cli.connectionHeadersErr = validateConnectionHeaders(cli.connectionHeaders)
+		cli.connection.headers = cloneHTTPHeader(header)
 	}
 }
 
 func WithConnectionHost(host string) ClientOption {
 	return func(cli *Client) {
-		cli.connectionHost = host
-		cli.connectionHostSet = true
-		cli.connectionHostErr = validateConnectionHost(host)
+		connectionHost := host
+		cli.connection.host = &connectionHost
 	}
 }
 
@@ -271,11 +268,8 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	if c.conn != nil {
 		return
 	}
-	if c.connectionHeadersErr != nil {
-		return newConnectionConfigError(c.connectionHeadersErr)
-	}
-	if c.connectionHostErr != nil {
-		return newConnectionConfigError(c.connectionHostErr)
+	if err := c.connection.validate(); err != nil {
+		return newConnectionConfigError(err)
 	}
 
 	// 获取建连URL
@@ -286,23 +280,24 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	}
 
 	// 验证URL并应用目标 host 覆盖
-	u, err := buildConnectionURL(connUrl, c.connectionHost, c.connectionHostSet)
+	u, err := buildConnectionURL(connUrl, c.connection.host)
 	if err != nil {
 		return newConnectionConfigError(err)
 	}
 	connID := u.Query().Get(DeviceID)
 	serviceID := u.Query().Get(ServiceID)
 
-	conn, resp, err := c.dialer.DialContext(ctx, u.String(), cloneHTTPHeader(c.connectionHeaders))
+	redactHandshakeError := c.connection.shouldRedactHandshakeError()
+	conn, resp, err := c.dialer.DialContext(ctx, u.String(), cloneHTTPHeader(c.connection.headers))
 	if err != nil && resp == nil {
-		if c.connectionHeadersSet || c.connectionHostSet {
+		if redactHandshakeError {
 			return errWebSocketHandshakeFailed
 		}
 		return
 	}
 	if resp.StatusCode != http.StatusSwitchingProtocols {
 		// 连接失败
-		return parseErr(resp, c.connectionHeadersSet || c.connectionHostSet)
+		return parseErr(resp, redactHandshakeError)
 	}
 
 	c.conn = conn
@@ -550,6 +545,20 @@ func cloneHTTPHeader(header http.Header) http.Header {
 	return cloned
 }
 
+func (config *connectionConfig) validate() error {
+	if err := validateConnectionHeaders(config.headers); err != nil {
+		return err
+	}
+	if config.host == nil {
+		return nil
+	}
+	return validateConnectionHost(*config.host)
+}
+
+func (config *connectionConfig) shouldRedactHandshakeError() bool {
+	return len(config.headers) > 0 || config.host != nil
+}
+
 func validateConnectionHeaders(header http.Header) error {
 	for name, values := range header {
 		if !isValidHTTPHeaderName(name) || isReservedWebSocketHeader(name) {
@@ -750,7 +759,7 @@ func isASCIIAlphaNumeric(value byte) bool {
 	return value >= '0' && value <= '9' || value >= 'a' && value <= 'z' || value >= 'A' && value <= 'Z'
 }
 
-func buildConnectionURL(endpoint string, connectionHost string, connectionHostSet bool) (*url.URL, error) {
+func buildConnectionURL(endpoint string, connectionHost *string) (*url.URL, error) {
 	parsed, err := url.Parse(endpoint)
 	if err != nil || strings.Contains(endpoint, "#") {
 		return nil, errInvalidConnectionEndpoint
@@ -761,8 +770,8 @@ func buildConnectionURL(endpoint string, connectionHost string, connectionHostSe
 	if parsed.Scheme != "ws" && parsed.Scheme != "wss" || !hasValidEndpointPort(parsed.Host) {
 		return nil, errInvalidConnectionEndpoint
 	}
-	if connectionHostSet {
-		parsed.Host = connectionHost
+	if connectionHost != nil {
+		parsed.Host = *connectionHost
 	}
 	return parsed, nil
 }

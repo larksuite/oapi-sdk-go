@@ -959,15 +959,30 @@ func TestConnectWithoutOverrides(t *testing.T) {
 		defer server.Close()
 		endpoint = "ws" + strings.TrimPrefix(server.URL, "http") + "/legacy/rejected"
 		bootstrapHTTPClient = server.Client()
-		client := NewClient("app-id", "app-secret",
-			WithDomain(server.URL),
-			WithAutoReconnect(false),
-			WithLogger(&recordingLogger{}),
-		)
 		ctx, cancel := transportTestContext(t)
 		defer cancel()
-		err := client.connect(ctx)
-		assertClientError(t, err, http.StatusForbidden, "legacy handshake message")
+		for _, testCase := range []struct {
+			name   string
+			option ClientOption
+		}{
+			{name: "option omitted"},
+			{name: "nil headers", option: WithConnectionHeaders(nil)},
+		} {
+			testCase := testCase
+			t.Run(testCase.name, func(t *testing.T) {
+				options := []ClientOption{
+					WithDomain(server.URL),
+					WithAutoReconnect(false),
+					WithLogger(&recordingLogger{}),
+				}
+				if testCase.option != nil {
+					options = append(options, testCase.option)
+				}
+				client := NewClient("app-id", "app-secret", options...)
+				err := client.connect(ctx)
+				assertClientError(t, err, http.StatusForbidden, "legacy handshake message")
+			})
+		}
 	})
 }
 
