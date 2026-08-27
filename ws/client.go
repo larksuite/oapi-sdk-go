@@ -60,6 +60,7 @@ type Client struct {
 type connectionConfig struct {
 	headers http.Header
 	host    *string
+	dialer  *ws.Dialer
 }
 
 var bootstrapHTTPClient = http.DefaultClient
@@ -130,6 +131,16 @@ func WithConnectionHost(host string) ClientOption {
 	return func(cli *Client) {
 		connectionHost := host
 		cli.connection.host = &connectionHost
+	}
+}
+
+// WithConnectionDialer configures the dialer used to establish the WebSocket connection.
+// The supplied dialer replaces the SDK default dialer. Passing nil restores the default.
+// Its configuration, TLS config, and subprotocols are copied when the option is applied;
+// callbacks, cookie jars, and buffer pools remain shared with the caller.
+func WithConnectionDialer(dialer *ws.Dialer) ClientOption {
+	return func(cli *Client) {
+		cli.connection.dialer = cloneWebSocketDialer(dialer)
 	}
 }
 
@@ -291,8 +302,12 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	connID := u.Query().Get(DeviceID)
 	serviceID := u.Query().Get(ServiceID)
 
-	redactHandshakeError := len(c.connection.headers) > 0 || c.connection.host != nil
-	conn, resp, err := c.dialer.DialContext(ctx, u.String(), c.connection.headers)
+	dialer := c.dialer
+	if c.connection.dialer != nil {
+		dialer = c.connection.dialer
+	}
+	redactHandshakeError := len(c.connection.headers) > 0 || c.connection.host != nil || c.connection.dialer != nil
+	conn, resp, err := dialer.DialContext(ctx, u.String(), c.connection.headers)
 	if err != nil && resp == nil {
 		if redactHandshakeError {
 			return errWebSocketHandshakeFailed

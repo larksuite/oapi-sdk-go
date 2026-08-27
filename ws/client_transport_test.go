@@ -221,6 +221,151 @@ func TestBootstrapAndConnectionHeadersUseIndependentSnapshots(t *testing.T) {
 	}
 }
 
+func TestConnectionDialerUsesSnapshotAndKeepsLogicalHost(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	connectionRequests := make(chan transportRequest, 1)
+	connectionServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		serveWebSocketUntilClientCloses(t, w, r, connectionRequests)
+	}))
+	defer connectionServer.Close()
+
+	bootstrapServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		writeEndpointResponse(t, w, "ws://public.example:9443/mesh/socket?device_id=mesh-device&service_id=32", nil)
+	}))
+	defer bootstrapServer.Close()
+	bootstrapHTTPClient = bootstrapServer.Client()
+
+	dialRequests := make(chan string, 1)
+	logicalHost := "frontier.internal.example:443"
+	dialer := &gorillaws.Dialer{
+		HandshakeTimeout: 2 * time.Second,
+		NetDialContext: func(ctx context.Context, network, address string) (net.Conn, error) {
+			dialRequests <- network + " " + address
+			physicalDialer := net.Dialer{Timeout: transportTestTimeout}
+			return physicalDialer.DialContext(ctx, "tcp", connectionServer.Listener.Addr().String())
+		},
+		TLSClientConfig: &tls.Config{
+			MinVersion: tls.VersionTLS12,
+			ServerName: "snapshot.example",
+		},
+		Subprotocols: []string{"mesh-v1"},
+	}
+
+	client := NewClient("app-id", "app-secret",
+		WithDomain(bootstrapServer.URL),
+		WithConnectionHost(logicalHost),
+		WithConnectionDialer(dialer),
+		WithAutoReconnect(false),
+		WithLogger(&recordingLogger{}),
+	)
+
+	dialer.HandshakeTimeout = time.Nanosecond
+	dialer.NetDialContext = func(context.Context, string, string) (net.Conn, error) {
+		return nil, errors.New("mutated dialer must not be used")
+	}
+	dialer.TLSClientConfig.ServerName = "mutated.example"
+	dialer.Subprotocols[0] = "mutated-v1"
+
+	if client.connection.dialer == dialer {
+		t.Fatal("client retained the caller-owned dialer pointer")
+	}
+	if client.connection.dialer.Proxy != nil {
+		t.Fatal("custom dialer inherited the SDK default proxy")
+	}
+	if got := client.connection.dialer.HandshakeTimeout; got != 2*time.Second {
+		t.Fatalf("unexpected handshake timeout snapshot: got %v, want %v", got, 2*time.Second)
+	}
+	if got := client.connection.dialer.TLSClientConfig.ServerName; got != "snapshot.example" {
+		t.Fatalf("unexpected TLS config snapshot: got %q, want %q", got, "snapshot.example")
+	}
+	if got := client.connection.dialer.Subprotocols; !reflect.DeepEqual(got, []string{"mesh-v1"}) {
+		t.Fatalf("unexpected subprotocol snapshot: got %#v", got)
+	}
+
+	ctx, cancel := transportTestContext(t)
+	defer cancel()
+	if err := client.connect(ctx); err != nil {
+		t.Fatalf("connect through custom dialer: %v", err)
+	}
+
+	select {
+	case request := <-dialRequests:
+		if got, want := request, "tcp "+logicalHost; got != want {
+			t.Fatalf("unexpected logical dial target: got %q, want %q", got, want)
+		}
+	case <-ctx.Done():
+		t.Fatalf("timed out waiting for custom dialer: %v", ctx.Err())
+	}
+
+	request := awaitTransportRequest(t, ctx, connectionRequests)
+	if request.host != logicalHost {
+		t.Fatalf("unexpected WebSocket Host: got %q, want %q", request.host, logicalHost)
+	}
+	if got := request.header.Get("Sec-Websocket-Protocol"); got != "mesh-v1" {
+		t.Fatalf("unexpected WebSocket subprotocol header: got %q, want %q", got, "mesh-v1")
+	}
+	client.disconnect(ctx)
+}
+
+func TestConnectionDialerOptionPrecedenceAndNilReset(t *testing.T) {
+	first := &gorillaws.Dialer{HandshakeTimeout: time.Second}
+	second := &gorillaws.Dialer{HandshakeTimeout: 2 * time.Second}
+	client := NewClient("app-id", "app-secret",
+		WithConnectionDialer(first),
+		WithConnectionDialer(second),
+	)
+	if got := client.connection.dialer.HandshakeTimeout; got != 2*time.Second {
+		t.Fatalf("last dialer option did not win: got %v, want %v", got, 2*time.Second)
+	}
+
+	client = NewClient("app-id", "app-secret",
+		WithConnectionDialer(first),
+		WithConnectionDialer(nil),
+	)
+	if client.connection.dialer != nil {
+		t.Fatal("nil dialer did not restore the SDK default")
+	}
+	if client.dialer.Proxy == nil || client.dialer.HandshakeTimeout != 45*time.Second {
+		t.Fatalf("unexpected SDK default dialer: %#v", client.dialer)
+	}
+}
+
+func TestConnectionDialerErrorsAreRedacted(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	bootstrapServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		writeEndpointResponse(t, w, "ws://public.example/socket?device_id=device&service_id=33", nil)
+	}))
+	defer bootstrapServer.Close()
+	bootstrapHTTPClient = bootstrapServer.Client()
+
+	dialTargetSecret := "/var/run/private/mesh-egress.sock"
+	logger := &recordingLogger{}
+	client := NewClient("app-id", "app-secret",
+		WithDomain(bootstrapServer.URL),
+		WithConnectionDialer(&gorillaws.Dialer{
+			HandshakeTimeout: time.Second,
+			NetDialContext: func(context.Context, string, string) (net.Conn, error) {
+				return nil, errors.New("dial unix " + dialTargetSecret + ": connection refused")
+			},
+		}),
+		WithAutoReconnect(false),
+		WithLogger(logger),
+	)
+
+	ctx, cancel := transportTestContext(t)
+	defer cancel()
+	err := client.Start(ctx)
+	if !errors.Is(err, errWebSocketHandshakeFailed) {
+		t.Fatalf("unexpected custom dialer error: got %v, want %v", err, errWebSocketHandshakeFailed)
+	}
+	assertNotContainsAny(t, err.Error(), dialTargetSecret)
+	assertNotContainsAny(t, logger.String(), dialTargetSecret)
+}
+
 func TestConnectAppliesConnectionHeadersAndHostOverride(t *testing.T) {
 	originalClient := bootstrapHTTPClient
 	defer func() { bootstrapHTTPClient = originalClient }()
@@ -1178,6 +1323,37 @@ func TestWSSOverrideUsesFinalHostForTLSAndSNI(t *testing.T) {
 		t.Fatalf("timed out waiting for matching SNI: %v", ctx.Err())
 	}
 	client.disconnect(ctx)
+
+	connectionDialer := &gorillaws.Dialer{
+		TLSClientConfig: &tls.Config{RootCAs: roots, MinVersion: tls.VersionTLS12},
+		NetDialContext: func(ctx context.Context, network, _ string) (net.Conn, error) {
+			dialer := &net.Dialer{Timeout: transportTestTimeout}
+			return dialer.DialContext(ctx, network, server.Listener.Addr().String())
+		},
+	}
+	customDialerClient := NewClient("app-id", "app-secret",
+		WithDomain(bootstrapServer.URL),
+		WithConnectionHost(overrideHost),
+		WithConnectionDialer(connectionDialer),
+		WithAutoReconnect(false),
+		WithLogger(&recordingLogger{}),
+	)
+	if err := customDialerClient.connect(ctx); err != nil {
+		t.Fatalf("connect matching wss override through custom dialer: %v", err)
+	}
+	request = awaitTransportRequest(t, ctx, requests)
+	if request.host != overrideHost {
+		t.Fatalf("unexpected custom dialer WebSocket Host: got %q, want %q", request.host, overrideHost)
+	}
+	select {
+	case sni := <-sniNames:
+		if sni != certificateHost {
+			t.Fatalf("unexpected custom dialer SNI: got %q, want %q", sni, certificateHost)
+		}
+	case <-ctx.Done():
+		t.Fatalf("timed out waiting for custom dialer SNI: %v", ctx.Err())
+	}
+	customDialerClient.disconnect(ctx)
 
 	mismatchHost := net.JoinHostPort("mismatch.internal.example", serverPort)
 	mismatchClient := NewClient("app-id", "app-secret",

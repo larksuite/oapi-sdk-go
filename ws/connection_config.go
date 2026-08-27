@@ -6,7 +6,22 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+
+	ws "github.com/gorilla/websocket"
 )
+
+func cloneWebSocketDialer(dialer *ws.Dialer) *ws.Dialer {
+	if dialer == nil {
+		return nil
+	}
+
+	cloned := *dialer
+	cloned.Subprotocols = append([]string(nil), dialer.Subprotocols...)
+	if dialer.TLSClientConfig != nil {
+		cloned.TLSClientConfig = dialer.TLSClientConfig.Clone()
+	}
+	return &cloned
+}
 
 func validateConnectionHeaders(header http.Header) error {
 	for name := range header {
