@@ -832,6 +832,40 @@ func TestConnectionEndpointValidation(t *testing.T) {
 		client.disconnect(ctx)
 	})
 
+	t.Run("host override replaces the original endpoint port", func(t *testing.T) {
+		originalClient := bootstrapHTTPClient
+		defer func() { bootstrapHTTPClient = originalClient }()
+
+		requests := make(chan transportRequest, 1)
+		var endpoint string
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if r.URL.Path == GenEndpointUri {
+				writeEndpointResponse(t, w, endpoint, nil)
+				return
+			}
+			serveWebSocketUntilClientCloses(t, w, r, requests)
+		}))
+		defer server.Close()
+		endpoint = "ws://public.example:65536/replaced-port?device_id=replaced-device&service_id=23&opaque=%2Fraw"
+		bootstrapHTTPClient = server.Client()
+		client := NewClient("app-id", "app-secret",
+			WithDomain(server.URL),
+			WithConnectionHost(server.Listener.Addr().String()),
+			WithAutoReconnect(false),
+			WithLogger(&recordingLogger{}),
+		)
+		ctx, cancel := transportTestContext(t)
+		defer cancel()
+		if err := client.connect(ctx); err != nil {
+			t.Fatalf("connect after replacing the original endpoint port: %v", err)
+		}
+		request := awaitTransportRequest(t, ctx, requests)
+		if request.host != server.Listener.Addr().String() || request.escapedPath != "/replaced-port" || request.rawQuery != "device_id=replaced-device&service_id=23&opaque=%2Fraw" {
+			t.Fatalf("endpoint authority was not replaced cleanly: %#v", request)
+		}
+		client.disconnect(ctx)
+	})
+
 	invalidEndpoints := []struct {
 		name     string
 		endpoint string
@@ -840,10 +874,6 @@ func TestConnectionEndpointValidation(t *testing.T) {
 		{name: "empty hostname", endpoint: "ws:///socket?raw=empty-host-secret"},
 		{name: "userinfo", endpoint: "wss://endpoint-user:endpoint-password@public.example/socket?raw=userinfo-secret"},
 		{name: "fragment", endpoint: "ws://public.example/socket?raw=fragment-query-secret#fragment-secret"},
-		{name: "empty port", endpoint: "ws://public.example:/socket?raw=empty-port-secret"},
-		{name: "non-decimal port", endpoint: "ws://public.example:not-a-port/socket?raw=non-decimal-port-secret"},
-		{name: "zero port", endpoint: "ws://public.example:0/socket?raw=zero-port-secret"},
-		{name: "out of range port", endpoint: "ws://public.example:65536/socket?raw=range-port-secret"},
 		{name: "unparseable", endpoint: "ws://%zz/socket?raw=parse-secret"},
 	}
 
@@ -902,7 +932,7 @@ func TestConnectionEndpointValidation(t *testing.T) {
 					t.Fatalf("invalid endpoint attempted %d websocket dials", got)
 				}
 				assertNotContainsAny(t, err.Error(), testCase.endpoint, "bootstrap-endpoint-secret", "connection-endpoint-secret")
-				assertNotContainsAny(t, logger.String(), testCase.endpoint, "endpoint-user", "endpoint-password", "unsupported-scheme-secret", "empty-host-secret", "userinfo-secret", "fragment-query-secret", "fragment-secret", "empty-port-secret", "non-decimal-port-secret", "zero-port-secret", "range-port-secret", "parse-secret", "bootstrap-endpoint-secret", "connection-endpoint-secret")
+				assertNotContainsAny(t, logger.String(), testCase.endpoint, "endpoint-user", "endpoint-password", "unsupported-scheme-secret", "empty-host-secret", "userinfo-secret", "fragment-query-secret", "fragment-secret", "parse-secret", "bootstrap-endpoint-secret", "connection-endpoint-secret")
 			})
 		}
 	}

@@ -117,13 +117,13 @@ func WithDomain(domain string) ClientOption {
 
 func WithHeaders(header http.Header) ClientOption {
 	return func(cli *Client) {
-		cli.headers = cloneHTTPHeader(header)
+		cli.headers = header.Clone()
 	}
 }
 
 func WithConnectionHeaders(header http.Header) ClientOption {
 	return func(cli *Client) {
-		cli.connection.headers = cloneHTTPHeader(header)
+		cli.connection.headers = header.Clone()
 	}
 }
 
@@ -268,8 +268,13 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	if c.conn != nil {
 		return
 	}
-	if err := c.connection.validate(); err != nil {
+	if err := validateConnectionHeaders(c.connection.headers); err != nil {
 		return newConnectionConfigError(err)
+	}
+	if c.connection.host != nil {
+		if err := validateConnectionHost(*c.connection.host); err != nil {
+			return newConnectionConfigError(err)
+		}
 	}
 
 	// 获取建连URL
@@ -287,8 +292,8 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	connID := u.Query().Get(DeviceID)
 	serviceID := u.Query().Get(ServiceID)
 
-	redactHandshakeError := c.connection.shouldRedactHandshakeError()
-	conn, resp, err := c.dialer.DialContext(ctx, u.String(), cloneHTTPHeader(c.connection.headers))
+	redactHandshakeError := len(c.connection.headers) > 0 || c.connection.host != nil
+	conn, resp, err := c.dialer.DialContext(ctx, u.String(), c.connection.headers)
 	if err != nil && resp == nil {
 		if redactHandshakeError {
 			return errWebSocketHandshakeFailed
@@ -534,31 +539,6 @@ func buildWSProxyURL(targetService, targetPrefix, apiPath string) string {
 	return targetService + targetPrefix + apiPath
 }
 
-func cloneHTTPHeader(header http.Header) http.Header {
-	if header == nil {
-		return nil
-	}
-	cloned := make(http.Header, len(header))
-	for name, values := range header {
-		cloned[name] = append([]string(nil), values...)
-	}
-	return cloned
-}
-
-func (config *connectionConfig) validate() error {
-	if err := validateConnectionHeaders(config.headers); err != nil {
-		return err
-	}
-	if config.host == nil {
-		return nil
-	}
-	return validateConnectionHost(*config.host)
-}
-
-func (config *connectionConfig) shouldRedactHandshakeError() bool {
-	return len(config.headers) > 0 || config.host != nil
-}
-
 func validateConnectionHeaders(header http.Header) error {
 	for name, values := range header {
 		if !isValidHTTPHeaderName(name) || isReservedWebSocketHeader(name) {
@@ -764,31 +744,16 @@ func buildConnectionURL(endpoint string, connectionHost *string) (*url.URL, erro
 	if err != nil || strings.Contains(endpoint, "#") {
 		return nil, errInvalidConnectionEndpoint
 	}
-	if parsed.Opaque != "" || parsed.User != nil || parsed.Fragment != "" || parsed.Hostname() == "" {
+	if parsed.User != nil || parsed.Hostname() == "" {
 		return nil, errInvalidConnectionEndpoint
 	}
-	if parsed.Scheme != "ws" && parsed.Scheme != "wss" || !hasValidEndpointPort(parsed.Host) {
+	if parsed.Scheme != "ws" && parsed.Scheme != "wss" {
 		return nil, errInvalidConnectionEndpoint
 	}
 	if connectionHost != nil {
 		parsed.Host = *connectionHost
 	}
 	return parsed, nil
-}
-
-func hasValidEndpointPort(host string) bool {
-	_, port, ok := splitConnectionHost(host)
-	if !ok {
-		return false
-	}
-	if port == "" {
-		return true
-	}
-	if !isDecimal(port) {
-		return false
-	}
-	number, err := strconv.Atoi(port)
-	return err == nil && number >= 1 && number <= 65535
 }
 
 func sanitizeConnectionURL(connectionURL *url.URL) string {
