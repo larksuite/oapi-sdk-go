@@ -20,6 +20,7 @@ const (
 type clientRun struct {
 	ctx    context.Context
 	cancel context.CancelFunc
+	done   chan struct{}
 
 	stopReason    runStopReason
 	stopErr       error
@@ -44,12 +45,49 @@ func (c *Client) Start(callerCtx context.Context) error {
 	return c.finishRun(run)
 }
 
+// Close requests that the active run stop and returns immediately. It is safe
+// to call from lifecycle callbacks. Those callbacks run on the coordinator, so
+// waiting here would make a callback that calls Close wait for itself.
+//
+// Call CloseAndWait from outside lifecycle callbacks when teardown must finish
+// before the caller releases its own resources.
 func (c *Client) Close() {
 	c.stateMu.Lock()
 	run := c.run
 	c.stateMu.Unlock()
 	if run != nil {
 		c.stopRun(run, runStopByClose, nil)
+	}
+}
+
+// CloseAndWait requests that the active run stop and waits until its workers
+// and OnDisconnected callback have finished. It returns the run's final result,
+// or ctx.Err if the caller stops waiting first.
+//
+// CloseAndWait must not be called from lifecycle callbacks. Use Close there:
+// the coordinator invokes those callbacks synchronously, so waiting for the
+// same run would deadlock.
+func (c *Client) CloseAndWait(ctx context.Context) error {
+	if ctx == nil {
+		return errNilContext
+	}
+
+	c.stateMu.Lock()
+	run := c.run
+	c.stateMu.Unlock()
+	if run == nil {
+		return nil
+	}
+
+	c.stopRun(run, runStopByClose, nil)
+	select {
+	case <-run.done:
+		c.stateMu.Lock()
+		err := run.stopErr
+		c.stateMu.Unlock()
+		return err
+	case <-ctx.Done():
+		return ctx.Err()
 	}
 }
 
@@ -65,7 +103,7 @@ func (c *Client) beginRun(callerCtx context.Context) (*clientRun, error) {
 	}
 
 	runCtx, cancel := context.WithCancel(callerCtx)
-	run := &clientRun{ctx: runCtx, cancel: cancel}
+	run := &clientRun{ctx: runCtx, cancel: cancel, done: make(chan struct{})}
 	c.run = run
 	c.stateMu.Unlock()
 	return run, nil
@@ -105,6 +143,7 @@ func (c *Client) finishRun(run *clientRun) error {
 	err := run.stopErr
 	c.run = nil
 	c.stateMu.Unlock()
+	close(run.done)
 	return err
 }
 

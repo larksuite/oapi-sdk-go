@@ -1101,6 +1101,83 @@ func TestStartWaitsForDisconnectedCallback(t *testing.T) {
 	}
 }
 
+func TestCloseAndWaitWaitsForDisconnectedCallback(t *testing.T) {
+	gateway, cleanupGateway := newLifecycleGateway(t)
+	defer cleanupGateway()
+	var bootstrapRequests int32
+	domain, cleanupBootstrap := installLifecycleBootstrap(t, gateway.endpoint(), &bootstrapRequests)
+	defer cleanupBootstrap()
+
+	ready := make(chan struct{}, 1)
+	disconnectedEntered := make(chan struct{}, 1)
+	releaseDisconnected := make(chan struct{})
+	client := NewClient("app-id", "app-secret",
+		WithDomain(domain),
+		WithAutoReconnect(false),
+		WithOnReady(func() { ready <- struct{}{} }),
+		WithOnDisconnected(func() {
+			disconnectedEntered <- struct{}{}
+			<-releaseDisconnected
+		}),
+	)
+	startResult := startLifecycleClient(client, context.Background())
+	waitLifecycleSignal(t, ready, "Ready")
+
+	closeResult := make(chan error, 1)
+	go func() {
+		closeResult <- client.CloseAndWait(context.Background())
+	}()
+	waitLifecycleSignal(t, disconnectedEntered, "Disconnected callback entry")
+	assertNoLifecycleResult(t, closeResult, "CloseAndWait")
+
+	close(releaseDisconnected)
+	if err, completed := waitLifecycleResult(closeResult); !completed || err != nil {
+		t.Fatalf("CloseAndWait returned %v, completed=%v", err, completed)
+	}
+	if err, completed := waitLifecycleResult(startResult); !completed || err != nil {
+		t.Fatalf("Start returned %v, completed=%v", err, completed)
+	}
+}
+
+func TestCloseAndWaitContextCanCancel(t *testing.T) {
+	gateway, cleanupGateway := newLifecycleGateway(t)
+	defer cleanupGateway()
+	var bootstrapRequests int32
+	domain, cleanupBootstrap := installLifecycleBootstrap(t, gateway.endpoint(), &bootstrapRequests)
+	defer cleanupBootstrap()
+
+	ready := make(chan struct{}, 1)
+	disconnectedEntered := make(chan struct{}, 1)
+	releaseDisconnected := make(chan struct{})
+	client := NewClient("app-id", "app-secret",
+		WithDomain(domain),
+		WithAutoReconnect(false),
+		WithOnReady(func() { ready <- struct{}{} }),
+		WithOnDisconnected(func() {
+			disconnectedEntered <- struct{}{}
+			<-releaseDisconnected
+		}),
+	)
+	startResult := startLifecycleClient(client, context.Background())
+	waitLifecycleSignal(t, ready, "Ready")
+
+	waitCtx, cancel := context.WithTimeout(context.Background(), lifecycleNoProgressTimeout)
+	defer cancel()
+	closeResult := make(chan error, 1)
+	go func() {
+		closeResult <- client.CloseAndWait(waitCtx)
+	}()
+	waitLifecycleSignal(t, disconnectedEntered, "Disconnected callback entry")
+	if err, completed := waitLifecycleResult(closeResult); !completed || !errors.Is(err, context.DeadlineExceeded) {
+		t.Fatalf("CloseAndWait returned %v, completed=%v", err, completed)
+	}
+
+	close(releaseDisconnected)
+	if err, completed := waitLifecycleResult(startResult); !completed || err != nil {
+		t.Fatalf("Start returned %v, completed=%v", err, completed)
+	}
+}
+
 func TestReadyCallbackPanicIsRedacted(t *testing.T) {
 	gateway, cleanupGateway := newLifecycleGateway(t)
 	defer cleanupGateway()
