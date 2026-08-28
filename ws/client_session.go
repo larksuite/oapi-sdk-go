@@ -60,8 +60,13 @@ func (c *Client) activateConnection(run *clientRun, conn *clientConn, reconnecte
 	c.stateMu.Unlock()
 
 	c.logger.Info(run.ctx, c.fmtConnLog(conn, "connected to %s", conn.safeEndpoint)...)
-	c.runReadyCallback(run, conn, callback)
-	return true
+	activated = true
+	if callback == nil || !c.isConnectionActive(run, conn) {
+		return activated
+	}
+	defer c.recoverCallback(run.ctx, "ready")
+	callback()
+	return activated
 }
 
 // deactivateConnection removes and closes run's current physical connection.
@@ -75,7 +80,10 @@ func (c *Client) deactivateConnection(run *clientRun) {
 
 	c.closeSocket(run.ctx, conn.socket, conn.safeEndpoint, "close connection")
 	c.logger.Info(run.ctx, c.fmtConnLog(conn, "disconnected to %s", conn.safeEndpoint)...)
-	go c.runDisconnectedCallback(run.ctx, callback)
+	defer c.recoverCallback(run.ctx, "disconnected")
+	if callback != nil {
+		callback()
+	}
 }
 
 func (c *Client) closeSocket(ctx context.Context, socket *ws.Conn, endpoint, operation string) {
@@ -138,7 +146,7 @@ func (c *Client) receiveMessageLoop(run *clientRun, conn *clientConn) {
 	defer run.wg.Done()
 	defer func() {
 		if recover() != nil {
-			c.reportReadExit(conn, newLifecycleError("read websocket", "connection lost", 0, nil, false))
+			conn.readResult <- newLifecycleError("read websocket", "connection lost", 0, nil)
 		}
 	}()
 
@@ -146,7 +154,7 @@ func (c *Client) receiveMessageLoop(run *clientRun, conn *clientConn) {
 		messageType, msg, err := conn.socket.ReadMessage()
 		if err != nil {
 			if c.isConnectionActive(run, conn) {
-				c.reportReadExit(conn, newLifecycleError("read websocket", "connection lost", 0, nil, false))
+				conn.readResult <- newLifecycleError("read websocket", "connection lost", 0, err)
 			}
 			return
 		}
@@ -156,10 +164,6 @@ func (c *Client) receiveMessageLoop(run *clientRun, conn *clientConn) {
 		}
 		c.startMessageTask(run, msg)
 	}
-}
-
-func (c *Client) reportReadExit(conn *clientConn, err error) {
-	conn.readResult <- err
 }
 
 func (c *Client) handleControlFrame(run *clientRun, frame Frame) {
@@ -180,23 +184,6 @@ func (c *Client) handleControlFrame(run *clientRun, frame Frame) {
 		}
 		c.applyConfig(run, conf)
 	default:
-	}
-}
-
-func (c *Client) runReadyCallback(run *clientRun, conn *clientConn, callback func()) {
-	if !c.isConnectionActive(run, conn) {
-		return
-	}
-	defer c.recoverCallback(run.ctx, "ready")
-	if callback != nil {
-		callback()
-	}
-}
-
-func (c *Client) runDisconnectedCallback(ctx context.Context, callback func()) {
-	defer c.recoverCallback(ctx, "disconnected")
-	if callback != nil {
-		callback()
 	}
 }
 
@@ -237,7 +224,7 @@ func (c *Client) writeConnection(run *clientRun, conn *clientConn, messageType i
 		return errConnectionClosed
 	}
 	if err := conn.socket.WriteMessage(messageType, data); err != nil {
-		return newLifecycleError("write websocket", "connection lost", 0, nil, false)
+		return newLifecycleError("write websocket", "connection lost", 0, err)
 	}
 	return nil
 }

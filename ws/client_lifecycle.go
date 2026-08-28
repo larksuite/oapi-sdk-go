@@ -117,6 +117,7 @@ func (c *Client) runCoordinator(run *clientRun) {
 		if !c.isRunActive(run) {
 			return
 		}
+		c.logger.Warn(run.ctx, c.fmtLog("websocket initial connection failed: %v", err)...)
 		if c.autoReconnect && isRetryableConnectionError(err) {
 			c.invokeRecoverableErrorCallback(run, err)
 		}
@@ -133,6 +134,7 @@ func (c *Client) runCoordinator(run *clientRun) {
 		if exitErr == nil {
 			return
 		}
+		c.logger.Warn(run.ctx, c.fmtLog("websocket connection failed: %v", exitErr)...)
 
 		conn = c.reconnectAfterFailure(run, exitErr)
 		reconnected = true
@@ -149,13 +151,13 @@ func (c *Client) reconnectAfterFailure(run *clientRun, failure error) *clientCon
 		return nil
 	}
 	c.invokeReconnectingCallback(run)
-
 	attempts := 0
 
 	for {
 		reconnectCount, reconnectInterval, reconnectNonce, _ := c.configSnapshot()
 		if reconnectCount >= 0 && attempts >= reconnectCount {
-			err := newLifecycleError("reconnect", "attempts exhausted", 0, nil, false)
+			err := newLifecycleError("reconnect", "attempts exhausted", 0, failure)
+			c.logger.Warn(run.ctx, c.fmtLog("websocket reconnect attempts exhausted after %d attempts: %v", attempts, err)...)
 			c.stopRunWithError(run, err)
 			return nil
 		}
@@ -168,6 +170,11 @@ func (c *Client) reconnectAfterFailure(run *clientRun, failure error) *clientCon
 			return nil
 		}
 		attempts++
+		if reconnectCount >= 0 {
+			c.logger.Info(run.ctx, c.fmtLog("websocket reconnecting: attempt %d/%d", attempts, reconnectCount)...)
+		} else {
+			c.logger.Info(run.ctx, c.fmtLog("websocket reconnecting: attempt %d", attempts)...)
+		}
 
 		conn, err := c.establishConnectionOnce(run)
 		if err == nil {
@@ -177,6 +184,7 @@ func (c *Client) reconnectAfterFailure(run *clientRun, failure error) *clientCon
 			return nil
 		}
 		failure = err
+		c.logger.Warn(run.ctx, c.fmtLog("websocket reconnect attempt %d failed: %v", attempts, failure)...)
 		if !c.autoReconnect || !isRetryableConnectionError(failure) {
 			c.stopRunWithError(run, failure)
 			return nil
@@ -232,35 +240,24 @@ func (c *Client) waitRunDelay(run *clientRun, delay time.Duration) bool {
 }
 
 func (c *Client) invokeReconnectingCallback(run *clientRun) {
-	if run.ctx.Err() != nil {
-		return
-	}
 	c.stateMu.Lock()
-	if run.stopReason != runStopNone {
-		c.stateMu.Unlock()
-		return
-	}
 	callback := c.onReconnecting
 	c.stateMu.Unlock()
-	if callback != nil {
-		c.runLifecycleCallback(run, callback)
+	if callback == nil || !c.isRunActive(run) {
+		return
 	}
+	defer c.recoverCallback(run.ctx, "lifecycle")
+	callback()
 }
 
 func (c *Client) invokeRecoverableErrorCallback(run *clientRun, err error) {
-	if run.ctx.Err() != nil {
-		return
-	}
 	c.stateMu.Lock()
-	if run.stopReason != runStopNone {
-		c.stateMu.Unlock()
-		return
-	}
 	callback := c.onError
 	c.stateMu.Unlock()
-	if callback != nil {
-		c.runRecoverableErrorCallback(run, callback, err)
+	if callback == nil || !c.isRunActive(run) {
+		return
 	}
+	c.runErrorCallback(run.ctx, callback, err)
 }
 
 func (c *Client) invokeTerminalErrorCallback(run *clientRun, err error) {
@@ -272,28 +269,9 @@ func (c *Client) invokeTerminalErrorCallback(run *clientRun, err error) {
 	}
 }
 
-func (c *Client) runCallback(ctx context.Context, callback func()) {
-	defer c.recoverCallback(ctx, "lifecycle")
-	callback()
-}
-
-func (c *Client) runLifecycleCallback(run *clientRun, callback func()) {
-	if !c.isRunActive(run) {
-		return
-	}
-	c.runCallback(run.ctx, callback)
-}
-
 func (c *Client) runErrorCallback(ctx context.Context, callback func(error), err error) {
 	defer c.recoverCallback(ctx, "error")
 	callback(err)
-}
-
-func (c *Client) runRecoverableErrorCallback(run *clientRun, callback func(error), err error) {
-	if !c.isRunActive(run) {
-		return
-	}
-	c.runErrorCallback(run.ctx, callback, err)
 }
 
 func (c *Client) recoverCallback(ctx context.Context, category string) {

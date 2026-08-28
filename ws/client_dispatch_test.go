@@ -3,7 +3,6 @@ package ws
 import (
 	"context"
 	"errors"
-	"strings"
 	"sync/atomic"
 	"testing"
 	"time"
@@ -34,17 +33,6 @@ func TestConnectionAdmissionAfterStop(t *testing.T) {
 	}
 	if client.isConnectionActive(run, conn) {
 		t.Fatal("stopped run/conn remained eligible for handler dispatch")
-	}
-}
-
-func TestReceiveExitReportsResult(t *testing.T) {
-	conn := &clientConn{readResult: make(chan error, 1)}
-	want := newLifecycleError("read websocket", "connection lost", 0, nil, false)
-	client := NewClient("app-id", "app-secret")
-
-	client.reportReadExit(conn, want)
-	if got := <-conn.readResult; got != want {
-		t.Fatalf("readResult = %v, want %v", got, want)
 	}
 }
 
@@ -187,51 +175,22 @@ func TestAdmittedHandlerCannotWriteAfterRunStops(t *testing.T) {
 	assertNoGatewayFrame(t, gateway, serverConn, 100*time.Millisecond)
 }
 
-func TestReadyCallbackPanicIsRedacted(t *testing.T) {
-	logger := &lifecycleRecordingLogger{}
-	client := NewClient("app-id", "app-secret", WithLogger(logger))
-	run, conn := activeRunAndConn()
-	defer run.cancel()
-	client.run = run
-	const panicMarker = "ready-callback-sensitive-panic"
-
-	client.runReadyCallback(run, conn, func() { panic(panicMarker) })
-	if strings.Contains(logger.String(), panicMarker) {
-		t.Fatalf("callback log exposed panic value: %s", logger.String())
-	}
-}
-
 func TestStoppedRunSkipsLifecycleCallbacks(t *testing.T) {
-	run, conn := activeRunAndConn()
-	defer run.cancel()
-	client := NewClient("app-id", "app-secret")
-	client.run = run
-	if !client.stopRun(run, runStopByClose, nil) {
-		t.Fatal("stopRun rejected the active run")
-	}
-
-	var callbacks int32
-	client.runReadyCallback(run, conn, func() { atomic.AddInt32(&callbacks, 1) })
-	client.runLifecycleCallback(run, func() { atomic.AddInt32(&callbacks, 1) })
-	client.runRecoverableErrorCallback(run, func(error) { atomic.AddInt32(&callbacks, 1) }, errors.New("retry failed"))
-	if got := atomic.LoadInt32(&callbacks); got != 0 {
-		t.Fatalf("stopped run invoked %d queued lifecycle callbacks, want 0", got)
-	}
-}
-
-func TestStoppedRunDoesNotAdmitNewLifecycleCallback(t *testing.T) {
 	run, _ := activeRunAndConn()
 	defer run.cancel()
 	var callbacks int32
-	client := NewClient("app-id", "app-secret", WithOnReconnecting(func() {
-		atomic.AddInt32(&callbacks, 1)
-	}))
+	client := NewClient("app-id", "app-secret",
+		WithOnReconnecting(func() { atomic.AddInt32(&callbacks, 1) }),
+		WithOnError(func(error) { atomic.AddInt32(&callbacks, 1) }),
+	)
 	client.run = run
 	if !client.stopRun(run, runStopByClose, nil) {
 		t.Fatal("stopRun rejected the active run")
 	}
+
 	client.invokeReconnectingCallback(run)
+	client.invokeRecoverableErrorCallback(run, errors.New("retry failed"))
 	if got := atomic.LoadInt32(&callbacks); got != 0 {
-		t.Fatalf("stopped run admitted %d new callbacks, want 0", got)
+		t.Fatalf("stopped run invoked %d queued lifecycle callbacks, want 0", got)
 	}
 }

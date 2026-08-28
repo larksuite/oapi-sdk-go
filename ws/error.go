@@ -50,7 +50,6 @@ type lifecycleError struct {
 	category   string
 	statusCode int
 	cause      error
-	unwrap     bool
 }
 
 func (e *lifecycleError) Error() string {
@@ -61,19 +60,15 @@ func (e *lifecycleError) Error() string {
 }
 
 func (e *lifecycleError) Unwrap() error {
-	if !e.unwrap {
-		return nil
-	}
 	return e.cause
 }
 
-func newLifecycleError(operation, category string, statusCode int, cause error, unwrap bool) error {
+func newLifecycleError(operation, category string, statusCode int, cause error) error {
 	return &lifecycleError{
 		operation:  operation,
 		category:   category,
 		statusCode: statusCode,
 		cause:      cause,
-		unwrap:     unwrap,
 	}
 }
 

@@ -154,12 +154,15 @@ func TestFetchEndpointWithClientAssertionProxyHTTPErrorMsg(t *testing.T) {
 		t.Fatal("expected error, got nil")
 	}
 
-	var lifecycleErr *lifecycleError
-	if !errors.As(err, &lifecycleErr) {
+	var serverErr *ServerError
+	if !errors.As(err, &serverErr) {
 		t.Fatalf("unexpected error type: %#v", err)
 	}
-	if lifecycleErr.statusCode != http.StatusInternalServerError {
-		t.Fatalf("unexpected status code: %d", lifecycleErr.statusCode)
+	if serverErr.Code != http.StatusInternalServerError {
+		t.Fatalf("unexpected status code: %d", serverErr.Code)
+	}
+	if serverErr.Msg != "target service unavailable" {
+		t.Fatalf("unexpected server error message: %q", serverErr.Msg)
 	}
 	if strings.Contains(err.Error(), "target service unavailable") {
 		t.Fatalf("bootstrap error exposed server message: %s", err)

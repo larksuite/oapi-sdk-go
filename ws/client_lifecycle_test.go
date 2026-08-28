@@ -587,6 +587,9 @@ func TestRetrieveTokenClientErrorDoesNotRetry(t *testing.T) {
 	if !errors.As(err, &clientErr) {
 		t.Fatalf("Start returned %T, want an error wrapping *ClientError", err)
 	}
+	if clientErr.Code != 19001 || clientErr.Msg != "invalid assertion" {
+		t.Fatalf("ClientError = %#v, want original assertion provider error", clientErr)
+	}
 	if got := provider.callCount(); got != 1 {
 		t.Fatalf("RetrieveToken calls = %d, want 1", got)
 	}
@@ -936,6 +939,117 @@ func TestCloseWinsOverReadFailureAndIsIdempotent(t *testing.T) {
 	if got := atomic.LoadInt32(&errorCallbacks); got != 0 {
 		t.Errorf("normal Close invoked OnError %d times, want 0", got)
 	}
+}
+
+func TestStartWaitsForDisconnectedCallback(t *testing.T) {
+	gateway, cleanupGateway := newLifecycleGateway(t)
+	defer cleanupGateway()
+	var bootstrapRequests int32
+	domain, cleanupBootstrap := installLifecycleBootstrap(t, gateway.endpoint(), &bootstrapRequests)
+	defer cleanupBootstrap()
+
+	ready := make(chan struct{}, 1)
+	disconnectedEntered := make(chan struct{}, 1)
+	releaseDisconnected := make(chan struct{})
+	client := NewClient("app-id", "app-secret",
+		WithDomain(domain),
+		WithAutoReconnect(false),
+		WithOnReady(func() { ready <- struct{}{} }),
+		WithOnDisconnected(func() {
+			disconnectedEntered <- struct{}{}
+			<-releaseDisconnected
+		}),
+	)
+	result := startLifecycleClient(client, context.Background())
+	waitLifecycleSignal(t, ready, "Ready")
+
+	client.Close()
+	waitLifecycleSignal(t, disconnectedEntered, "Disconnected callback entry")
+	assertNoLifecycleResult(t, result, "Start")
+
+	close(releaseDisconnected)
+	if err, ok := waitLifecycleResult(result); !ok {
+		t.Fatal("Start did not return after Disconnected callback returned")
+	} else if err != nil {
+		t.Fatalf("Start returned %v after Close, want nil", err)
+	}
+}
+
+func TestReadyCallbackPanicIsRedacted(t *testing.T) {
+	gateway, cleanupGateway := newLifecycleGateway(t)
+	defer cleanupGateway()
+	var bootstrapRequests int32
+	domain, cleanupBootstrap := installLifecycleBootstrap(t, gateway.endpoint(), &bootstrapRequests)
+	defer cleanupBootstrap()
+
+	const panicMarker = "ready-callback-sensitive-panic"
+	readyEntered := make(chan struct{}, 1)
+	logger := &lifecycleRecordingLogger{}
+	client := NewClient("app-id", "app-secret",
+		WithDomain(domain),
+		WithAutoReconnect(false),
+		WithLogger(logger),
+		WithOnReady(func() {
+			readyEntered <- struct{}{}
+			panic(panicMarker)
+		}),
+	)
+	result := startLifecycleClient(client, context.Background())
+	waitLifecycleSignal(t, readyEntered, "Ready callback entry")
+
+	client.Close()
+	if _, ok := waitLifecycleResult(result); !ok {
+		t.Fatal("Start did not return after Close")
+	}
+	assertLifecycleTextDoesNotContain(t, logger.String(), panicMarker)
+}
+
+func TestReconnectFailureLogsWithoutErrorCallback(t *testing.T) {
+	const serverMessage = "bootstrap-server-sensitive-marker"
+	var bootstrapRequests int32
+	domain, cleanupBootstrap := installLifecycleBootstrapHandler(t, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		atomic.AddInt32(&bootstrapRequests, 1)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusInternalServerError)
+		if err := json.NewEncoder(w).Encode(&EndpointResp{Code: InternalError, Msg: serverMessage}); err != nil {
+			t.Errorf("encode bootstrap error: %v", err)
+		}
+	}))
+	defer cleanupBootstrap()
+
+	logger := &lifecycleRecordingLogger{}
+	client := NewClient("app-id", "app-secret", WithDomain(domain), WithLogger(logger))
+	client.reconnectCount = 1
+	client.reconnectInterval = 0
+	client.reconnectNonce = 0
+
+	err := client.Start(context.Background())
+	if err == nil {
+		t.Fatal("Start returned nil after reconnect attempts were exhausted")
+	}
+	var serverErr *ServerError
+	if !errors.As(err, &serverErr) {
+		t.Fatalf("Start returned %T, want an error wrapping *ServerError", err)
+	}
+	if serverErr.Code != http.StatusInternalServerError {
+		t.Fatalf("ServerError.Code = %d, want %d", serverErr.Code, http.StatusInternalServerError)
+	}
+	if got := atomic.LoadInt32(&bootstrapRequests); got != 2 {
+		t.Fatalf("bootstrap requests = %d, want 2", got)
+	}
+
+	logs := logger.String()
+	for _, message := range []string{
+		"websocket initial connection failed",
+		"websocket reconnecting: attempt 1/1",
+		"websocket reconnect attempt 1 failed",
+		"websocket reconnect attempts exhausted after 1 attempts",
+	} {
+		if !strings.Contains(logs, message) {
+			t.Errorf("lifecycle logs missing %q: %s", message, logs)
+		}
+	}
+	assertLifecycleTextDoesNotContain(t, logs, serverMessage)
 }
 
 func TestRuntimeDeadlineClosesConnectionAndReturnsDeadline(t *testing.T) {
