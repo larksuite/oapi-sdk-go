@@ -3,6 +3,7 @@ package ws
 import (
 	"context"
 	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -32,10 +33,13 @@ func (p *wsMockClientAssertionProvider) RetrieveToken(ctx context.Context, aud s
 	return token, nil
 }
 
-func TestGetConnURLWithAppSecret(t *testing.T) {
-	originalClient := bootstrapHTTPClient
-	defer func() { bootstrapHTTPClient = originalClient }()
+type wsRoundTripperFunc func(*http.Request) (*http.Response, error)
 
+func (f wsRoundTripperFunc) RoundTrip(req *http.Request) (*http.Response, error) {
+	return f(req)
+}
+
+func TestFetchEndpointWithAppSecret(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != GenEndpointUri {
 			t.Fatalf("unexpected path: %s", r.URL.Path)
@@ -51,9 +55,8 @@ func TestGetConnURLWithAppSecret(t *testing.T) {
 	}))
 	defer server.Close()
 
-	bootstrapHTTPClient = server.Client()
-	client := NewClient("app-id", "app-secret", WithDomain(server.URL))
-	connURL, err := client.getConnURL(context.Background())
+	client := NewClient("app-id", "app-secret", WithDomain(server.URL), WithHttpClient(server.Client()))
+	connURL, _, err := client.fetchEndpoint(context.Background())
 	if err != nil {
 		t.Fatalf("get conn url failed: %v", err)
 	}
@@ -62,10 +65,7 @@ func TestGetConnURLWithAppSecret(t *testing.T) {
 	}
 }
 
-func TestGetConnURLWithCustomHeadersAndUserAgent(t *testing.T) {
-	originalClient := bootstrapHTTPClient
-	defer func() { bootstrapHTTPClient = originalClient }()
-
+func TestFetchEndpointWithCustomHeadersAndUserAgent(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Header.Get("X-Tt-Env") != "ppe_test" {
 			t.Fatalf("missing X-Tt-Env header: %s", r.Header.Get("X-Tt-Env"))
@@ -88,21 +88,18 @@ func TestGetConnURLWithCustomHeadersAndUserAgent(t *testing.T) {
 	headers.Set("X-Tt-Env", "ppe_test")
 	headers.Set("X-Use-Ppe", "1")
 
-	bootstrapHTTPClient = server.Client()
 	client := NewClient("app-id", "app-secret",
 		WithDomain(server.URL),
+		WithHttpClient(server.Client()),
 		WithHeaders(headers),
 		WithSource("ws-test"),
 	)
-	if _, err := client.getConnURL(context.Background()); err != nil {
+	if _, _, err := client.fetchEndpoint(context.Background()); err != nil {
 		t.Fatalf("get conn url failed: %v", err)
 	}
 }
 
-func TestGetConnURLWithClientAssertionProxy(t *testing.T) {
-	originalClient := bootstrapHTTPClient
-	defer func() { bootstrapHTTPClient = originalClient }()
-
+func TestFetchEndpointWithClientAssertionProxy(t *testing.T) {
 	proxyServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/proxy"+GenEndpointUri {
 			t.Fatalf("unexpected path: %s", r.URL.Path)
@@ -121,18 +118,14 @@ func TestGetConnURLWithClientAssertionProxy(t *testing.T) {
 	}))
 	defer proxyServer.Close()
 
-	bootstrapHTTPClient = proxyServer.Client()
 	provider := &wsMockClientAssertionProvider{tokens: []*larkcore.Token{{Value: "assertion", TargetInfo: &larkcore.TargetInfo{TargetService: proxyServer.URL, TargetPrefix: "/proxy"}}}}
-	client := NewClient("app-id", "", WithDomain("https://open.feishu.cn"), WithClientAssertionProvider(provider))
-	if _, err := client.getConnURL(context.Background()); err != nil {
+	client := NewClient("app-id", "", WithDomain("https://open.feishu.cn"), WithHttpClient(proxyServer.Client()), WithClientAssertionProvider(provider))
+	if _, _, err := client.fetchEndpoint(context.Background()); err != nil {
 		t.Fatalf("get conn url failed: %v", err)
 	}
 }
 
-func TestGetConnURLWithClientAssertionProxyHTTPErrorMsg(t *testing.T) {
-	originalClient := bootstrapHTTPClient
-	defer func() { bootstrapHTTPClient = originalClient }()
-
+func TestFetchEndpointWithClientAssertionProxyHTTPErrorMsg(t *testing.T) {
 	proxyServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		_ = json.NewEncoder(w).Encode(struct {
@@ -145,10 +138,9 @@ func TestGetConnURLWithClientAssertionProxyHTTPErrorMsg(t *testing.T) {
 	}))
 	defer proxyServer.Close()
 
-	bootstrapHTTPClient = proxyServer.Client()
 	provider := &wsMockClientAssertionProvider{tokens: []*larkcore.Token{{Value: "assertion", TargetInfo: &larkcore.TargetInfo{TargetService: proxyServer.URL, TargetPrefix: "/proxy"}}}}
-	client := NewClient("app-id", "", WithDomain("https://open.feishu.cn"), WithClientAssertionProvider(provider))
-	_, err := client.getConnURL(context.Background())
+	client := NewClient("app-id", "", WithDomain("https://open.feishu.cn"), WithHttpClient(proxyServer.Client()), WithClientAssertionProvider(provider))
+	_, _, err := client.fetchEndpoint(context.Background())
 	if err == nil {
 		t.Fatal("expected error, got nil")
 	}
@@ -158,17 +150,14 @@ func TestGetConnURLWithClientAssertionProxyHTTPErrorMsg(t *testing.T) {
 		t.Fatalf("unexpected error type: %#v", err)
 	}
 	if serverErr.Code != http.StatusInternalServerError {
-		t.Fatalf("unexpected server error code: %d", serverErr.Code)
+		t.Fatalf("unexpected status code: %d", serverErr.Code)
 	}
 	if serverErr.Msg != "target service unavailable" {
-		t.Fatalf("unexpected server error msg: %s", serverErr.Msg)
+		t.Fatalf("unexpected server error message: %q", serverErr.Msg)
 	}
 }
 
-func TestGetConnURLRetrieveTokenEachTime(t *testing.T) {
-	originalClient := bootstrapHTTPClient
-	defer func() { bootstrapHTTPClient = originalClient }()
-
+func TestFetchEndpointRetrieveTokenEachTime(t *testing.T) {
 	bodyAssertions := make([]string, 0, 2)
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var req BootstrapRequest
@@ -180,13 +169,12 @@ func TestGetConnURLRetrieveTokenEachTime(t *testing.T) {
 	}))
 	defer server.Close()
 
-	bootstrapHTTPClient = server.Client()
 	provider := &wsMockClientAssertionProvider{tokens: []*larkcore.Token{{Value: "assertion-1"}, {Value: "assertion-2"}}}
-	client := NewClient("app-id", "", WithDomain(server.URL), WithClientAssertionProvider(provider))
-	if _, err := client.getConnURL(context.Background()); err != nil {
+	client := NewClient("app-id", "", WithDomain(server.URL), WithHttpClient(server.Client()), WithClientAssertionProvider(provider))
+	if _, _, err := client.fetchEndpoint(context.Background()); err != nil {
 		t.Fatalf("first get conn url failed: %v", err)
 	}
-	if _, err := client.getConnURL(context.Background()); err != nil {
+	if _, _, err := client.fetchEndpoint(context.Background()); err != nil {
 		t.Fatalf("second get conn url failed: %v", err)
 	}
 	if provider.calls != 2 {
@@ -194,6 +182,35 @@ func TestGetConnURLRetrieveTokenEachTime(t *testing.T) {
 	}
 	if len(bodyAssertions) != 2 || bodyAssertions[0] != "assertion-1" || bodyAssertions[1] != "assertion-2" {
 		t.Fatalf("unexpected assertions: %#v", bodyAssertions)
+	}
+}
+
+func TestWithHttpClientFetchesEndpoint(t *testing.T) {
+	var requests int
+	client := NewClient("app-id", "app-secret",
+		WithDomain("https://bootstrap.example"),
+		WithHttpClient(&http.Client{Transport: wsRoundTripperFunc(func(req *http.Request) (*http.Response, error) {
+			requests++
+			if req.URL.String() != "https://bootstrap.example"+GenEndpointUri {
+				t.Fatalf("unexpected request URL: %s", req.URL)
+			}
+			return &http.Response{
+				StatusCode: http.StatusOK,
+				Header:     make(http.Header),
+				Body:       io.NopCloser(strings.NewReader(`{"code":0,"data":{"url":"wss://example.com/ws"}}`)),
+			}, nil
+		})}),
+	)
+
+	endpoint, _, err := client.fetchEndpoint(context.Background())
+	if err != nil {
+		t.Fatalf("fetch endpoint: %v", err)
+	}
+	if endpoint != "wss://example.com/ws" {
+		t.Fatalf("unexpected endpoint: %s", endpoint)
+	}
+	if requests != 1 {
+		t.Fatalf("expected one injected HTTP request, got %d", requests)
 	}
 }
 

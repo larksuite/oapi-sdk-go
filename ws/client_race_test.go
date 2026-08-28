@@ -1,28 +1,21 @@
 package ws
 
 import (
+	"context"
 	"sync"
 	"testing"
 	"time"
 )
 
 // These tests exercise the concurrent read/write paths on the connection-control
-// fields (reconnectCount / reconnectInterval / reconnectNonce / pingInterval /
-// conn / serviceID). They are meant to be run under `go test -race`; the data
+// fields and the active run/connection identity. They are meant to be run under
+// `go test -race`; the data
 // race only surfaces under the race detector, so a plain run passing is not
 // sufficient evidence the bug is fixed.
 //
-// The reader side goes through two locked snapshot accessors that the fix
-// introduces: configSnapshot() for the four config fields and connState() for
-// conn/serviceID. The writer side is configure(), which must take c.mu.
-
-// setServiceIDLocked writes serviceID under c.mu, standing in for connect()'s
-// in-lock write so the read-path synchronization (connState) is what gets raced.
-func (c *Client) setServiceIDLocked(id string) {
-	c.mu.Lock()
-	defer c.mu.Unlock()
-	c.serviceID = id
-}
+// The reader side goes through configSnapshot, currentConnection and exact
+// connection checks. The writer side uses configure/applyConfig and connection
+// replacement, which share stateMu with lifecycle identity.
 
 // newRaceClient builds an in-memory Client without establishing a connection.
 // conn stays nil on purpose: these tests cover the field-synchronization paths,
@@ -99,16 +92,26 @@ func TestConfigureAndConfigSnapshotNoRace(t *testing.T) {
 	wg.Wait()
 }
 
-// configure racing connState (reader of conn/serviceID, as pingLoop and
-// receiveMessageLoop do) must not data-race. serviceID is written under c.mu in
-// production (inside connect); here a locked white-box helper stands in for that
-// writer so the read path's synchronization is what gets exercised.
+// Run-level config updates and current-connection snapshots racing connection
+// replacement must not data-race.
 func TestConfigureAndConnStateNoRace(t *testing.T) {
 	c := newRaceClient()
+	runCtx, runCancel := context.WithCancel(context.Background())
+	defer runCancel()
+	run := &clientRun{ctx: runCtx, cancel: runCancel}
+	conn := &clientConn{
+		connectionResult: make(chan error, 1),
+		serviceID:        "42",
+	}
+	replacement := &clientConn{
+		connectionResult: make(chan error, 1),
+		serviceID:        "84",
+	}
+	c.run = run
+	run.conn = conn
 
 	const goroutines = 8
 	const iterations = 200
-	serviceIDs := []string{"1", "42", "1024", "65535"}
 	var wg sync.WaitGroup
 
 	// config writers
@@ -122,24 +125,49 @@ func TestConfigureAndConnStateNoRace(t *testing.T) {
 		}(w)
 	}
 
-	// serviceID writers, mutating under the same lock connect() uses
+	// Active-run config writers are independent of which physical connection
+	// supplied a Pong frame.
 	for w := 0; w < goroutines; w++ {
 		wg.Add(1)
 		go func(w int) {
 			defer wg.Done()
 			for i := 0; i < iterations; i++ {
-				c.setServiceIDLocked(serviceIDs[(w+i)%len(serviceIDs)])
+				if !c.applyConfig(run, validConfigPayloads[(w+i)%len(validConfigPayloads)]) {
+					t.Errorf("active run rejected config update")
+					return
+				}
 			}
 		}(w)
 	}
 
-	// conn/serviceID readers
+	// Replace the current connection while readers snapshot it.
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for i := 0; i < iterations; i++ {
+			c.stateMu.Lock()
+			if run.conn == conn {
+				run.conn = replacement
+			} else {
+				run.conn = conn
+			}
+			c.stateMu.Unlock()
+		}
+	}()
+
+	// Snapshot readers accept either fully published connection and also exercise
+	// the exact physical-connection check used by receive cleanup.
 	for r := 0; r < goroutines; r++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
 			for i := 0; i < iterations; i++ {
-				_, _ = c.connState()
+				current, ok := c.currentConnection(run)
+				if !ok || (current != conn && current != replacement) {
+					t.Errorf("currentConnection returned (%p, %v)", current, ok)
+					return
+				}
+				c.isConnectionActive(run, current)
 			}
 		}()
 	}

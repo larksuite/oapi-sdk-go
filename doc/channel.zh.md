@@ -29,6 +29,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 
@@ -69,21 +70,39 @@ func main() {
 		return err
 	})
 
-	// 6. 通过 Channel 启动，让生命周期回调由 Channel 完成接线
-	if err := ch.Start(context.Background()); err != nil {
-		panic(err)
-	}
+	// 6. Start 会阻塞整个 WebSocket 生命周期，因此需要和信号处理并行。
+	// 使用容量为 1 的 channel，确保退出信号先到时 Start 仍能上报结果。
+	startResult := make(chan error, 1)
+	go func() {
+		startResult <- ch.Start(context.Background())
+	}()
 
-	// 7. 阻塞等待退出信号
+	// 7. 收到退出信号后停止 Channel，并等待 Start 返回
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt)
-	<-stop
+	defer signal.Stop(stop)
 
-	_ = ch.Stop(context.Background())
+	select {
+	case err := <-startResult:
+		if err != nil {
+			log.Printf("Channel 异常停止：%v", err)
+		}
+	case <-stop:
+		if err := ch.Stop(context.Background()); err != nil {
+			log.Printf("停止 Channel 失败：%v", err)
+		}
+		if err := <-startResult; err != nil {
+			log.Printf("Channel 异常停止：%v", err)
+		}
+	}
 }
 ```
 
 建议使用 `ch.Start(ctx)`，不要直接调用 `wsClient.Start(ctx)`。因为 `Channel` 会在 `Start()` 中接入自己的 `OnReady` / 重连 / 断线 / 错误回调。
+
+`ch.Start(ctx)` 会阻塞整个 WebSocket 生命周期。如果最先发生的是 `ctx` 取消或超时，它返回 `ctx.Err()`；如果最先调用 `ch.Stop(...)`，`Start` 返回 `nil`；如果发生不可恢复的连接错误，`Start` 返回该错误。当这些事件并发发生时，以第一个被接受的停止结果为准，后续原因不会覆盖它。
+
+一旦连接成功过，主动停止或生命周期结束后，底层 WebSocket Client 就进入终态。此时应新建 `ws.Client` 和 `Channel`，不要再次调用同一个 Client 的 `Start`。只有首次连接成功前发生的启动失败，才允许在同一个 Client 上重试。
 
 ---
 
@@ -147,7 +166,7 @@ ch.OnDisconnected(func() {
 })
 ```
 
-这些回调由 `ch.Start(ctx)` 完成接线。
+这些回调由 `ch.Start(ctx)` 完成接线。`OnReady`、可恢复的 `OnError`、`OnReconnecting` 和 `OnReconnected` 会在生命周期 coordinator 中同步执行。阻塞这些回调会延迟 coordinator 推进、`Start` 返回和后续清理，因此回调实现必须返回。`ch.Stop(...)` 自身不会等待正在运行的回调，但只有该回调返回后，`Start` 才能完成清理并返回。停止请求被接受后，不再派发新的 ready、重连或事件回调；`OnDisconnected` 只会在对应的 ready/reconnected 回调返回（或 panic）后执行。
 
 ---
 
@@ -359,3 +378,4 @@ if errors.As(err, &channelErr) {
 3. **卡片按钮不响应**通常是：没加 `card.action.trigger` 订阅，或者卡片仍是 V1 schema。V2 建议使用 `column_set` -> `column` -> `button`，并配置 `behaviors: [{ type: "callback", value }]`。高层处理入口是 `OnCardAction(...)`。
 4. **流式请用 `Stream()`**。Markdown 流用 `Append()`，卡片流用 `UpdateCard()`，不要手动循环 `Send()` 模拟流式。
 5. **请通过 `ch.Start(ctx)` 启动 Channel**。如果你直接启动 `wsClient`，`Channel` 自己的 `OnReady()` / `OnReconnected()` 等生命周期回调不会由 `Channel` 接线。
+6. **把 `Start` 当作生命周期的汇合点**。信号处理需要并行运行；调用 `Stop` 后还要等待 `Start` 返回。传入 nil context 属于无效调用。

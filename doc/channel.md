@@ -29,6 +29,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 
@@ -69,21 +70,40 @@ func main() {
 		return err
 	})
 
-	// 6. Start Channel so lifecycle hooks are wired through Channel itself
-	if err := ch.Start(context.Background()); err != nil {
-		panic(err)
-	}
+	// 6. Start blocks for the whole WebSocket lifecycle, so run it alongside
+	// signal handling. The buffered channel lets Start report its result even
+	// when shutdown wins the select below.
+	startResult := make(chan error, 1)
+	go func() {
+		startResult <- ch.Start(context.Background())
+	}()
 
-	// 7. Wait for termination
+	// 7. Stop on an interrupt, then wait for Start to return.
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt)
-	<-stop
+	defer signal.Stop(stop)
 
-	_ = ch.Stop(context.Background())
+	select {
+	case err := <-startResult:
+		if err != nil {
+			log.Printf("channel stopped with error: %v", err)
+		}
+	case <-stop:
+		if err := ch.Stop(context.Background()); err != nil {
+			log.Printf("stop channel: %v", err)
+		}
+		if err := <-startResult; err != nil {
+			log.Printf("channel stopped with error: %v", err)
+		}
+	}
 }
 ```
 
 Use `ch.Start(ctx)` instead of calling `wsClient.Start(ctx)` directly. `Channel` wires its own ready/reconnect/disconnect/error hooks during `Start()`.
+
+`ch.Start(ctx)` blocks for the complete WebSocket lifecycle. If `ctx` is canceled or reaches its deadline first, it returns `ctx.Err()`. If `ch.Stop(...)` wins first, `Start` returns `nil`. A terminal connection failure is returned as an error. When these events race, the first accepted stop result is retained.
+
+After a connection has succeeded, stopping or ending that lifecycle makes the underlying WebSocket client terminal. Create a new `ws.Client` and `Channel` instead of calling `Start` again. A startup failure that happens before the first successful connection may be retried on the same client.
 
 ---
 
@@ -147,7 +167,7 @@ ch.OnDisconnected(func() {
 })
 ```
 
-These hooks are attached by `ch.Start(ctx)`.
+These hooks are attached by `ch.Start(ctx)`. `OnReady`, recoverable `OnError`, `OnReconnecting`, and `OnReconnected` run synchronously in the lifecycle coordinator. A blocking hook delays coordinator progress, `Start` returning, and subsequent cleanup; hook implementations must return. `ch.Stop(...)` itself does not wait for a running hook, but `Start` can finish cleanup only after that hook returns. Once shutdown has been accepted, the client does not dispatch new ready, reconnect, or event callbacks. `OnDisconnected` runs only after the corresponding ready/reconnected callback has returned (or panicked).
 
 ---
 
@@ -359,3 +379,4 @@ Retryable outbound failures are retried automatically before the error is return
 3. **Card buttons not firing** is usually either a missing `card.action.trigger` subscription or a V1 card schema. V2 uses `column_set` -> `column` -> `button` with `behaviors: [{ type: "callback", value }]`. Handle it with `OnCardAction(...)`.
 4. **Use `Stream()`** for progressive output. For markdown streams call `Append()`. For card streams call `UpdateCard()`.
 5. **Start Channel through `ch.Start(ctx)`**. If you start `wsClient` directly, Channel lifecycle hooks such as `OnReady()` and `OnReconnected()` will not be wired by `Channel`.
+6. **Treat `Start` as the lifecycle join point.** Run signal handling concurrently, call `Stop`, and wait for `Start` to return. Passing a nil context is invalid.
