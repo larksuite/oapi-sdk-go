@@ -6,6 +6,10 @@ Feishu Open Platform offers a series of server-side atomic APIs to achieve diver
 
 To address these issues, Feishu Open Platform has developed the Open Interface SDK, which incorporates these lengthy logic processes, provides a comprehensive type system, and offers a semantic programming interface to improve the coding experience.
 
+## Requirements
+
+- Go 1.17 or later
+
 ## Introduction Documents
 
 - [Preparations before development (Install SDK)](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/golang-sdk-guide/preparations)

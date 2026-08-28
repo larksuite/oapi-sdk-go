@@ -2,23 +2,30 @@ name: Go
 
 on:
   push:
-    branches: [ v2_rewrite ]
+    branches: [ v3_main ]
   pull_request:
-    branches: [ v2_rewrite ]
+    branches: [ v3_main ]
 
 jobs:
-
-  build:
+  test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: ["1.17.x", "stable"]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v5
         with:
-          go-version: 1.12
+          go-version: ${{ matrix.go-version }}
 
-      - name: GolangCI-Linter
-        uses: Mushus/golangci-linter@v1.1.2
-        with:
-          basePath: ./v2
+      - name: Verify modules
+        run: go mod verify
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Test
+        run: go test ./...

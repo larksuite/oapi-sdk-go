@@ -6,6 +6,10 @@
 
 为了解决这些问题，飞书开放平台提供了开放接口 SDK。SDK 封装了冗长的通用逻辑，提供完善的类型系统和语义化编程接口，帮助开发者提升编码体验。
 
+## 环境要求
+
+- Go 1.17 或更高版本
+
 ## 介绍文档
 
 - [开发前准备（安装 SDK）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/golang-sdk-guide/preparations)
