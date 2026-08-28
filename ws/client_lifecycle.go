@@ -194,12 +194,12 @@ func (c *Client) reconnectAfterFailure(run *clientRun, failure error) *clientCon
 }
 
 // waitForConnectionExit returns nil when the run has stopped. Otherwise, it
-// returns the read error that starts a reconnect sequence.
+// returns the first read or write error that starts a reconnect sequence.
 func (c *Client) waitForConnectionExit(run *clientRun, conn *clientConn) error {
 	var exitErr error
 	select {
 	case <-run.ctx.Done():
-	case exitErr = <-conn.readResult:
+	case exitErr = <-conn.connectionResult:
 	}
 
 	c.deactivateConnection(run)

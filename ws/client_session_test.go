@@ -1,8 +1,15 @@
 package ws
 
 import (
+	"bufio"
 	"context"
+	"crypto/sha1"
+	"encoding/base64"
 	"errors"
+	"fmt"
+	"net"
+	"net/http"
+	"net/url"
 	"testing"
 	"time"
 
@@ -11,10 +18,67 @@ import (
 
 func newSocketClientConn(socket *websocket.Conn, endpoint string) *clientConn {
 	return &clientConn{
-		socket:       socket,
-		readResult:   make(chan error, 1),
-		safeEndpoint: safeEndpoint(endpoint),
+		socket:           socket,
+		connectionResult: make(chan error, 1),
+		safeEndpoint:     safeEndpoint(endpoint),
 	}
+}
+
+// newWriteBlockingSocket completes a websocket handshake and then leaves the
+// server side unread. net.Pipe has no write buffer, so client writes block
+// until their deadline expires.
+func newWriteBlockingSocket(t *testing.T) (*websocket.Conn, func()) {
+	t.Helper()
+
+	clientNet, serverNet := net.Pipe()
+	releaseServer := make(chan struct{})
+	serverErr := make(chan error, 1)
+	serverDone := make(chan struct{})
+	go func() {
+		defer close(serverDone)
+		defer serverNet.Close()
+
+		request, err := http.ReadRequest(bufio.NewReader(serverNet))
+		if err != nil {
+			serverErr <- fmt.Errorf("read websocket handshake: %w", err)
+			return
+		}
+		key := request.Header.Get("Sec-WebSocket-Key")
+		if key == "" {
+			serverErr <- errors.New("websocket handshake key is missing")
+			return
+		}
+
+		sum := sha1.Sum([]byte(key + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"))
+		accept := base64.StdEncoding.EncodeToString(sum[:])
+		if _, err := fmt.Fprintf(serverNet, "HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: %s\r\n\r\n", accept); err != nil {
+			serverErr <- fmt.Errorf("write websocket handshake: %w", err)
+			return
+		}
+
+		<-releaseServer
+	}()
+
+	endpoint := &url.URL{Scheme: "ws", Host: "example.test", Path: "/callback"}
+	socket, _, err := websocket.NewClient(clientNet, endpoint, nil, 1024, 1024)
+	if err != nil {
+		_ = clientNet.Close()
+		close(releaseServer)
+		<-serverDone
+		select {
+		case serverErr := <-serverErr:
+			t.Fatalf("create websocket client: %v (server: %v)", err, serverErr)
+		default:
+			t.Fatalf("create websocket client: %v", err)
+		}
+	}
+
+	cleanup := func() {
+		_ = socket.Close()
+		close(releaseServer)
+		<-serverDone
+	}
+	return socket, cleanup
 }
 
 func activeRunAndSocket(socket *websocket.Conn, endpoint string) (*clientRun, *clientConn) {
@@ -92,6 +156,31 @@ func TestWriteConnectionRejectsReplacedSnapshot(t *testing.T) {
 	}
 	assertNoGatewayFrame(t, gateway, firstServerConn, 100*time.Millisecond)
 	assertNoGatewayFrame(t, gateway, secondServerConn, 100*time.Millisecond)
+}
+
+func TestWriteConnectionTimeoutReportsConnectionError(t *testing.T) {
+	socket, cleanupSocket := newWriteBlockingSocket(t)
+	defer cleanupSocket()
+
+	run, conn := activeRunAndSocket(socket, "ws://example.test/callback")
+	defer run.cancel()
+	client := NewClient("app-id", "app-secret", WithWriteTimeout(20*time.Millisecond))
+	client.run = run
+
+	err := client.writeConnection(run, conn, websocket.BinaryMessage, []byte("blocked payload"))
+	var timeoutErr net.Error
+	if !errors.As(err, &timeoutErr) || !timeoutErr.Timeout() {
+		t.Fatalf("writeConnection returned %v, want write timeout", err)
+	}
+
+	select {
+	case reported := <-conn.connectionResult:
+		if reported != err {
+			t.Fatalf("connectionResult = %v, want write error %v", reported, err)
+		}
+	case <-time.After(lifecycleTestTimeout):
+		t.Fatal("write timeout was not reported to the connection coordinator")
+	}
 }
 
 func TestStopAndDetachDoNotWaitForWriter(t *testing.T) {

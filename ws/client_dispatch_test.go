@@ -15,7 +15,7 @@ func activeRunAndConn() (*clientRun, *clientConn) {
 	runCtx, runCancel := context.WithCancel(context.Background())
 	run := &clientRun{ctx: runCtx, cancel: runCancel}
 	conn := &clientConn{
-		readResult: make(chan error, 1),
+		connectionResult: make(chan error, 1),
 	}
 	run.conn = conn
 	return run, conn

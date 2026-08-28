@@ -65,11 +65,11 @@ func (c *Client) establishConnectionOnce(run *clientRun) (*clientConn, error) {
 	}
 
 	conn := &clientConn{
-		socket:       socket,
-		readResult:   make(chan error, 1),
-		connID:       u.Query().Get(DeviceID),
-		serviceID:    u.Query().Get(ServiceID),
-		safeEndpoint: safeEndpoint(rawEndpoint),
+		socket:           socket,
+		connectionResult: make(chan error, 1),
+		connID:           u.Query().Get(DeviceID),
+		serviceID:        u.Query().Get(ServiceID),
+		safeEndpoint:     safeEndpoint(rawEndpoint),
 	}
 	if err := c.setReadDeadline(conn); err != nil {
 		c.closeSocket(run.ctx, socket, conn.safeEndpoint, "initialize read deadline")

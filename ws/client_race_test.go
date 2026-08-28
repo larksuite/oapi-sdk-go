@@ -100,12 +100,12 @@ func TestConfigureAndConnStateNoRace(t *testing.T) {
 	defer runCancel()
 	run := &clientRun{ctx: runCtx, cancel: runCancel}
 	conn := &clientConn{
-		readResult: make(chan error, 1),
-		serviceID:  "42",
+		connectionResult: make(chan error, 1),
+		serviceID:        "42",
 	}
 	replacement := &clientConn{
-		readResult: make(chan error, 1),
-		serviceID:  "84",
+		connectionResult: make(chan error, 1),
+		serviceID:        "84",
 	}
 	c.run = run
 	run.conn = conn

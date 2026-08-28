@@ -17,8 +17,8 @@ import (
 type clientConn struct {
 	socket *ws.Conn
 
-	readResult chan error
-	writeMu    sync.Mutex
+	connectionResult chan error
+	writeMu          sync.Mutex
 
 	connID       string
 	serviceID    string
@@ -154,22 +154,18 @@ func (c *Client) receiveMessageLoop(run *clientRun, conn *clientConn) {
 	defer run.wg.Done()
 	defer func() {
 		if recover() != nil {
-			conn.readResult <- errors.New("websocket receive loop panicked")
+			c.reportConnectionError(run, conn, errors.New("websocket receive loop panicked"))
 		}
 	}()
 
 	for {
 		messageType, msg, err := conn.socket.ReadMessage()
 		if err != nil {
-			if c.isConnectionActive(run, conn) {
-				conn.readResult <- err
-			}
+			c.reportConnectionError(run, conn, err)
 			return
 		}
 		if err := c.setReadDeadline(conn); err != nil {
-			if c.isConnectionActive(run, conn) {
-				conn.readResult <- err
-			}
+			c.reportConnectionError(run, conn, err)
 			return
 		}
 		if messageType != ws.BinaryMessage {
@@ -214,6 +210,19 @@ func (c *Client) setReadDeadline(conn *clientConn) error {
 	return conn.socket.SetReadDeadline(time.Now().Add(pongWait(pingInterval)))
 }
 
+// reportConnectionError hands the first I/O failure of conn to the run
+// coordinator. Read and write paths can fail concurrently, so later errors
+// must not block after the first one has started connection teardown.
+func (c *Client) reportConnectionError(run *clientRun, conn *clientConn, err error) {
+	if !c.isConnectionActive(run, conn) {
+		return
+	}
+	select {
+	case conn.connectionResult <- err:
+	default:
+	}
+}
+
 func (c *Client) isConnectionActive(run *clientRun, conn *clientConn) bool {
 	if run.ctx.Err() != nil {
 		return false
@@ -250,7 +259,12 @@ func (c *Client) writeConnection(run *clientRun, conn *clientConn, messageType i
 	if !c.isConnectionActive(run, conn) {
 		return errConnectionClosed
 	}
+	if err := conn.socket.SetWriteDeadline(time.Now().Add(c.writeTimeout)); err != nil {
+		c.reportConnectionError(run, conn, err)
+		return err
+	}
 	if err := conn.socket.WriteMessage(messageType, data); err != nil {
+		c.reportConnectionError(run, conn, err)
 		return err
 	}
 	return nil

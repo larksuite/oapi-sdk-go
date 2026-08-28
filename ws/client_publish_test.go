@@ -36,9 +36,9 @@ func TestActivateConnectionRejectsStoppedRun(t *testing.T) {
 	runCtx, runCancel := context.WithCancel(context.Background())
 	run := &clientRun{ctx: runCtx, cancel: runCancel}
 	conn := &clientConn{
-		socket:       socket,
-		readResult:   make(chan error, 1),
-		safeEndpoint: safeEndpoint(gateway.endpoint()),
+		socket:           socket,
+		connectionResult: make(chan error, 1),
+		safeEndpoint:     safeEndpoint(gateway.endpoint()),
 	}
 	var readyCount int32
 	var disconnectedCount int32

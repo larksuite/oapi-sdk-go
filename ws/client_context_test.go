@@ -109,7 +109,7 @@ func TestConnectionStateRejectsCallerCancellation(t *testing.T) {
 		t.Fatalf("beginRun returned error: %v", err)
 	}
 	conn := &clientConn{
-		readResult: make(chan error, 1),
+		connectionResult: make(chan error, 1),
 	}
 	client.stateMu.Lock()
 	run.conn = conn

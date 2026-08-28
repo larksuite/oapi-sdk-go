@@ -29,6 +29,7 @@ type Client struct {
 	reconnectCount          int           // 重连次数，负数无限次
 	reconnectInterval       time.Duration // 重连间隔
 	pingInterval            time.Duration // Ping间隔
+	writeTimeout            time.Duration // 单次写入超时
 	cache                   *larkcache.Cache
 	onReady                 func()
 	onError                 func(err error)
@@ -70,6 +71,16 @@ func WithLogger(logger larkcore.Logger) ClientOption {
 func WithAutoReconnect(b bool) ClientOption {
 	return func(cli *Client) {
 		cli.autoReconnect = b
+	}
+}
+
+// WithWriteTimeout sets the maximum duration of one websocket write. A
+// non-positive timeout keeps the default value.
+func WithWriteTimeout(timeout time.Duration) ClientOption {
+	return func(cli *Client) {
+		if timeout > 0 {
+			cli.writeTimeout = timeout
+		}
 	}
 }
 
@@ -166,6 +177,7 @@ func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
 		reconnectCount:    -1,
 		reconnectInterval: 2 * time.Minute,
 		pingInterval:      2 * time.Minute,
+		writeTimeout:      10 * time.Second,
 		cache:             larkcache.New(30 * time.Second),
 		domain:            lark.FeishuBaseUrl,
 	}
