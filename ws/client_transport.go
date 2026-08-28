@@ -12,11 +12,8 @@ import (
 	"strconv"
 	"strings"
 
-	ws "github.com/gorilla/websocket"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
-
-var bootstrapHTTPClient = http.DefaultClient
 
 // establishConnectionOnce performs exactly one bootstrap and websocket dial.
 // Retry policy belongs to the lifecycle coordinator, not the transport layer.
@@ -37,7 +34,7 @@ func (c *Client) establishConnectionOnce(run *clientRun) (*clientConn, error) {
 		return nil, errors.New("websocket endpoint is invalid")
 	}
 
-	socket, resp, dialErr := ws.DefaultDialer.DialContext(run.ctx, rawEndpoint, nil)
+	socket, resp, dialErr := c.websocketDialer.DialContext(run.ctx, rawEndpoint, nil)
 	if resp != nil && resp.Body != nil {
 		defer func() {
 			if closeErr := resp.Body.Close(); closeErr != nil {
@@ -133,7 +130,7 @@ func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *C
 		}
 	}
 	req.Header.Set("User-Agent", larkcore.UserAgent(c.source))
-	resp, requestErr := bootstrapHTTPClient.Do(req)
+	resp, requestErr := c.httpClient.Do(req)
 	if requestErr != nil {
 		return "", nil, requestErr
 	}

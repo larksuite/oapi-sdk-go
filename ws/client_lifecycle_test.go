@@ -8,6 +8,7 @@ import (
 	"net"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -154,10 +155,7 @@ func installLifecycleBootstrap(t *testing.T, endpoint string, requests *int32) (
 			return
 		}
 	}))
-	originalClient := bootstrapHTTPClient
-	bootstrapHTTPClient = server.Client()
 	cleanup := func() {
-		bootstrapHTTPClient = originalClient
 		server.Close()
 	}
 	return server.URL, cleanup
@@ -167,10 +165,7 @@ func installLifecycleBootstrapHandler(t *testing.T, handler http.Handler) (strin
 	t.Helper()
 
 	server := httptest.NewServer(handler)
-	originalClient := bootstrapHTTPClient
-	bootstrapHTTPClient = server.Client()
 	cleanup := func() {
-		bootstrapHTTPClient = originalClient
 		server.Close()
 	}
 	return server.URL, cleanup
@@ -279,6 +274,39 @@ func TestStartNilDoesNotConsumeLaterValidStart(t *testing.T) {
 		t.Error("valid Start did not return after Close")
 	} else if err != nil {
 		t.Errorf("valid Start returned %v after Close, want nil", err)
+	}
+}
+
+func TestWithWebSocketDialerEstablishesConnection(t *testing.T) {
+	gateway, cleanupGateway := newLifecycleGateway(t)
+	defer cleanupGateway()
+
+	var bootstrapRequests int32
+	domain, cleanupBootstrap := installLifecycleBootstrap(t, gateway.endpoint(), &bootstrapRequests)
+	defer cleanupBootstrap()
+
+	dialer := *websocket.DefaultDialer
+	var proxyCalls int32
+	dialer.Proxy = func(*http.Request) (*url.URL, error) {
+		atomic.AddInt32(&proxyCalls, 1)
+		return nil, nil
+	}
+	ready := make(chan struct{}, 1)
+	client := NewClient("app-id", "app-secret",
+		WithDomain(domain),
+		WithAutoReconnect(false),
+		WithWebSocketDialer(&dialer),
+		WithOnReady(func() { ready <- struct{}{} }),
+	)
+
+	result := startLifecycleClient(client, context.Background())
+	waitLifecycleSignal(t, ready, "ready callback")
+	client.Close()
+	if err, completed := waitLifecycleResult(result); !completed || err != nil {
+		t.Fatalf("Start returned %v, completed=%v", err, completed)
+	}
+	if atomic.LoadInt32(&proxyCalls) != 1 {
+		t.Fatalf("expected injected websocket dialer once, got %d", proxyCalls)
 	}
 }
 

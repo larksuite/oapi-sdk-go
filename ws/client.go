@@ -6,6 +6,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/gorilla/websocket"
 	lark "github.com/larksuite/oapi-sdk-go/v3"
 	larkcache "github.com/larksuite/oapi-sdk-go/v3/cache"
 	larkcard "github.com/larksuite/oapi-sdk-go/v3/card"
@@ -30,6 +31,8 @@ type Client struct {
 	reconnectInterval       time.Duration // 重连间隔
 	pingInterval            time.Duration // Ping间隔
 	writeTimeout            time.Duration // 单次写入超时
+	httpClient              larkcore.HttpClient
+	websocketDialer         *websocket.Dialer
 	cache                   *larkcache.Cache
 	onReady                 func()
 	onError                 func(err error)
@@ -80,6 +83,27 @@ func WithWriteTimeout(timeout time.Duration) ClientOption {
 	return func(cli *Client) {
 		if timeout > 0 {
 			cli.writeTimeout = timeout
+		}
+	}
+}
+
+// WithHttpClient sets the HTTP client used to fetch the websocket endpoint.
+// When httpClient is an *http.Client, its Timeout also bounds that request.
+func WithHttpClient(httpClient larkcore.HttpClient) ClientOption {
+	return func(cli *Client) {
+		if httpClient != nil {
+			cli.httpClient = httpClient
+		}
+	}
+}
+
+// WithWebSocketDialer sets the dialer used to establish websocket connections.
+// Its Proxy, TLSClientConfig and HandshakeTimeout settings apply only to this
+// Client instance.
+func WithWebSocketDialer(dialer *websocket.Dialer) ClientOption {
+	return func(cli *Client) {
+		if dialer != nil {
+			cli.websocketDialer = dialer
 		}
 	}
 }
@@ -169,6 +193,7 @@ func (c *Client) SetOnDisconnected(f func()) {
 }
 
 func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
+	dialer := *websocket.DefaultDialer
 	cli := &Client{
 		appID:             appId,
 		appSecret:         appSecret,
@@ -178,6 +203,8 @@ func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
 		reconnectInterval: 2 * time.Minute,
 		pingInterval:      2 * time.Minute,
 		writeTimeout:      10 * time.Second,
+		httpClient:        &http.Client{Timeout: 10 * time.Second},
+		websocketDialer:   &dialer,
 		cache:             larkcache.New(30 * time.Second),
 		domain:            lark.FeishuBaseUrl,
 	}
