@@ -2,7 +2,7 @@ package ws
 
 import (
 	"context"
-	"errors"
+	"fmt"
 	"math/rand"
 	"sync"
 	"time"
@@ -117,7 +117,7 @@ func (c *Client) runCoordinator(run *clientRun) {
 		if !c.isRunActive(run) {
 			return
 		}
-		c.logger.Warn(run.ctx, c.fmtLog("websocket initial connection failed: %v", err)...)
+		c.logger.Warn(run.ctx, c.fmtLog("websocket initial connection failed")...)
 		if c.autoReconnect && isRetryableConnectionError(err) {
 			c.invokeRecoverableErrorCallback(run, err)
 		}
@@ -134,7 +134,7 @@ func (c *Client) runCoordinator(run *clientRun) {
 		if exitErr == nil {
 			return
 		}
-		c.logger.Warn(run.ctx, c.fmtLog("websocket connection failed: %v", exitErr)...)
+		c.logger.Warn(run.ctx, c.fmtLog("websocket connection failed")...)
 
 		conn = c.reconnectAfterFailure(run, exitErr)
 		reconnected = true
@@ -156,9 +156,9 @@ func (c *Client) reconnectAfterFailure(run *clientRun, failure error) *clientCon
 	for {
 		reconnectCount, reconnectInterval, reconnectNonce, _ := c.configSnapshot()
 		if reconnectCount >= 0 && attempts >= reconnectCount {
-			err := newLifecycleError("reconnect", "attempts exhausted", 0, failure)
-			c.logger.Warn(run.ctx, c.fmtLog("websocket reconnect attempts exhausted after %d attempts: %v", attempts, err)...)
-			c.stopRunWithError(run, err)
+			err := fmt.Errorf("unable to connect to server after %d retries", reconnectCount)
+			c.logger.Warn(run.ctx, c.fmtLog("websocket reconnect attempts exhausted after %d attempts", attempts)...)
+			c.stopRun(run, runStopByFailure, err)
 			return nil
 		}
 
@@ -184,7 +184,7 @@ func (c *Client) reconnectAfterFailure(run *clientRun, failure error) *clientCon
 			return nil
 		}
 		failure = err
-		c.logger.Warn(run.ctx, c.fmtLog("websocket reconnect attempt %d failed: %v", attempts, failure)...)
+		c.logger.Warn(run.ctx, c.fmtLog("websocket reconnect attempt %d failed", attempts)...)
 		if !c.autoReconnect || !isRetryableConnectionError(failure) {
 			c.stopRunWithError(run, failure)
 			return nil
@@ -289,20 +289,6 @@ func randomReconnectDelay(reconnectNonce int) time.Duration {
 }
 
 func isRetryableConnectionError(err error) bool {
-	var clientErr *ClientError
-	if errors.As(err, &clientErr) {
-		return false
-	}
-	var lifecycleErr *lifecycleError
-	if errors.As(err, &lifecycleErr) {
-		switch {
-		case lifecycleErr.operation == "bootstrap" && lifecycleErr.category == "request build":
-			return false
-		case lifecycleErr.operation == "bootstrap credential" && lifecycleErr.category != "token retrieval":
-			return false
-		case lifecycleErr.operation == "parse endpoint":
-			return false
-		}
-	}
-	return true
+	_, isClientError := err.(*ClientError)
+	return !isClientError
 }

@@ -6,7 +6,6 @@ import (
 	"errors"
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"testing"
 
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
@@ -35,18 +34,20 @@ func TestStartHTTPFailurePreservesServerError(t *testing.T) {
 	}))
 	defer server.Close()
 
+	callbackErr := make(chan error, 1)
 	client := ws.NewClient("app-id", "app-secret",
 		ws.WithDomain(server.URL),
 		ws.WithAutoReconnect(false),
+		ws.WithOnError(func(err error) { callbackErr <- err }),
 	)
 	err := client.Start(context.Background())
 	if err == nil {
 		t.Fatal("Start returned nil after bootstrap HTTP failure")
 	}
 
-	var serverErr *ws.ServerError
-	if !errors.As(err, &serverErr) {
-		t.Fatalf("errors.As(%T, *ws.ServerError) = false", err)
+	serverErr, ok := err.(*ws.ServerError)
+	if !ok {
+		t.Fatalf("Start returned %T, want *ws.ServerError", err)
 	}
 	if serverErr.Code != http.StatusInternalServerError {
 		t.Fatalf("ServerError.Code = %d, want %d", serverErr.Code, http.StatusInternalServerError)
@@ -54,8 +55,51 @@ func TestStartHTTPFailurePreservesServerError(t *testing.T) {
 	if serverErr.Msg != serverMessage {
 		t.Fatalf("ServerError.Msg = %q, want %q", serverErr.Msg, serverMessage)
 	}
-	if strings.Contains(err.Error(), serverMessage) {
-		t.Fatalf("outer error exposed server response: %s", err)
+	select {
+	case callbackErr := <-callbackErr:
+		if _, ok := callbackErr.(*ws.ServerError); !ok {
+			t.Errorf("OnError received %T, want *ws.ServerError", callbackErr)
+		}
+	default:
+		t.Fatal("OnError was not invoked")
+	}
+}
+
+func TestStartClientFailurePreservesClientError(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		if err := json.NewEncoder(w).Encode(map[string]interface{}{
+			"code": 19001,
+			"msg":  "invalid credential",
+		}); err != nil {
+			t.Errorf("encode bootstrap error: %v", err)
+		}
+	}))
+	defer server.Close()
+
+	callbackErr := make(chan error, 1)
+	client := ws.NewClient("app-id", "app-secret",
+		ws.WithDomain(server.URL),
+		ws.WithOnError(func(err error) { callbackErr <- err }),
+	)
+	err := client.Start(context.Background())
+	if err == nil {
+		t.Fatal("Start returned nil after bootstrap client failure")
+	}
+	clientErr, ok := err.(*ws.ClientError)
+	if !ok {
+		t.Fatalf("Start returned %T, want *ws.ClientError", err)
+	}
+	if clientErr.Code != 19001 || clientErr.Msg != "invalid credential" {
+		t.Fatalf("ClientError = %#v, want code 19001 and original message", clientErr)
+	}
+	select {
+	case callbackErr := <-callbackErr:
+		if _, ok := callbackErr.(*ws.ClientError); !ok {
+			t.Errorf("OnError received %T, want *ws.ClientError", callbackErr)
+		}
+	default:
+		t.Fatal("OnError was not invoked")
 	}
 }
 
@@ -67,10 +111,7 @@ func TestStartPreservesAssertionProviderError(t *testing.T) {
 	)
 
 	err := client.Start(context.Background())
-	if !errors.Is(err, providerErr) {
-		t.Fatalf("errors.Is(Start error, provider error) = false: %v", err)
-	}
-	if strings.Contains(err.Error(), providerErr.Error()) {
-		t.Fatalf("outer error exposed assertion provider error: %s", err)
+	if err != providerErr {
+		t.Fatalf("Start error = %v, want original provider error %v", err, providerErr)
 	}
 }

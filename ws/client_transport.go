@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -29,8 +30,11 @@ func (c *Client) establishConnectionOnce(run *clientRun) (*clientConn, error) {
 	}
 
 	u, err := url.Parse(rawEndpoint)
-	if err != nil || u.Scheme == "" || u.Host == "" {
-		return nil, newLifecycleError("parse endpoint", "invalid endpoint", 0, err)
+	if err != nil {
+		return nil, err
+	}
+	if u.Scheme == "" || u.Host == "" {
+		return nil, errors.New("websocket endpoint is invalid")
 	}
 
 	socket, resp, dialErr := ws.DefaultDialer.DialContext(run.ctx, rawEndpoint, nil)
@@ -48,7 +52,7 @@ func (c *Client) establishConnectionOnce(run *clientRun) (*clientConn, error) {
 		if resp != nil && resp.StatusCode != http.StatusSwitchingProtocols {
 			return nil, parseHandshakeError(resp)
 		}
-		return nil, newLifecycleError("dial websocket", "transport", 0, dialErr)
+		return nil, dialErr
 	}
 	if socket == nil || resp == nil || resp.StatusCode != http.StatusSwitchingProtocols {
 		if socket != nil {
@@ -57,7 +61,7 @@ func (c *Client) establishConnectionOnce(run *clientRun) (*clientConn, error) {
 		if resp != nil {
 			return nil, parseHandshakeError(resp)
 		}
-		return nil, newLifecycleError("handshake websocket", "invalid response", 0, nil)
+		return nil, errors.New("websocket handshake response is invalid")
 	}
 
 	return &clientConn{
@@ -75,22 +79,20 @@ func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *C
 	headers := make(http.Header)
 
 	if c.clientAssertionProvider == nil && c.appSecret == "" {
-		cause := NewClientError(larkcore.ErrCodeAppSecretAndClientAssertionEmpty, "credentials are required")
-		return "", nil, newLifecycleError("bootstrap credential", "credential unavailable", 0, cause)
+		return "", nil, NewClientError(larkcore.ErrCodeAppSecretAndClientAssertionEmpty, "appSecret and clientAssertionProvider cannot be nil")
 	}
 
 	if c.clientAssertionProvider != nil {
 		aud, extractErr := extractAudFromWSURL(c.domain)
 		if extractErr != nil {
-			return "", nil, newLifecycleError("bootstrap credential", "invalid audience", 0, extractErr)
+			return "", nil, extractErr
 		}
 		clientAssertionToken, retrieveErr := c.clientAssertionProvider.RetrieveToken(ctx, aud)
 		if retrieveErr != nil {
-			return "", nil, newLifecycleError("bootstrap credential", "token retrieval", 0, retrieveErr)
+			return "", nil, retrieveErr
 		}
 		if clientAssertionToken == nil || clientAssertionToken.Value == "" {
-			cause := NewClientError(larkcore.ErrCodeClientAssertionTokenEmpty, "client assertion token is empty")
-			return "", nil, newLifecycleError("bootstrap credential", "credential unavailable", 0, cause)
+			return "", nil, NewClientError(larkcore.ErrCodeClientAssertionTokenEmpty, "client assertion token is empty")
 		}
 		body.ClientAssertion = clientAssertionToken.Value
 		body.AppSecret = ""
@@ -104,12 +106,12 @@ func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *C
 
 	bs, marshalErr := json.Marshal(body)
 	if marshalErr != nil {
-		return "", nil, newLifecycleError("bootstrap", "request build", 0, marshalErr)
+		return "", nil, marshalErr
 	}
 
 	req, requestErr := http.NewRequestWithContext(ctx, http.MethodPost, requestURL, bytes.NewBuffer(bs))
 	if requestErr != nil {
-		return "", nil, newLifecycleError("bootstrap", "request build", 0, requestErr)
+		return "", nil, requestErr
 	}
 
 	req.Header.Add("locale", "zh")
@@ -128,7 +130,7 @@ func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *C
 	req.Header.Set("User-Agent", larkcore.UserAgent(c.source))
 	resp, requestErr := bootstrapHTTPClient.Do(req)
 	if requestErr != nil {
-		return "", nil, newLifecycleError("bootstrap", "transport", 0, requestErr)
+		return "", nil, requestErr
 	}
 	defer func() {
 		if closeErr := resp.Body.Close(); closeErr != nil {
@@ -137,39 +139,35 @@ func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *C
 	}()
 	respBody, readErr := ioutil.ReadAll(resp.Body)
 	if readErr != nil {
-		return "", nil, newLifecycleError("bootstrap", "invalid response", resp.StatusCode, readErr)
+		return "", nil, readErr
 	}
 	if resp.StatusCode != http.StatusOK {
-		message := http.StatusText(resp.StatusCode)
+		message := "system busy"
 		bootstrapResponse := &EndpointResp{}
 		if err := json.Unmarshal(respBody, bootstrapResponse); err == nil && bootstrapResponse.Msg != "" {
 			message = bootstrapResponse.Msg
 		}
-		return "", nil, newLifecycleError("bootstrap", "http status", resp.StatusCode, NewServerError(resp.StatusCode, message))
+		return "", nil, NewServerError(resp.StatusCode, message)
 	}
 
 	endpointResp := &EndpointResp{}
 	if unmarshalErr := json.Unmarshal(respBody, endpointResp); unmarshalErr != nil {
-		return "", nil, newLifecycleError("bootstrap", "invalid response", resp.StatusCode, unmarshalErr)
+		return "", nil, unmarshalErr
 	}
 
 	switch endpointResp.Code {
 	case OK:
 	case SystemBusy:
-		cause := NewServerError(endpointResp.Code, "system busy")
-		return "", nil, newLifecycleError("bootstrap", "server unavailable", endpointResp.Code, cause)
+		return "", nil, NewServerError(endpointResp.Code, "system busy")
 	case InternalError:
-		cause := NewServerError(endpointResp.Code, endpointResp.Msg)
-		return "", nil, newLifecycleError("bootstrap", "server unavailable", endpointResp.Code, cause)
+		return "", nil, NewServerError(endpointResp.Code, endpointResp.Msg)
 	default:
-		cause := NewClientError(endpointResp.Code, endpointResp.Msg)
-		return "", nil, newLifecycleError("bootstrap", "client rejected", endpointResp.Code, cause)
+		return "", nil, NewClientError(endpointResp.Code, endpointResp.Msg)
 	}
 
 	endpoint := endpointResp.Data
 	if endpoint == nil || endpoint.Url == "" {
-		cause := NewServerError(http.StatusInternalServerError, "endpoint is null")
-		return "", nil, newLifecycleError("bootstrap", "invalid response", http.StatusInternalServerError, cause)
+		return "", nil, NewServerError(http.StatusInternalServerError, "endpoint is null")
 	}
 
 	return endpoint.Url, endpoint.ClientConfig, nil
@@ -198,7 +196,7 @@ func buildWSProxyURL(targetService, targetPrefix, apiPath string) string {
 
 func parseHandshakeError(resp *http.Response) error {
 	if resp == nil {
-		return newLifecycleError("handshake websocket", "invalid response", 0, nil)
+		return errors.New("websocket handshake response is invalid")
 	}
 	code, parseErr := strconv.Atoi(resp.Header.Get(HeaderHandshakeStatus))
 	if parseErr != nil || code == 0 {
@@ -212,16 +210,12 @@ func parseHandshakeError(resp *http.Response) error {
 			authCode = 0
 		}
 		if authCode == ExceedConnLimit {
-			cause := NewClientError(code, message)
-			return newLifecycleError("handshake websocket", "client rejected", resp.StatusCode, cause)
+			return NewClientError(code, message)
 		}
-		cause := NewServerError(code, message)
-		return newLifecycleError("handshake websocket", "server rejected", resp.StatusCode, cause)
+		return NewServerError(code, message)
 	case Forbidden:
-		cause := NewClientError(code, message)
-		return newLifecycleError("handshake websocket", "client rejected", resp.StatusCode, cause)
+		return NewClientError(code, message)
 	default:
-		cause := NewServerError(code, message)
-		return newLifecycleError("handshake websocket", "server rejected", resp.StatusCode, cause)
+		return NewServerError(code, message)
 	}
 }

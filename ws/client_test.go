@@ -3,7 +3,6 @@ package ws
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -154,8 +153,8 @@ func TestFetchEndpointWithClientAssertionProxyHTTPErrorMsg(t *testing.T) {
 		t.Fatal("expected error, got nil")
 	}
 
-	var serverErr *ServerError
-	if !errors.As(err, &serverErr) {
+	serverErr, ok := err.(*ServerError)
+	if !ok {
 		t.Fatalf("unexpected error type: %#v", err)
 	}
 	if serverErr.Code != http.StatusInternalServerError {
@@ -163,9 +162,6 @@ func TestFetchEndpointWithClientAssertionProxyHTTPErrorMsg(t *testing.T) {
 	}
 	if serverErr.Msg != "target service unavailable" {
 		t.Fatalf("unexpected server error message: %q", serverErr.Msg)
-	}
-	if strings.Contains(err.Error(), "target service unavailable") {
-		t.Fatalf("bootstrap error exposed server message: %s", err)
 	}
 }
 

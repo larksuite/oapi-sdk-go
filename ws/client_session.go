@@ -3,6 +3,7 @@ package ws
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"strconv"
 	"sync"
 
@@ -146,7 +147,7 @@ func (c *Client) receiveMessageLoop(run *clientRun, conn *clientConn) {
 	defer run.wg.Done()
 	defer func() {
 		if recover() != nil {
-			conn.readResult <- newLifecycleError("read websocket", "connection lost", 0, nil)
+			conn.readResult <- errors.New("websocket receive loop panicked")
 		}
 	}()
 
@@ -154,7 +155,7 @@ func (c *Client) receiveMessageLoop(run *clientRun, conn *clientConn) {
 		messageType, msg, err := conn.socket.ReadMessage()
 		if err != nil {
 			if c.isConnectionActive(run, conn) {
-				conn.readResult <- newLifecycleError("read websocket", "connection lost", 0, err)
+				conn.readResult <- err
 			}
 			return
 		}
@@ -224,7 +225,7 @@ func (c *Client) writeConnection(run *clientRun, conn *clientConn, messageType i
 		return errConnectionClosed
 	}
 	if err := conn.socket.WriteMessage(messageType, data); err != nil {
-		return newLifecycleError("write websocket", "connection lost", 0, err)
+		return err
 	}
 	return nil
 }

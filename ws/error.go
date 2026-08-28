@@ -45,33 +45,6 @@ func NewServerError(code int, msg string) *ServerError {
 	}
 }
 
-type lifecycleError struct {
-	operation  string
-	category   string
-	statusCode int
-	cause      error
-}
-
-func (e *lifecycleError) Error() string {
-	if e.statusCode != 0 {
-		return fmt.Sprintf("websocket %s failed: %s (status=%d)", e.operation, e.category, e.statusCode)
-	}
-	return fmt.Sprintf("websocket %s failed: %s", e.operation, e.category)
-}
-
-func (e *lifecycleError) Unwrap() error {
-	return e.cause
-}
-
-func newLifecycleError(operation, category string, statusCode int, cause error) error {
-	return &lifecycleError{
-		operation:  operation,
-		category:   category,
-		statusCode: statusCode,
-		cause:      cause,
-	}
-}
-
 func safeEndpoint(rawURL string) string {
 	u, err := url.Parse(rawURL)
 	if err != nil || u.Scheme == "" || u.Host == "" {

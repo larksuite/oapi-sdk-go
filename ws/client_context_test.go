@@ -128,53 +128,7 @@ func TestConnectionStateRejectsCallerCancellation(t *testing.T) {
 	if client.startMessageTask(run, nil) {
 		t.Fatal("canceled caller context admitted a message task")
 	}
-	if client.admitEventTask(run, func() {}) {
-		t.Fatal("canceled caller context admitted an event task")
-	}
 	if finishErr := client.finishRun(run); !errors.Is(finishErr, context.Canceled) {
 		t.Fatalf("finishRun returned %v, want context.Canceled", finishErr)
-	}
-}
-
-func TestRunContextPropagatesMetadataToAdmittedHandler(t *testing.T) {
-	deadline := time.Now().Add(time.Minute)
-	callerCtx := context.WithValue(context.Background(), lifecycleContextKey{}, "handler-value")
-	callerCtx, cancel := context.WithDeadline(callerCtx, deadline)
-	defer cancel()
-
-	client := NewClient("app-id", "app-secret")
-	run, err := client.beginRun(callerCtx)
-	if err != nil {
-		t.Fatalf("beginRun returned error: %v", err)
-	}
-	conn := &clientConn{
-		readResult: make(chan error, 1),
-	}
-	client.stateMu.Lock()
-	run.conn = conn
-	client.stateMu.Unlock()
-
-	observed := make(chan contextObservation, 1)
-	admitted := client.admitEventTask(run, func() {
-		observedDeadline, hasDeadline := run.ctx.Deadline()
-		observed <- contextObservation{
-			value:       run.ctx.Value(lifecycleContextKey{}),
-			deadline:    observedDeadline,
-			hasDeadline: hasDeadline,
-		}
-	})
-	if !admitted {
-		t.Fatal("active handler was not admitted")
-	}
-	observation := <-observed
-	if observation.value != "handler-value" {
-		t.Fatalf("handler context value = %#v, want handler-value", observation.value)
-	}
-	if !observation.hasDeadline || !observation.deadline.Equal(deadline) {
-		t.Fatalf("handler deadline = %v, %v; want %v, true", observation.deadline, observation.hasDeadline, deadline)
-	}
-	client.Close()
-	if finishErr := client.finishRun(run); finishErr != nil {
-		t.Fatalf("finishRun returned %v after Close, want nil", finishErr)
 	}
 }

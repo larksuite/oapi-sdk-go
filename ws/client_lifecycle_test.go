@@ -583,9 +583,9 @@ func TestRetrieveTokenClientErrorDoesNotRetry(t *testing.T) {
 	if err == nil {
 		t.Fatal("Start returned nil after ClientAssertionProvider ClientError")
 	}
-	var clientErr *ClientError
-	if !errors.As(err, &clientErr) {
-		t.Fatalf("Start returned %T, want an error wrapping *ClientError", err)
+	clientErr, ok := err.(*ClientError)
+	if !ok {
+		t.Fatalf("Start returned %T, want *ClientError", err)
 	}
 	if clientErr.Code != 19001 || clientErr.Msg != "invalid assertion" {
 		t.Fatalf("ClientError = %#v, want original assertion provider error", clientErr)
@@ -1004,7 +1004,7 @@ func TestReadyCallbackPanicIsRedacted(t *testing.T) {
 	assertLifecycleTextDoesNotContain(t, logger.String(), panicMarker)
 }
 
-func TestReconnectFailureLogsWithoutErrorCallback(t *testing.T) {
+func TestReconnectFailureReportsEachAttemptOnce(t *testing.T) {
 	const serverMessage = "bootstrap-server-sensitive-marker"
 	var bootstrapRequests int32
 	domain, cleanupBootstrap := installLifecycleBootstrapHandler(t, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -1018,7 +1018,9 @@ func TestReconnectFailureLogsWithoutErrorCallback(t *testing.T) {
 	defer cleanupBootstrap()
 
 	logger := &lifecycleRecordingLogger{}
+	callbackErrs := make(chan error, 3)
 	client := NewClient("app-id", "app-secret", WithDomain(domain), WithLogger(logger))
+	client.SetOnError(func(err error) { callbackErrs <- err })
 	client.reconnectCount = 1
 	client.reconnectInterval = 0
 	client.reconnectNonce = 0
@@ -1027,15 +1029,21 @@ func TestReconnectFailureLogsWithoutErrorCallback(t *testing.T) {
 	if err == nil {
 		t.Fatal("Start returned nil after reconnect attempts were exhausted")
 	}
-	var serverErr *ServerError
-	if !errors.As(err, &serverErr) {
-		t.Fatalf("Start returned %T, want an error wrapping *ServerError", err)
-	}
-	if serverErr.Code != http.StatusInternalServerError {
-		t.Fatalf("ServerError.Code = %d, want %d", serverErr.Code, http.StatusInternalServerError)
+	if err.Error() != "unable to connect to server after 1 retries" {
+		t.Fatalf("Start error = %q, want reconnect exhaustion error", err)
 	}
 	if got := atomic.LoadInt32(&bootstrapRequests); got != 2 {
 		t.Fatalf("bootstrap requests = %d, want 2", got)
+	}
+	if got := len(callbackErrs); got != 2 {
+		t.Fatalf("OnError calls = %d, want 2 for the initial and retried connection failures", got)
+	}
+	for index := 0; index < 2; index++ {
+		if callbackErr := <-callbackErrs; callbackErr == nil {
+			t.Errorf("OnError call %d received nil", index+1)
+		} else if _, ok := callbackErr.(*ServerError); !ok {
+			t.Errorf("OnError call %d received %T, want *ServerError", index+1, callbackErr)
+		}
 	}
 
 	logs := logger.String()
@@ -1050,6 +1058,35 @@ func TestReconnectFailureLogsWithoutErrorCallback(t *testing.T) {
 		}
 	}
 	assertLifecycleTextDoesNotContain(t, logs, serverMessage)
+}
+
+func TestReconnectExhaustionWithNoAttemptsDoesNotRepeatOnError(t *testing.T) {
+	var bootstrapRequests int32
+	domain, cleanupBootstrap := installLifecycleBootstrapHandler(t, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		atomic.AddInt32(&bootstrapRequests, 1)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusServiceUnavailable)
+		if err := json.NewEncoder(w).Encode(&EndpointResp{Code: InternalError, Msg: "temporarily unavailable"}); err != nil {
+			t.Errorf("encode bootstrap error: %v", err)
+		}
+	}))
+	defer cleanupBootstrap()
+
+	callbackErrs := make(chan error, 2)
+	client := NewClient("app-id", "app-secret", WithDomain(domain), WithOnError(func(err error) {
+		callbackErrs <- err
+	}))
+	client.reconnectCount = 0
+
+	if err := client.Start(context.Background()); err == nil {
+		t.Fatal("Start returned nil after reconnect attempts were exhausted")
+	}
+	if got := atomic.LoadInt32(&bootstrapRequests); got != 1 {
+		t.Fatalf("bootstrap requests = %d, want 1", got)
+	}
+	if got := len(callbackErrs); got != 1 {
+		t.Fatalf("OnError calls = %d, want 1 for the initial connection failure", got)
+	}
 }
 
 func TestRuntimeDeadlineClosesConnectionAndReturnsDeadline(t *testing.T) {

@@ -2,7 +2,6 @@ package ws
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -125,7 +124,7 @@ func TestConnectedEndpointKeepsHandshakeQueryButRedactsLifecycleOutput(t *testin
 	)
 }
 
-func TestHandshakeFailureRedactsServerMessageAndEndpointQuery(t *testing.T) {
+func TestHandshakeFailurePreservesPublicErrorAndRedactsLogs(t *testing.T) {
 	const (
 		deviceIDMarker  = "handshake-device-sensitive-marker"
 		serviceIDMarker = "515151"
@@ -175,15 +174,20 @@ func TestHandshakeFailureRedactsServerMessageAndEndpointQuery(t *testing.T) {
 		t.Errorf("gateway received device_id %q, want %q", handshakeDeviceID, deviceIDMarker)
 	}
 
-	var clientErr *ClientError
-	if !errors.As(startErr, &clientErr) {
-		t.Errorf("handshake rejection returned %T, want *ClientError", startErr)
+	clientErr, ok := startErr.(*ClientError)
+	if !ok {
+		t.Fatalf("handshake rejection returned %T, want *ClientError", startErr)
 	}
-	combined := startErr.Error() + "\n" + callbackErr.Error() + "\n" + logger.String()
-	assertLifecycleTextDoesNotContain(t, combined, deviceIDMarker, serviceIDMarker, serverMsgMarker)
+	if clientErr.Msg != serverMsgMarker {
+		t.Errorf("Start ClientError.Msg = %q, want %q", clientErr.Msg, serverMsgMarker)
+	}
+	if _, ok := callbackErr.(*ClientError); !ok {
+		t.Errorf("OnError received %T, want *ClientError", callbackErr)
+	}
+	assertLifecycleTextDoesNotContain(t, logger.String(), deviceIDMarker, serviceIDMarker, serverMsgMarker)
 }
 
-func TestMalformedEndpointErrorDoesNotExposeRawCredentials(t *testing.T) {
+func TestMalformedEndpointPreservesParseErrorAndRedactsLogs(t *testing.T) {
 	const (
 		usernameMarker = "endpoint-user-sensitive-marker"
 		passwordMarker = "endpoint-password-sensitive-marker"
@@ -215,8 +219,10 @@ func TestMalformedEndpointErrorDoesNotExposeRawCredentials(t *testing.T) {
 	case <-time.After(lifecycleTestTimeout):
 		t.Fatal("malformed endpoint did not invoke OnError")
 	}
-	combined := startErr.Error() + "\n" + callbackErr.Error() + "\n" + logger.String()
-	assertLifecycleTextDoesNotContain(t, combined,
+	if callbackErr != startErr {
+		t.Errorf("OnError received %v, want Start error %v", callbackErr, startErr)
+	}
+	assertLifecycleTextDoesNotContain(t, logger.String(),
 		usernameMarker,
 		passwordMarker,
 		deviceIDMarker,

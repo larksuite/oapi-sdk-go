@@ -1,7 +1,6 @@
 package ws
 
 import (
-	"context"
 	"encoding/json"
 	"net/http"
 	"strconv"
@@ -92,35 +91,8 @@ func (c *Client) handleDataFrame(run *clientRun, frame Frame) {
 		payload:     payload,
 		startedAt:   startedAt,
 	}
-	c.admitEventTask(run, func() {
-		response, err := handler.Do(run.ctx, event.payload)
-		c.writeEventResponse(run, event, response, err)
-	})
-}
-
-// admitEventTask is the only boundary that starts user-controlled work. The
-// task is intentionally not part of run.wg because user handlers may block;
-// the stopped run state prevents late responses from reaching a new run.
-func (c *Client) admitEventTask(run *clientRun, task func()) bool {
-	if run.ctx.Err() != nil {
-		return false
-	}
-	c.stateMu.Lock()
-	defer c.stateMu.Unlock()
-	if run.stopReason != runStopNone {
-		return false
-	}
-	go c.runEventTask(run.ctx, task)
-	return true
-}
-
-func (c *Client) runEventTask(ctx context.Context, task func()) {
-	defer func() {
-		if recover() != nil {
-			c.logger.Error(ctx, c.fmtLog("websocket user handler panicked")...)
-		}
-	}()
-	task()
+	response, err := handler.Do(run.ctx, event.payload)
+	c.writeEventResponse(run, event, response, err)
 }
 
 func (c *Client) writeEventResponse(

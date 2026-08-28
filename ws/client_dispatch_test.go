@@ -7,7 +7,8 @@ import (
 	"testing"
 	"time"
 
-	websocket "github.com/gorilla/websocket"
+	larkevent "github.com/larksuite/oapi-sdk-go/v3/event"
+	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
 )
 
 func activeRunAndConn() (*clientRun, *clientConn) {
@@ -49,94 +50,7 @@ func TestStoppedRunRejectsNewMessageWorker(t *testing.T) {
 	}
 }
 
-func TestHandlerAdmissionIsAtomicWithStop(t *testing.T) {
-	run, _ := activeRunAndConn()
-	defer run.cancel()
-	client := NewClient("app-id", "app-secret")
-	client.run = run
-
-	started := make(chan struct{})
-	release := make(chan struct{})
-	finished := make(chan struct{})
-	admitted := client.admitEventTask(run, func() {
-		defer close(finished)
-		close(started)
-		<-release
-	})
-	if !admitted {
-		t.Fatal("active run did not admit handler")
-	}
-	waitLifecycleSignal(t, started, "admitted handler start")
-	if !client.stopRun(run, runStopByClose, nil) {
-		t.Fatal("stopRun rejected the active run")
-	}
-	close(release)
-	waitLifecycleSignal(t, finished, "admitted handler completion")
-
-	var calls int32
-	if client.admitEventTask(run, func() {
-		atomic.AddInt32(&calls, 1)
-	}) {
-		t.Fatal("stopped run admitted a new handler")
-	}
-	if got := atomic.LoadInt32(&calls); got != 0 {
-		t.Fatalf("stopped run invoked handler %d times, want 0", got)
-	}
-}
-
-func TestAdmittedHandlerUsesCurrentConnectionAfterReconnect(t *testing.T) {
-	gateway, cleanupGateway := newLifecycleGateway(t)
-	defer cleanupGateway()
-
-	firstSocket := dialLifecycleCandidate(t, gateway)
-	defer closeGatewayConn(t, firstSocket)
-	firstServerConn := waitAcceptedGatewayConnection(t, gateway)
-	secondSocket := dialLifecycleCandidate(t, gateway)
-	defer closeGatewayConn(t, secondSocket)
-	secondServerConn := waitAcceptedGatewayConnection(t, gateway)
-
-	run, _ := activeRunAndSocket(firstSocket, gateway.endpoint())
-	defer run.cancel()
-	secondConn := newSocketClientConn(secondSocket, gateway.endpoint())
-	client := NewClient("app-id", "app-secret")
-	client.run = run
-
-	started := make(chan struct{})
-	release := make(chan struct{})
-	writeResult := make(chan error, 1)
-	if !client.admitEventTask(run, func() {
-		close(started)
-		<-release
-		writeResult <- client.writeMessage(run, websocket.BinaryMessage, []byte("late response"))
-	}) {
-		t.Fatal("active run did not admit handler")
-	}
-	waitLifecycleSignal(t, started, "handler start on first connection")
-
-	client.stateMu.Lock()
-	run.conn = secondConn
-	client.stateMu.Unlock()
-	close(release)
-
-	select {
-	case err := <-writeResult:
-		if err != nil {
-			t.Fatalf("admitted handler write returned %v", err)
-		}
-	case <-time.After(lifecycleTestTimeout):
-		t.Fatal("admitted handler did not finish its write")
-	}
-	frame := waitGatewayFrame(t, gateway, "handler response on replacement connection")
-	if frame.conn != secondServerConn {
-		t.Fatalf("handler response used connection %p, want replacement %p", frame.conn, secondServerConn)
-	}
-	if string(frame.payload) != "late response" {
-		t.Fatalf("handler response payload = %q, want %q", frame.payload, "late response")
-	}
-	assertNoGatewayFrame(t, gateway, firstServerConn, 100*time.Millisecond)
-}
-
-func TestAdmittedHandlerCannotWriteAfterRunStops(t *testing.T) {
+func TestMessageTaskWaitsForEventHandler(t *testing.T) {
 	gateway, cleanupGateway := newLifecycleGateway(t)
 	defer cleanupGateway()
 
@@ -145,34 +59,60 @@ func TestAdmittedHandlerCannotWriteAfterRunStops(t *testing.T) {
 	serverConn := waitAcceptedGatewayConnection(t, gateway)
 	run, _ := activeRunAndSocket(socket, gateway.endpoint())
 	defer run.cancel()
-	client := NewClient("app-id", "app-secret")
-	client.run = run
 
 	started := make(chan struct{})
 	release := make(chan struct{})
-	writeResult := make(chan error, 1)
-	if !client.admitEventTask(run, func() {
-		close(started)
-		<-release
-		writeResult <- client.writeMessage(run, websocket.BinaryMessage, []byte("stale response"))
-	}) {
-		t.Fatal("active run did not admit handler")
-	}
-	waitLifecycleSignal(t, started, "handler start before stop")
-	if !client.stopRun(run, runStopByClose, nil) {
-		t.Fatal("stopRun rejected the active run")
-	}
-	close(release)
+	client := NewClient("app-id", "app-secret", WithEventHandler(
+		dispatcher.NewEventDispatcher("", "").OnCustomizedEvent("test.event", func(context.Context, *larkevent.EventReq) error {
+			close(started)
+			<-release
+			return nil
+		}),
+	))
+	client.run = run
 
+	headers := Headers{}
+	headers.Add(HeaderType, string(MessageTypeEvent))
+	headers.Add(HeaderMessageID, "message-1")
+	headers.Add(HeaderTraceID, "trace-1")
+	message, err := (&Frame{
+		Method:  int32(FrameTypeData),
+		Headers: headers,
+		Payload: []byte(`{"header":{"event_type":"test.event"}}`),
+	}).Marshal()
+	if err != nil {
+		t.Fatalf("marshal event frame: %v", err)
+	}
+	if !client.startMessageTask(run, message) {
+		t.Fatal("active run did not admit a message task")
+	}
+	waitLifecycleSignal(t, started, "event handler start")
+
+	finished := make(chan struct{})
+	go func() {
+		run.wg.Wait()
+		close(finished)
+	}()
 	select {
-	case err := <-writeResult:
-		if !errors.Is(err, errConnectionClosed) {
-			t.Fatalf("handler write returned %v, want errConnectionClosed", err)
-		}
-	case <-time.After(lifecycleTestTimeout):
-		t.Fatal("admitted handler did not finish after stop")
+	case <-finished:
+		t.Fatal("message task finished before its event handler returned")
+	case <-time.After(100 * time.Millisecond):
 	}
 	assertNoGatewayFrame(t, gateway, serverConn, 100*time.Millisecond)
+
+	close(release)
+	waitLifecycleSignal(t, finished, "message task completion")
+	frame := waitGatewayFrame(t, gateway, "event response")
+	if frame.conn != serverConn {
+		t.Fatalf("event response used connection %p, want %p", frame.conn, serverConn)
+	}
+	responseFrame := &Frame{}
+	if err := responseFrame.Unmarshal(frame.payload); err != nil {
+		t.Fatalf("decode event response frame: %v", err)
+	}
+	if responseFrame.Method != int32(FrameTypeData) {
+		t.Fatalf("event response method = %d, want data frame", responseFrame.Method)
+	}
 }
 
 func TestStoppedRunSkipsLifecycleCallbacks(t *testing.T) {
