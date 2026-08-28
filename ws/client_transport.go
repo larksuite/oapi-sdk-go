@@ -64,13 +64,18 @@ func (c *Client) establishConnectionOnce(run *clientRun) (*clientConn, error) {
 		return nil, errors.New("websocket handshake response is invalid")
 	}
 
-	return &clientConn{
+	conn := &clientConn{
 		socket:       socket,
 		readResult:   make(chan error, 1),
 		connID:       u.Query().Get(DeviceID),
 		serviceID:    u.Query().Get(ServiceID),
 		safeEndpoint: safeEndpoint(rawEndpoint),
-	}, nil
+	}
+	if err := c.setReadDeadline(conn); err != nil {
+		c.closeSocket(run.ctx, socket, conn.safeEndpoint, "initialize read deadline")
+		return nil, err
+	}
+	return conn, nil
 }
 
 func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *ClientConfig, err error) {

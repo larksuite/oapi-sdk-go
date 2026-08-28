@@ -6,6 +6,7 @@ import (
 	"errors"
 	"strconv"
 	"sync"
+	"time"
 
 	ws "github.com/gorilla/websocket"
 )
@@ -22,6 +23,12 @@ type clientConn struct {
 	connID       string
 	serviceID    string
 	safeEndpoint string
+}
+
+const pongGracePeriod = 5 * time.Second
+
+func pongWait(pingInterval time.Duration) time.Duration {
+	return 2*pingInterval + pongGracePeriod
 }
 
 func (c *Client) fmtConnLog(conn *clientConn, format string, args ...interface{}) []interface{} {
@@ -159,6 +166,12 @@ func (c *Client) receiveMessageLoop(run *clientRun, conn *clientConn) {
 			}
 			return
 		}
+		if err := c.setReadDeadline(conn); err != nil {
+			if c.isConnectionActive(run, conn) {
+				conn.readResult <- err
+			}
+			return
+		}
 		if messageType != ws.BinaryMessage {
 			c.logger.Warn(run.ctx, c.fmtConnLog(conn, "websocket received unsupported message type %d", messageType)...)
 			continue
@@ -186,6 +199,19 @@ func (c *Client) handleControlFrame(run *clientRun, frame Frame) {
 		c.applyConfig(run, conf)
 	default:
 	}
+}
+
+// setReadDeadline bounds how long this physical connection may stay silent.
+//
+// A peer can disappear without a TCP FIN/RST, for example after device sleep,
+// network changes, or NAT state loss. In that case ReadMessage may otherwise
+// block forever, and a successful outbound Ping does not prove that the peer
+// or the inbound path is still alive. The deadline is armed after dialing and
+// renewed after every inbound frame; expiry makes ReadMessage return so the
+// existing reconnect flow can recover the connection.
+func (c *Client) setReadDeadline(conn *clientConn) error {
+	_, _, _, pingInterval := c.configSnapshot()
+	return conn.socket.SetReadDeadline(time.Now().Add(pongWait(pingInterval)))
 }
 
 func (c *Client) isConnectionActive(run *clientRun, conn *clientConn) bool {

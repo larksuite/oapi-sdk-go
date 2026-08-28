@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -675,6 +676,103 @@ func TestConnectedSessionStartsPingAndAppliesPongConfig(t *testing.T) {
 		t.Fatal("Start did not return after Close")
 	} else if startErr != nil {
 		t.Fatalf("Start returned %v after Close, want nil", startErr)
+	}
+}
+
+func TestConnectionTimesOutWithoutInboundFrame(t *testing.T) {
+	gateway, cleanupGateway := newLifecycleGateway(t)
+	defer cleanupGateway()
+
+	domain, cleanupBootstrap := installLifecycleBootstrapHandler(t, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if err := json.NewEncoder(w).Encode(&EndpointResp{Code: OK, Data: &Endpoint{Url: gateway.endpoint()}}); err != nil {
+			t.Errorf("encode bootstrap response: %v", err)
+		}
+	}))
+	defer cleanupBootstrap()
+
+	client := NewClient("app-id", "app-secret", WithDomain(domain), WithAutoReconnect(false))
+	client.pingInterval = 10 * time.Millisecond
+	result := startLifecycleClient(client, context.Background())
+
+	waitAcceptedGatewayConnection(t, gateway)
+	pingFrame := waitGatewayFrame(t, gateway, "initial Ping")
+	var ping Frame
+	if err := ping.Unmarshal(pingFrame.payload); err != nil {
+		t.Fatalf("decode initial Ping: %v", err)
+	}
+	if FrameType(ping.Method) != FrameTypeControl || Headers(ping.Headers).GetString(HeaderType) != string(MessageTypePing) {
+		t.Fatalf("initial frame = method %d, type %q; want control Ping", ping.Method, Headers(ping.Headers).GetString(HeaderType))
+	}
+
+	select {
+	case err := <-result:
+		var timeoutErr net.Error
+		if !errors.As(err, &timeoutErr) || !timeoutErr.Timeout() {
+			t.Fatalf("Start returned %v, want read timeout after no inbound frame", err)
+		}
+	case <-time.After(pongWait(client.pingInterval) + 2*time.Second):
+		t.Fatal("Start did not return after the read deadline elapsed")
+	}
+}
+
+func TestSDKPongRefreshesReadDeadline(t *testing.T) {
+	pongHeaders := Headers{}
+	pongHeaders.Add(HeaderType, string(MessageTypePong))
+	testInboundFrameRefreshesReadDeadline(t, &Frame{Method: int32(FrameTypeControl), Headers: pongHeaders}, "Pong")
+}
+
+func TestDataFrameRefreshesReadDeadline(t *testing.T) {
+	testInboundFrameRefreshesReadDeadline(t, &Frame{Method: int32(FrameTypeData)}, "Data frame")
+}
+
+func testInboundFrameRefreshesReadDeadline(t *testing.T, frame *Frame, frameName string) {
+	t.Helper()
+	gateway, cleanupGateway := newLifecycleGateway(t)
+	defer cleanupGateway()
+
+	domain, cleanupBootstrap := installLifecycleBootstrapHandler(t, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if err := json.NewEncoder(w).Encode(&EndpointResp{Code: OK, Data: &Endpoint{Url: gateway.endpoint()}}); err != nil {
+			t.Errorf("encode bootstrap response: %v", err)
+		}
+	}))
+	defer cleanupBootstrap()
+
+	client := NewClient("app-id", "app-secret", WithDomain(domain), WithAutoReconnect(false))
+	client.pingInterval = 10 * time.Millisecond
+	result := startLifecycleClient(client, context.Background())
+
+	serverConn := waitAcceptedGatewayConnection(t, gateway)
+	waitGatewayFrame(t, gateway, "initial Ping")
+
+	client.stateMu.Lock()
+	conn := client.run.conn
+	client.stateMu.Unlock()
+	if conn == nil {
+		t.Fatal("connected client has no current connection")
+	}
+	if err := conn.socket.SetReadDeadline(time.Now().Add(500 * time.Millisecond)); err != nil {
+		t.Fatalf("set short read deadline: %v", err)
+	}
+
+	payload, err := frame.Marshal()
+	if err != nil {
+		t.Fatalf("encode %s: %v", frameName, err)
+	}
+	if err := serverConn.WriteMessage(websocket.BinaryMessage, payload); err != nil {
+		t.Fatalf("send %s: %v", frameName, err)
+	}
+
+	select {
+	case err := <-result:
+		t.Fatalf("Start returned %v after a %s refreshed the read deadline", err, frameName)
+	case <-time.After(750 * time.Millisecond):
+	}
+
+	client.Close()
+	if err, ok := waitLifecycleResult(result); !ok {
+		t.Fatal("Start did not return after Close")
+	} else if err != nil {
+		t.Fatalf("Start returned %v after Close, want nil", err)
 	}
 }
 
