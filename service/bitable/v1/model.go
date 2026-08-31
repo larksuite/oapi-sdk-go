@@ -11393,7 +11393,7 @@ func (iterator *ListAppDashboardIterator) Next() (bool, *AppDashboard, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -11447,7 +11447,7 @@ func (iterator *ListAppRoleIterator) Next() (bool, *AppRole, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -11501,7 +11501,7 @@ func (iterator *ListAppRoleMemberIterator) Next() (bool, *AppRoleMember, error) 
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -11555,7 +11555,7 @@ func (iterator *ListAppTableIterator) Next() (bool, *AppTable, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -11609,7 +11609,7 @@ func (iterator *ListAppTableFieldIterator) Next() (bool, *AppTableFieldForList, 
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -11663,7 +11663,7 @@ func (iterator *ListAppTableFormFieldIterator) Next() (bool, *FormField, error) 
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -11717,7 +11717,7 @@ func (iterator *ListAppTableRecordIterator) Next() (bool, *AppTableRecord, error
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -11771,7 +11771,7 @@ func (iterator *SearchAppTableRecordIterator) Next() (bool, *AppTableRecord, err
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -11825,7 +11825,7 @@ func (iterator *ListAppTableViewIterator) Next() (bool, *AppTableView, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {

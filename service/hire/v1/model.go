@@ -75872,7 +75872,7 @@ func (iterator *ListEvaluationIterator) Next() (bool, *Evaluation, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -75926,7 +75926,7 @@ func (iterator *ListEvaluationTaskIterator) Next() (bool, *EvaluationTask, error
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -75980,7 +75980,7 @@ func (iterator *ListExamMarkingTaskIterator) Next() (bool, *ExamMarkingTask, err
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76034,7 +76034,7 @@ func (iterator *ListExternalApplicationIterator) Next() (bool, *ExternalApplicat
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76088,7 +76088,7 @@ func (iterator *BatchQueryExternalBackgroundCheckIterator) Next() (bool, *Extern
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76142,7 +76142,7 @@ func (iterator *BatchQueryExternalInterviewIterator) Next() (bool, *ExternalInte
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76196,7 +76196,7 @@ func (iterator *BatchQueryExternalOfferIterator) Next() (bool, *ExternalOffer, e
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76250,7 +76250,7 @@ func (iterator *ListInterviewFeedbackFormIterator) Next() (bool, *InterviewFeedb
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76304,7 +76304,7 @@ func (iterator *ListInterviewRecordIterator) Next() (bool, *InterviewRecord, err
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76358,7 +76358,7 @@ func (iterator *ListInterviewRegistrationSchemaIterator) Next() (bool, *Intervie
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76412,7 +76412,7 @@ func (iterator *ListInterviewTaskIterator) Next() (bool, *InterviewTask, error) 
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76466,7 +76466,7 @@ func (iterator *ListInterviewerIterator) Next() (bool, *Interviewer, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76520,7 +76520,7 @@ func (iterator *ListJobFunctionIterator) Next() (bool, *JobFunction, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76574,7 +76574,7 @@ func (iterator *ListJobTypeIterator) Next() (bool, *JobTypeInfo, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76628,7 +76628,7 @@ func (iterator *ListLocationIterator) Next() (bool, *Location, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76682,7 +76682,7 @@ func (iterator *ListPortalApplySchemaIterator) Next() (bool, *RegistrationSchema
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76736,7 +76736,7 @@ func (iterator *ListReferralWebsiteJobPostIterator) Next() (bool, *PortalJobPost
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76790,7 +76790,7 @@ func (iterator *ListRegistrationSchemaIterator) Next() (bool, *RegistrationSchem
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76844,7 +76844,7 @@ func (iterator *ListResumeSourceIterator) Next() (bool, *ResumeSource, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76898,7 +76898,7 @@ func (iterator *ListRoleIterator) Next() (bool, *Role, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -76952,7 +76952,7 @@ func (iterator *ListTalentFolderIterator) Next() (bool, *TalentFolderForList, er
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -77006,7 +77006,7 @@ func (iterator *SearchTalentPoolIterator) Next() (bool, *TalentPool, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -77060,7 +77060,7 @@ func (iterator *ListTalentTagIterator) Next() (bool, *TalentTag, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -77114,7 +77114,7 @@ func (iterator *ListTerminationReasonIterator) Next() (bool, *TerminationReason,
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -77168,7 +77168,7 @@ func (iterator *SearchTestIterator) Next() (bool, *Test, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -77222,7 +77222,7 @@ func (iterator *ListTodoIterator) Next() (bool, *Todo, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -77276,7 +77276,7 @@ func (iterator *ListTripartiteAgreementIterator) Next() (bool, *TripartiteAgreem
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -77330,7 +77330,7 @@ func (iterator *ListUserRoleIterator) Next() (bool, *UserRole, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -77384,7 +77384,7 @@ func (iterator *ListWebsiteIterator) Next() (bool, *Website, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -77438,7 +77438,7 @@ func (iterator *ListWebsiteJobPostIterator) Next() (bool, *WebsiteJobPost, error
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -77492,7 +77492,7 @@ func (iterator *SearchWebsiteJobPostIterator) Next() (bool, *WebsiteJobPost, err
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
