@@ -332,7 +332,7 @@ func TestConnectionDialerOptionPrecedenceAndNilReset(t *testing.T) {
 	}
 }
 
-func TestConnectionDialerErrorsAreRedacted(t *testing.T) {
+func TestConnectionDialerErrorsAreReturned(t *testing.T) {
 	originalClient := bootstrapHTTPClient
 	defer func() { bootstrapHTTPClient = originalClient }()
 
@@ -359,11 +359,12 @@ func TestConnectionDialerErrorsAreRedacted(t *testing.T) {
 	ctx, cancel := transportTestContext(t)
 	defer cancel()
 	err := client.Start(ctx)
-	if !errors.Is(err, errWebSocketHandshakeFailed) {
-		t.Fatalf("unexpected custom dialer error: got %v, want %v", err, errWebSocketHandshakeFailed)
+	if err == nil || err.Error() != "dial unix "+dialTargetSecret+": connection refused" {
+		t.Fatalf("unexpected custom dialer error: %v", err)
 	}
-	assertNotContainsAny(t, err.Error(), dialTargetSecret)
-	assertNotContainsAny(t, logger.String(), dialTargetSecret)
+	if !strings.Contains(logger.String(), dialTargetSecret) {
+		t.Fatalf("custom dialer error was not preserved in logs: %q", logger.String())
+	}
 }
 
 func TestConnectAppliesConnectionHeadersAndHostOverride(t *testing.T) {
@@ -1391,7 +1392,7 @@ func TestWSSOverrideUsesFinalHostForTLSAndSNI(t *testing.T) {
 	}
 }
 
-func TestConnectionLogsRedactSensitiveValues(t *testing.T) {
+func TestConnectionReturnsHandshakeMessage(t *testing.T) {
 	originalClient := bootstrapHTTPClient
 	defer func() { bootstrapHTTPClient = originalClient }()
 
@@ -1401,7 +1402,7 @@ func TestConnectionLogsRedactSensitiveValues(t *testing.T) {
 		cookieSecret     = "cookie-log-secret"
 		deviceSecret     = "device-log-secret"
 		querySecret      = "raw-query-log-secret"
-		handshakeSecret  = "server-handshake-secret"
+		handshakeMessage = "rejected by websocket server"
 	)
 
 	successRequests := make(chan transportRequest, 1)
@@ -1446,14 +1447,8 @@ func TestConnectionLogsRedactSensitiveValues(t *testing.T) {
 			writeEndpointResponse(t, w, rejectedEndpoint, nil)
 			return
 		}
-		maliciousMessage := strings.Join([]string{
-			handshakeSecret,
-			r.Header.Get("Authorization"),
-			r.Header.Get("Cookie"),
-			r.URL.RawQuery,
-		}, "|")
 		w.Header().Set(HeaderHandshakeStatus, "403")
-		w.Header().Set(HeaderHandshakeMsg, maliciousMessage)
+		w.Header().Set(HeaderHandshakeMsg, handshakeMessage)
 		w.WriteHeader(http.StatusForbidden)
 	}))
 	defer rejectedServer.Close()
@@ -1474,11 +1469,11 @@ func TestConnectionLogsRedactSensitiveValues(t *testing.T) {
 		WithOnError(func(err error) { onError <- err }),
 	)
 	err := rejectedClient.Start(ctx)
-	assertClientError(t, err, http.StatusForbidden, "websocket handshake failed")
+	assertClientError(t, err, http.StatusForbidden, handshakeMessage)
 	var callbackErr error
 	select {
 	case callbackErr = <-onError:
-		assertClientError(t, callbackErr, http.StatusForbidden, "websocket handshake failed")
+		assertClientError(t, callbackErr, http.StatusForbidden, handshakeMessage)
 	case <-ctx.Done():
 		t.Fatalf("timed out waiting for rejected OnError: %v", ctx.Err())
 	}
@@ -1496,15 +1491,17 @@ func TestConnectionLogsRedactSensitiveValues(t *testing.T) {
 				cookieSecret,
 				deviceSecret,
 				querySecret,
-				handshakeSecret,
 				successEndpoint,
 				rejectedEndpoint,
 			)
 		})
 	}
+	if !strings.Contains(rejectedLogger.String(), handshakeMessage) {
+		t.Fatalf("handshake message was not preserved in logs: %q", rejectedLogger.String())
+	}
 }
 
-func TestConnectionLogsRedactMalformedHandshakeResponse(t *testing.T) {
+func TestConnectionReturnsMalformedHandshakeError(t *testing.T) {
 	originalClient := bootstrapHTTPClient
 	defer func() { bootstrapHTTPClient = originalClient }()
 
@@ -1555,8 +1552,7 @@ func TestConnectionLogsRedactMalformedHandshakeResponse(t *testing.T) {
 			rawQuery:    request.URL.RawQuery,
 			header:      cloneRequestHeader(request.Header),
 		}
-		reflectedValue := request.Header.Get("Authorization") + "-" + request.URL.Query().Get("opaque")
-		_, writeErr := fmt.Fprintf(conn, "HTTP/1.1 %s\r\n\r\n", reflectedValue)
+		_, writeErr := fmt.Fprint(conn, "HTTP/1.1 invalid-status\r\n\r\n")
 		closeErr := conn.Close()
 		switch {
 		case writeErr != nil:
@@ -1590,7 +1586,7 @@ func TestConnectionLogsRedactMalformedHandshakeResponse(t *testing.T) {
 	ctx, cancel := transportTestContext(t)
 	defer cancel()
 	err = client.Start(ctx)
-	if err == nil || err.Error() != errWebSocketHandshakeFailed.Error() {
+	if err == nil || !strings.Contains(err.Error(), "malformed HTTP status code") {
 		t.Fatalf("unexpected malformed handshake error: %v", err)
 	}
 	var callbackErr error
@@ -1599,7 +1595,7 @@ func TestConnectionLogsRedactMalformedHandshakeResponse(t *testing.T) {
 	case <-ctx.Done():
 		t.Fatalf("timed out waiting for malformed handshake OnError: %v", ctx.Err())
 	}
-	if callbackErr == nil || callbackErr.Error() != errWebSocketHandshakeFailed.Error() {
+	if callbackErr == nil || callbackErr.Error() != err.Error() {
 		t.Fatalf("unexpected malformed handshake callback error: %v", callbackErr)
 	}
 	request := awaitTransportRequest(t, ctx, requestSeen)

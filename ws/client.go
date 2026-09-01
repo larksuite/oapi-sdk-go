@@ -69,7 +69,6 @@ var (
 	errInvalidConnectionHeaders  = errors.New("invalid websocket connection headers")
 	errInvalidConnectionHost     = errors.New("invalid websocket connection host")
 	errInvalidConnectionEndpoint = errors.New("invalid websocket endpoint")
-	errWebSocketHandshakeFailed  = errors.New("websocket handshake failed")
 )
 
 type bootstrapErrorResp struct {
@@ -306,17 +305,15 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	if c.connection.dialer != nil {
 		dialer = c.connection.dialer
 	}
-	redactHandshakeError := len(c.connection.headers) > 0 || c.connection.host != nil || c.connection.dialer != nil
 	conn, resp, err := dialer.DialContext(ctx, u.String(), c.connection.headers)
-	if err != nil && resp == nil {
-		if redactHandshakeError {
-			return errWebSocketHandshakeFailed
+	if err != nil {
+		if resp == nil || resp.StatusCode == http.StatusSwitchingProtocols {
+			return err
 		}
-		return
 	}
 	if resp.StatusCode != http.StatusSwitchingProtocols {
 		// 连接失败
-		return parseErr(resp, redactHandshakeError)
+		return parseErr(resp)
 	}
 
 	c.conn = conn
@@ -845,15 +842,12 @@ func (c *Client) connState() (conn *ws.Conn, serviceID string) {
 	return c.conn, c.serviceID
 }
 
-func parseErr(resp *http.Response, redactMessage bool) error {
+func parseErr(resp *http.Response) error {
 	code := 0
 	if parsedCode, err := strconv.Atoi(resp.Header.Get(HeaderHandshakeStatus)); err == nil {
 		code = parsedCode
 	}
-	msg := errWebSocketHandshakeFailed.Error()
-	if !redactMessage {
-		msg = resp.Header.Get(HeaderHandshakeMsg)
-	}
+	msg := resp.Header.Get(HeaderHandshakeMsg)
 	switch code {
 	case AuthFailed:
 		// Auth失败
