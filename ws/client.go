@@ -307,12 +307,16 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	}
 	conn, resp, err := dialer.DialContext(ctx, u.String(), c.connection.headers)
 	if err != nil {
+		c.logConnectionFailureDebug(ctx, u, dialer, resp, err)
 		if resp == nil || resp.StatusCode == http.StatusSwitchingProtocols {
 			return err
 		}
 	}
 	if resp.StatusCode != http.StatusSwitchingProtocols {
 		// 连接失败
+		if err == nil {
+			c.logConnectionFailureDebug(ctx, u, dialer, resp, nil)
+		}
 		return parseErr(resp)
 	}
 
@@ -560,6 +564,60 @@ func sanitizeConnectionURL(connectionURL *url.URL) string {
 	safeURL.ForceQuery = false
 	safeURL.Fragment = ""
 	return safeURL.String()
+}
+
+func (c *Client) logConnectionFailureDebug(ctx context.Context, connectionURL *url.URL, dialer *ws.Dialer, resp *http.Response, err error) {
+	responseStatusCode := "<nil>"
+	var responseHeader http.Header
+	if resp != nil {
+		responseStatusCode = strconv.Itoa(resp.StatusCode)
+		responseHeader = sanitizeHTTPHeaderForLog(resp.Header)
+	}
+
+	handshakeTimeout := time.Duration(0)
+	customNetDialContext := false
+	proxyConfigured := false
+	if dialer != nil {
+		handshakeTimeout = dialer.HandshakeTimeout
+		customNetDialContext = dialer.NetDialContext != nil
+		proxyConfigured = dialer.Proxy != nil
+	}
+
+	c.logger.Debug(ctx, c.fmtLog(
+		"websocket connection failed, url: %s, host: %s, request_headers: %v, response_status_code: %s, response_headers: %v, err: %v, dialer_type: %T, handshake_timeout: %s, custom_net_dial_context: %t, proxy_configured: %t",
+		connectionURL.String(),
+		connectionURL.Host,
+		sanitizeHTTPHeaderForLog(c.connection.headers),
+		responseStatusCode,
+		responseHeader,
+		err,
+		dialer,
+		handshakeTimeout,
+		customNetDialContext,
+		proxyConfigured,
+	)...)
+}
+
+func sanitizeHTTPHeaderForLog(header http.Header) http.Header {
+	safeHeader := header.Clone()
+	for name := range safeHeader {
+		if isSensitiveHTTPHeader(name) {
+			safeHeader[name] = []string{"<redacted>"}
+		}
+	}
+	return safeHeader
+}
+
+func isSensitiveHTTPHeader(name string) bool {
+	for _, part := range strings.FieldsFunc(strings.ToLower(name), func(r rune) bool {
+		return r == '-' || r == '_'
+	}) {
+		switch part {
+		case "auth", "authorization", "cookie", "credential", "key", "password", "secret", "signature", "token":
+			return true
+		}
+	}
+	return false
 }
 
 func newConnectionConfigError(configErr error) *ClientError {

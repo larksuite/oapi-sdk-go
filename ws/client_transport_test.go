@@ -342,14 +342,21 @@ func TestConnectionDialerErrorsAreReturned(t *testing.T) {
 	defer bootstrapServer.Close()
 	bootstrapHTTPClient = bootstrapServer.Client()
 
-	dialTargetSecret := "/var/run/private/mesh-egress.sock"
+	dialTarget := "/var/run/private/mesh-egress.sock"
+	connectionURL := "ws://frontier.internal.example:443/socket?device_id=device&service_id=33"
 	logger := &recordingLogger{}
 	client := NewClient("app-id", "app-secret",
 		WithDomain(bootstrapServer.URL),
+		WithConnectionHeaders(http.Header{
+			"destination-domain": []string{"fsopen-frontier.bytedance.net"},
+			"destination-idc":    []string{"lf"},
+			"Authorization":      []string{"Bearer connection-token"},
+		}),
+		WithConnectionHost("frontier.internal.example:443"),
 		WithConnectionDialer(&gorillaws.Dialer{
 			HandshakeTimeout: time.Second,
 			NetDialContext: func(context.Context, string, string) (net.Conn, error) {
-				return nil, errors.New("dial unix " + dialTargetSecret + ": connection refused")
+				return nil, errors.New("dial unix " + dialTarget + ": connection refused")
 			},
 		}),
 		WithAutoReconnect(false),
@@ -359,12 +366,29 @@ func TestConnectionDialerErrorsAreReturned(t *testing.T) {
 	ctx, cancel := transportTestContext(t)
 	defer cancel()
 	err := client.Start(ctx)
-	if err == nil || err.Error() != "dial unix "+dialTargetSecret+": connection refused" {
+	if err == nil || err.Error() != "dial unix "+dialTarget+": connection refused" {
 		t.Fatalf("unexpected custom dialer error: %v", err)
 	}
-	if !strings.Contains(logger.String(), dialTargetSecret) {
-		t.Fatalf("custom dialer error was not preserved in logs: %q", logger.String())
+	logOutput := logger.String()
+	for _, expected := range []string{
+		"url: " + connectionURL,
+		"host: frontier.internal.example:443",
+		"destination-domain:[fsopen-frontier.bytedance.net]",
+		"destination-idc:[lf]",
+		"Authorization:[<redacted>]",
+		"response_status_code: <nil>",
+		"response_headers: map[]",
+		"err: dial unix " + dialTarget + ": connection refused",
+		"dialer_type: *websocket.Dialer",
+		"handshake_timeout: 1s",
+		"custom_net_dial_context: true",
+		"proxy_configured: false",
+	} {
+		if !strings.Contains(logOutput, expected) {
+			t.Fatalf("connection failure log does not contain %q: %q", expected, logOutput)
+		}
 	}
+	assertNotContainsAny(t, logOutput, "connection-token")
 }
 
 func TestConnectAppliesConnectionHeadersAndHostOverride(t *testing.T) {
@@ -1400,8 +1424,8 @@ func TestConnectionReturnsHandshakeMessage(t *testing.T) {
 		bootstrapSecret  = "bootstrap-log-secret"
 		connectionSecret = "connection-log-secret"
 		cookieSecret     = "cookie-log-secret"
-		deviceSecret     = "device-log-secret"
-		querySecret      = "raw-query-log-secret"
+		deviceValue      = "device-log-value"
+		queryValue       = "raw-query-log-value"
 		handshakeMessage = "rejected by websocket server"
 	)
 
@@ -1415,7 +1439,7 @@ func TestConnectionReturnsHandshakeMessage(t *testing.T) {
 		serveWebSocketUntilClientCloses(t, w, r, successRequests)
 	}))
 	defer successServer.Close()
-	successEndpoint = "ws://public.example/sensitive/path?device_id=" + deviceSecret + "&service_id=51&opaque=" + querySecret
+	successEndpoint = "ws://public.example/sensitive/path?device_id=" + deviceValue + "&service_id=51&opaque=" + queryValue
 	bootstrapHTTPClient = successServer.Client()
 	successLogger := &recordingLogger{}
 	successClient := NewClient("app-id", "app-secret",
@@ -1449,10 +1473,12 @@ func TestConnectionReturnsHandshakeMessage(t *testing.T) {
 		}
 		w.Header().Set(HeaderHandshakeStatus, "403")
 		w.Header().Set(HeaderHandshakeMsg, handshakeMessage)
+		w.Header().Set("Set-Cookie", "session=response-cookie-secret")
+		w.Header().Set("X-Debug-Header", "response-debug-value")
 		w.WriteHeader(http.StatusForbidden)
 	}))
 	defer rejectedServer.Close()
-	rejectedEndpoint = "ws://public.example/rejected/path?device_id=" + deviceSecret + "&service_id=52&opaque=" + querySecret
+	rejectedEndpoint = "ws://public.example/rejected/path?device_id=" + deviceValue + "&service_id=52&opaque=" + queryValue
 	bootstrapHTTPClient = rejectedServer.Client()
 	rejectedLogger := &recordingLogger{}
 	onError := make(chan error, 1)
@@ -1460,8 +1486,9 @@ func TestConnectionReturnsHandshakeMessage(t *testing.T) {
 		WithDomain(rejectedServer.URL),
 		WithHeaders(http.Header{"X-Bootstrap-Secret": []string{bootstrapSecret}}),
 		WithConnectionHeaders(http.Header{
-			"Authorization": []string{"Bearer " + connectionSecret},
-			"Cookie":        []string{"session=" + cookieSecret},
+			"Authorization":  []string{"Bearer " + connectionSecret},
+			"Cookie":         []string{"session=" + cookieSecret},
+			"X-Debug-Header": []string{"request-debug-value"},
 		}),
 		WithConnectionHost(rejectedServer.Listener.Addr().String()),
 		WithAutoReconnect(false),
@@ -1480,7 +1507,6 @@ func TestConnectionReturnsHandshakeMessage(t *testing.T) {
 
 	for name, text := range map[string]string{
 		"success logs": successLogger.String(),
-		"failure logs": rejectedLogger.String(),
 		"return error": err.Error(),
 		"OnError":      callbackErr.Error(),
 	} {
@@ -1489,15 +1515,30 @@ func TestConnectionReturnsHandshakeMessage(t *testing.T) {
 				bootstrapSecret,
 				connectionSecret,
 				cookieSecret,
-				deviceSecret,
-				querySecret,
 				successEndpoint,
 				rejectedEndpoint,
 			)
 		})
 	}
-	if !strings.Contains(rejectedLogger.String(), handshakeMessage) {
-		t.Fatalf("handshake message was not preserved in logs: %q", rejectedLogger.String())
+	rejectedLog := rejectedLogger.String()
+	assertNotContainsAny(t, rejectedLog, bootstrapSecret, connectionSecret, cookieSecret, "response-cookie-secret", successEndpoint, rejectedEndpoint)
+	expectedConnectionURL := "ws" + strings.TrimPrefix(rejectedServer.URL, "http") + "/rejected/path?device_id=" + deviceValue + "&service_id=52&opaque=" + queryValue
+	for _, expected := range []string{
+		"url: " + expectedConnectionURL,
+		"host: " + rejectedServer.Listener.Addr().String(),
+		"Authorization:[<redacted>]",
+		"Cookie:[<redacted>]",
+		"X-Debug-Header:[request-debug-value]",
+		"response_status_code: 403",
+		"Handshake-Msg:[" + handshakeMessage + "]",
+		"Handshake-Status:[403]",
+		"Set-Cookie:[<redacted>]",
+		"X-Debug-Header:[response-debug-value]",
+		"err: websocket: bad handshake",
+	} {
+		if !strings.Contains(rejectedLog, expected) {
+			t.Fatalf("handshake failure log does not contain %q: %q", expected, rejectedLog)
+		}
 	}
 }
 
@@ -1612,12 +1653,26 @@ func TestConnectionReturnsMalformedHandshakeError(t *testing.T) {
 	}
 
 	for name, text := range map[string]string{
-		"failure logs": logger.String(),
 		"return error": err.Error(),
 		"OnError":      callbackErr.Error(),
 	} {
 		t.Run(name, func(t *testing.T) {
 			assertNotContainsAny(t, text, headerSecret, querySecret, deviceSecret, endpoint)
 		})
+	}
+	logOutput := logger.String()
+	assertNotContainsAny(t, logOutput, headerSecret, endpoint)
+	expectedConnectionURL := "ws://" + listener.Addr().String() + "/malformed?device_id=" + deviceSecret + "&service_id=53&opaque=" + querySecret
+	for _, expected := range []string{
+		"url: " + expectedConnectionURL,
+		"host: " + listener.Addr().String(),
+		"Authorization:[<redacted>]",
+		"response_status_code: <nil>",
+		"response_headers: map[]",
+		"err: malformed HTTP status code",
+	} {
+		if !strings.Contains(logOutput, expected) {
+			t.Fatalf("malformed handshake log does not contain %q: %q", expected, logOutput)
+		}
 	}
 }
