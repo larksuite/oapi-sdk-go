@@ -175,6 +175,9 @@ func main() {
 	}).OnP2CardURLPreviewGet(func(ctx context.Context, event *callback.URLPreviewGetEvent) (*callback.URLPreviewGetResponse, error) {
 		fmt.Println(event)
 		return nil, nil
+	}).OnP2CardProfileViewGet(func(ctx context.Context, event *callback.ProfileViewGetEvent) (*callback.ProfileViewGetResponse, error) {
+		fmt.Println(event)
+		return nil, nil
 	})
 
 	// 注册 http 路由
