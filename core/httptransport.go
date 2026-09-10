@@ -229,6 +229,44 @@ func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient
 	}, nil
 }
 
+func doSendStream(ctx context.Context, rawRequest *http.Request, httpClient HttpClient, logger Logger) (*ApiResp, error) {
+	if httpClient == nil {
+		httpClient = http.DefaultClient
+	}
+	resp, err := httpClient.Do(rawRequest)
+	if err != nil {
+		if er, ok := err.(*url.Error); ok {
+			if er.Timeout() {
+				return nil, &ClientTimeoutError{msg: er.Error()}
+			}
+
+			if e, ok := er.Err.(*net.OpError); ok && e.Op == "dial" {
+				return nil, &DialFailedError{msg: er.Error()}
+			}
+		}
+		return nil, err
+	}
+
+	if resp.StatusCode == http.StatusGatewayTimeout {
+		logID := resp.Header.Get(HttpHeaderKeyLogId)
+		if logID == "" {
+			logID = resp.Header.Get(HttpHeaderKeyRequestId)
+		}
+		logger.Info(ctx, fmt.Sprintf("req path:%s, server time out,requestId:%s",
+			rawRequest.URL.RequestURI(), logID))
+		if resp.Body != nil {
+			_ = resp.Body.Close()
+		}
+		return nil, &ServerTimeoutError{msg: "server time out error"}
+	}
+
+	return &ApiResp{
+		StatusCode: resp.StatusCode,
+		Header:     resp.Header,
+		Body:       resp.Body,
+	}, nil
+}
+
 func Request(ctx context.Context, req *ApiReq, config *Config, options ...RequestOptionFunc) (*ApiResp, error) {
 	option := &RequestOption{}
 	for _, optionFunc := range options {
@@ -257,7 +295,43 @@ func Request(ctx context.Context, req *ApiReq, config *Config, options ...Reques
 
 }
 
+func RequestStream(ctx context.Context, req *ApiReq, config *Config, options ...RequestOptionFunc) (*ApiResp, error) {
+	option := &RequestOption{}
+	for _, optionFunc := range options {
+		optionFunc(option)
+	}
+
+	if len(req.SupportedAccessTokenTypes) == 0 {
+		req.SupportedAccessTokenTypes = append(req.SupportedAccessTokenTypes, AccessTokenTypeNone)
+	}
+
+	err := validateTokenType(req.SupportedAccessTokenTypes, option)
+	if err != nil {
+		return nil, err
+	}
+	accessTokenType, err := determineTokenType(req.SupportedAccessTokenTypes, option, config)
+	if err != nil {
+		return nil, err
+	}
+	err = validate(config, option, accessTokenType)
+	if err != nil {
+		return nil, err
+	}
+
+	return doRequestStream(ctx, req, accessTokenType, config, option)
+}
+
+type sendApiRespFunc func(context.Context, *http.Request, HttpClient, Logger) (*ApiResp, error)
+
 func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessTokenType, config *Config, option *RequestOption) (*ApiResp, error) {
+	return doRequestWithSender(ctx, httpReq, accessTokenType, config, option, doSend, false)
+}
+
+func doRequestStream(ctx context.Context, httpReq *ApiReq, accessTokenType AccessTokenType, config *Config, option *RequestOption) (*ApiResp, error) {
+	return doRequestWithSender(ctx, httpReq, accessTokenType, config, option, doSendStream, true)
+}
+
+func doRequestWithSender(ctx context.Context, httpReq *ApiReq, accessTokenType AccessTokenType, config *Config, option *RequestOption, send sendApiRespFunc, streamBody bool) (*ApiResp, error) {
 	var rawResp *ApiResp
 	var errResult error
 	for i := 0; i < 2; i++ {
@@ -276,7 +350,7 @@ func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessToken
 		} else {
 			config.Logger.Debug(ctx, fmt.Sprintf("req:%s,%s", httpReq.HttpMethod, httpReq.ApiPath))
 		}
-		rawResp, err = doSend(ctx, req, config.HttpClient, config.Logger)
+		rawResp, err = send(ctx, req, config.HttpClient, config.Logger)
 		if config.LogReqAtDebug {
 			if shouldSkipCodeErrorPreDecode(httpReq.ApiPath) {
 				statusCode := 0
@@ -297,8 +371,16 @@ func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessToken
 			continue
 		}
 
-		fileDownloadSuccess := option.FileDownload && rawResp.StatusCode == http.StatusOK
-		if fileDownloadSuccess || !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
+		fileDownloadSuccess := option.FileDownload && isFileDownloadStatus(rawResp.StatusCode)
+		if streamBody && !fileDownloadSuccess {
+			if err := rawResp.readAndCloseBody(); err != nil {
+				return nil, err
+			}
+		}
+		if fileDownloadSuccess {
+			break
+		}
+		if !strings.Contains(rawResp.Header.Get(contentTypeHeader), contentTypeJson) {
 			break
 		}
 		if shouldSkipCodeErrorPreDecode(httpReq.ApiPath) {
@@ -334,4 +416,21 @@ func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessToken
 		return nil, errResult
 	}
 	return rawResp, nil
+}
+
+func (resp *ApiResp) readAndCloseBody() error {
+	if resp == nil || resp.Body == nil {
+		return nil
+	}
+	body, err := readResponseBody(resp.Body)
+	if err != nil {
+		return err
+	}
+	resp.RawBody = body
+	resp.Body = nil
+	return nil
+}
+
+func isFileDownloadStatus(statusCode int) bool {
+	return statusCode == http.StatusOK || statusCode == http.StatusPartialContent
 }
