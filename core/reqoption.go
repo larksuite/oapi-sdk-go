@@ -77,6 +77,12 @@ func WithUserAccessToken(userAccessToken string) RequestOptionFunc {
 	}
 }
 
+func WithAppAccessToken(AppAccessToken string) RequestOptionFunc {
+	return func(option *RequestOption) {
+		option.AppAccessToken = AppAccessToken
+	}
+}
+
 func WithTenantAccessToken(tenantAccessToken string) RequestOptionFunc {
 	return func(option *RequestOption) {
 		option.TenantAccessToken = tenantAccessToken
