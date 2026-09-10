@@ -14,12 +14,11 @@
 package larkwiki
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 
-	"github.com/larksuite/oapi-sdk-go/v3/core"
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
 const (
@@ -164,11 +163,9 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
 	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
-
 	}
 	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
-
 	}
 	return req
 }
@@ -256,19 +253,15 @@ func (builder *MemberBuilder) Build() *Member {
 	req := &Member{}
 	if builder.memberTypeSet {
 		req.MemberType = &builder.memberType
-
 	}
 	if builder.memberIdSet {
 		req.MemberId = &builder.memberId
-
 	}
 	if builder.memberRoleSet {
 		req.MemberRole = &builder.memberRole
-
 	}
 	if builder.type_Set {
 		req.Type = &builder.type_
-
 	}
 	if builder.memberPermSet {
 		req.MemberPerm = &builder.memberPerm
@@ -335,11 +328,9 @@ func (builder *MoveResultBuilder) Build() *MoveResult {
 	}
 	if builder.statusSet {
 		req.Status = &builder.status
-
 	}
 	if builder.statusMsgSet {
 		req.StatusMsg = &builder.statusMsg
-
 	}
 	return req
 }
@@ -699,67 +690,51 @@ func (builder *NodeBuilder) Build() *Node {
 	req := &Node{}
 	if builder.spaceIdSet {
 		req.SpaceId = &builder.spaceId
-
 	}
 	if builder.nodeTokenSet {
 		req.NodeToken = &builder.nodeToken
-
 	}
 	if builder.objTokenSet {
 		req.ObjToken = &builder.objToken
-
 	}
 	if builder.objTypeSet {
 		req.ObjType = &builder.objType
-
 	}
 	if builder.parentNodeTokenSet {
 		req.ParentNodeToken = &builder.parentNodeToken
-
 	}
 	if builder.nodeTypeSet {
 		req.NodeType = &builder.nodeType
-
 	}
 	if builder.originNodeTokenSet {
 		req.OriginNodeToken = &builder.originNodeToken
-
 	}
 	if builder.originSpaceIdSet {
 		req.OriginSpaceId = &builder.originSpaceId
-
 	}
 	if builder.hasChildSet {
 		req.HasChild = &builder.hasChild
-
 	}
 	if builder.titleSet {
 		req.Title = &builder.title
-
 	}
 	if builder.objCreateTimeSet {
 		req.ObjCreateTime = &builder.objCreateTime
-
 	}
 	if builder.objEditTimeSet {
 		req.ObjEditTime = &builder.objEditTime
-
 	}
 	if builder.nodeCreateTimeSet {
 		req.NodeCreateTime = &builder.nodeCreateTime
-
 	}
 	if builder.creatorSet {
 		req.Creator = &builder.creator
-
 	}
 	if builder.ownerSet {
 		req.Owner = &builder.owner
-
 	}
 	if builder.nodeCreatorSet {
 		req.NodeCreator = &builder.nodeCreator
-
 	}
 	if builder.urlSet {
 		req.Url = &builder.url
@@ -935,47 +910,36 @@ func (builder *NodeSearchBuilder) Build() *NodeSearch {
 	req := &NodeSearch{}
 	if builder.nodeIdSet {
 		req.NodeId = &builder.nodeId
-
 	}
 	if builder.spaceIdSet {
 		req.SpaceId = &builder.spaceId
-
 	}
 	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
-
 	}
 	if builder.objTypeSet {
 		req.ObjType = &builder.objType
-
 	}
 	if builder.titleSet {
 		req.Title = &builder.title
-
 	}
 	if builder.urlSet {
 		req.Url = &builder.url
-
 	}
 	if builder.iconSet {
 		req.Icon = &builder.icon
-
 	}
 	if builder.areaIdSet {
 		req.AreaId = &builder.areaId
-
 	}
 	if builder.sortIdSet {
 		req.SortId = &builder.sortId
-
 	}
 	if builder.domainSet {
 		req.Domain = &builder.domain
-
 	}
 	if builder.objTokenSet {
 		req.ObjToken = &builder.objToken
-
 	}
 	return req
 }
@@ -1035,15 +999,12 @@ func (builder *SettingBuilder) Build() *Setting {
 	req := &Setting{}
 	if builder.createSettingSet {
 		req.CreateSetting = &builder.createSetting
-
 	}
 	if builder.securitySettingSet {
 		req.SecuritySetting = &builder.securitySetting
-
 	}
 	if builder.commentSettingSet {
 		req.CommentSetting = &builder.commentSetting
-
 	}
 	return req
 }
@@ -1177,27 +1138,21 @@ func (builder *SpaceBuilder) Build() *Space {
 	req := &Space{}
 	if builder.nameSet {
 		req.Name = &builder.name
-
 	}
 	if builder.descriptionSet {
 		req.Description = &builder.description
-
 	}
 	if builder.spaceIdSet {
 		req.SpaceId = &builder.spaceId
-
 	}
 	if builder.spaceTypeSet {
 		req.SpaceType = &builder.spaceType
-
 	}
 	if builder.visibilitySet {
 		req.Visibility = &builder.visibility
-
 	}
 	if builder.openSharingSet {
 		req.OpenSharing = &builder.openSharing
-
 	}
 	return req
 }
@@ -1281,7 +1236,6 @@ func (builder *TaskResultBuilder) Build() *TaskResult {
 	req := &TaskResult{}
 	if builder.taskIdSet {
 		req.TaskId = &builder.taskId
-
 	}
 	if builder.moveResultSet {
 		req.MoveResult = builder.moveResult
@@ -1508,7 +1462,6 @@ func (builder *ListSpaceReqBuilder) Build() *ListSpaceReq {
 type ListSpaceReq struct {
 	apiReq *larkcore.ApiReq
 	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
-
 }
 
 type ListSpaceRespData struct {
@@ -2025,7 +1978,6 @@ func (builder *ListSpaceNodeReqBuilder) Build() *ListSpaceNodeReq {
 type ListSpaceNodeReq struct {
 	apiReq *larkcore.ApiReq
 	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
-
 }
 
 type ListSpaceNodeRespData struct {
@@ -2654,7 +2606,7 @@ func (iterator *ListSpaceIterator) Next() (bool, *Space, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || *iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -2708,7 +2660,7 @@ func (iterator *ListSpaceNodeIterator) Next() (bool, *Node, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || *iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
