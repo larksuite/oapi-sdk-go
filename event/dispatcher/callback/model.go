@@ -25,6 +25,7 @@ type Operator struct {
 	TenantKey *string `json:"tenant_key,omitempty"`
 	UserID    *string `json:"user_id,omitempty"`
 	OpenID    string  `json:"open_id,omitempty"`
+	UnionID   string  `json:"union_id,omitempty"`
 }
 
 type CallBackAction struct {
