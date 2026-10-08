@@ -15,6 +15,7 @@ package larkcore
 import "net/http"
 
 type RequestOption struct {
+	SSE               *SSEOptions
 	TenantKey         string
 	UserAccessToken   string
 	AppAccessToken    string
