@@ -1,5 +1,7 @@
 # Feishu OpenPlatform Server SDK
 
+Agent v1 runnable examples (chat, SSE, uploads, resume and interruption): [guide / 中文说明](./sample/agent/README.md).
+
 [English](./README.md) | [Simplified Chinese](./README.zh.md)
 
 Feishu Open Platform offers a series of server-side atomic APIs to achieve diverse functionalities. However, actual coding requires additional work, such as obtaining and maintaining access tokens, encrypting and decrypting data, and verifying request signatures. Furthermore, the lack of semantic descriptions for function calls and type system support can increase coding burdens.
