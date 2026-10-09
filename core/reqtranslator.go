@@ -280,6 +280,13 @@ func (fd *Formdata) content() (string, []byte, error) {
 		}
 		if r, ok := val.(io.Reader); ok {
 			filename := formdataFilename(val)
+			// Preserve legacy basename inference; generated overrides use the exact safe name.
+			if explicit, ok := val.(formdataFile); ok && explicit.literalFilename {
+				filename = explicit.filename
+				if err := validateUploadFilename(filename); err != nil {
+					return "", nil, err
+				}
+			}
 			if err := fd.writeFormFile(writer, key, filename, r); err != nil {
 				return "", nil, err
 			}
@@ -317,7 +324,8 @@ type namedFile interface {
 
 type formdataFile struct {
 	io.Reader
-	filename string
+	filename        string
+	literalFilename bool
 }
 
 func (f formdataFile) Name() string {
@@ -418,8 +426,24 @@ func toFormdata(body interface{}) *Formdata {
 		}
 		if fieldName := fieldType.Tag.Get("json"); fieldName != "" {
 			fieldName = strings.TrimSuffix(fieldName, ",omitempty")
+			if filenameField := fieldType.Tag.Get("filename"); filenameField != "" {
+				filename := reflect.Indirect(v.FieldByName(filenameField))
+				if filename.IsValid() && filename.Kind() == reflect.String && filename.String() != "" {
+					if reader, ok := fieldValue.Interface().(io.Reader); ok {
+						formdata.AddField(fieldName, formdataFile{Reader: reader, filename: filename.String(), literalFilename: true})
+						continue
+					}
+				}
+			}
 			formdata.AddField(fieldName, reflect.Indirect(fieldValue).Interface())
 		}
 	}
 	return formdata
+}
+
+func validateUploadFilename(filename string) error {
+	if filename == "." || filename == ".." || strings.ContainsAny(filename, "/\\\r\n\x00") {
+		return fmt.Errorf("upload filename must be a file name without path or control characters")
+	}
+	return nil
 }

@@ -2120,7 +2120,7 @@ func (builder *CreateFileReqBuilder) Build() *CreateFileReq {
 }
 
 type CreateFileReqBody struct {
-	File io.Reader `json:"file,omitempty"` // 文件内容；文件名取该段的 filename；不允许空文件；图片不超过 20MB，其它文件不超过 100MB。
+	File io.Reader `json:"file,omitempty" filename:"Filename"` // 文件内容；文件名取该段的 filename；不允许空文件；图片不超过 20MB，其它文件不超过 100MB。
 
 	Uuid *string `json:"uuid,omitempty"` // 幂等键，接入方生成，放在表单字段里。
 
