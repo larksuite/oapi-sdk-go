@@ -26,6 +26,7 @@ import (
 
 	"github.com/larksuite/oapi-sdk-go/v3/service/acs"
 	"github.com/larksuite/oapi-sdk-go/v3/service/admin"
+	"github.com/larksuite/oapi-sdk-go/v3/service/agent"
 	"github.com/larksuite/oapi-sdk-go/v3/service/aily"
 	"github.com/larksuite/oapi-sdk-go/v3/service/apaas"
 	"github.com/larksuite/oapi-sdk-go/v3/service/application"
@@ -90,6 +91,7 @@ type Client struct {
 	config                 *larkcore.Config
 	Acs                    *acs.Service
 	Admin                  *admin.Service
+	Agent                  *agent.Service
 	Aily                   *aily.Service
 	Apaas                  *apaas.Service
 	Application            *application.Service
@@ -293,6 +295,7 @@ func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 func initService(client *Client, config *larkcore.Config) {
 	client.Acs = acs.NewService(config)
 	client.Admin = admin.NewService(config)
+	client.Agent = agent.NewService(config)
 	client.Aily = aily.NewService(config)
 	client.Apaas = apaas.NewService(config)
 	client.Application = application.NewService(config)
