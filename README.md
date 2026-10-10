@@ -221,3 +221,11 @@ For more examples, see https://github.com/larksuite/oapi-sdk-go-demo
 ## License
 
 MIT
+
+## Webhook authentication
+
+When no EncryptKey is configured and a nonempty VerificationToken is explicitly supplied, the SDK validates the token before invoking event or callback handlers: top-level `token` for v1 and `header.token` for v2. Missing, null, empty, non-string, or mismatched tokens are rejected. Challenge responses also validate explicitly configured verification tokens.
+
+Leaving both credentials empty retains the previous behavior. Encrypted events retain existing decryption and signature checks, and WebSocket clients continue using trusted internal dispatch.
+
+Rollback: reverting this change restores the validation gap for explicitly configured VerificationTokens. Keep independent webhook authentication in place before rolling back.

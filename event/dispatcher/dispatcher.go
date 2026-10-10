@@ -14,6 +14,7 @@ package dispatcher
 
 import (
 	"context"
+	"crypto/subtle"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -106,6 +107,12 @@ func (dispatcher *EventDispatcher) Handle(ctx context.Context, req *larkevent.Ev
 	if err != nil {
 		return processError(ctx, dispatcher.Config.Logger, req.RequestURI, err)
 	}
+	// Signature verification cannot authenticate plaintext events without an EncryptKey.
+	if dispatcher.eventEncryptKey == "" && dispatcher.verificationToken != "" {
+		if err := dispatcher.verifyVerificationToken(ctx, token); err != nil {
+			return processError(ctx, dispatcher.Config.Logger, req.RequestURI, err)
+		}
+	}
 	if reqType != larkevent.ReqTypeChallenge && !dispatcher.Config.SkipSignVerify {
 		err = dispatcher.VerifySign(ctx, req)
 		if err != nil {
@@ -121,7 +128,7 @@ func (dispatcher *EventDispatcher) Handle(ctx context.Context, req *larkevent.Ev
 }
 
 func (dispatcher *EventDispatcher) ParseReq(ctx context.Context, req *larkevent.EventReq) (string, error) {
-	dispatcher.Config.Logger.Debug(ctx, fmt.Sprintf("event request: header:%v,body:%s", req.Header, string(req.Body)))
+	dispatcher.Config.Logger.Debug(ctx, fmt.Sprintf("event request, path:%s", req.RequestURI))
 	if dispatcher.eventEncryptKey != "" {
 		var encrypt larkevent.EventEncryptMsg
 		err := json.Unmarshal(req.Body, &encrypt)
@@ -203,6 +210,10 @@ func parse(plainEventJsonStr string) (larkevent.ReqType, string, string, string,
 			eventType = et
 		}
 	}
+	// v2 events must not authenticate with a v1 top-level token.
+	if fuzzy.Schema != "" && reqType != larkevent.ReqTypeChallenge {
+		token = ""
+	}
 	if fuzzy.Header != nil {
 		token = fuzzy.Header.Token
 		eventType = fuzzy.Header.EventType
@@ -221,10 +232,16 @@ func (dispatcher *EventDispatcher) getErrorResp(ctx context.Context, header map[
 	return eventResp
 }
 
+func (dispatcher *EventDispatcher) verifyVerificationToken(ctx context.Context, token string) error {
+	if subtle.ConstantTimeCompare([]byte(dispatcher.verificationToken), []byte(token)) != 1 {
+		return errors.New("invalid verification token")
+	}
+	return nil
+}
+
 func (dispatcher *EventDispatcher) AuthByChallenge(ctx context.Context, reqType larkevent.ReqType, challenge, token string) (*larkevent.EventResp, error) {
 	if reqType == larkevent.ReqTypeChallenge {
-		if token != dispatcher.verificationToken {
-			err := errors.New("the result of auth by challenge failed")
+		if err := dispatcher.verifyVerificationToken(ctx, token); err != nil {
 			return nil, err
 		}
 
