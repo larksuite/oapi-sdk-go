@@ -14,6 +14,7 @@ package dispatcher
 
 import (
 	"context"
+	"crypto/subtle"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -29,9 +30,64 @@ type EventDispatcher struct {
 	// 事件map,key为事件类型，value为回调处理器
 	callbackType2CallbackHandler map[string]larkevent.CallbackHandler
 	// 事件回调签名token，消息解密key
-	verificationToken string
-	eventEncryptKey   string
+	verificationToken          string
+	eventEncryptKey            string
+	webhookCredentialsProvider WebhookCredentialsProvider
 	*larkcore.Config
+}
+
+// WebhookCredentials is one consistent snapshot of webhook authentication credentials.
+type WebhookCredentials struct {
+	EncryptKey        string
+	VerificationToken string
+}
+
+// WebhookCredentialsProvider returns credentials once per HTTP webhook request.
+// Providers must be thread safe, honor ctx, and preferably read a local cache.
+// Any external I/O must have a timeout. Provider errors and panics reject requests.
+type WebhookCredentialsProvider func(ctx context.Context) (WebhookCredentials, error)
+
+// WithWebhookCredentialsProvider registers a provider without invoking it.
+// Call only during initialization, before handling requests. A nil provider uses
+// the constructor credentials. Successful empty credentials preserve legacy behavior.
+func (dispatcher *EventDispatcher) WithWebhookCredentialsProvider(provider WebhookCredentialsProvider) *EventDispatcher {
+	dispatcher.webhookCredentialsProvider = provider
+	return dispatcher
+}
+
+func (dispatcher *EventDispatcher) snapshotWebhookCredentials(ctx context.Context) (snapshot *EventDispatcher, err error) {
+	if dispatcher.webhookCredentialsProvider == nil {
+		return dispatcher, nil
+	}
+	if ctx.Err() != nil {
+		return nil, errors.New("webhook credentials request canceled")
+	}
+	// User callbacks may include credentials in their errors or panic values. Do
+	// not forward those values to Handle, which logs and returns its errors.
+	providerReturned := false
+	defer func() {
+		panicValue := recover()
+		// The completion flag also handles panic(nil) on older supported Go versions.
+		if panicValue != nil || !providerReturned {
+			snapshot = nil
+			err = errors.New("webhook credentials provider failed")
+		}
+	}()
+	credentials, providerErr := dispatcher.webhookCredentialsProvider(ctx)
+	providerReturned = true
+	if providerErr != nil {
+		return nil, errors.New("webhook credentials provider failed")
+	}
+	if ctx.Err() != nil {
+		return nil, errors.New("webhook credentials request canceled")
+	}
+	// The maps and Config remain read-only after initialization. Only this local
+	// copy's string fields change, keeping concurrent requests independent.
+	requestDispatcher := *dispatcher
+	requestDispatcher.eventEncryptKey = credentials.EncryptKey
+	requestDispatcher.verificationToken = credentials.VerificationToken
+	requestDispatcher.webhookCredentialsProvider = nil
+	return &requestDispatcher, nil
 }
 
 func (dispatcher *EventDispatcher) Logger() larkcore.Logger {
@@ -92,6 +148,12 @@ func (dispatcher *EventDispatcher) Handle(ctx context.Context, req *larkevent.Ev
 		}
 	}()
 
+	requestDispatcher, err := dispatcher.snapshotWebhookCredentials(ctx)
+	if err != nil {
+		return processError(ctx, dispatcher.Config.Logger, req.RequestURI, err)
+	}
+	dispatcher = requestDispatcher
+
 	cipherEventJsonStr, err := dispatcher.ParseReq(ctx, req)
 	if err != nil {
 		return processError(ctx, dispatcher.Config.Logger, req.RequestURI, err)
@@ -105,6 +167,12 @@ func (dispatcher *EventDispatcher) Handle(ctx context.Context, req *larkevent.Ev
 	reqType, challenge, token, eventType, err := parse(plainEventJsonStr)
 	if err != nil {
 		return processError(ctx, dispatcher.Config.Logger, req.RequestURI, err)
+	}
+	// Signature verification cannot authenticate plaintext events without an EncryptKey.
+	if dispatcher.eventEncryptKey == "" && dispatcher.verificationToken != "" {
+		if err := dispatcher.verifyVerificationToken(ctx, token); err != nil {
+			return processError(ctx, dispatcher.Config.Logger, req.RequestURI, err)
+		}
 	}
 	if reqType != larkevent.ReqTypeChallenge && !dispatcher.Config.SkipSignVerify {
 		err = dispatcher.VerifySign(ctx, req)
@@ -121,7 +189,7 @@ func (dispatcher *EventDispatcher) Handle(ctx context.Context, req *larkevent.Ev
 }
 
 func (dispatcher *EventDispatcher) ParseReq(ctx context.Context, req *larkevent.EventReq) (string, error) {
-	dispatcher.Config.Logger.Debug(ctx, fmt.Sprintf("event request: header:%v,body:%s", req.Header, string(req.Body)))
+	dispatcher.Config.Logger.Debug(ctx, fmt.Sprintf("event request, path:%s", req.RequestURI))
 	if dispatcher.eventEncryptKey != "" {
 		var encrypt larkevent.EventEncryptMsg
 		err := json.Unmarshal(req.Body, &encrypt)
@@ -203,6 +271,10 @@ func parse(plainEventJsonStr string) (larkevent.ReqType, string, string, string,
 			eventType = et
 		}
 	}
+	// v2 events must not authenticate with a v1 top-level token.
+	if fuzzy.Schema != "" && reqType != larkevent.ReqTypeChallenge {
+		token = ""
+	}
 	if fuzzy.Header != nil {
 		token = fuzzy.Header.Token
 		eventType = fuzzy.Header.EventType
@@ -221,10 +293,16 @@ func (dispatcher *EventDispatcher) getErrorResp(ctx context.Context, header map[
 	return eventResp
 }
 
+func (dispatcher *EventDispatcher) verifyVerificationToken(ctx context.Context, token string) error {
+	if subtle.ConstantTimeCompare([]byte(dispatcher.verificationToken), []byte(token)) != 1 {
+		return errors.New("invalid verification token")
+	}
+	return nil
+}
+
 func (dispatcher *EventDispatcher) AuthByChallenge(ctx context.Context, reqType larkevent.ReqType, challenge, token string) (*larkevent.EventResp, error) {
 	if reqType == larkevent.ReqTypeChallenge {
-		if token != dispatcher.verificationToken {
-			err := errors.New("the result of auth by challenge failed")
+		if err := dispatcher.verifyVerificationToken(ctx, token); err != nil {
 			return nil, err
 		}
 

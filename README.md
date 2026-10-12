@@ -221,3 +221,39 @@ For more examples, see https://github.com/larksuite/oapi-sdk-go-demo
 ## License
 
 MIT
+
+## Webhook authentication
+
+When no EncryptKey is configured and a nonempty VerificationToken is explicitly supplied, the SDK validates the token before invoking event or callback handlers: top-level `token` for v1 and `header.token` for v2. Missing, null, empty, non-string, or mismatched tokens are rejected. Challenge responses also validate explicitly configured verification tokens.
+
+Leaving both credentials empty retains the previous behavior. Encrypted events retain existing decryption and signature checks, and WebSocket clients continue using trusted internal dispatch.
+
+Rollback: reverting this change restores the validation gap for explicitly configured VerificationTokens. Keep independent webhook authentication in place before rolling back.
+
+### Runtime webhook credentials
+
+Register a combined provider during initialization to update webhook credentials without rebuilding the dispatcher. For example, keep credentials obtained from your configuration system or KMS in a local `sync/atomic.Value`:
+
+```go
+var currentCredentials atomic.Value
+currentCredentials.Store(initialCredentials) // dispatcher.WebhookCredentials loaded at startup
+
+eventDispatcher := dispatcher.NewEventDispatcher("", "").
+    WithWebhookCredentialsProvider(func(ctx context.Context) (dispatcher.WebhookCredentials, error) {
+        if err := ctx.Err(); err != nil {
+            return dispatcher.WebhookCredentials{}, err
+        }
+        return currentCredentials.Load().(dispatcher.WebhookCredentials), nil
+    })
+
+// When your configuration watcher obtains a complete new key/token pair:
+currentCredentials.Store(updatedCredentials) // same concrete WebhookCredentials type
+```
+
+The example uses `context`, `sync/atomic`, and `github.com/larksuite/oapi-sdk-go/v3/event/dispatcher`. Initialize the value before receiving requests and atomically replace the complete `WebhookCredentials{EncryptKey, VerificationToken}` snapshot when configuration changes. Do not log credentials.
+
+Registration does not invoke the provider. `Handle` calls it once per ordinary event, card callback, or challenge request before parsing/decryption, then uses that request's snapshot for every step. In-flight requests keep their snapshot; later requests see the updated value. Trusted WebSocket `Do` dispatch does not call the provider. No provider (or a nil provider) uses constructor credentials.
+
+A successful empty snapshot preserves static-empty behavior, including the existing challenge token comparison. Provider errors, panics, or request cancellation reject the request without invoking handlers or falling back to static credentials; original error/panic details are not returned or logged. Providers must be thread safe and promptly read local cached configuration. If a provider performs I/O, it must honor the request context and configure its own timeout. The SDK adds no retries or background workers and cannot interrupt a callback that ignores cancellation.
+
+Call `WithWebhookCredentialsProvider` only during initialization, alongside handler registration; do not change the provider or other dispatcher configuration concurrently with requests. To roll back the opt-in behavior, remove provider registration and restore your static constructor credentials, retaining the token validation fix. Observe provider failures/latency and webhook error rates during rollout without secret or high-cardinality labels.
