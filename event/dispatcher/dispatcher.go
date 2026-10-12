@@ -30,9 +30,64 @@ type EventDispatcher struct {
 	// 事件map,key为事件类型，value为回调处理器
 	callbackType2CallbackHandler map[string]larkevent.CallbackHandler
 	// 事件回调签名token，消息解密key
-	verificationToken string
-	eventEncryptKey   string
+	verificationToken          string
+	eventEncryptKey            string
+	webhookCredentialsProvider WebhookCredentialsProvider
 	*larkcore.Config
+}
+
+// WebhookCredentials is one consistent snapshot of webhook authentication credentials.
+type WebhookCredentials struct {
+	EncryptKey        string
+	VerificationToken string
+}
+
+// WebhookCredentialsProvider returns credentials once per HTTP webhook request.
+// Providers must be thread safe, honor ctx, and preferably read a local cache.
+// Any external I/O must have a timeout. Provider errors and panics reject requests.
+type WebhookCredentialsProvider func(ctx context.Context) (WebhookCredentials, error)
+
+// WithWebhookCredentialsProvider registers a provider without invoking it.
+// Call only during initialization, before handling requests. A nil provider uses
+// the constructor credentials. Successful empty credentials preserve legacy behavior.
+func (dispatcher *EventDispatcher) WithWebhookCredentialsProvider(provider WebhookCredentialsProvider) *EventDispatcher {
+	dispatcher.webhookCredentialsProvider = provider
+	return dispatcher
+}
+
+func (dispatcher *EventDispatcher) snapshotWebhookCredentials(ctx context.Context) (snapshot *EventDispatcher, err error) {
+	if dispatcher.webhookCredentialsProvider == nil {
+		return dispatcher, nil
+	}
+	if ctx.Err() != nil {
+		return nil, errors.New("webhook credentials request canceled")
+	}
+	// User callbacks may include credentials in their errors or panic values. Do
+	// not forward those values to Handle, which logs and returns its errors.
+	providerReturned := false
+	defer func() {
+		panicValue := recover()
+		// The completion flag also handles panic(nil) on older supported Go versions.
+		if panicValue != nil || !providerReturned {
+			snapshot = nil
+			err = errors.New("webhook credentials provider failed")
+		}
+	}()
+	credentials, providerErr := dispatcher.webhookCredentialsProvider(ctx)
+	providerReturned = true
+	if providerErr != nil {
+		return nil, errors.New("webhook credentials provider failed")
+	}
+	if ctx.Err() != nil {
+		return nil, errors.New("webhook credentials request canceled")
+	}
+	// The maps and Config remain read-only after initialization. Only this local
+	// copy's string fields change, keeping concurrent requests independent.
+	requestDispatcher := *dispatcher
+	requestDispatcher.eventEncryptKey = credentials.EncryptKey
+	requestDispatcher.verificationToken = credentials.VerificationToken
+	requestDispatcher.webhookCredentialsProvider = nil
+	return &requestDispatcher, nil
 }
 
 func (dispatcher *EventDispatcher) Logger() larkcore.Logger {
@@ -92,6 +147,12 @@ func (dispatcher *EventDispatcher) Handle(ctx context.Context, req *larkevent.Ev
 			eventResp = recoveryResult()
 		}
 	}()
+
+	requestDispatcher, err := dispatcher.snapshotWebhookCredentials(ctx)
+	if err != nil {
+		return processError(ctx, dispatcher.Config.Logger, req.RequestURI, err)
+	}
+	dispatcher = requestDispatcher
 
 	cipherEventJsonStr, err := dispatcher.ParseReq(ctx, req)
 	if err != nil {

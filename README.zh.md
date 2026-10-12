@@ -229,3 +229,31 @@ MIT
 两个凭证都为空时保留原有行为。加密事件继续使用现有解密和签名校验；长连接继续通过内部可信分发路径处理。
 
 回滚：撤销本次修复会恢复已配置 VerificationToken 却未严格校验的缺口；回滚前应确保 Webhook 入口已有独立来源校验。
+
+### 运行中更新 Webhook 凭证
+
+初始化时注册一个成组的 Provider，即可在运行中更新凭证，无需重新创建 dispatcher。建议将从配置系统或 KMS 获取的凭证缓存在本地 `sync/atomic.Value` 中：
+
+```go
+var currentCredentials atomic.Value
+currentCredentials.Store(initialCredentials) // 启动时加载的 dispatcher.WebhookCredentials
+
+eventDispatcher := dispatcher.NewEventDispatcher("", "").
+    WithWebhookCredentialsProvider(func(ctx context.Context) (dispatcher.WebhookCredentials, error) {
+        if err := ctx.Err(); err != nil {
+            return dispatcher.WebhookCredentials{}, err
+        }
+        return currentCredentials.Load().(dispatcher.WebhookCredentials), nil
+    })
+
+// 配置监听器获取完整的新 EncryptKey / VerificationToken 后：
+currentCredentials.Store(updatedCredentials) // 必须同为 WebhookCredentials 类型
+```
+
+示例使用 `context`、`sync/atomic` 和 `github.com/larksuite/oapi-sdk-go/v3/event/dispatcher`。接收请求前初始化缓存，更新时原子替换包含 EncryptKey 和 VerificationToken 的完整结构体，禁止记录凭证日志。
+
+注册时不调用 Provider。`Handle` 每次处理普通事件、卡片回调或 challenge 请求时，在解析和解密前调用一次，后续所有步骤使用同一个请求快照。在途请求继续使用已读取的快照，后续请求读取新配置。可信长连接 `Do` 分发不调用 Provider。未注册 Provider（或注册 nil）时使用构造参数。
+
+Provider 成功返回两个空字符串时保留静态空配置的历史行为，包括 challenge 原有的 token 比较。Provider 返回错误、发生 panic 或请求已取消时拒绝请求，不进入 handler、不回退到静态凭证，响应和日志不包含原始错误或 panic 内容。Provider 必须线程安全，建议快速读取本地缓存；如需外部 I/O，必须响应请求 context 并自行设置超时。SDK 不增加重试或后台任务，无法强制中断忽略取消信号的 Provider。
+
+`WithWebhookCredentialsProvider` 与 handler 注册一样，仅在初始化阶段调用，不可在处理请求时并发修改 Provider 或 dispatcher 配置。回滚时移除 Provider 注册并恢复静态构造参数，保留 token 校验修复。灰度接入时观察 Provider 失败次数、耗时及 Webhook 错误率，避免敏感信息和高基数标签。
