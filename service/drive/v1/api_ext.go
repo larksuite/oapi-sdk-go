@@ -16,9 +16,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"math"
 
-	"github.com/larksuite/oapi-sdk-go/v3/core"
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
 func (f *file) ListByIterator(ctx context.Context, req *ListFileReq, options ...larkcore.RequestOptionFunc) (*ListFileIterator, error) {
@@ -27,7 +26,7 @@ func (f *file) ListByIterator(ctx context.Context, req *ListFileReq, options ...
 		req:      req,
 		listFunc: f.List,
 		options:  options,
-		limit:    math.MaxInt64}, nil
+		limit:    int(^uint(0) >> 1)}, nil
 }
 
 type ListFileIterator struct {
