@@ -257,3 +257,18 @@ currentCredentials.Store(updatedCredentials) // 必须同为 WebhookCredentials 
 Provider 成功返回两个空字符串时保留静态空配置的历史行为，包括 challenge 原有的 token 比较。Provider 返回错误、发生 panic 或请求已取消时拒绝请求，不进入 handler、不回退到静态凭证，响应和日志不包含原始错误或 panic 内容。Provider 必须线程安全，建议快速读取本地缓存；如需外部 I/O，必须响应请求 context 并自行设置超时。SDK 不增加重试或后台任务，无法强制中断忽略取消信号的 Provider。
 
 `WithWebhookCredentialsProvider` 与 handler 注册一样，仅在初始化阶段调用，不可在处理请求时并发修改 Provider 或 dispatcher 配置。回滚时移除 Provider 注册并恢复静态构造参数，保留 token 校验修复。灰度接入时观察 Provider 失败次数、耗时及 Webhook 错误率，避免敏感信息和高基数标签。
+
+## WebSocket 连接 Host 与握手 Header
+
+`domain` 用于 HTTP 获取连接地址。新增的连接 Host 只改写 WebSocket URL 的 `host[:port]`，保留协议、路径和查询参数；默认 DNS、TLS/SNI 跟随最终域名，已有自定义传输配置仍然生效。以下域名仅为占位示例。
+
+```go
+cli := larkws.NewClient(os.Getenv("APP_ID"), os.Getenv("APP_SECRET"),
+    larkws.WithDomain("https://bootstrap.example.com"),
+    larkws.WithConnectionHost("websocket.example.com:443"),
+    larkws.WithConnectionHeaders(http.Header{"X-Route": []string{"events"}}),
+    larkws.WithEventHandler(eventHandler),
+)
+```
+
+握手 Header 在初始化时复制，每次连接再使用独立副本，首次连接和重连均生效，不发送到 HTTP 获取连接地址的请求。未配置时保留原行为。Host、Connection、Upgrade、Sec-WebSocket-* 不允许通过 Header 覆盖。Host 只检查空值、协议/路径和查询参数；其他地址及 Header 配置直接传入底层库，不增加 SDK 格式校验。上述基础 Host 和保留 Header 检查在网络调用前执行（Go 在 Start 返回错误，其他语言在构造或 build 时抛错）。只使用开发者可信配置，不直接透传终端请求中的 Host/Header。
