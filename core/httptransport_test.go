@@ -55,6 +55,22 @@ func (b *closeTrackingBody) Close() error {
 	return nil
 }
 
+type readTrackingBody struct {
+	reader *strings.Reader
+	reads  int32
+	closed int32
+}
+
+func (b *readTrackingBody) Read(p []byte) (int, error) {
+	atomic.AddInt32(&b.reads, 1)
+	return b.reader.Read(p)
+}
+
+func (b *readTrackingBody) Close() error {
+	atomic.StoreInt32(&b.closed, 1)
+	return nil
+}
+
 type httpClientStub struct {
 	resp *http.Response
 	err  error
@@ -120,6 +136,88 @@ func TestDoSend_CloseBodyOnGatewayTimeout(t *testing.T) {
 	}
 	if atomic.LoadInt32(&body.closed) != 1 {
 		t.Fatalf("expect resp body closed on gateway timeout")
+	}
+}
+
+func TestRequestStreamDoesNotReadSuccessfulDownloadBody(t *testing.T) {
+	req, err := http.NewRequest(http.MethodGet, "http://example.com/", nil)
+	if err != nil {
+		t.Fatalf("new request failed: %v", err)
+	}
+	body := &readTrackingBody{reader: strings.NewReader("stream-body")}
+	client := httpClientStub{resp: &http.Response{
+		StatusCode: http.StatusOK,
+		Header:     http.Header{contentTypeHeader: []string{"application/octet-stream"}},
+		Body:       body,
+		Request:    req,
+	}}
+	config := mockConfig()
+	config.HttpClient = client
+
+	resp, err := RequestStream(context.Background(), &ApiReq{
+		HttpMethod:                http.MethodGet,
+		ApiPath:                   "/download",
+		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeUser},
+	}, config, WithUserAccessToken("user-token"), WithFileDownload())
+	if err != nil {
+		t.Fatalf("request stream failed: %v", err)
+	}
+	if atomic.LoadInt32(&body.reads) != 0 {
+		t.Fatalf("expected stream body unread before caller consumes it")
+	}
+
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		t.Fatalf("read stream failed: %v", err)
+	}
+	if string(data) != "stream-body" {
+		t.Fatalf("unexpected stream body: %s", data)
+	}
+	if atomic.LoadInt32(&body.reads) == 0 {
+		t.Fatalf("expected caller read to consume stream body")
+	}
+	if err := resp.Body.Close(); err != nil {
+		t.Fatalf("close stream failed: %v", err)
+	}
+	if atomic.LoadInt32(&body.closed) != 1 {
+		t.Fatalf("expected stream body closed")
+	}
+}
+
+func TestRequestStreamReadsAndClosesErrorBody(t *testing.T) {
+	req, err := http.NewRequest(http.MethodGet, "http://example.com/", nil)
+	if err != nil {
+		t.Fatalf("new request failed: %v", err)
+	}
+	body := &readTrackingBody{reader: strings.NewReader(`{"code":999,"msg":"failed"}`)}
+	client := httpClientStub{resp: &http.Response{
+		StatusCode: http.StatusBadRequest,
+		Header:     http.Header{contentTypeHeader: []string{contentTypeJson}},
+		Body:       body,
+		Request:    req,
+	}}
+	config := mockConfig()
+	config.HttpClient = client
+
+	resp, err := RequestStream(context.Background(), &ApiReq{
+		HttpMethod:                http.MethodGet,
+		ApiPath:                   "/download",
+		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeUser},
+	}, config, WithUserAccessToken("user-token"), WithFileDownload())
+	if err != nil {
+		t.Fatalf("request stream failed: %v", err)
+	}
+	if resp.Body != nil {
+		t.Fatalf("expected error body to be closed and cleared")
+	}
+	if got := string(resp.RawBody); got != `{"code":999,"msg":"failed"}` {
+		t.Fatalf("unexpected raw body: %s", got)
+	}
+	if atomic.LoadInt32(&body.reads) == 0 {
+		t.Fatalf("expected error body to be read")
+	}
+	if atomic.LoadInt32(&body.closed) != 1 {
+		t.Fatalf("expected error body closed")
 	}
 }
 
