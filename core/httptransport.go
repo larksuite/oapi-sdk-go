@@ -230,6 +230,15 @@ func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient
 }
 
 func Request(ctx context.Context, req *ApiReq, config *Config, options ...RequestOptionFunc) (*ApiResp, error) {
+	if config == nil {
+		return nil, &IllegalParamError{msg: "config is nil"}
+	}
+	NewHttpClient(config)
+	NewSerialization(config)
+	if config.Logger == nil {
+		NewLogger(config)
+	}
+
 	option := &RequestOption{}
 	for _, optionFunc := range options {
 		optionFunc(option)

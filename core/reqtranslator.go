@@ -228,6 +228,9 @@ func (translator *ReqTranslator) payload(body interface{}, serializable Serializ
 	if body == nil {
 		return contentType, nil, nil
 	}
+	if serializable == nil {
+		serializable = &DefaultSerialization{}
+	}
 	bs, err := serializable.Serialize(body)
 	return contentType, bs, err
 }
