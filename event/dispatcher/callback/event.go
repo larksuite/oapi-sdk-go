@@ -41,3 +41,23 @@ func (h *URLPreviewGetEventHandler) Event() interface{} {
 func (h *URLPreviewGetEventHandler) Handle(ctx context.Context, event interface{}) (interface{}, error) {
 	return h.handler(ctx, event.(*URLPreviewGetEvent))
 }
+
+// 消息处理器定义
+type ProfileViewGetEventHandler struct {
+	handler func(context.Context, *ProfileViewGetEvent) (*ProfileViewGetResponse, error)
+}
+
+func NewProfileViewGetEventHandler(handler func(context.Context, *ProfileViewGetEvent) (*ProfileViewGetResponse, error)) *ProfileViewGetEventHandler {
+	h := &ProfileViewGetEventHandler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *ProfileViewGetEventHandler) Event() interface{} {
+	return &ProfileViewGetEvent{}
+}
+
+// 回调开发者注册的handle
+func (h *ProfileViewGetEventHandler) Handle(ctx context.Context, event interface{}) (interface{}, error) {
+	return h.handler(ctx, event.(*ProfileViewGetEvent))
+}

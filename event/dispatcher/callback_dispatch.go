@@ -23,3 +23,12 @@ func (dispatcher *EventDispatcher) OnP2CardURLPreviewGet(handler func(ctx contex
 	dispatcher.callbackType2CallbackHandler["url.preview.get"] = callback.NewURLPreviewGetEventHandler(handler)
 	return dispatcher
 }
+
+func (dispatcher *EventDispatcher) OnP2CardProfileViewGet(handler func(ctx context.Context, event *callback.ProfileViewGetEvent) (*callback.ProfileViewGetResponse, error)) *EventDispatcher {
+	_, existed := dispatcher.callbackType2CallbackHandler["profile.view.get"]
+	if existed {
+		panic("event: multiple handler registrations for " + "profile.view.get")
+	}
+	dispatcher.callbackType2CallbackHandler["profile.view.get"] = callback.NewProfileViewGetEventHandler(handler)
+	return dispatcher
+}
