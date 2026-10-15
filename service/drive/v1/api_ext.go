@@ -27,7 +27,7 @@ func (f *file) ListByIterator(ctx context.Context, req *ListFileReq, options ...
 		req:      req,
 		listFunc: f.List,
 		options:  options,
-		limit:    math.MaxInt64}, nil
+		limit:    math.MaxInt}, nil
 }
 
 type ListFileIterator struct {
