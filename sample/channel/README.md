@@ -78,12 +78,12 @@ go run sample/channel/main.go \
 | `/policy`                                        | 查看当前策略               | 机器人回复当前策略 JSON             |
 | `/policy dm_mode=disabled`                       | 禁用单聊                 | 后续单聊消息触发 `TC-502`          |
 | `/policy dm_mode=open`                           | 恢复单聊放行               | 单聊消息恢复正常处理                 |
-| `/policy dm_mode=allowlist, dm_allowlist=ou_xxx  | ou_yyy`              | 配置单聊白名单                    | 白名单内用户放行，其他用户触发 `TC-503` |
+| `/policy dm_mode=allowlist, dm_allowlist=ou_xxx\|ou_yyy`               | 配置单聊白名单                    | 白名单内用户放行，其他用户触发 `TC-503` |
 | `/policy respond_all=false`                      | 禁止响应 `@all`          | 群聊 `@all` 触发 `TC-505`      |
 | `/policy respond_all=true`                       | 允许响应 `@all`          | 群聊 `@all` 恢复正常处理           |
 | `/policy require_mention=true`                   | 群聊要求显式 @机器人          | 未提及时触发 `TC-504`            |
 | `/policy require_mention=false`                  | 群聊不强制 @机器人           | 普通群消息可直接处理                 |
-| `/policy group_allowlist=oc_xxx                  | oc_yyy`              | 配置群白名单                     | 非白名单群消息触发 `TC-501` |
+| `/policy group_allowlist=oc_xxx\|oc_yyy`                              | 配置群白名单                     | 非白名单群消息触发 `TC-501` |
 | `/policy group_allowlist=empty`                  | 清空群白名单               | 群白名单限制被移除                  |
 | `/policy dm_allowlist=empty`                     | 清空单聊白名单              | 便于恢复或切换策略测试                |
 | `/stream`                                        | 测试 Markdown 流式输出     | 看到逐步更新的消息，终端可观察流式日志        |
