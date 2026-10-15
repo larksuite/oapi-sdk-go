@@ -257,3 +257,18 @@ Registration does not invoke the provider. `Handle` calls it once per ordinary e
 A successful empty snapshot preserves static-empty behavior, including the existing challenge token comparison. Provider errors, panics, or request cancellation reject the request without invoking handlers or falling back to static credentials; original error/panic details are not returned or logged. Providers must be thread safe and promptly read local cached configuration. If a provider performs I/O, it must honor the request context and configure its own timeout. The SDK adds no retries or background workers and cannot interrupt a callback that ignores cancellation.
 
 Call `WithWebhookCredentialsProvider` only during initialization, alongside handler registration; do not change the provider or other dispatcher configuration concurrently with requests. To roll back the opt-in behavior, remove provider registration and restore your static constructor credentials, retaining the token validation fix. Observe provider failures/latency and webhook error rates during rollout without secret or high-cardinality labels.
+
+## WebSocket connection host and handshake headers
+
+`domain` controls HTTP endpoint discovery. The optional connection host replaces only the WebSocket URL `host[:port]`, preserving scheme, path and query. Default DNS and TLS/SNI follow the resulting hostname; existing custom transport settings still apply. Domains below are placeholders.
+
+```go
+cli := larkws.NewClient(os.Getenv("APP_ID"), os.Getenv("APP_SECRET"),
+    larkws.WithDomain("https://bootstrap.example.com"),
+    larkws.WithConnectionHost("websocket.example.com:443"),
+    larkws.WithConnectionHeaders(http.Header{"X-Route": []string{"events"}}),
+    larkws.WithEventHandler(eventHandler),
+)
+```
+
+Handshake headers are copied at initialization and for each handshake, including reconnects, and are never forwarded to endpoint discovery. Omitting both settings preserves existing behavior. Host, Connection, Upgrade and Sec-WebSocket-* cannot be overridden through headers. Basic host checks reject empty values, schemes/paths and query parameters; other address and header settings are passed to the underlying libraries without additional SDK format checks. These basic host and reserved-header checks run before network I/O (Start returns an error in Go; construction/build throws in other SDKs). Use trusted developer configuration, not headers/hosts supplied by an end-user request.

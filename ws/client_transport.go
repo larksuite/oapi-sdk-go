@@ -18,6 +18,9 @@ import (
 // establishConnectionOnce performs exactly one bootstrap and websocket dial.
 // Retry policy belongs to the lifecycle coordinator, not the transport layer.
 func (c *Client) establishConnectionOnce(run *clientRun) (*clientConn, error) {
+	if err := c.validateConnectionConfig(); err != nil {
+		return nil, err
+	}
 	rawEndpoint, conf, err := c.fetchEndpoint(run.ctx)
 	if err != nil {
 		return nil, err
@@ -34,7 +37,14 @@ func (c *Client) establishConnectionOnce(run *clientRun) (*clientConn, error) {
 		return nil, errors.New("websocket endpoint is invalid")
 	}
 
-	socket, resp, dialErr := c.websocketDialer.DialContext(run.ctx, rawEndpoint, nil)
+	if c.connectionHost != nil {
+		u, err = buildConnectionURL(rawEndpoint, c.connectionHost)
+		if err != nil {
+			return nil, err
+		}
+		rawEndpoint = u.String()
+	}
+	socket, resp, dialErr := c.websocketDialer.DialContext(run.ctx, rawEndpoint, c.connectionHeaders.Clone())
 	if resp != nil && resp.Body != nil {
 		defer func() {
 			if closeErr := resp.Body.Close(); closeErr != nil {

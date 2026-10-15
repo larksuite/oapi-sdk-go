@@ -24,6 +24,8 @@ type Client struct {
 	cardHandler             *larkcard.CardActionHandler
 	domain                  string
 	headers                 http.Header
+	connectionHost          *string
+	connectionHeaders       http.Header
 	source                  string
 	autoReconnect           bool          // 是否自动重连，默认开启
 	reconnectNonce          int           // 首次重连抖动，单位秒
@@ -118,6 +120,23 @@ func WithHeaders(header http.Header) ClientOption {
 	return func(cli *Client) {
 		cli.headers = header
 	}
+}
+
+// WithConnectionHost overrides only the websocket URL host[:port]. Path and
+// query are retained; TLS verification uses the resulting host unless the
+// existing dialer explicitly overrides it. Invalid configuration fails Start.
+func WithConnectionHost(host string) ClientOption {
+	return func(cli *Client) {
+		value := host
+		cli.connectionHost = &value
+	}
+}
+
+// WithConnectionHeaders sets headers used only for websocket handshakes,
+// including reconnects. It copies header values. Protocol-owned headers
+// (Host, Connection, Upgrade and Sec-WebSocket-*) are rejected at Start.
+func WithConnectionHeaders(headers http.Header) ClientOption {
+	return func(cli *Client) { cli.connectionHeaders = headers.Clone() }
 }
 
 func WithSource(source string) ClientOption {
