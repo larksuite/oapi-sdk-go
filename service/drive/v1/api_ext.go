@@ -34,12 +34,12 @@ type ListFileIterator struct {
 	nextPageToken *string
 	items         []*File
 	index         int
-	limit         int
+	limit         int64
 	ctx           context.Context
 	req           *ListFileReq
 	listFunc      func(ctx context.Context, req *ListFileReq, options ...larkcore.RequestOptionFunc) (*ListFileResp, error)
 	options       []larkcore.RequestOptionFunc
-	curlNum       int
+	curlNum       int64
 }
 
 func (iterator *ListFileIterator) Next() (bool, *File, error) {
