@@ -363,7 +363,6 @@ func resendAppTicketIfNeed(client *Client) {
 
 	if client.config.AppType == larkcore.AppTypeMarketplace {
 		if client.config.ClientAssertionProvider != nil {
-			client.config.Logger.Error(context.Background(), (&larkcore.CodeError{Code: larkcore.ErrCodeClientAssertionProviderNotConfigured, Msg: "ClientAssertion mode is not supported for marketplace apps"}).Error())
 			return
 		}
 		ctx := context.Background()

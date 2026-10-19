@@ -128,6 +128,7 @@ func (t *TenantAccessTokenResp) Success() bool {
 }
 
 type OAuthTokenReq struct {
+	TenantKey           string `json:"tenant_key,omitempty"`
 	GrantType           string `json:"grant_type"`
 	ClientAssertionType string `json:"client_assertion_type"`
 	ClientAssertion     string `json:"client_assertion"`
@@ -175,6 +176,11 @@ func appSecretFingerprint(appSecret string) string {
 }
 
 func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, config *Config, tenantKey string) (string, error) {
+	isMarketplace := config.AppType == AppTypeMarketplace
+	if isMarketplace && strings.TrimSpace(tenantKey) == "" {
+		config.Logger.Warn(ctx, "ISV tenant token exchange failed: tenant key is empty")
+		return "", &IllegalParamError{msg: "tenant key is empty"}
+	}
 	oauthBaseUrl, err := ResolveOAuthBaseUrl(config)
 	if err != nil {
 		config.Logger.Warn(ctx, fmt.Sprintf("resolve oauth base url failed, err:%v", err))
@@ -186,9 +192,13 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 		return "", err
 	}
 	tokenKey := clientAssertionTenantAccessTokenKey(config.AppId, tenantKey, aud)
+	if isMarketplace {
+		tokenKey = clientAssertionTenantAccessTokenKey(config.AppId, tenantKey, oauthBaseUrl) + ":client_credentials"
+	}
 	if config.EnableTokenCache {
 		token, cacheErr := m.get(ctx, tokenKey)
 		if cacheErr != nil {
+			config.Logger.Warn(ctx, fmt.Sprintf("client assertion tenant token cache read failed, aud:%s", aud))
 			return "", cacheErr
 		}
 		if token != "" {
@@ -218,15 +228,20 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 		config.Logger.Debug(ctx, fmt.Sprintf("target info is not nil"))
 	}
 
+	body := &OAuthTokenReq{
+		GrantType:           GrantTypeJWTBearer,
+		ClientAssertionType: ClientAssertionTypeJWTBearer,
+		ClientAssertion:     clientAssertionToken.Value,
+		ClientID:            config.AppId,
+	}
+	if isMarketplace {
+		body.GrantType = GrantTypeClientCredentials
+		body.TenantKey = tenantKey
+	}
 	rawResp, err := Request(ctx, &ApiReq{
-		HttpMethod: http.MethodPost,
-		ApiPath:    requestURL,
-		Body: &OAuthTokenReq{
-			GrantType:           GrantTypeJWTBearer,
-			ClientAssertionType: ClientAssertionTypeJWTBearer,
-			ClientAssertion:     clientAssertionToken.Value,
-			ClientID:            config.AppId,
-		},
+		HttpMethod:                http.MethodPost,
+		ApiPath:                   requestURL,
+		Body:                      body,
 		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeNone},
 	}, config, options...)
 	if err != nil {
@@ -238,6 +253,16 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 	if err = json.Unmarshal(rawResp.RawBody, oauthTokenResp); err != nil {
 		config.Logger.Warn(ctx, fmt.Sprintf("unmarshal oauth token response failed, aud:%s, err:%v", aud, err))
 		return "", err
+	}
+	if isMarketplace {
+		if rawResp.StatusCode != http.StatusOK || oauthTokenResp.Code != 0 || oauthTokenResp.Error != "" {
+			config.Logger.Warn(ctx, fmt.Sprintf("ISV tenant token exchange failed, aud:%s, status:%d, code:%d", aud, rawResp.StatusCode, oauthTokenResp.Code))
+			return "", &CodeError{Code: oauthTokenResp.Code, Msg: fmt.Sprintf("ISV tenant token exchange failed (HTTP %d)", rawResp.StatusCode)}
+		}
+		if oauthTokenResp.AccessToken == "" || oauthTokenResp.ExpiresIn <= 0 || !strings.EqualFold(oauthTokenResp.TokenType, "Bearer") {
+			config.Logger.Warn(ctx, fmt.Sprintf("invalid ISV tenant token response, aud:%s, access_token_empty:%t, expires_in:%d, bearer_token_type:%t", aud, oauthTokenResp.AccessToken == "", oauthTokenResp.ExpiresIn, strings.EqualFold(oauthTokenResp.TokenType, "Bearer")))
+			return "", &CodeError{Code: oauthTokenResp.Code, Msg: "invalid ISV tenant token response"}
+		}
 	}
 	if oauthTokenResp.AccessToken == "" {
 		msg := oauthTokenResp.ErrorDescription

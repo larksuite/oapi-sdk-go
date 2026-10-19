@@ -17,6 +17,7 @@ To address these issues, Feishu Open Platform has developed the Open Interface S
 - [Handle Events](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/golang-sdk-guide/handle-events)
 - [Handle Card Callbacks](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/golang-sdk-guide/handle-callback)
 - [SDK FAQs](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/faq)
+- [Marketplace ClientAssertion authentication (Chinese)](./doc/isv-client-assertion.md)
 
 ## Channel Module
 
