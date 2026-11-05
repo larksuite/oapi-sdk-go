@@ -293,11 +293,19 @@ func ParseContent(msgType string, content string) (string, []types.Resource) {
 		var resources []types.Resource
 
 		// Find bodyMap first — the return guarantees bodyMap is non-nil below.
+		// The API can return the body flat ({"title":..,"content":[..]}) or
+		// wrapped in a locale key ({"zh_cn":{..}}).
 		var bodyMap map[string]interface{}
-		for _, v := range contentMap {
-			if m, ok := v.(map[string]interface{}); ok {
-				bodyMap = m
-				break
+		_, hasContent := contentMap["content"].([]interface{})
+		_, hasContentV2 := contentMap["content_v2"].([]interface{})
+		if hasContent || hasContentV2 {
+			bodyMap = contentMap
+		} else {
+			for _, v := range contentMap {
+				if m, ok := v.(map[string]interface{}); ok {
+					bodyMap = m
+					break
+				}
 			}
 		}
 		if bodyMap == nil {

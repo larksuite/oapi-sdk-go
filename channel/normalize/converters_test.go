@@ -141,6 +141,67 @@ func TestParseContent(t *testing.T) {
 			wantContent:  "[interactive card]",
 			wantResource: nil,
 		},
+		// --- flat / wrapped post bodies ---
+		{
+			name:        "post flat content",
+			msgType:     "post",
+			content:     `{"title":"","content":[[{"tag":"text","text":"hello"}]]}`,
+			wantContent: "hello",
+		},
+		{
+			name:        "post flat content with title",
+			msgType:     "post",
+			content:     `{"title":"T","content":[[{"tag":"text","text":"hello"}]]}`,
+			wantContent: "**T**\n\nhello",
+		},
+		{
+			name:        "post flat content_v2 wins over content",
+			msgType:     "post",
+			content:     `{"title":"","content":[[{"tag":"text","text":"old"}]],"content_v2":[[{"tag":"md","text":"new"}]]}`,
+			wantContent: "new",
+		},
+		{
+			name:        "post flat only content_v2",
+			msgType:     "post",
+			content:     `{"content_v2":[[{"tag":"md","text":"new"}]]}`,
+			wantContent: "new",
+		},
+		{
+			name:        "post flat with only title",
+			msgType:     "post",
+			content:     `{"title":"Only title"}`,
+			wantContent: "[rich text message]",
+		},
+		{
+			name:        "post flat with empty content",
+			msgType:     "post",
+			content:     `{"title":"","content":[]}`,
+			wantContent: "[rich text message]",
+		},
+		{
+			name:        "post wrapped zh_cn",
+			msgType:     "post",
+			content:     `{"zh_cn":{"title":"","content":[[{"tag":"text","text":"hello"}]]}}`,
+			wantContent: "hello",
+		},
+		{
+			name:        "post wrapped en_us",
+			msgType:     "post",
+			content:     `{"en_us":{"title":"","content":[[{"tag":"text","text":"hello"}]]}}`,
+			wantContent: "hello",
+		},
+		{
+			name:        "post empty object",
+			msgType:     "post",
+			content:     `{}`,
+			wantContent: "[rich text message]",
+		},
+		{
+			name:        "post invalid json",
+			msgType:     "post",
+			content:     `{not json`,
+			wantContent: "[unsupported message]",
+		},
 		// --- content_v2 tests ---
 		{
 			name:         "post with content_v2 (md tag)",
