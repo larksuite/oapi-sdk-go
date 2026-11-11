@@ -256,12 +256,25 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 	}
 	if isMarketplace {
 		if rawResp.StatusCode != http.StatusOK || oauthTokenResp.Code != 0 || oauthTokenResp.Error != "" {
-			config.Logger.Warn(ctx, fmt.Sprintf("ISV tenant token exchange failed, aud:%s, status:%d, code:%d", aud, rawResp.StatusCode, oauthTokenResp.Code))
-			return "", &CodeError{Code: oauthTokenResp.Code, Msg: fmt.Sprintf("ISV tenant token exchange failed (HTTP %d)", rawResp.StatusCode)}
+			msg := fmt.Sprintf("ISV tenant token exchange failed (HTTP %d)", rawResp.StatusCode)
+			if oauthTokenResp.Error != "" {
+				msg += fmt.Sprintf(", error: %s", oauthTokenResp.Error)
+			}
+			if oauthTokenResp.ErrorDescription != "" {
+				msg += fmt.Sprintf(", error_description: %s", oauthTokenResp.ErrorDescription)
+			}
+			config.Logger.Warn(ctx, fmt.Sprintf("ISV tenant token exchange failed, aud:%s, status:%d, code:%d, msg:%s", aud, rawResp.StatusCode, oauthTokenResp.Code, msg))
+			return "", &CodeError{Code: oauthTokenResp.Code, Msg: msg}
 		}
 		if oauthTokenResp.AccessToken == "" || oauthTokenResp.ExpiresIn <= 0 || !strings.EqualFold(oauthTokenResp.TokenType, "Bearer") {
-			config.Logger.Warn(ctx, fmt.Sprintf("invalid ISV tenant token response, aud:%s, access_token_empty:%t, expires_in:%d, bearer_token_type:%t", aud, oauthTokenResp.AccessToken == "", oauthTokenResp.ExpiresIn, strings.EqualFold(oauthTokenResp.TokenType, "Bearer")))
-			return "", &CodeError{Code: oauthTokenResp.Code, Msg: "invalid ISV tenant token response"}
+			msg := "token_type must be Bearer"
+			if oauthTokenResp.AccessToken == "" {
+				msg = "access_token is empty"
+			} else if oauthTokenResp.ExpiresIn <= 0 {
+				msg = "expires_in must be positive"
+			}
+			config.Logger.Warn(ctx, fmt.Sprintf("invalid ISV tenant token response, aud:%s, msg:%s", aud, msg))
+			return "", &CodeError{Code: oauthTokenResp.Code, Msg: "invalid ISV tenant token response: " + msg}
 		}
 	}
 	if oauthTokenResp.AccessToken == "" {

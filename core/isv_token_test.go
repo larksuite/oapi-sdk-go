@@ -139,13 +139,18 @@ func TestISVTenantTokenRejectsFailedResponses(t *testing.T) {
 		name   string
 		status int
 		body   OAuthTokenResp
+		msg    string
 	}{
-		{name: "http failure", status: http.StatusBadRequest, body: OAuthTokenResp{AccessToken: "test-token", ExpiresIn: 7200, TokenType: "Bearer"}},
-		{name: "business failure", status: http.StatusOK, body: OAuthTokenResp{Code: 20140, AccessToken: "test-token", ExpiresIn: 7200, TokenType: "Bearer"}},
-		{name: "oauth failure", status: http.StatusOK, body: OAuthTokenResp{Error: "invalid_client", AccessToken: "test-token", ExpiresIn: 7200, TokenType: "Bearer"}},
-		{name: "empty token", status: http.StatusOK, body: OAuthTokenResp{ExpiresIn: 7200, TokenType: "Bearer"}},
-		{name: "invalid expiration", status: http.StatusOK, body: OAuthTokenResp{AccessToken: "test-token", TokenType: "Bearer"}},
-		{name: "invalid token type", status: http.StatusOK, body: OAuthTokenResp{AccessToken: "test-token", ExpiresIn: 7200, TokenType: "Other"}},
+		{name: "http failure", status: http.StatusBadRequest, body: OAuthTokenResp{Code: 20140, Error: "invalid_client", ErrorDescription: "assertion rejected"}, msg: "ISV tenant token exchange failed (HTTP 400), error: invalid_client, error_description: assertion rejected"},
+		{name: "business failure", status: http.StatusOK, body: OAuthTokenResp{Code: 20140, AccessToken: "test-token", ExpiresIn: 7200, TokenType: "Bearer"}, msg: "ISV tenant token exchange failed (HTTP 200)"},
+		{name: "both oauth fields", status: http.StatusOK, body: OAuthTokenResp{Code: 20140, Error: "invalid_client", ErrorDescription: "assertion rejected"}, msg: "ISV tenant token exchange failed (HTTP 200), error: invalid_client, error_description: assertion rejected"},
+		{name: "description only", status: http.StatusOK, body: OAuthTokenResp{Code: 20140, ErrorDescription: "assertion rejected"}, msg: "ISV tenant token exchange failed (HTTP 200), error_description: assertion rejected"},
+		{name: "oauth failure", status: http.StatusOK, body: OAuthTokenResp{Error: "invalid_client", AccessToken: "test-token", ExpiresIn: 7200, TokenType: "Bearer"}, msg: "ISV tenant token exchange failed (HTTP 200), error: invalid_client"},
+		{name: "http fallback", status: http.StatusBadRequest, msg: "ISV tenant token exchange failed (HTTP 400)"},
+		{name: "http failure with token", status: http.StatusBadRequest, body: OAuthTokenResp{AccessToken: "test-token", ExpiresIn: 7200, TokenType: "Bearer"}, msg: "ISV tenant token exchange failed (HTTP 400)"},
+		{name: "empty token", status: http.StatusOK, body: OAuthTokenResp{ExpiresIn: 7200, TokenType: "Bearer"}, msg: "access_token is empty"},
+		{name: "invalid expiration", status: http.StatusOK, body: OAuthTokenResp{AccessToken: "test-token", TokenType: "Bearer"}, msg: "expires_in must be positive"},
+		{name: "invalid token type", status: http.StatusOK, body: OAuthTokenResp{AccessToken: "test-token", ExpiresIn: 7200, TokenType: "Other"}, msg: "token_type must be Bearer"},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -157,14 +162,19 @@ func TestISVTenantTokenRejectsFailedResponses(t *testing.T) {
 			logger := &recordingLogger{}
 			config.Logger = logger
 			manager := TokenManager{cache: config.TokenCache}
-			if _, err := manager.getTenantAccessToken(context.Background(), config, "tenant-A", ""); err == nil {
-				t.Fatal("expected token exchange failure")
+			_, err := manager.getTenantAccessToken(context.Background(), config, "tenant-A", "")
+			var codeErr *CodeError
+			if !errors.As(err, &codeErr) || codeErr.Code != test.body.Code || !strings.Contains(codeErr.Msg, test.msg) {
+				t.Fatalf("expected code %d and message %q, got %v", test.body.Code, test.msg, err)
 			}
 			if config.TokenCache.(*isvTokenCache).writes != 0 {
 				t.Fatal("failed token response was cached")
 			}
 			if !strings.Contains(logger.String(), "ISV tenant token") {
 				t.Fatal("token exchange failure was not logged")
+			}
+			if !strings.Contains(logger.String(), test.msg) {
+				t.Fatal("token exchange failure log lost the error description")
 			}
 			for _, credential := range []string{"test-token", "test-assertion", "unused-secret"} {
 				if strings.Contains(logger.String(), credential) {
