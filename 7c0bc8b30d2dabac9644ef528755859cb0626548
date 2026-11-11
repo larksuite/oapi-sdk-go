@@ -1,0 +1,37 @@
+README.md
+  s_f819d095ff8a54::t_41f842bf18dca9 123-149,163
+README.zh.md
+  s_f819d095ff8a54::t_39711bdb0c69d8 123-149,163
+scene/registration/addons.go
+  s_f819d095ff8a54::t_1764e9f58eb9e8 43-46,71-72,77-82
+scene/registration/registration_test.go
+  s_37d93fc2ac2b5d::t_d765e7ff5226d3 310-491,1085-1107,1130-1134
+scene/registration/types.go
+  s_f819d095ff8a54::t_ef1b18c52a5116 44-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "7c0bc8b30d2dabac9644ef528755859cb0626548",
+  "prompts": {},
+  "sessions": {
+    "s_37d93fc2ac2b5d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-ab368c0c32cf6268f",
+        "model": "unknown"
+      },
+      "human_author": "mazhe.nerd <mazhe.nerd@bytedance.com>"
+    },
+    "s_f819d095ff8a54": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "675dfb0f-aa38-45c5-95a0-63e3558f3057",
+        "model": "unknown"
+      },
+      "human_author": "mazhe.nerd <mazhe.nerd@bytedance.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
