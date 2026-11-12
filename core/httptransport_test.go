@@ -266,8 +266,9 @@ func TestValidateAllowsManualTenantAccessTokenWithoutAppSecret(t *testing.T) {
 	}
 }
 
-func TestValidateRejectsMarketplaceClientAssertionMode(t *testing.T) {
+func TestValidateMarketplaceClientAssertionRequiresTenantKey(t *testing.T) {
 	config := mockConfig()
+	config.EnableTokenCache = true
 	config.AppType = AppTypeMarketplace
 	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{Value: "assertion"}}
 
@@ -275,9 +276,14 @@ func TestValidateRejectsMarketplaceClientAssertionMode(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected error, got nil")
 	}
-	codeErr, ok := err.(*CodeError)
-	if !ok || codeErr.Code != ErrCodeClientAssertionProviderNotConfigured {
-		t.Fatalf("unexpected error: %#v", err)
+	if err := validate(config, &RequestOption{TenantKey: "tenant-A"}, AccessTokenTypeTenant); err != nil {
+		t.Fatalf("marketplace assertion should support tenant tokens: %v", err)
+	}
+	if err := validate(config, &RequestOption{}, AccessTokenTypeNone); err != nil {
+		t.Fatalf("marketplace assertion should support OAuth exchange: %v", err)
+	}
+	if err := validate(config, &RequestOption{UserAccessToken: "test-uat"}, AccessTokenTypeUser); err != nil {
+		t.Fatalf("marketplace assertion should support user tokens: %v", err)
 	}
 }
 
