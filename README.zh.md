@@ -17,6 +17,7 @@
 - [处理事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/golang-sdk-guide/handle-events)
 - [处理卡片回调](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/golang-sdk-guide/handle-callback)
 - [常见问题](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/faq)
+- [商店应用 ClientAssertion 认证](./doc/isv-client-assertion.md)
 
 ## 高级封装 Channel 模块
 

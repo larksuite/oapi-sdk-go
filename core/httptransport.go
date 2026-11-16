@@ -124,10 +124,6 @@ func validate(config *Config, option *RequestOption, accessTokenType AccessToken
 		(accessTokenType == AccessTokenTypeTenant && option.TenantAccessToken != "") ||
 		(accessTokenType == AccessTokenTypeApp && option.AppAccessToken != "")
 
-	if config.ClientAssertionProvider != nil && config.AppType == AppTypeMarketplace {
-		return &CodeError{Code: ErrCodeClientAssertionProviderNotConfigured, Msg: "ClientAssertion mode is not supported for marketplace apps"}
-	}
-
 	if config.ClientAssertionProvider == nil && config.AppSecret == "" && !hasManualAccessToken {
 		return &IllegalParamError{msg: "AppSecret is empty"}
 	}
@@ -312,7 +308,7 @@ func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessToken
 		}
 
 		code := codeError.Code
-		if code == errCodeAppTicketInvalid {
+		if code == errCodeAppTicketInvalid && !(config.AppType == AppTypeMarketplace && config.ClientAssertionProvider != nil) {
 			applyAppTicket(ctx, config)
 		}
 
