@@ -16,10 +16,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"math"
 
-	"github.com/larksuite/oapi-sdk-go/v3/core"
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
+
+const maxInt = int(^uint(0) >> 1)
 
 func (f *file) ListByIterator(ctx context.Context, req *ListFileReq, options ...larkcore.RequestOptionFunc) (*ListFileIterator, error) {
 	return &ListFileIterator{
@@ -27,7 +28,7 @@ func (f *file) ListByIterator(ctx context.Context, req *ListFileReq, options ...
 		req:      req,
 		listFunc: f.List,
 		options:  options,
-		limit:    math.MaxInt64}, nil
+		limit:    maxInt}, nil
 }
 
 type ListFileIterator struct {
