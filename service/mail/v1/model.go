@@ -16164,7 +16164,7 @@ func (iterator *ListMailgroupIterator) Next() (bool, *Mailgroup, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -16218,7 +16218,7 @@ func (iterator *ListMailgroupManagerIterator) Next() (bool, *MailgroupManager, e
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -16272,7 +16272,7 @@ func (iterator *ListMailgroupMemberIterator) Next() (bool, *MailgroupMember, err
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -16326,7 +16326,7 @@ func (iterator *ListMailgroupPermissionMemberIterator) Next() (bool, *MailgroupP
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -16380,7 +16380,7 @@ func (iterator *ListPublicMailboxIterator) Next() (bool, *PublicMailbox, error) 
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -16434,7 +16434,7 @@ func (iterator *ListPublicMailboxMemberIterator) Next() (bool, *PublicMailboxMem
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -16488,7 +16488,7 @@ func (iterator *SearchUserMailboxIterator) Next() (bool, *MailSearchItem, error)
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -16542,7 +16542,7 @@ func (iterator *ListUserMailboxDraftIterator) Next() (bool, *Draft, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -16596,7 +16596,7 @@ func (iterator *ListUserMailboxMailContactIterator) Next() (bool, *MailContact, 
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -16650,7 +16650,7 @@ func (iterator *ListUserMailboxMessageIterator) Next() (bool, string, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, "", nil
 		}
 		if iterator.nextPageToken != nil {
@@ -16704,7 +16704,7 @@ func (iterator *ListUserMailboxThreadIterator) Next() (bool, *Thread, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {

@@ -99663,7 +99663,7 @@ func (iterator *ListApproverIterator) Next() (bool, *ApproverInfo, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -99717,7 +99717,7 @@ func (iterator *SearchBasicInfoBankIterator) Next() (bool, *Bank, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -99771,7 +99771,7 @@ func (iterator *SearchBasicInfoBankBranchIterator) Next() (bool, *BankBranch, er
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -99825,7 +99825,7 @@ func (iterator *SearchBasicInfoCityIterator) Next() (bool, *City, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -99879,7 +99879,7 @@ func (iterator *SearchBasicInfoCountryRegionIterator) Next() (bool, *CountryRegi
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -99933,7 +99933,7 @@ func (iterator *SearchBasicInfoCountryRegionSubdivisionIterator) Next() (bool, *
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -99987,7 +99987,7 @@ func (iterator *SearchBasicInfoCurrencyIterator) Next() (bool, *Currency, error)
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100041,7 +100041,7 @@ func (iterator *SearchBasicInfoDistrictIterator) Next() (bool, *District, error)
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100095,7 +100095,7 @@ func (iterator *SearchBasicInfoLanguageIterator) Next() (bool, *Language, error)
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100149,7 +100149,7 @@ func (iterator *SearchBasicInfoNationalityIterator) Next() (bool, *Nationality, 
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100203,7 +100203,7 @@ func (iterator *SearchBasicInfoTimeZoneIterator) Next() (bool, *TimeZone, error)
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100257,7 +100257,7 @@ func (iterator *ListBpIterator) Next() (bool, *Bp, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100311,7 +100311,7 @@ func (iterator *SearchContractIterator) Next() (bool, *Contract, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100365,7 +100365,7 @@ func (iterator *SearchDepartmentIterator) Next() (bool, *Department, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100419,7 +100419,7 @@ func (iterator *SearchEmployeeIterator) Next() (bool, *Employee, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100473,7 +100473,7 @@ func (iterator *BatchEmployeesAdditionalJobIterator) Next() (bool, *EmployeesAdd
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100527,7 +100527,7 @@ func (iterator *SearchJobChangeIterator) Next() (bool, *JobChange, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100581,7 +100581,7 @@ func (iterator *QueryPreHireIterator) Next() (bool, *PreHire, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100635,7 +100635,7 @@ func (iterator *SearchPreHireIterator) Next() (bool, *PreHire, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100689,7 +100689,7 @@ func (iterator *SearchProbationIterator) Next() (bool, *ProbationInfo, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100743,7 +100743,7 @@ func (iterator *ListProcessIterator) Next() (bool, string, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, "", nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100797,7 +100797,7 @@ func (iterator *ListSignatureFileIterator) Next() (bool, *SignatureFile, error) 
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100851,7 +100851,7 @@ func (iterator *QuerySignatureFileIterator) Next() (bool, *SignatureFile, error)
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -100905,7 +100905,7 @@ func (iterator *ListWorkforcePlanIterator) Next() (bool, *WorkforcePlan, error) 
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {

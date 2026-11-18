@@ -19261,7 +19261,7 @@ func (iterator *ListDistrictIterator) Next() (bool, *District, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -19315,7 +19315,7 @@ func (iterator *SearchDistrictIterator) Next() (bool, *District, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -19369,7 +19369,7 @@ func (iterator *ListExternalTaskIterator) Next() (bool, *ExternalTaskList, error
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -19423,7 +19423,7 @@ func (iterator *InitiatedInstanceIterator) Next() (bool, *UatInstance, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -19477,7 +19477,7 @@ func (iterator *ListInstanceIterator) Next() (bool, string, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, "", nil
 		}
 		if iterator.nextPageToken != nil {
@@ -19531,7 +19531,7 @@ func (iterator *QueryInstanceIterator) Next() (bool, *InstanceSearchItem, error)
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -19585,7 +19585,7 @@ func (iterator *ListTaskIterator) Next() (bool, *UatTask, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
@@ -19639,7 +19639,7 @@ func (iterator *QueryTaskIterator) Next() (bool, *Task, error) {
 
 	// 为0则拉取数据
 	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
+		if iterator.index != 0 && (iterator.nextPageToken == nil || iterator.nextPageToken == "") {
 			return false, nil, nil
 		}
 		if iterator.nextPageToken != nil {
