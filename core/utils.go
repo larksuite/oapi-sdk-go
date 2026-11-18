@@ -505,8 +505,12 @@ func UserAgent(source string) string {
 }
 
 func readResponse(resp *http.Response) ([]byte, error) {
-	defer resp.Body.Close()
-	respBody, err := ioutil.ReadAll(resp.Body)
+	return readResponseBody(resp.Body)
+}
+
+func readResponseBody(body io.ReadCloser) ([]byte, error) {
+	defer body.Close()
+	respBody, err := ioutil.ReadAll(body)
 	if err != nil {
 		return nil, err
 	}
