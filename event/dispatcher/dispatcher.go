@@ -102,12 +102,19 @@ func (dispatcher *EventDispatcher) InitConfig(options ...larkevent.OptionFunc) {
 }
 
 func NewEventDispatcher(verificationToken, eventEncryptKey string) *EventDispatcher {
+	return NewEventDispatcherWithLogger(verificationToken, eventEncryptKey, larkcore.NewEventLogger())
+}
+
+// NewEventDispatcherWithLogger uses logger for the initialization message and
+// subsequent dispatcher logs. The logger must not be nil. Use InitConfig for
+// the remaining event configuration, as with NewEventDispatcher.
+func NewEventDispatcherWithLogger(verificationToken, eventEncryptKey string, logger larkcore.Logger) *EventDispatcher {
 	reqDispatcher := &EventDispatcher{
 		eventType2EventHandler:       make(map[string]larkevent.EventHandler),
 		callbackType2CallbackHandler: make(map[string]larkevent.CallbackHandler),
 		verificationToken:            verificationToken,
 		eventEncryptKey:              eventEncryptKey,
-		Config:                       &larkcore.Config{Logger: larkcore.NewEventLogger()},
+		Config:                       &larkcore.Config{Logger: logger},
 	}
 	// 注册app_ticket事件
 	reqDispatcher.eventType2EventHandler["app_ticket"] = &appTicketEventHandler{}
