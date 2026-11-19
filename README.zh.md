@@ -294,6 +294,6 @@ err := client.Start(ctx)
 
 Provider 返回不带 `Bearer ` 前缀的当前 TAT，负责缓存和刷新。SDK 在每次申请地址时调用 Provider，包括断线重连；环境变量仅用于演示接入方式，完整示例见 `sample/ws/sample.go` 的 `startWithTenantAccessToken`。
 
-目标环境需要提供 `POST /open-apis/event/v1/ws/endpoint` 并安装 TAT 鉴权。SDK 发送 `Authorization: Bearer <TAT>` 和空 JSON `{}`，应用身份由 TAT 决定，不发送构造参数中的 appID、AppSecret 或 Client Assertion。`WithDomain`、`WithHttpClient` 和路由 Header 继续生效；Authorization 由 Provider 覆盖，非空 `Ws-Token` Header 会被拒绝。
+目标环境需要提供 `POST /open-apis/event/v1/ws/endpoint` 并安装 TAT 鉴权。SDK 发送 `Authorization: Bearer <TAT>` 和空 JSON `{}`，应用身份由 TAT 决定，不发送构造参数中的 appID、AppSecret 或 Client Assertion。`WithDomain`、`WithHttpClient` 和路由 Header 继续生效；Authorization 由 Provider 覆盖。
 
-TAT Provider 不能与 Client Assertion Provider 同时配置。Provider 为 nil 时沿用原认证方式；TAT 失败不回退到其他凭证。认证或参数拒绝终止连接流程，HTTP 429、服务端临时错误及可重试 Provider 错误沿用现有重连配置、间隔和抖动，不增加 TAT 专属重试上限。
+TAT Provider 不能与 Client Assertion Provider 同时配置。Provider 为 nil 时沿用原认证方式；TAT 失败不回退到其他凭证。HTTP 响应、业务错误及重连均沿用原有处理和配置，不增加 TAT 专属的 HTTP 错误分类或重试上限。

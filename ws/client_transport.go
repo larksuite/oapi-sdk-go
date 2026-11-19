@@ -99,16 +99,6 @@ func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *C
 		if c.clientAssertionProvider != nil {
 			return "", nil, NewClientError(http.StatusBadRequest, "tenantAccessTokenProvider and clientAssertionProvider cannot be combined")
 		}
-		// TokenAuth gives Ws-Token precedence over Authorization.
-		for name, values := range c.headers {
-			if strings.EqualFold(name, "Ws-Token") {
-				for _, value := range values {
-					if value != "" {
-						return "", nil, NewClientError(http.StatusBadRequest, "Ws-Token cannot be combined with tenantAccessTokenProvider")
-					}
-				}
-			}
-		}
 		token, retrieveErr := c.tenantAccessTokenProvider.RetrieveToken(ctx)
 		if retrieveErr != nil {
 			return "", nil, retrieveErr
@@ -183,13 +173,6 @@ func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *C
 		bootstrapResponse := &EndpointResp{}
 		if err := json.Unmarshal(respBody, bootstrapResponse); err == nil && bootstrapResponse.Msg != "" {
 			message = bootstrapResponse.Msg
-		}
-		if c.tenantAccessTokenProvider != nil && resp.StatusCode >= http.StatusBadRequest && resp.StatusCode < http.StatusInternalServerError && resp.StatusCode != http.StatusTooManyRequests {
-			code := bootstrapResponse.Code
-			if code == 0 {
-				code = resp.StatusCode
-			}
-			return "", nil, NewClientError(code, message)
 		}
 		return "", nil, NewServerError(resp.StatusCode, message)
 	}

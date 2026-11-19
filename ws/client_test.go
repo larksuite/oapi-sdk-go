@@ -289,15 +289,13 @@ func TestFetchEndpointWithTenantAccessToken(t *testing.T) {
 func TestFetchEndpointTenantAccessTokenProviderFailures(t *testing.T) {
 	providerErr := errors.New("test provider unavailable")
 	for _, tc := range []struct {
-		name          string
-		err           error
-		conflict      bool
-		wsTokenHeader string
+		name     string
+		err      error
+		conflict bool
 	}{
 		{name: "empty token"},
 		{name: "provider error", err: providerErr},
 		{name: "conflicting providers", conflict: true},
-		{name: "conflicting token header", wsTokenHeader: "ws-token"},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			calls := 0
@@ -308,9 +306,6 @@ func TestFetchEndpointTenantAccessTokenProviderFailures(t *testing.T) {
 			client := NewClient("app-id", "unused-secret", WithTenantAccessTokenProvider(provider))
 			if tc.conflict {
 				client.clientAssertionProvider = &wsMockClientAssertionProvider{}
-			}
-			if tc.wsTokenHeader != "" {
-				client.headers = http.Header{tc.wsTokenHeader: {"unused-ws-token"}}
 			}
 			client.httpClient = &http.Client{Transport: wsRoundTripperFunc(func(*http.Request) (*http.Response, error) {
 				t.Fatal("invalid TAT configuration must not issue HTTP requests or fall back to other credentials")
@@ -324,15 +319,14 @@ func TestFetchEndpointTenantAccessTokenProviderFailures(t *testing.T) {
 			} else if _, ok := err.(*ClientError); !ok {
 				t.Fatalf("expected configuration ClientError, got %T", err)
 			}
-			invalidConfig := tc.conflict || tc.wsTokenHeader != ""
-			if (invalidConfig && calls != 0) || (!invalidConfig && calls != 1) {
+			if (tc.conflict && calls != 0) || (!tc.conflict && calls != 1) {
 				t.Fatalf("unexpected Provider calls: %d", calls)
 			}
 		})
 	}
 }
 
-func TestFetchEndpointTenantAccessTokenHTTPFailures(t *testing.T) {
+func TestFetchEndpointTenantAccessTokenUsesExistingErrorHandling(t *testing.T) {
 	for _, tc := range []struct {
 		name      string
 		status    int
@@ -340,10 +334,10 @@ func TestFetchEndpointTenantAccessTokenHTTPFailures(t *testing.T) {
 		clientErr bool
 		code      int
 	}{
-		{name: "invalid token", status: 400, body: `{"code":99991663,"msg":"invalid tenant access token"}`, clientErr: true, code: 99991663},
-		{name: "unauthorized", status: 401, body: `{}`, clientErr: true, code: 401},
-		{name: "forbidden", status: 403, body: `{}`, clientErr: true, code: 403},
-		{name: "missing route", status: 404, body: `{}`, clientErr: true, code: 404},
+		{name: "invalid token", status: 400, body: `{"code":99991663,"msg":"invalid tenant access token"}`, code: 400},
+		{name: "unauthorized", status: 401, body: `{}`, code: 401},
+		{name: "forbidden", status: 403, body: `{}`, code: 403},
+		{name: "missing route", status: 404, body: `{}`, code: 404},
 		{name: "rate limited", status: 429, body: `{}`, code: 429},
 		{name: "server failure", status: 503, body: `{}`, code: 503},
 		{name: "business rejection", status: 200, body: `{"code":19001,"msg":"denied"}`, clientErr: true, code: 19001},

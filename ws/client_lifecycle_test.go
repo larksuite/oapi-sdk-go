@@ -680,19 +680,22 @@ func TestTenantAccessTokenReconnectRetrievesCurrentToken(t *testing.T) {
 	}
 }
 
-func TestTenantAccessTokenAuthenticationFailureDoesNotRetry(t *testing.T) {
+func TestTenantAccessTokenHTTPFailureUsesExistingRetries(t *testing.T) {
 	var requests int32
 	client := NewClient("", "", WithTenantAccessTokenProvider(wsTenantAccessTokenProviderFunc(func(context.Context) (string, error) {
 		return "test-tenant-token", nil
 	})))
+	client.reconnectCount = 1
+	client.reconnectInterval = 0
+	client.reconnectNonce = 0
 	client.httpClient = &http.Client{Transport: wsRoundTripperFunc(func(*http.Request) (*http.Response, error) {
 		atomic.AddInt32(&requests, 1)
 		return &http.Response{StatusCode: 401, Body: io.NopCloser(strings.NewReader(`{}`))}, nil
 	})}
 	ctx, cancel := context.WithTimeout(context.Background(), lifecycleTestTimeout)
 	defer cancel()
-	if _, ok := client.Start(ctx).(*ClientError); !ok || atomic.LoadInt32(&requests) != 1 {
-		t.Fatal("TAT authentication failure must stop without retrying or falling back")
+	if err := client.Start(ctx); err == nil || ctx.Err() != nil || atomic.LoadInt32(&requests) != 2 {
+		t.Fatal("TAT HTTP failures must follow the existing reconnect configuration")
 	}
 }
 
