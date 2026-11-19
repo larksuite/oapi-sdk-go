@@ -88,13 +88,38 @@ func (c *Client) establishConnectionOnce(run *clientRun) (*clientConn, error) {
 func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *ClientConfig, err error) {
 	requestURL := strings.TrimRight(c.domain, "/") + GenEndpointUri
 	body := &BootstrapRequest{AppID: c.appID}
+	var payload interface{} = body
 	headers := make(http.Header)
 
-	if c.clientAssertionProvider == nil && c.appSecret == "" {
+	if c.tenantAccessTokenProvider == nil && c.clientAssertionProvider == nil && c.appSecret == "" {
 		return "", nil, NewClientError(larkcore.ErrCodeAppSecretAndClientAssertionEmpty, "appSecret and clientAssertionProvider cannot be nil")
 	}
 
-	if c.clientAssertionProvider != nil {
+	if c.tenantAccessTokenProvider != nil {
+		if c.clientAssertionProvider != nil {
+			return "", nil, NewClientError(http.StatusBadRequest, "tenantAccessTokenProvider and clientAssertionProvider cannot be combined")
+		}
+		// TokenAuth gives Ws-Token precedence over Authorization.
+		for name, values := range c.headers {
+			if strings.EqualFold(name, "Ws-Token") {
+				for _, value := range values {
+					if value != "" {
+						return "", nil, NewClientError(http.StatusBadRequest, "Ws-Token cannot be combined with tenantAccessTokenProvider")
+					}
+				}
+			}
+		}
+		token, retrieveErr := c.tenantAccessTokenProvider.RetrieveToken(ctx)
+		if retrieveErr != nil {
+			return "", nil, retrieveErr
+		}
+		if token == "" {
+			return "", nil, NewClientError(http.StatusBadRequest, "tenant access token is empty")
+		}
+		requestURL = strings.TrimRight(c.domain, "/") + GenEndpointByTenantAccessTokenUri
+		headers.Set("Authorization", "Bearer "+token)
+		payload = struct{}{}
+	} else if c.clientAssertionProvider != nil {
 		aud, extractErr := extractAudFromWSURL(c.domain)
 		if extractErr != nil {
 			return "", nil, extractErr
@@ -116,7 +141,7 @@ func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *C
 		body.AppSecret = c.appSecret
 	}
 
-	bs, marshalErr := json.Marshal(body)
+	bs, marshalErr := json.Marshal(payload)
 	if marshalErr != nil {
 		return "", nil, marshalErr
 	}
@@ -158,6 +183,13 @@ func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *C
 		bootstrapResponse := &EndpointResp{}
 		if err := json.Unmarshal(respBody, bootstrapResponse); err == nil && bootstrapResponse.Msg != "" {
 			message = bootstrapResponse.Msg
+		}
+		if c.tenantAccessTokenProvider != nil && resp.StatusCode >= http.StatusBadRequest && resp.StatusCode < http.StatusInternalServerError && resp.StatusCode != http.StatusTooManyRequests {
+			code := bootstrapResponse.Code
+			if code == 0 {
+				code = resp.StatusCode
+			}
+			return "", nil, NewClientError(code, message)
 		}
 		return "", nil, NewServerError(resp.StatusCode, message)
 	}

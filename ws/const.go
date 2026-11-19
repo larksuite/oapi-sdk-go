@@ -6,6 +6,9 @@ const (
 	ServiceID      = "service_id"
 )
 
+const GenEndpointByTenantAccessTokenUri = "/open-apis/event/v1/ws/endpoint"
+const maxTenantAccessTokenReconnectCount = 3
+
 const (
 	HeaderTimestamp            = "timestamp"   // 消息时间戳, 单位ms
 	HeaderType                 = "type"        // 消息类型, Event/Card
