@@ -7,7 +7,6 @@ const (
 )
 
 const GenEndpointByTenantAccessTokenUri = "/open-apis/event/v1/ws/endpoint"
-const maxTenantAccessTokenReconnectCount = 3
 
 const (
 	HeaderTimestamp            = "timestamp"   // 消息时间戳, 单位ms

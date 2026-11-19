@@ -671,33 +671,12 @@ func TestTenantAccessTokenReconnectRetrievesCurrentToken(t *testing.T) {
 	if req := <-gateway.requests; req.authorization != "" {
 		t.Fatal("reconnect must not forward TAT to the WebSocket handshake")
 	}
-	if count, _, _, _ := client.configSnapshot(); count != 3 || atomic.LoadInt32(&calls) != 2 {
-		t.Fatal("TAT reconnect must retain its retry bound and retrieve once per bootstrap")
+	if count, _, _, _ := client.configSnapshot(); count != -1 || atomic.LoadInt32(&calls) != 2 {
+		t.Fatal("TAT reconnect must retain server configuration and retrieve once per bootstrap")
 	}
 	client.Close()
 	if err, ok := waitLifecycleResult(result); !ok || err != nil {
 		t.Fatalf("stop TAT client: completed=%v, err=%v", ok, err)
-	}
-}
-
-func TestTenantAccessTokenInitialFailuresStopAfterThreeRetries(t *testing.T) {
-	var requests int32
-	client := NewClient("", "", WithTenantAccessTokenProvider(wsTenantAccessTokenProviderFunc(func(context.Context) (string, error) {
-		return "test-tenant-token", nil
-	})))
-	client.reconnectInterval = 0
-	client.reconnectNonce = 0
-	client.httpClient = &http.Client{Transport: wsRoundTripperFunc(func(*http.Request) (*http.Response, error) {
-		atomic.AddInt32(&requests, 1)
-		return &http.Response{StatusCode: 503, Body: io.NopCloser(strings.NewReader(`{}`))}, nil
-	})}
-	ctx, cancel := context.WithTimeout(context.Background(), lifecycleTestTimeout)
-	defer cancel()
-	if err := client.Start(ctx); err == nil || !strings.Contains(err.Error(), "after 3 retries") {
-		t.Fatalf("expected bounded retries for initial TAT failure, got %v", err)
-	}
-	if got := atomic.LoadInt32(&requests); got != 4 {
-		t.Fatalf("bootstrap requests=%d, want initial attempt plus 3 retries", got)
 	}
 }
 

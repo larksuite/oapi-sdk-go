@@ -373,14 +373,14 @@ func TestFetchEndpointTenantAccessTokenHTTPFailures(t *testing.T) {
 	}
 }
 
-func TestTenantAccessTokenReconnectCount(t *testing.T) {
+func TestTenantAccessTokenUsesExistingReconnectConfig(t *testing.T) {
 	client := NewClient("", "", WithTenantAccessTokenProvider(wsTenantAccessTokenProviderFunc(func(context.Context) (string, error) {
 		return "test-tenant-token", nil
 	})))
-	if client.reconnectCount != 3 {
-		t.Fatal("TAT retries before receiving ClientConfig must be bounded")
+	if client.reconnectCount != -1 {
+		t.Fatal("TAT must preserve the existing default reconnect count")
 	}
-	for _, tc := range []struct{ configured, want int }{{-1, 3}, {0, 0}, {2, 2}, {10, 3}} {
+	for _, tc := range []struct{ configured, want int }{{-1, -1}, {0, 0}, {2, 2}, {10, 10}} {
 		client.configure(&ClientConfig{ReconnectCount: tc.configured})
 		if got, _, _, _ := client.configSnapshot(); got != tc.want {
 			t.Fatalf("TAT ReconnectCount=%d, want %d", got, tc.want)

@@ -251,10 +251,6 @@ func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
 		opt(cli)
 	}
 
-	if cli.tenantAccessTokenProvider != nil {
-		cli.reconnectCount = maxTenantAccessTokenReconnectCount
-	}
-
 	if cli.logger == nil {
 		cli.logger = larkcore.NewDefaultLogger(cli.logLevel)
 	}
@@ -289,9 +285,6 @@ func (c *Client) applyConfig(run *clientRun, conf *ClientConfig) bool {
 
 func (c *Client) applyConfigLocked(conf *ClientConfig) {
 	c.reconnectCount = conf.ReconnectCount
-	if c.tenantAccessTokenProvider != nil && (c.reconnectCount < 0 || c.reconnectCount > maxTenantAccessTokenReconnectCount) {
-		c.reconnectCount = maxTenantAccessTokenReconnectCount
-	}
 	c.reconnectInterval = time.Duration(conf.ReconnectInterval) * time.Second
 	c.reconnectNonce = conf.ReconnectNonce
 	c.pingInterval = time.Duration(conf.PingInterval) * time.Second
