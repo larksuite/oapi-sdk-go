@@ -248,7 +248,7 @@ func TestFetchEndpointWithTenantAccessToken(t *testing.T) {
 			})
 			requests := 0
 			httpClient := &http.Client{Transport: wsRoundTripperFunc(func(req *http.Request) (*http.Response, error) {
-				if req.Method != http.MethodPost || req.URL.String() != "https://example.com"+GenEndpointByTenantAccessTokenUri {
+				if req.Method != http.MethodPost || req.URL.String() != "https://example.com/callback/ws/v2/endpoint" {
 					t.Fatal("TAT bootstrap must use the new endpoint")
 				}
 				body, err := io.ReadAll(req.Body)

@@ -6,7 +6,7 @@ const (
 	ServiceID      = "service_id"
 )
 
-const GenEndpointByTenantAccessTokenUri = "/open-apis/event/v1/ws/endpoint"
+const GenEndpointByTenantAccessTokenUri = "/callback/ws/v2/endpoint"
 
 const (
 	HeaderTimestamp            = "timestamp"   // 消息时间戳, 单位ms

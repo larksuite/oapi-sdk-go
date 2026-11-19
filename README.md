@@ -294,6 +294,6 @@ err := client.Start(ctx)
 
 The provider returns a current token without the `Bearer ` prefix and owns caching and refresh. The SDK calls it before each bootstrap, including reconnects. The environment variable above only demonstrates integration; see `startWithTenantAccessToken` in `sample/ws/sample.go`.
 
-The target environment must expose `POST /open-apis/event/v1/ws/endpoint` with TAT authentication. The SDK sends `Authorization: Bearer <TAT>` and `{}`. The token determines application identity; the configured appID, AppSecret and Client Assertion are not sent. `WithDomain`, `WithHttpClient` and routing headers still apply. The provider owns Authorization.
+The target environment must expose `POST /callback/ws/v2/endpoint` with TAT authentication. The SDK sends `Authorization: Bearer <TAT>` and `{}`. The token determines application identity; the configured appID, AppSecret and Client Assertion are not sent. `WithDomain`, `WithHttpClient` and routing headers still apply. The provider owns Authorization.
 
 TAT and Client Assertion providers cannot be configured together. A nil TAT provider preserves existing authentication. TAT failures never fall back to other credentials. HTTP responses, business errors and reconnects use the existing handling and configuration. TAT authentication does not introduce separate HTTP error classification or retry limits.
