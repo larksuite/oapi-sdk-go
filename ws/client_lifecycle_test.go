@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net"
 	"net/http"
 	"net/http/httptest"
@@ -39,11 +40,12 @@ type lifecycleGatewayFrame struct {
 }
 
 type lifecycleGatewayRequest struct {
-	path      string
-	deviceID  string
-	serviceID string
-	username  string
-	password  string
+	path          string
+	deviceID      string
+	serviceID     string
+	username      string
+	password      string
+	authorization string
 }
 
 type lifecycleAssertionProvider struct {
@@ -91,11 +93,12 @@ func newLifecycleGateway(t *testing.T) (*lifecycleGateway, func()) {
 		gateway.mu.Unlock()
 
 		gateway.requests <- lifecycleGatewayRequest{
-			path:      r.URL.Path,
-			deviceID:  r.URL.Query().Get(DeviceID),
-			serviceID: r.URL.Query().Get(ServiceID),
-			username:  username,
-			password:  password,
+			path:          r.URL.Path,
+			deviceID:      r.URL.Query().Get(DeviceID),
+			serviceID:     r.URL.Query().Get(ServiceID),
+			username:      username,
+			password:      password,
+			authorization: r.Header.Get("Authorization"),
 		}
 		gateway.accepted <- conn
 
@@ -621,6 +624,78 @@ func TestRetrieveTokenClientErrorDoesNotRetry(t *testing.T) {
 	}
 	if got := provider.callCount(); got != 1 {
 		t.Fatalf("RetrieveToken calls = %d, want 1", got)
+	}
+}
+
+func TestTenantAccessTokenReconnectRetrievesCurrentToken(t *testing.T) {
+	gateway, cleanupGateway := newLifecycleGateway(t)
+	defer cleanupGateway()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	authorizations := make(chan string, 4)
+	bootstrap := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		authorizations <- r.Header.Get("Authorization")
+		if err := json.NewEncoder(w).Encode(&EndpointResp{Code: OK, Data: &Endpoint{
+			Url:          gateway.endpoint() + "?device_id=1&service_id=1",
+			ClientConfig: &ClientConfig{ReconnectCount: -1, PingInterval: 3600},
+		}}); err != nil {
+			t.Errorf("write TAT bootstrap: %v", err)
+		}
+	}))
+	defer bootstrap.Close()
+	var calls int32
+	provider := wsTenantAccessTokenProviderFunc(func(context.Context) (string, error) {
+		return fmt.Sprintf("test-tenant-token-%d", atomic.AddInt32(&calls, 1)), nil
+	})
+	ready := make(chan struct{}, 1)
+	reconnected := make(chan struct{}, 1)
+	client := NewClient("", "", WithTenantAccessTokenProvider(provider), WithDomain(bootstrap.URL),
+		WithOnReady(func() { ready <- struct{}{} }), WithOnReconnected(func() { reconnected <- struct{}{} }))
+	defer client.Close()
+	result := startLifecycleClient(client, ctx)
+	waitLifecycleSignal(t, ready, "initial TAT connection")
+	if got := <-authorizations; got != "Bearer test-tenant-token-1" {
+		t.Fatal("initial bootstrap did not use the current Provider token")
+	}
+	if req := <-gateway.requests; req.authorization != "" {
+		t.Fatal("TAT must not be forwarded to the WebSocket handshake")
+	}
+	conn := <-gateway.accepted
+	if err := conn.Close(); err != nil {
+		t.Fatalf("close first test connection: %v", err)
+	}
+	waitLifecycleSignal(t, reconnected, "TAT reconnect")
+	if got := <-authorizations; got != "Bearer test-tenant-token-2" {
+		t.Fatal("reconnect must retrieve a new token from the Provider")
+	}
+	if req := <-gateway.requests; req.authorization != "" {
+		t.Fatal("reconnect must not forward TAT to the WebSocket handshake")
+	}
+	if count, _, _, _ := client.configSnapshot(); count != -1 || atomic.LoadInt32(&calls) != 2 {
+		t.Fatal("TAT reconnect must retain server configuration and retrieve once per bootstrap")
+	}
+	client.Close()
+	if err, ok := waitLifecycleResult(result); !ok || err != nil {
+		t.Fatalf("stop TAT client: completed=%v, err=%v", ok, err)
+	}
+}
+
+func TestTenantAccessTokenHTTPFailureUsesExistingRetries(t *testing.T) {
+	var requests int32
+	client := NewClient("", "", WithTenantAccessTokenProvider(wsTenantAccessTokenProviderFunc(func(context.Context) (string, error) {
+		return "test-tenant-token", nil
+	})))
+	client.reconnectCount = 1
+	client.reconnectInterval = 0
+	client.reconnectNonce = 0
+	client.httpClient = &http.Client{Transport: wsRoundTripperFunc(func(*http.Request) (*http.Response, error) {
+		atomic.AddInt32(&requests, 1)
+		return &http.Response{StatusCode: 401, Body: io.NopCloser(strings.NewReader(`{}`))}, nil
+	})}
+	ctx, cancel := context.WithTimeout(context.Background(), lifecycleTestTimeout)
+	defer cancel()
+	if err := client.Start(ctx); err == nil || ctx.Err() != nil || atomic.LoadInt32(&requests) != 2 {
+		t.Fatal("TAT HTTP failures must follow the existing reconnect configuration")
 	}
 }
 

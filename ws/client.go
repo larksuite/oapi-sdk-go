@@ -1,6 +1,7 @@
 package ws
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"sync"
@@ -14,7 +15,16 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
 )
 
+// TenantAccessTokenProvider supplies a current tenant access token without the
+// Bearer prefix. The provider owns caching and refresh and must not include
+// credentials in errors.
+type TenantAccessTokenProvider interface {
+	RetrieveToken(ctx context.Context) (string, error)
+}
+
 type Client struct {
+	tenantAccessTokenProvider TenantAccessTokenProvider
+
 	appID                   string
 	appSecret               string
 	clientAssertionProvider larkcore.ClientAssertionProvider
@@ -148,6 +158,15 @@ func WithSource(source string) ClientOption {
 func WithClientAssertionProvider(provider larkcore.ClientAssertionProvider) ClientOption {
 	return func(cli *Client) {
 		cli.clientAssertionProvider = provider
+	}
+}
+
+// WithTenantAccessTokenProvider uses TAT authentication for endpoint requests.
+// The provider is called before every bootstrap, including reconnects. It cannot
+// be combined with WithClientAssertionProvider; AppSecret is unused in TAT mode.
+func WithTenantAccessTokenProvider(provider TenantAccessTokenProvider) ClientOption {
+	return func(cli *Client) {
+		cli.tenantAccessTokenProvider = provider
 	}
 }
 

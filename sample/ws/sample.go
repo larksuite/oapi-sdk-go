@@ -49,3 +49,18 @@ func startWithClientAssertion(ctx context.Context) error {
 	)
 	return cli.Start(ctx)
 }
+
+// envWSTenantAccessTokenProvider demonstrates an externally supplied TAT.
+// A production provider should retrieve a current token from its own token source.
+type envWSTenantAccessTokenProvider struct{}
+
+func (p *envWSTenantAccessTokenProvider) RetrieveToken(ctx context.Context) (string, error) {
+	return os.Getenv("TENANT_ACCESS_TOKEN"), nil
+}
+
+func startWithTenantAccessToken(ctx context.Context) error {
+	cli := larkws.NewClient(os.Getenv("APP_ID"), "",
+		larkws.WithTenantAccessTokenProvider(&envWSTenantAccessTokenProvider{}),
+	)
+	return cli.Start(ctx)
+}

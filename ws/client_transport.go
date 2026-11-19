@@ -88,13 +88,28 @@ func (c *Client) establishConnectionOnce(run *clientRun) (*clientConn, error) {
 func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *ClientConfig, err error) {
 	requestURL := strings.TrimRight(c.domain, "/") + GenEndpointUri
 	body := &BootstrapRequest{AppID: c.appID}
+	var payload interface{} = body
 	headers := make(http.Header)
 
-	if c.clientAssertionProvider == nil && c.appSecret == "" {
+	if c.tenantAccessTokenProvider == nil && c.clientAssertionProvider == nil && c.appSecret == "" {
 		return "", nil, NewClientError(larkcore.ErrCodeAppSecretAndClientAssertionEmpty, "appSecret and clientAssertionProvider cannot be nil")
 	}
 
-	if c.clientAssertionProvider != nil {
+	if c.tenantAccessTokenProvider != nil {
+		if c.clientAssertionProvider != nil {
+			return "", nil, NewClientError(http.StatusBadRequest, "tenantAccessTokenProvider and clientAssertionProvider cannot be combined")
+		}
+		token, retrieveErr := c.tenantAccessTokenProvider.RetrieveToken(ctx)
+		if retrieveErr != nil {
+			return "", nil, retrieveErr
+		}
+		if token == "" {
+			return "", nil, NewClientError(http.StatusBadRequest, "tenant access token is empty")
+		}
+		requestURL = strings.TrimRight(c.domain, "/") + GenEndpointByTenantAccessTokenUri
+		headers.Set("Authorization", "Bearer "+token)
+		payload = struct{}{}
+	} else if c.clientAssertionProvider != nil {
 		aud, extractErr := extractAudFromWSURL(c.domain)
 		if extractErr != nil {
 			return "", nil, extractErr
@@ -116,7 +131,7 @@ func (c *Client) fetchEndpoint(ctx context.Context) (endpointURL string, conf *C
 		body.AppSecret = c.appSecret
 	}
 
-	bs, marshalErr := json.Marshal(body)
+	bs, marshalErr := json.Marshal(payload)
 	if marshalErr != nil {
 		return "", nil, marshalErr
 	}

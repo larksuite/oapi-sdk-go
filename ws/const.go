@@ -6,6 +6,8 @@ const (
 	ServiceID      = "service_id"
 )
 
+const GenEndpointByTenantAccessTokenUri = "/callback/ws/v2/endpoint"
+
 const (
 	HeaderTimestamp            = "timestamp"   // 消息时间戳, 单位ms
 	HeaderType                 = "type"        // 消息类型, Event/Card
