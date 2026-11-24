@@ -290,13 +290,14 @@ func TestAccessTokenReturnsAccessTokenErrorForEmptyAccessToken(t *testing.T) {
 }
 
 func TestAccessTokenProxyKeepsCustomHeaders(t *testing.T) {
+	const audience = "fsopen.example.test"
 	provider := &mockClientAssertionProvider{token: &larkcore.Token{Value: "client-assertion"}}
 	proxyServer := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/proxy"+larkcore.OAuthTokenUrlPath {
 			t.Fatalf("unexpected path: %s", r.URL.Path)
 		}
-		if r.Header.Get(larkcore.HeaderXTargetService) != r.Host {
-			t.Fatalf("unexpected target service header: %s", r.Header.Get(larkcore.HeaderXTargetService))
+		if r.Header.Get(larkcore.HeaderXTargetService) != audience {
+			t.Errorf("unexpected target service header: %s", r.Header.Get(larkcore.HeaderXTargetService))
 		}
 		if r.Header.Get("X-Custom") != "custom-value" {
 			t.Fatalf("missing custom header")
@@ -307,11 +308,15 @@ func TestAccessTokenProxyKeepsCustomHeaders(t *testing.T) {
 	provider.token.TargetInfo = &larkcore.TargetInfo{TargetService: proxyServer.Listener.Addr().String(), TargetPrefix: "/proxy"}
 
 	config := newTestConfig(proxyServer, provider)
+	config.OAuthAudience = audience
 	accessToken := NewAccessToken(config)
 	headers := make(http.Header)
 	headers.Set("X-Custom", "custom-value")
 	_, err := accessToken.RetrieveByAuthorizationCode(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build(), larkcore.WithHeaders(headers))
 	if err != nil {
 		t.Fatalf("authorization code access token with proxy failed: %v", err)
+	}
+	if len(provider.auds) != 1 || provider.auds[0] != audience {
+		t.Fatalf("provider audiences = %v, want [%q]", provider.auds, audience)
 	}
 }

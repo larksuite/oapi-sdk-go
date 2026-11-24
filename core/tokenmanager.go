@@ -186,7 +186,7 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 		config.Logger.Warn(ctx, fmt.Sprintf("resolve oauth base url failed, err:%v", err))
 		return "", err
 	}
-	aud, err := extractAudFromURL(oauthBaseUrl)
+	aud, err := ResolveOAuthAud(config)
 	if err != nil {
 		config.Logger.Warn(ctx, fmt.Sprintf("resolve oauth aud failed, err:%v", err))
 		return "", err
