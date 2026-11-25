@@ -269,23 +269,33 @@ func TestGetTenantAccessTokenByClientAssertion(t *testing.T) {
 }
 
 func TestGetTenantAccessTokenByClientAssertionWithProxy(t *testing.T) {
+	const audience = "fsopen.example.test"
 	proxyServer := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/proxy"+OAuthTokenUrlPath {
 			t.Fatalf("unexpected path: %s", r.URL.Path)
 		}
-		if r.Header.Get(HeaderXTargetService) != "accounts.feishu.cn" {
-			t.Fatalf("unexpected target service header: %s", r.Header.Get(HeaderXTargetService))
+		if r.Header.Get(HeaderXTargetService) != audience {
+			t.Errorf("unexpected target service header: %s", r.Header.Get(HeaderXTargetService))
 		}
-		_ = json.NewEncoder(w).Encode(&OAuthTokenResp{AccessToken: "tenant-token", ExpiresIn: 7200})
+		if err := json.NewEncoder(w).Encode(&OAuthTokenResp{AccessToken: "tenant-token", ExpiresIn: 7200}); err != nil {
+			t.Errorf("encode proxy token response: %v", err)
+		}
 	}))
 	defer proxyServer.Close()
 
 	config := mockConfig()
 	config.BaseUrl = "https://open.feishu.cn"
-	config.OAuthBaseUrl = "https://accounts.feishu.cn"
+	config.OAuthBaseUrl = "http://" + proxyServer.Listener.Addr().String()
+	config.OAuthAudience = audience
 	config.EnableTokenCache = true
 	config.HttpClient = proxyServer.Client()
-	config.ClientAssertionProvider = &mockClientAssertionProvider{token: &Token{Value: "client-assertion", TargetInfo: &TargetInfo{TargetService: proxyServer.Listener.Addr().String(), TargetPrefix: "/proxy"}}}
+	provider := &mockClientAssertionProvider{
+		token: &Token{
+			Value:      "client-assertion",
+			TargetInfo: &TargetInfo{TargetService: proxyServer.URL, TargetPrefix: "/proxy"},
+		},
+	}
+	config.ClientAssertionProvider = provider
 
 	manager := TokenManager{cache: &localCache{}}
 	token, err := manager.getTenantAccessToken(context.Background(), config, "tenantKey", "")
@@ -294,6 +304,9 @@ func TestGetTenantAccessTokenByClientAssertionWithProxy(t *testing.T) {
 	}
 	if token != "tenant-token" {
 		t.Fatalf("unexpected token: %s", token)
+	}
+	if len(provider.auds) != 1 || provider.auds[0] != audience {
+		t.Fatalf("provider audiences = %v, want [%q]", provider.auds, audience)
 	}
 }
 

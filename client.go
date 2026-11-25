@@ -189,6 +189,14 @@ func WithOAuthBaseUrl(oauthBaseUrl string) ClientOptionFunc {
 	}
 }
 
+// WithOAuthAudience sets the audience passed to the client assertion provider.
+// An empty audience uses the OAuth base URL's host.
+func WithOAuthAudience(audience string) ClientOptionFunc {
+	return func(config *larkcore.Config) {
+		config.OAuthAudience = audience
+	}
+}
+
 func WithLogLevel(logLevel larkcore.LogLevel) ClientOptionFunc {
 	return func(config *larkcore.Config) {
 		config.LogLevel = logLevel

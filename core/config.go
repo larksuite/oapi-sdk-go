@@ -35,6 +35,7 @@ type ClientAssertionProvider interface {
 type Config struct {
 	BaseUrl                 string
 	OAuthBaseUrl            string
+	OAuthAudience           string
 	AppId                   string
 	AppSecret               string
 	ClientAssertionProvider ClientAssertionProvider

@@ -226,6 +226,10 @@ func extractAudFromURL(rawURL string) (string, error) {
 }
 
 func ResolveOAuthAud(config *Config) (string, error) {
+	if config.OAuthAudience != "" {
+		return config.OAuthAudience, nil
+	}
+
 	oauthBaseUrl, err := ResolveOAuthBaseUrl(config)
 	if err != nil {
 		return "", err
