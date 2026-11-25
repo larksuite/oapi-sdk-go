@@ -273,3 +273,27 @@ cli := larkws.NewClient(os.Getenv("APP_ID"), os.Getenv("APP_SECRET"),
 ```
 
 握手 Header 在初始化时复制，每次连接再使用独立副本，首次连接和重连均生效，不发送到 HTTP 获取连接地址的请求。未配置时保留原行为。Host、Connection、Upgrade、Sec-WebSocket-* 不允许通过 Header 覆盖。Host 只检查空值、协议/路径和查询参数；其他地址及 Header 配置直接传入底层库，不增加 SDK 格式校验。上述基础 Host 和保留 Header 检查在网络调用前执行（Go 在 Start 返回错误，其他语言在构造或 build 时抛错）。只使用开发者可信配置，不直接透传终端请求中的 Host/Header。
+
+## 使用 Tenant Access Token 建立长连接
+
+`ws.WithTenantAccessTokenProvider` 支持使用外部提供的 TAT 申请建连地址，无需配置 AppSecret：
+
+```go
+type tenantAccessTokenProvider struct{}
+
+func (p *tenantAccessTokenProvider) RetrieveToken(ctx context.Context) (string, error) {
+    return os.Getenv("TENANT_ACCESS_TOKEN"), nil
+}
+
+client := larkws.NewClient(appID, "",
+    larkws.WithTenantAccessTokenProvider(&tenantAccessTokenProvider{}),
+    larkws.WithEventHandler(eventHandler),
+)
+err := client.Start(ctx)
+```
+
+Provider 返回不带 `Bearer ` 前缀的当前 TAT，负责缓存和刷新。SDK 在每次申请地址时调用 Provider，包括断线重连；环境变量仅用于演示接入方式，完整示例见 `sample/ws/sample.go` 的 `startWithTenantAccessToken`。
+
+目标环境需要提供 `POST /callback/ws/v2/endpoint` 并安装 TAT 鉴权。SDK 发送 `Authorization: Bearer <TAT>` 和空 JSON `{}`，应用身份由 TAT 决定，不发送构造参数中的 appID、AppSecret 或 Client Assertion。`WithDomain`、`WithHttpClient` 和路由 Header 继续生效；Authorization 由 Provider 覆盖。
+
+TAT Provider 不能与 Client Assertion Provider 同时配置。Provider 为 nil 时沿用原认证方式；TAT 失败不回退到其他凭证。HTTP 响应、业务错误及重连均沿用原有处理和配置，不增加 TAT 专属的 HTTP 错误分类或重试上限。
