@@ -13,12 +13,13 @@ func (m *CardActionTriggerEvent) RawReq(req *larkevent.EventReq) {
 }
 
 type CardActionTriggerRequest struct {
-	Operator     *Operator       `json:"operator,omitempty"`
-	Token        string          `json:"token,omitempty"` // 更新卡片用的token(凭证)
-	Action       *CallBackAction `json:"action,omitempty"`
-	Host         string          `json:"host,omitempty"`          // 宿主: im_message/im_top_notice
-	DeliveryType string          `json:"delivery_type,omitempty"` // 卡片发送渠道: url_preview/
-	Context      *Context        `json:"context,omitempty"`
+	Operator     *Operator               `json:"operator,omitempty"`
+	Token        string                  `json:"token,omitempty"` // 更新卡片用的token(凭证)
+	Action       *CallBackAction         `json:"action,omitempty"`
+	Host         string                  `json:"host,omitempty"`          // 宿主: im_message/im_top_notice
+	DeliveryType string                  `json:"delivery_type,omitempty"` // 卡片发送渠道: url_preview/
+	Context      *Context                `json:"context,omitempty"`
+	Observer     *ProfileViewGetOperator `json:"observer,omitempty"`
 }
 
 type Operator struct {
@@ -40,10 +41,12 @@ type CallBackAction struct {
 }
 
 type Context struct {
-	URL           string `json:"url,omitempty"`
-	PreviewToken  string `json:"preview_token,omitempty"`
-	OpenMessageID string `json:"open_message_id,omitempty"`
-	OpenChatID    string `json:"open_chat_id,omitempty"`
+	URL            string                  `json:"url,omitempty"`
+	PreviewToken   string                  `json:"preview_token,omitempty"`
+	OpenMessageID  string                  `json:"open_message_id,omitempty"`
+	OpenChatID     string                  `json:"open_chat_id,omitempty"`
+	Owner          *ProfileViewGetOperator `json:"owner,omitempty"`
+	ProfileSceneID *string                 `json:"profile_scene_id,omitempty"`
 }
 
 type CardActionTriggerResponse struct {
@@ -104,4 +107,35 @@ type URL struct {
 	Android string `json:"android,omitempty"`
 	PC      string `json:"pc,omitempty"`
 	Web     string `json:"web,omitempty"`
+}
+
+type ProfileViewGetEvent struct {
+	*larkevent.EventV2Base                        // 事件基础数据
+	*larkevent.EventReq                           // 请求原生数据
+	Event                  *ProfileViewGetRequest `json:"event"` // 事件内容
+}
+
+func (m *ProfileViewGetEvent) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type ProfileViewGetRequest struct {
+	ProfileSceneID string                  `json:"profile_scene_id,omitempty"`
+	Observer       *ProfileViewGetOperator `json:"observer,omitempty"`
+	Owner          *ProfileViewGetOperator `json:"owner,omitempty"`
+}
+
+type ProfileViewGetResponse struct {
+	Card *Card `json:"card,omitempty"`
+}
+
+type ProfileViewGetOperator struct {
+	TenantKey *string     `json:"tenant_key,omitempty"`
+	ID        *UserIDList `json:"id,omitempty"`
+}
+
+type UserIDList struct {
+	UserID  *string `json:"user_id,omitempty"`
+	OpenID  string  `json:"open_id,omitempty"`
+	UnionID *string `json:"union_id,omitempty"`
 }
